@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商業生命週期策略工具</title>
+    <title>商業生命週期策略工具 (已修正)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="https://unpkg.com/html-docx-js/dist/html-docx.js"></script>
     
     <style>
+        /* --- 全局設定 --- */
         * { box-sizing: border-box; }
         body { font-family: 'Inter', system-ui, sans-serif; }
         
+        /* --- 修正 2.3: Textarea 樣式 (min-height -> 120px) --- */
+        /* --- 修正 3.1: 視覺一致性 (顏色更新為 #3498db) --- */
         .worksheet-input { 
             margin-top: 0.375rem; 
             padding: 0.875rem; 
@@ -24,7 +27,7 @@
             font-size: 0.95rem; 
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
             background: linear-gradient(to bottom, #f8fafc, #ffffff);
-            min-height: 100px; 
+            min-height: 120px; /* 依照建議 2.3 調整 */
             resize: vertical; 
             line-height: 1.6;
         }
@@ -35,12 +38,13 @@
         }
         
         .worksheet-input:focus { 
-            border-color: #0891b2; 
+            border-color: #3498db; /* 依照建議 3.1 調整 */
             outline: none; 
-            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15), 0 2px 8px rgba(8, 145, 178, 0.1);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15), 0 2px 8px rgba(52, 152, 219, 0.1); /* 依照建議 3.1 調整 */
             background: #ffffff;
         }
         
+        /* --- Tab 樣式 (顏色更新) --- */
         .tab-buttons { 
             display: flex; 
             border-bottom: 2px solid #e2e8f0; 
@@ -67,11 +71,11 @@
         }
         
         .tab-btn.active { 
-            border-color: #0891b2; 
-            color: #0e7490; 
+            border-color: #3498db; /* 依照建議 3.1 調整 */
+            color: #2980b9; /* 依照建議 3.1 調整 (較深) */
             font-weight: 600; 
-            background: linear-gradient(to bottom, #ecfeff, #ffffff);
-            box-shadow: 0 -2px 8px rgba(8, 145, 178, 0.1);
+            background: linear-gradient(to bottom, #eaf5fb, #ffffff); /* 依照建議 3.1 調整 (較淺) */
+            box-shadow: 0 -2px 8px rgba(52, 152, 219, 0.1); /* 依照建議 3.1 調整 */
         }
         
         .tab-btn.inactive { 
@@ -99,26 +103,27 @@
             to { opacity: 1; transform: translateY(0); } 
         }
         
+        /* --- 階段重點卡片 (顏色更新) --- */
         .stage-focus { 
-            background: linear-gradient(135deg, #ecfeff 0%, #f0f9ff 100%);
-            border: 2px solid #67e8f9; 
+            background: linear-gradient(135deg, #eaf5fb 0%, #f4f9fc 100%); /* 依照建議 3.1 調整 */
+            border: 2px solid #a9d6f5; /* 依照建議 3.1 調整 (較淺) */
             border-radius: 0.75rem; 
             padding: 1.25rem 1.5rem; 
             margin-bottom: 2rem; 
-            box-shadow: 0 4px 6px rgba(103, 232, 249, 0.1);
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.1); /* 依照建議 3.1 調整 */
         }
         
         .stage-focus h3 { 
             font-size: 1.125rem; 
             font-weight: 600; 
-            color: #0e7490; 
+            color: #2980b9; /* 依照建議 3.1 調整 (較深) */
             margin-bottom: 0.75rem; 
         }
         
         .stage-focus ul { 
             list-style: none; 
             margin-left: 0;
-            color: #0f766e; 
+            color: #2980b9; /* 依照建議 3.1 調整 */
             font-size: 0.95rem; 
         }
         
@@ -132,7 +137,7 @@
             content: "▸";
             position: absolute;
             left: 0;
-            color: #06b6d4;
+            color: #3498db; /* 依照建議 3.1 調整 */
             font-weight: bold;
         }
 
@@ -141,24 +146,26 @@
             padding-top: 1rem; 
         }
         
+        /* --- 階段標題 (顏色更新) --- */
         .stage-title { 
             font-size: 1.875rem; 
             font-weight: 700; 
-            color: #0e7490; 
-            border-bottom: 3px solid #67e8f9; 
+            color: #2980b9; /* 依照建議 3.1 調整 (較深) */
+            border-bottom: 3px solid #a9d6f5; /* 依照建議 3.1 調整 (較淺) */
             padding-bottom: 0.75rem; 
             margin-bottom: 1.75rem;
-            background: linear-gradient(to right, #0891b2, #06b6d4);
+            background: linear-gradient(to right, #3498db, #2980b9); /* 依照建議 3.1 調整 */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
+        /* --- 工具區塊 (顏色更新) --- */
         .tool-block { 
             margin-bottom: 2.5rem; 
-            border-left: 4px solid #67e8f9; 
+            border-left: 4px solid #3498db; /* 依照建議 3.1 調整 */
             padding-left: 1.25rem;
-            background: linear-gradient(to right, rgba(103, 232, 249, 0.03), transparent);
+            background: linear-gradient(to right, rgba(52, 152, 219, 0.03), transparent); /* 依照建議 3.1 調整 */
             border-radius: 0 0.5rem 0.5rem 0;
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
@@ -194,34 +201,24 @@
             margin-bottom: 0.375rem;
         }
 
-        .grid-container { 
-            margin-top: 0.75rem; 
+        /* --- 修正 2.1 & 2.2: 新增 .toolkit 佈局 --- */
+        /* 移除舊的 .grid-container, .grid-2-col, .grid-3-col, .grid-5-col */
+        
+        .toolkit {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* 依照建議 2.1 調整 */
+            gap: 20px; /* 依照建議 2.1 調整 */
+            margin-top: 0.75rem;
         }
         
-        .grid-2-col { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 1.25rem; 
+        .toolkit > .input-group {
+            width: 300px; /* 依照建議 2.2 調整 (固定寬度) */
+            max-width: 100%; /* 增加保護，避免在極窄螢幕溢出 */
+            margin-bottom: 0; /* 由 gap 控制間距 */
         }
         
-        .grid-3-col { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
-            gap: 1.25rem; 
-        }
-        
-        .grid-5-col { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-            gap: 1.25rem; 
-        }
-        
-        @media (min-width: 1280px) { 
-            .grid-5-col { 
-                grid-template-columns: repeat(3, 1fr); 
-            } 
-        }
-
+        /* .input-group 的原始樣式 */
         .input-group { 
             margin-bottom: 1.25rem; 
         }
@@ -230,13 +227,37 @@
             margin-bottom: 0; 
         }
 
-        .export-btn { 
-            background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #06b6d4 100%); 
+        /* --- 修正 3.1 & 3.4: 按鈕顏色一致性 --- */
+        .btn-base {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: white;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            text-align: center;
         }
         
+        .btn-base:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-base:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-blue {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        }
+        
+        .btn-blue:hover {
+            box-shadow: 0 8px 16px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* 舊的 export-btn, save-btn, load-btn 已被 .btn-base 和 .btn-blue 取代 */
+        /* 保留 export-btn 的閃光效果 */
         .export-btn:before {
             content: '';
             position: absolute;
@@ -252,36 +273,7 @@
             left: 100%;
         }
         
-        .export-btn:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 12px 24px rgba(8, 145, 178, 0.35);
-        }
-        
-        .export-btn:active { 
-            transform: translateY(-1px); 
-            box-shadow: 0 6px 12px rgba(8, 145, 178, 0.25);
-        }
-        
-        .save-btn {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .save-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
-        }
-        
-        .load-btn {
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .load-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
-        }
-        
+        /* --- 響應式調整 (修正 2.4) --- */
         @media print { 
             .no-print { 
                 display: none; 
@@ -295,9 +287,9 @@
         .analysis-h2 { 
             font-size: 1.5rem; 
             font-weight: 600; 
-            color: #0e7490; 
+            color: #2980b9; /* 依照建議 3.1 調整 */
             margin-bottom: 1rem; 
-            border-left: 4px solid #0891b2; 
+            border-left: 4px solid #3498db; /* 依照建議 3.1 調整 */
             padding-left: 1rem; 
         }
         
@@ -326,7 +318,7 @@
         .analysis-tool { 
             background: linear-gradient(to right, #f1f5f9, #ffffff);
             border: 1px solid #e2e8f0; 
-            border-left: 3px solid #0891b2;
+            border-left: 3px solid #3498db; /* 依照建議 3.1 調整 */
             border-radius: 0.5rem; 
             padding: 1rem 1.25rem; 
             margin-bottom: 1rem;
@@ -335,11 +327,11 @@
         
         .analysis-tool:hover {
             border-left-width: 4px;
-            box-shadow: 0 2px 8px rgba(8, 145, 178, 0.1);
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1); /* 依照建議 3.1 調整 */
         }
         
         .analysis-tool strong { 
-            color: #0f766e; 
+            color: #0f766e; /* 分析頁面的顏色可保持，以示區別 */
             font-weight: 600;
         }
         
@@ -352,11 +344,7 @@
                 font-size: 1.1rem;
             }
             
-            .grid-2-col,
-            .grid-3-col,
-            .grid-5-col {
-                grid-template-columns: 1fr;
-            }
+            /* 舊的 grid media query 已被 .toolkit 取代 */
             
             .tab-btn {
                 font-size: 0.875rem;
@@ -364,6 +352,7 @@
             }
         }
         
+        /* --- 載入與通知 --- */
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -379,6 +368,7 @@
             margin-left: 0.5rem;
         }
         
+        /* 修正 4.1: 已在 JS 中實現 (showNotification) */
         .notification {
             position: fixed;
             top: 1rem;
@@ -428,8 +418,7 @@
         </div>
         
         <div class="mb-8">
-            <label for="ws-topic" class="text-xl font-semibold text-cyan-800 block mb-2">
-                📋 分析對象（公司/產品/專案）
+            <label for="ws-topic" class="text-xl font-semibold text-gray-800 block mb-2"> 📋 分析對象（公司/產品/專案）
             </label>
             <input type="text" id="ws-topic" class="worksheet-input" placeholder="請輸入要分析的公司名稱、產品線或專案名稱..." style="min-height: 50px;">
         </div>
@@ -438,8 +427,7 @@
 
         <div id="tab-content-analysis" class="tab-content active">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
-                <span class="bg-gradient-to-r from-cyan-600 to-teal-500 bg-clip-text text-transparent">
-                    商業生命週期與策略工具整合指南
+                <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent"> 商業生命週期與策略工具整合指南
                 </span>
             </h1>
             
@@ -545,8 +533,7 @@
                 <div class="tool-block">
                     <label class="tool-label">SWOT 分析</label>
                     <p class="tool-description">評估初始內部與外部條件</p>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="swot-s-startup" class="sub-label">優勢 (Strengths)</label>
                             <textarea id="swot-s-startup" class="worksheet-input" placeholder="例如：團隊背景、技術能力、獨特洞察..."></textarea>
                         </div>
@@ -572,8 +559,7 @@
                         <label for="vrio-resource-startup" class="sub-label">識別核心資源/能力：</label>
                         <textarea id="vrio-resource-startup" class="worksheet-input" placeholder="列出潛在的早期優勢（例如：創辦人洞察、專利、特殊管道...）"></textarea>
                     </div>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="vrio-v-startup" class="sub-label">價值性 (Value)</label>
                             <textarea id="vrio-v-startup" class="worksheet-input" placeholder="是否有助於把握機會或中和威脅？能否創造客戶價值？"></textarea>
                         </div>
@@ -599,8 +585,7 @@
                 <div class="tool-block">
                     <label class="tool-label">波特五力分析</label>
                     <p class="tool-description">評估基本市場吸引力</p>
-                    <div class="grid-container grid-5-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="5f-entrants-startup" class="sub-label">新進入者威脅</label>
                             <textarea id="5f-entrants-startup" class="worksheet-input" placeholder="進入這個市場容易嗎？"></textarea>
                         </div>
@@ -643,8 +628,7 @@
                 <div class="tool-block">
                     <label class="tool-label">安索夫矩陣</label>
                     <p class="tool-description">系統性思考成長路徑與資源配置</p>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="ansoff-mp-growth" class="sub-label">市場滲透</label>
                             <textarea id="ansoff-mp-growth" class="worksheet-input" placeholder="如何向現有市場銷售更多現有產品？"></textarea>
                         </div>
@@ -670,8 +654,7 @@
                 <div class="tool-block">
                     <label class="tool-label">波特五力分析</label>
                     <p class="tool-description">深度分析產業結構與競爭動態</p>
-                    <div class="grid-container grid-5-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="5f-entrants-growth" class="sub-label">新進入者威脅</label>
                             <textarea id="5f-entrants-growth" class="worksheet-input" placeholder="進入障礙有多高？如何提高？"></textarea>
                         </div>
@@ -701,8 +684,7 @@
                 <div class="tool-block">
                     <label class="tool-label">BCG 矩陣</label>
                     <p class="tool-description">評估事業單位並配置資源</p>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="bcg-stars-growth" class="sub-label">明星事業 (Stars)</label>
                             <span class="sub-label-hint">(高成長、高市佔)</span>
                             <textarea id="bcg-stars-growth" class="worksheet-input" placeholder="列出「明星」事業與策略"></textarea>
@@ -742,8 +724,7 @@
                         <label for="vrio-resource-growth" class="sub-label">識別核心資源/能力：</label>
                         <textarea id="vrio-resource-growth" class="worksheet-input" placeholder="列出成長期間建立的關鍵優勢"></textarea>
                     </div>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="vrio-v-growth" class="sub-label">價值性 (Value)</label>
                             <textarea id="vrio-v-growth" class="worksheet-input" placeholder="是否有助於把握機會或中和威脅？"></textarea>
                         </div>
@@ -782,8 +763,7 @@
                 <div class="tool-block">
                     <label class="tool-label">波特五力分析</label>
                     <p class="tool-description">監控激烈競爭並尋找降低競爭強度的方法</p>
-                    <div class="grid-container grid-5-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="5f-entrants-maturity" class="sub-label">新進入者威脅</label>
                             <textarea id="5f-entrants-maturity" class="worksheet-input" placeholder="進入障礙是否仍然有效？"></textarea>
                         </div>
@@ -813,8 +793,7 @@
                 <div class="tool-block">
                     <label class="tool-label">波特基本策略</label>
                     <p class="tool-description">定義核心競爭策略，避免「中間狀態」</p>
-                    <div class="grid-container grid-3-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="generic-cost-maturity" class="sub-label">成本領導</label>
                             <textarea id="generic-cost-maturity" class="worksheet-input" placeholder="如何在整個價值鏈中降低成本？"></textarea>
                         </div>
@@ -836,8 +815,7 @@
                 <div class="tool-block">
                     <label class="tool-label">BCG 矩陣</label>
                     <p class="tool-description">管理「金牛」事業以資助新投資</p>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="bcg-stars-maturity" class="sub-label">明星事業</label>
                             <span class="sub-label-hint">(高成長、高市佔)</span>
                             <textarea id="bcg-stars-maturity" class="worksheet-input" placeholder="是否還有剩餘的「明星」？"></textarea>
@@ -867,8 +845,7 @@
                 <div class="tool-block">
                     <label class="tool-label">安索夫矩陣</label>
                     <p class="tool-description">尋找新成長機會</p>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="ansoff-mp-maturity" class="sub-label">市場滲透</label>
                             <textarea id="ansoff-mp-maturity" class="worksheet-input" placeholder="是否還有滲透空間？"></textarea>
                         </div>
@@ -894,8 +871,7 @@
                 <div class="tool-block">
                     <label class="tool-label">SWOT 分析（重新評估）</label>
                     <p class="tool-description">定期檢視變化</p>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="swot-s-maturity" class="sub-label">優勢 (S)</label>
                             <textarea id="swot-s-maturity" class="worksheet-input" placeholder="我們的優勢是否仍然穩固？"></textarea>
                         </div>
@@ -925,8 +901,7 @@
                         <label for="vrio-resource-maturity" class="sub-label">識別核心資源/能力：</label>
                         <textarea id="vrio-resource-maturity" class="worksheet-input" placeholder="列出我們競爭所依賴的核心優勢"></textarea>
                     </div>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="vrio-v-maturity" class="sub-label">價值性 (V)</label>
                             <textarea id="vrio-v-maturity" class="worksheet-input" placeholder="這項資源是否仍有價值？"></textarea>
                         </div>
@@ -965,8 +940,7 @@
                 <div class="tool-block">
                     <label class="tool-label">SWOT 分析</label>
                     <p class="tool-description">冷靜評估情況：退出還是轉型</p>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="swot-s-decline" class="sub-label">優勢 (S)</label>
                             <textarea id="swot-s-decline" class="worksheet-input" placeholder="有哪些優勢可轉移到新領域？"></textarea>
                         </div>
@@ -992,8 +966,7 @@
                 <div class="tool-block">
                     <label class="tool-label">BCG 矩陣</label>
                     <p class="tool-description">識別並管理「狗」事業</p>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="bcg-stars-decline" class="sub-label">明星事業</label>
                             <span class="sub-label-hint">(高成長、高市佔)</span>
                             <textarea id="bcg-stars-decline" class="worksheet-input" placeholder="是否還有剩餘？"></textarea>
@@ -1011,7 +984,7 @@
                         <div class="input-group">
                             <label for="bcg-dogs-decline" class="sub-label">狗事業</label>
                             <span class="sub-label-hint">(低成長、低市佔)</span>
-                            <textarea id="bcg-dogs-decline" class="worksheet-input" placeholder="哪些是「狗」？策略為何？"></textarea>
+                            <textarea id="bcg-dogs-decline" classs="worksheet-input" placeholder="哪些是「狗」？策略為何？"></textarea>
                         </div>
                     </div>
                     <div class="input-group mt-4">
@@ -1023,8 +996,7 @@
                 <div class="tool-block">
                     <label class="tool-label">安索夫矩陣（轉型焦點）</label>
                     <p class="tool-description">考慮全新的產品/市場組合</p>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="ansoff-mp-decline" class="sub-label">市場滲透</label>
                             <textarea id="ansoff-mp-decline" class="worksheet-input" placeholder="（通常在此階段不相關）"></textarea>
                         </div>
@@ -1054,8 +1026,7 @@
                         <label for="vrio-resource-decline" class="sub-label">識別可轉移的核心資源/能力：</label>
                         <textarea id="vrio-resource-decline" class="worksheet-input" placeholder="哪些現有 VRIO 資源可轉移到新領域？"></textarea>
                     </div>
-                    <div class="grid-container grid-2-col">
-                        <div class="input-group">
+                    <div class="toolkit"> <div class="input-group">
                             <label for="vrio-v-decline" class="sub-label">價值性（在新領域）</label>
                             <textarea id="vrio-v-decline" class="worksheet-input" placeholder="在新領域中是否有價值？"></textarea>
                         </div>
@@ -1082,13 +1053,13 @@
 
         <div class="text-center mt-12 space-y-4 no-print">
             <div class="flex flex-wrap justify-center gap-4">
-                <button id="saveButton" class="save-btn px-6 py-3 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                <button id="saveButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     💾 儲存至瀏覽器
                 </button>
-                <button id="loadButton" class="load-btn px-6 py-3 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                <button id="loadButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     📂 載入已儲存資料
                 </button>
-                <button id="exportButton" class="export-btn px-8 py-3 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50">
+                <button id="exportButton" class="btn-base btn-blue export-btn focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     🚀 匯出為 Word 文件
                 </button>
             </div>
@@ -1340,13 +1311,13 @@
                             <style>
                                 body { font-family: 'Arial', 'Microsoft JhengHei', sans-serif; font-size: 11pt; line-height: 1.6; color: #374151; }
                                 h1 { font-size: 20pt; text-align: center; font-weight: bold; color: #111827; margin-bottom: 15px;}
-                                h2 { font-size: 16pt; font-weight: bold; color: #0e7490; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #a5f3fc; padding-bottom: 8px; }
+                                h2 { font-size: 16pt; font-weight: bold; color: #2980b9; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #a9d6f5; padding-bottom: 8px; } /* 顏色更新 */
                                 h3 { font-size: 13pt; font-weight: bold; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
                                 h4 { font-size: 11pt; font-weight: bold; color: #475569; margin-top: 12px; margin-bottom: 5px; }
                                 p { margin-bottom: 15px; white-space: pre-wrap; }
-                                ul { list-style: disc; margin-left: 25px; margin-bottom: 12px; font-size: 10pt; color: #0f766e; }
-                                .stage-focus { background-color: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; padding: 12px 18px; margin-bottom: 20px; }
-                                .stage-focus h3 { font-size: 12pt; color: #0c4a6e; margin-top: 8px; margin-bottom: 10px; border-bottom: none; }
+                                ul { list-style: disc; margin-left: 25px; margin-bottom: 12px; font-size: 10pt; color: #2980b9; } /* 顏色更新 */
+                                .stage-focus { background-color: #eaf5fb; border: 1px solid #a9d6f5; border-radius: 6px; padding: 12px 18px; margin-bottom: 20px; } /* 顏色更新 */
+                                .stage-focus h3 { font-size: 12pt; color: #2980b9; margin-top: 8px; margin-bottom: 10px; border-bottom: none; } /* 顏色更新 */
                                 hr { border: none; border-top: 1px dashed #9ca3af; margin: 30px 0; }
                             </style>
                         </head>
