@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商業生命週期策略工具 (已修正)</title>
+    <title>商業生命週期策略工具 (已修正 v2)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -201,13 +201,11 @@
             margin-bottom: 0.375rem;
         }
 
-        /* --- 修正 2.1 & 2.2: 新增 .toolkit 佈局 --- */
-        /* 移除舊的 .grid-container, .grid-2-col, .grid-3-col, .grid-5-col */
-        
+        /* --- 修正 2.1 & 2.2: .toolkit 佈局 (更新為 flex-start) --- */
         .toolkit {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* 依照建議 2.1 調整 */
+            justify-content: flex-start; /* 修正：改為 flex-start (靠左對齊) */
             gap: 20px; /* 依照建議 2.1 調整 */
             margin-top: 0.75rem;
         }
