@@ -1,392 +1,304 @@
 # -*- coding: utf-8 -*-
-"""內容資料 —— 唯一真實來源。
+"""內容資料 —— 唯一真實來源（v2 結構）
 
 index.html 是產生出來的檔案，不要直接改它。改內容請改這裡，然後跑：
 
     bash build.sh
 
-新增一個框架 = 在 FRAMEWORKS 加一筆，再到 STAGE_ORDER 對應的階段加進去。
-欄位 id 由 f"{item_key}-{stage}" 自動產生，不要手寫 —— 手寫會漂移，舊存檔就載不回來。
+v2 與 v1 的差別：
+  v1：7 個框架 × 各階段各一份，91 個欄位，其中約 70 個是同一批問題重填。
+  v2：分析與階段無關 → 只填一次（33 欄）；階段判讀才隨階段變（每階段 3 欄）；
+      行動計畫獨立（12 欄）。分析欄位 id 不再帶階段後綴。
+
+欄位 id 就是存檔的 key，所以 ID_MIGRATION 是「舊存檔能不能搬過來」的關鍵。
 """
+
+SCHEMA_VERSION = 2
+
+# 舊版（v1）欄位 id → v2 新欄位 id。
+# 值可以是純字串，或 (標籤, 舊id) —— 有標籤者會加上「── 舊版『標籤』內容 ──」再接內容。
+# 對到多個時，取第一個「有內容」的（單一目標時則全部依序附加）。
+ID_MIGRATION = {
+    "obj-name": ["ws-topic"],
+    "swot-s": ["swot-s-startup", "swot-s-maturity", "swot-s-decline"],
+    "swot-w": ["swot-w-startup", "swot-w-maturity", "swot-w-decline"],
+    "swot-o": ["swot-o-maturity", "swot-o-decline"],
+    "swot-t": ["swot-t-maturity", "swot-t-decline"],
+    "5f-rivalry": ["5f-rivalry-startup", "5f-rivalry-growth", "5f-rivalry-maturity"],
+    "5f-entrant": ["5f-entrants-startup", "5f-entrants-growth", "5f-entrants-maturity"],
+    "5f-substitute": ["5f-substitutes-startup", "5f-substitutes-growth", "5f-substitutes-maturity"],
+    "5f-supplier": ["5f-suppliers-startup", "5f-suppliers-growth", "5f-suppliers-maturity"],
+    "5f-buyer": ["5f-buyers-startup", "5f-buyers-growth", "5f-buyers-maturity"],
+    "vrio-resource": ["vrio-resource-startup", "vrio-resource-growth", "vrio-resource-maturity", "vrio-resource-decline"],
+    # v1 的 vrio-v/r/i/o 是文字欄；v2 是「是/否」+ 說明欄，所以文字搬進說明欄
+    "vrio-v-note": ["vrio-v-startup", "vrio-v-growth", "vrio-v-maturity", "vrio-v-decline"],
+    "vrio-r-note": ["vrio-r-startup", "vrio-r-growth", "vrio-r-maturity", "vrio-r-decline"],
+    "vrio-i-note": ["vrio-i-startup", "vrio-i-growth", "vrio-i-maturity", "vrio-i-decline"],
+    "vrio-o-note": ["vrio-o-startup", "vrio-o-growth", "vrio-o-maturity", "vrio-o-decline"],
+    "ansoff-marketpen": ["ansoff-mp-growth", "ansoff-mp-maturity", "ansoff-mp-decline"],
+    "ansoff-dev": ["ansoff-md-growth", "ansoff-md-maturity", "ansoff-md-decline"],
+    "ansoff-product": ["ansoff-pd-growth", "ansoff-pd-maturity", "ansoff-pd-decline"],
+    "ansoff-diversify": ["ansoff-d-growth", "ansoff-d-maturity", "ansoff-d-decline"],
+    "ansoff-choice": ["ansoff-priority-growth", "ansoff-priority-maturity", "ansoff-renewal-decline"],
+    "bcg-strategy": [("明星事業 (Stars)", "bcg-stars-growth"), ("問題事業 (Question Marks)", "bcg-questions-growth"),
+                     ("金牛事業 (Cash Cows)", "bcg-cows-growth"), ("狗事業 (Dogs)", "bcg-dogs-growth"),
+                     ("明星事業", "bcg-stars-maturity"), ("問題事業", "bcg-questions-maturity"),
+                     ("金牛事業", "bcg-cows-maturity"), ("狗事業", "bcg-dogs-maturity"),
+                     ("明星事業", "bcg-stars-decline"), ("問題事業", "bcg-questions-decline"),
+                     ("金牛事業", "bcg-cows-decline"), ("狗事業", "bcg-dogs-decline")],
+    "porter-why": [("成本領導", "generic-cost-maturity"), ("差異化", "generic-diff-maturity"),
+                   ("聚焦", "generic-focus-maturity"), ("是否陷入中間狀態", "generic-stuck-maturity")],
+    "ec-note": ["ws-growth-ec"],
+    # 階段判讀：v1 各階段的「策略意涵／可持續性／初步決策」就是使用者的階段結論
+    "read-startup-2": [("可持續性與保護策略", "vrio-sustain-startup"), ("初步結論與進入點", "5f-conclusion-startup")],
+    "read-growth-2": [("可持續性與強化策略", "vrio-sustain-growth"), ("策略意涵", "5f-implications-growth")],
+    "read-maturity-2": [("可持續性與強化策略", "vrio-sustain-maturity"), ("策略意涵", "5f-implications-maturity"),
+                        ("SWOT 策略意涵", "swot-implications-maturity")],
+    "read-decline-2": [("所需的新 VRIO 資源／能力", "vrio-gap-decline"), ("初步決策", "swot-decision-decline")],
+}
+
+# ── ①～⑨ 分析區（填一次，與階段無關）─────────────────────────────
+
+ANALYSIS = [
+    dict(
+        key="obj", num="①", title="對象與現況",
+        desc="先把「在分析什麼」寫清楚。這一段含糊，後面每一個框架都會跟著含糊。",
+        criteria=None, example=None,
+        layout=[("grid", 2, ["obj-name", "obj-offer"]),
+                ("grid", 2, ["obj-industry", "obj-customers"]),
+                ("grid", 2, ["obj-scale", "obj-stage"]),
+                ("list", ["obj-question"])],
+        items={
+            "obj-name": ("公司／產品／專案名稱", "例如：埔里轉運站旁停車場＋蝦皮智取店", ""),
+            "obj-offer": ("提供什麼（一句話）", "用一句話說清楚你賣什麼、解決誰的什麼問題", ""),
+            "obj-industry": ("產業與市場範圍", "例如：南投埔里鎮、轉運站周邊 500 公尺", ""),
+            "obj-customers": ("主要客群", "誰付錢？誰使用？兩個可能不是同一群人", ""),
+            "obj-scale": ("目前規模", "營收／人數／據點數／月流量，用你手上有的數字", ""),
+            "obj-stage": ("目前自認所處階段", "創業期／成長期／成熟期／衰退轉型期；不確定就用上面的「階段判讀」", ""),
+            "obj-question": ("這份分析要回答的問題", "例如：要不要在第二個轉運站旁再開一間？", ""),
+        },
+    ),
+    dict(
+        key="swot", num="②", title="SWOT 分析",
+        desc="SWOT 經常被寫成四張清單，然後就沒有然後了。它的價值在配對。",
+        criteria="S／W 是自己內部的、可以改的；O／T 是外部環境、你改不動的。\n"
+                 "每一條後面都要能接「所以呢？」—— 接不出來的就刪掉，那是願望不是分析。\n"
+                 "真正在做決策的是配對：S×O 進攻、W×O 補強、S×T 防禦、W×T 風險（最該先處理）。",
+        example="區域型停車場＋智取店\n"
+                "S＝自有土地、零租金成本；W＝現金流單薄，無法同時複製多點；\n"
+                "O＝轉運站啟用後每日人流可望翻倍；T＝周邊業者跟進價格戰。\n"
+                "配對：S×O 用零租金優勢撐過前期低載客；W×T 若價格戰開打，沒有第二個據點攤提成本 —— 這是最該先處理的一格。",
+        layout=[("matrix", 2, ["swot-s", "swot-w", "swot-o", "swot-t"])],
+        items={
+            "swot-s": ("優勢 (S)", "內部的、別人拿不走的。問「對手要花多久才能追上？」", "內部"),
+            "swot-w": ("劣勢 (W)", "內部可改的。不要寫「資源不足」這種沒有指向的答案", "內部"),
+            "swot-o": ("機會 (O)", "外部正在發生、對你有利的變化。要有時間點", "外部"),
+            "swot-t": ("威脅 (T)", "外部正在發生、對你不利的變化。要有時間點", "外部"),
+        },
+    ),
+    dict(
+        key="5f", num="③", title="五力分析（產業結構）",
+        desc="五力看的是「這個產業好不好賺」，不是「你贏不贏」。這是產業體檢，不是公司體檢。",
+        criteria="每一力都要寫出「誰」和「他手上有多大的籌碼」：\n"
+                 "　議價力高的訊號＝來源單一、轉換成本低、資訊透明、有替代選擇。\n"
+                 "不要寫「競爭激烈」—— 要寫「有幾家、市佔怎麼分、誰在打價格」。\n"
+                 "五力全部都強＝這個產業結構天生難賺，策略要往「換產業位置」想，不是更努力。",
+        example="半導體設備零件維修\n"
+                "供應商議價力＝高（原廠料源單一，不能換）；客戶議價力＝低（停機成本遠高於維修費）；\n"
+                "替代品＝低（沒有等效替代）；新進入者＝低（技術認證門檻）；同業競爭＝中（三家寡佔、不打價格）。\n"
+                "結論：結構好賺，護城河來自轉換成本而不是價格。",
+        layout=[("list", ["5f-rivalry", "5f-entrant", "5f-substitute", "5f-supplier", "5f-buyer"])],
+        items={
+            "5f-rivalry": ("現有競爭者", "幾家？市佔怎麼分？主要在打價格還是打差異？", ""),
+            "5f-entrant": ("新進入者的威脅", "他進來要花多久、多少錢？有沒有執照／認證／通路門檻？", ""),
+            "5f-substitute": ("替代品的威脅", "客戶「不買你的」還能怎麼解決同一件事？", ""),
+            "5f-supplier": ("供應商的議價力", "你的料源有幾家？換一家要多久？", ""),
+            "5f-buyer": ("客戶的議價力", "客戶集中度？他換掉你要付出什麼？", ""),
+        },
+    ),
+    dict(
+        key="vrio", num="④", title="VRIO 分析（內部資源）",
+        desc="VRIO 是四道關卡，不是四個形容詞。四題一路問下去，會得到四種結論之一。",
+        criteria="V 價值性：這項資源能不能讓你提高售價、降低成本，或擋掉一個威脅？\n"
+                 "R 稀有性：現在有幾個對手也有？\n"
+                 "I 難以模仿：對手要花多久、多少錢才能複製？（不是「很難」，是「大約多久」）\n"
+                 "O 組織運用：你有沒有流程、人才、獎酬制度真的在用它？\n\n"
+                 "　V 否 → 競爭劣勢（這不是資源，是負擔）\n"
+                 "　V 是、R 否 → 競爭均勢（人人都有的門檻）\n"
+                 "　V 是、R 是、I 否 → 暫時優勢（領先，但要一直往前跑）\n"
+                 "　V 是、R 是、I 是、O 否 → 未利用的潛力（有牌不會打，問題出在組織）\n"
+                 "　四項皆為是 → 持續優勢（這才是護城河）",
+        example="自有土地上的既有停車場\n"
+                "V＝是（同地段替代品租金高，價格有空間）；R＝是（同地段土地不止一塊，但可出租的不多）；\n"
+                "I＝否（對手持現金也能買地，約 1～2 年就能複製）→ 結論：暫時優勢。\n"
+                "策略含義：趁領先期把客戶關係與動線體驗做深，讓下一個對手進來時已經來不及。",
+        layout=[("list", ["vrio-resource"]),
+                ("radio", "vrio-v", [("yes", "是"), ("no", "否")], "vrio-v-note"),
+                ("radio", "vrio-r", [("yes", "是"), ("no", "否")], "vrio-r-note"),
+                ("radio", "vrio-i", [("yes", "是"), ("no", "否")], "vrio-i-note"),
+                ("radio", "vrio-o", [("yes", "是"), ("no", "否")], "vrio-o-note"),
+                ("verdict", "vrio")],
+        items={
+            "vrio-resource": ("要檢驗的核心資源／能力", "一次一項。有多項就複製這一組再做一次", ""),
+            "vrio-v-note": ("V：憑什麼說有價值？", "連到具體的價格、成本或風險", ""),
+            "vrio-r-note": ("R：有幾個對手也有？", "寫出數量或名字", ""),
+            "vrio-i-note": ("I：對手要多久才能複製？", "用時間和金錢回答，不要寫「很難」", ""),
+            "vrio-o-note": ("O：組織真的在用它嗎？", "有沒有流程、負責人、獎酬在支撐", ""),
+        },
+    ),
+    dict(
+        key="bcg", num="⑤", title="BCG 矩陣（事業組合）",
+        desc="用兩個可觀測的變數定象限，不要憑感覺擺位置：市場成長率 × 相對市佔（你 ÷ 最大對手）。",
+        criteria="現金流方向才是重點，不是「這事業好不好」：\n"
+                 "　明星（高成長 × 高市佔）：還在吃現金，但值得投，目標是把領先變成護城河。\n"
+                 "　金牛（低成長 × 高市佔）：產現金，收割它、用它養別的。\n"
+                 "　問號（高成長 × 低市佔）：選擇性投資 —— 要嘛打進前三，要嘛退出，不要吊著。\n"
+                 "　狗（低成長 × 低市佔）：退出、轉型，或縮到只剩必要投入。\n"
+                 "相對市佔 < 1 就是「不是第一」。多個事業單位請逐一做，並比較彼此的現金流關係。",
+        example="自有土地停車場：成長率高（轉運站啟用）、相對市佔高（周邊唯一可比規模）→ 明星。\n"
+                "含義：現在該投設備與動線，不是急著漲價 —— 先把領先幅度拉開。",
+        layout=[("list", ["bcg-unit"]),
+                ("radio", "bcg-growth", [("hi", "高"), ("lo", "低")], None, "市場成長率"),
+                ("radio", "bcg-share", [("hi", "高（≥1）"), ("lo", "低（<1）")], None, "相對市佔（你 ÷ 最大對手）"),
+                ("verdict", "bcg"),
+                ("list", ["bcg-strategy"])],
+        items={
+            "bcg-unit": ("事業單位名稱", "一次一個。多個單位請分別做並比較現金流", ""),
+            "bcg-strategy": ("對應策略（由象限推出）", "先看上面算出的象限，再寫你要做什麼", ""),
+        },
+    ),
+    dict(
+        key="ansoff", num="⑥", title="安索夫矩陣（成長方向）",
+        desc="「現有／新」產品 ×「現有／新」市場，四個格子。風險由低到高：滲透 → 市場開發 → 產品開發 → 多角化。",
+        criteria="資源有限時，預設答案是「先榨乾市場滲透」，不是直接跳到多角化。\n"
+                 "只有當現有市場明顯做不動了（成長率趨零、客戶飽和），才往下一格走。\n"
+                 "多角化是最貴的一格：你要同時學新產品和新市場 —— 除非有明確理由，否則它通常是逃生而不是策略。",
+        example="停車場＋智取店\n"
+                "市場滲透＝向現有車主推月租與洗車；市場開發＝把智取店服務推給轉運站乘客；\n"
+                "產品開發＝加裝充電樁服務電動車；多角化＝到別的鄉鎮開第二個據點（同時是新市場與新營運模式）。\n"
+                "主戰場：市場滲透 —— 邊際成本最低，先做。",
+        layout=[("matrix", 2, ["ansoff-marketpen", "ansoff-dev", "ansoff-product", "ansoff-diversify"]),
+                ("list", ["ansoff-choice"])],
+        items={
+            "ansoff-marketpen": ("市場滲透（現有產品 × 現有市場）", "怎麼讓現有客戶買更多／來更頻繁？", ""),
+            "ansoff-dev": ("市場開發（現有產品 × 新市場）", "同一套東西還能賣給誰？", ""),
+            "ansoff-product": ("產品開發（新產品 × 現有市場）", "現有客戶還需要什麼、你順手做得到？", ""),
+            "ansoff-diversify": ("多角化（新產品 × 新市場）", "最貴的一格。寫之前先問「為什麼非做不可」", ""),
+            "ansoff-choice": ("主戰場：先打哪一格？為什麼？", "通常答案是市場滲透 —— 除非你有明確理由", ""),
+        },
+    ),
+    dict(
+        key="porter", num="⑦", title="波特基本策略",
+        desc="三種策略只能選一種。「兩種都做」的結果是卡在中間（stuck in the middle），通常最慘。",
+        criteria="成本領先：你的結構成本就是比別人低（規模、自有資產、製程），所以能用價格擋人。\n"
+                 "差異化：客戶願意為某個東西多付錢，而你做得到、對手做不到。\n"
+                 "集中：只在一個小範圍做到前兩者之一，放棄其他市場。\n\n"
+                 "選定之後要看一致性：選成本領先卻在花錢做品牌，選差異化卻在砍服務成本 —— 那就是還沒選。",
+        example="自有土地停車場：偏向「集中」—— 只在轉運站周邊這個範圍，用零租金做到最低價；\n"
+                "不追求全鎮覆蓋，也不去做高價代客泊車。",
+        layout=[("radio", "porter-choice", [("cost", "成本領先"), ("diff", "差異化"), ("focus", "集中")], None, "你要用哪一種？"),
+                ("list", ["porter-why"])],
+        items={
+            "porter-why": ("為什麼選這個？資源配置要怎麼一致？", "寫出「所以我會把錢花在…、不花在…」", ""),
+        },
+    ),
+    dict(
+        key="ec", num="⑧", title="經驗曲線",
+        desc="累積產量每翻一倍，單位成本會下降一個固定比例。重點是「你有沒有在累積」，不是「你有沒有比對手便宜」。",
+        criteria="有用的問法：過去一年你的累積產量／服務量翻倍了嗎？有沒有哪一項成本跟著下降？\n"
+                 "如果你的量沒在長，經驗曲線對你就是靜止的 —— 那代表你的優勢只能靠別的東西。\n"
+                 "反向用法：對手量比你大，他的成本就會持續比你低，價格戰你打不贏。",
+        example="停車場：車位數固定，累積量＝累積服務車次。\n"
+                "推月租讓固定車主佔比提高 → 每日周轉次數上升 → 每車次分攤的人力與清潔成本下降。",
+        layout=[("list", ["ec-note"])],
+        items={
+            "ec-note": ("你累積了什麼？哪一項成本跟著降？", "沒有在累積就明說，那也是結論", ""),
+        },
+    ),
+    dict(
+        key="synth", num="⑨", title="綜合判斷",
+        desc="把上面八段收斂成一頁。這一頁就是你要拿去做決定的東西。",
+        criteria=None, example=None,
+        layout=[("list", ["synth-key", "synth-verdict"])],
+        items={
+            "synth-key": ("如果只能改一件事", "寫一件。寫兩件等於沒選", ""),
+            "synth-verdict": ("整體判斷", "把 SWOT 配對、五力結構、VRIO 結論串成一句話", ""),
+        },
+    ),
+]
+
+# ── 階段判讀（隨階段變，每階段 3 欄）──────────────────────────────
 
 STAGES = ["startup", "growth", "maturity", "decline"]
 
 STAGE_META = {
-    "startup": {
-        "pane_title": "🌱 創業/導入期",
-        "tab_label": "創業期",
-        "goal": "存活、驗證商業模式、尋找產品市場契合度 (PMF)",
-        "challenge": "資源有限、市場認知度低、高度不確定性、驗證可行性",
-        # 跨階段沿用按鈕（對應 index.html 的 CARRY_MAP，改這裡要同步改那段）
-        "carry_from": None,
-        "carry_label_from": None,
-        "carry_tools": None,
-    },
-    "growth": {
-        "pane_title": "🚀 成長期",
-        "tab_label": "成長期",
-        "goal": "有效擴張規模、爭奪市場份額、建立品牌與競爭護城河",
-        "challenge": "管理擴張複雜性、應對激烈競爭、保持高速成長",
-        # 跨階段沿用按鈕（對應 index.html 的 CARRY_MAP，改這裡要同步改那段）
-        "carry_from": "startup",
-        "carry_label_from": "創業/導入期",
-        "carry_tools": "VRIO、波特五力",
-    },
-    "maturity": {
-        "pane_title": "🌳 成熟期",
-        "tab_label": "成熟期",
-        "goal": "維持利潤與市佔率、提升效率、尋找新成長動能",
-        "challenge": "應對激烈競爭、管理客戶關係、克服組織僵化",
-        # 跨階段沿用按鈕（對應 index.html 的 CARRY_MAP，改這裡要同步改那段）
-        "carry_from": "growth",
-        "carry_label_from": "成長期",
-        "carry_tools": "波特五力、BCG、安索夫、VRIO",
-    },
-    "decline": {
-        "pane_title": "🍂 衰退/轉型期",
-        "tab_label": "衰退/轉型期",
-        "goal": "優雅退出或尋找「第二曲線」實現轉型",
-        "challenge": "決策退出 vs. 轉型、重新配置資源、管理變革阻力",
-        # 跨階段沿用按鈕（對應 index.html 的 CARRY_MAP，改這裡要同步改那段）
-        "carry_from": "maturity",
-        "carry_label_from": "成熟期",
-        "carry_tools": "SWOT、BCG、安索夫、VRIO",
-    },
+    "startup": dict(
+        tab_label="創業期", pane_title="🌱 創業／導入期判讀",
+        goal="找到可重複的商業模式（PMF）", challenge="現金流與需求驗證",
+        reading="這個階段唯一該問的是「有沒有人真的要用、願不願意付錢」。所有分析都要回到這一點。",
+        items={
+            "read-startup-1": ("最核心的矛盾是什麼？", "例如：想驗證需求，但現金只夠撐六個月", ""),
+            "read-startup-2": ("從上面的分析看，這個階段最該先做的一件事", "通常不是擴張，是把一個具體客群做透", ""),
+            "read-startup-3": ("什麼訊號出現時，代表可以進入成長期？", "要有數字，不要寫「感覺穩定」", ""),
+        },
+    ),
+    "growth": dict(
+        tab_label="成長期", pane_title="🚀 成長期判讀",
+        goal="把已驗證的模式規模化", challenge="規模化與資金、組織跟不上",
+        reading="需求已被驗證，風險轉移到「複製得夠快嗎、品質會不會掉、現金夠不夠撐」。",
+        items={
+            "read-growth-1": ("最核心的矛盾是什麼？", "例如：訂單成長速度大於交付能力", ""),
+            "read-growth-2": ("從上面的分析看，這個階段最該先做的一件事", "通常是補瓶頸，不是再加業績", ""),
+            "read-growth-3": ("什麼訊號出現時，代表該守住而非擴張？", "例如：獲客成本連續三個月上升", ""),
+        },
+    ),
+    "maturity": dict(
+        tab_label="成熟期", pane_title="🌳 成熟期判讀",
+        goal="把現金流效率最大化並找第二曲線", challenge="成長停滯、組織僵化、競爭侵蝕利潤",
+        reading="重點從「成長」變成「效率與防守」，同時要開始為下一條曲線鋪路。",
+        items={
+            "read-maturity-1": ("最核心的矛盾是什麼？", "例如：維持服務品質的成本逐年上升，但價格漲不動", ""),
+            "read-maturity-2": ("從上面的分析看，這個階段最該先做的一件事", "常見答案是砍掉低效的資源配置", ""),
+            "read-maturity-3": ("第二曲線的候選是什麼？需要多少資源？", "沒有候選也要寫「還沒有」", ""),
+        },
+    ),
+    "decline": dict(
+        tab_label="衰退/轉型期", pane_title="🍂 衰退／轉型期判讀",
+        goal="優雅退出或找到第二曲線轉型", challenge="決策退出 vs. 轉型、重新配置資源",
+        reading="這個階段最大的風險不是衰退本身，是「拖」—— 拖著做不出決定，資源會自己流光。",
+        items={
+            "read-decline-1": ("最核心的矛盾是什麼？", "例如：轉型需要投入，但現金流正在萎縮", ""),
+            "read-decline-2": ("從上面的分析看，這個階段最該先做的一件事", "通常是設停損點，不是再試一次", ""),
+            "read-decline-3": ("退出或轉型的決定點是什麼？（時間／數字）", "要可驗證，例如：Q2 前月租未達 40 位即退出", ""),
+        },
+    ),
 }
 
-FRAMEWORKS = {
-    "SWOT 分析": {
-        "id_prefix": "swot",
-        "stages": {
-            "startup": {
-                "title": "SWOT 分析",
-                "desc": "評估初始內部與外部條件",
-                "layout": [("grid", ["swot-s", "swot-w", "swot-o", "swot-t"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "swot-s": ("優勢 (Strengths)", "例如：團隊背景、技術能力、獨特洞察...", ""),
-                    "swot-w": ("劣勢 (Weaknesses)", "例如：資金限制、經驗不足、資源限制...", ""),
-                    "swot-o": ("機會 (Opportunities)", "例如：市場空白、新趨勢、政策支持...", ""),
-                    "swot-t": ("威脅 (Threats)", "例如：潛在競爭者、法規不明、技術風險...", ""),
-                },
-            },
-            "maturity": {
-                "title": "SWOT 分析（重新評估）",
-                "desc": "定期檢視變化",
-                "layout": [("grid", ["swot-s", "swot-w", "swot-o", "swot-t"]), ("single", ["swot-implications"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "swot-s": ("優勢 (S)", "我們的優勢是否仍然穩固？", ""),
-                    "swot-w": ("劣勢 (W)", "新的劣勢？", ""),
-                    "swot-o": ("機會 (O)", "新的機會？", ""),
-                    "swot-t": ("威脅 (T)", "破壞性威脅？", ""),
-                    "swot-implications": ("策略意涵：", "應該強化、優化、轉型還是準備轉型？", ""),
-                },
-            },
-            "decline": {
-                "title": "SWOT 分析",
-                "desc": "冷靜評估情況：退出還是轉型",
-                "layout": [("grid", ["swot-s", "swot-w", "swot-o", "swot-t"]), ("single", ["swot-decision"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "swot-s": ("優勢 (S)", "有哪些優勢可轉移到新領域？", ""),
-                    "swot-w": ("劣勢 (W)", "哪些劣勢加速了衰退？", ""),
-                    "swot-o": ("機會 (O)", "是否有真正的轉型機會？", ""),
-                    "swot-t": ("威脅 (T)", "導致衰退的威脅是否不可逆？", ""),
-                    "swot-decision": ("初步決策：", "傾向於收割/退出還是轉型/重生？", ""),
-                },
-            },
-        },
-    },
-    "VRIO 框架": {
-        "id_prefix": "vrio",
-        "stages": {
-            "startup": {
-                "title": "VRIO 框架",
-                "desc": "識別早期獨特且可防守的優勢",
-                "layout": [("single", ["vrio-resource"]), ("grid", ["vrio-v", "vrio-r", "vrio-i", "vrio-o"]), ("single", ["vrio-sustain"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "vrio-resource": ("識別核心資源/能力：", "列出潛在的早期優勢（例如：創辦人洞察、專利、特殊管道...）", ""),
-                    "vrio-v": ("價值性 (Value)", "是否有助於把握機會或中和威脅？能否創造客戶價值？", ""),
-                    "vrio-r": ("稀缺性 (Rarity)", "有多少競爭者擁有這項資源？", ""),
-                    "vrio-i": ("難以模仿性 (Imitability)", "競爭者模仿的成本是否很高？", ""),
-                    "vrio-o": ("組織性 (Organization)", "公司是否有組織來利用此資源？", ""),
-                    "vrio-sustain": ("可持續性與保護策略：", "基於 VRIO 分析，我們的持續優勢是什麼？如何保護/強化？", ""),
-                },
-            },
-            "growth": {
-                "title": "VRIO 框架",
-                "desc": "重新評估並強化優勢的可持續性",
-                "layout": [("single", ["vrio-resource"]), ("grid", ["vrio-v", "vrio-r", "vrio-i", "vrio-o"]), ("single", ["vrio-sustain"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "vrio-resource": ("識別核心資源/能力：", "列出成長期間建立的關鍵優勢", ""),
-                    "vrio-v": ("價值性 (Value)", "是否有助於把握機會或中和威脅？", ""),
-                    "vrio-r": ("稀缺性 (Rarity)", "有多少競爭者擁有這項資源？", ""),
-                    "vrio-i": ("難以模仿性 (Imitability)", "競爭者模仿的成本是否很高？", ""),
-                    "vrio-o": ("組織性 (Organization)", "公司是否有組織來利用此資源？", ""),
-                    "vrio-sustain": ("可持續性與強化策略：", "如何持續強化並防止侵蝕？", ""),
-                },
-            },
-            "maturity": {
-                "title": "VRIO 框架",
-                "desc": "確保核心資源的可持續性",
-                "layout": [("single", ["vrio-resource"]), ("grid", ["vrio-v", "vrio-r", "vrio-i", "vrio-o"]), ("single", ["vrio-sustain"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "vrio-resource": ("識別核心資源/能力：", "列出我們競爭所依賴的核心優勢", ""),
-                    "vrio-v": ("價值性 (V)", "這項資源是否仍有價值？", ""),
-                    "vrio-r": ("稀缺性 (R)", "是否仍然稀缺？", ""),
-                    "vrio-i": ("難以模仿性 (I)", "對手是否已模仿？", ""),
-                    "vrio-o": ("組織性 (O)", "組織是否仍能有效利用？", ""),
-                    "vrio-sustain": ("可持續性與強化策略：", "如何維持或重塑 VRIO 特性？", ""),
-                },
-            },
-            "decline": {
-                "title": "VRIO 框架（轉型焦點）",
-                "desc": "盤點可轉移資源並規劃新資源",
-                "layout": [("single", ["vrio-resource"]), ("grid", ["vrio-v", "vrio-r", "vrio-i", "vrio-o"]), ("single", ["vrio-gap"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "vrio-resource": ("識別可轉移的核心資源/能力：", "哪些現有 VRIO 資源可轉移到新領域？", ""),
-                    "vrio-v": ("價值性（在新領域）", "在新領域中是否有價值？", ""),
-                    "vrio-r": ("稀缺性（在新領域）", "在新領域中是否稀缺？", ""),
-                    "vrio-i": ("難以模仿性（在新領域）", "在那裡是否難以模仿？", ""),
-                    "vrio-o": ("組織性（為新領域）", "組織能否適應以新方式利用它？", ""),
-                    "vrio-gap": ("所需的新 VRIO 資源/能力：", "轉型成功需要哪些「新」VRIO 資源？如何獲得？", ""),
-                },
-            },
-        },
-    },
-    "波特五力分析": {
-        "id_prefix": "5f",
-        "stages": {
-            "startup": {
-                "title": "波特五力分析",
-                "desc": "評估基本市場吸引力",
-                "layout": [("grid", ["5f-entrants", "5f-buyers", "5f-suppliers", "5f-substitutes", "5f-rivalry"]), ("single", ["5f-conclusion"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "5f-entrants": ("新進入者威脅", "進入這個市場容易嗎？", ""),
-                    "5f-buyers": ("買方議價能力", "早期客戶是否有很多選擇？", ""),
-                    "5f-suppliers": ("供應商議價能力", "關鍵供應商是否稀缺或強勢？", ""),
-                    "5f-substitutes": ("替代品威脅", "是否有其他方式滿足客戶需求？", ""),
-                    "5f-rivalry": ("競爭強度", "誰是直接對手？他們強大嗎？", ""),
-                    "5f-conclusion": ("初步結論與進入點：", "基於五力分析，這個市場有吸引力嗎？什麼進入點可以避開最大壓力？", ""),
-                },
-            },
-            "growth": {
-                "title": "波特五力分析",
-                "desc": "深度分析產業結構與競爭動態",
-                "layout": [("grid", ["5f-entrants", "5f-buyers", "5f-suppliers", "5f-substitutes", "5f-rivalry"]), ("single", ["5f-implications"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "5f-entrants": ("新進入者威脅", "進入障礙有多高？如何提高？", ""),
-                    "5f-buyers": ("買方議價能力", "如何降低買方力量？", ""),
-                    "5f-suppliers": ("供應商議價能力", "如何降低供應商力量？", ""),
-                    "5f-substitutes": ("替代品威脅", "如何與替代品競爭？", ""),
-                    "5f-rivalry": ("競爭強度", "如何脫穎而出？", ""),
-                    "5f-implications": ("策略意涵：", "應採取哪些防守或進攻行動？", ""),
-                },
-            },
-            "maturity": {
-                "title": "波特五力分析",
-                "desc": "監控激烈競爭並尋找降低競爭強度的方法",
-                "layout": [("grid", ["5f-entrants", "5f-buyers", "5f-suppliers", "5f-substitutes", "5f-rivalry"]), ("single", ["5f-implications"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "5f-entrants": ("新進入者威脅", "進入障礙是否仍然有效？", ""),
-                    "5f-buyers": ("買方議價能力", "如何提升忠誠度/轉換成本？", ""),
-                    "5f-suppliers": ("供應商議價能力", "供應商格局有何變化？", ""),
-                    "5f-substitutes": ("替代品威脅", "替代品是否變得更有吸引力？", ""),
-                    "5f-rivalry": ("競爭強度", "如何避免價格戰？", ""),
-                    "5f-implications": ("策略意涵：", "如何在成熟市場中維持獲利能力？", ""),
-                },
-            },
-        },
-    },
-    "安索夫矩陣": {
-        "id_prefix": "ansoff",
-        "stages": {
-            "growth": {
-                "title": "安索夫矩陣",
-                "desc": "系統性思考成長路徑與資源配置",
-                "layout": [("grid", ["ansoff-mp", "ansoff-pd", "ansoff-md", "ansoff-d"]), ("single", ["ansoff-priority"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "ansoff-mp": ("市場滲透", "如何向現有市場銷售更多現有產品？", ""),
-                    "ansoff-pd": ("產品開發", "如何向現有市場銷售新產品？", ""),
-                    "ansoff-md": ("市場開發", "如何向新市場銷售現有產品？", ""),
-                    "ansoff-d": ("多角化", "是否應進入新產品/市場領域？", ""),
-                    "ansoff-priority": ("主要成長引擎與資源配置：", "我們的主要成長引擎是什麼？資源應如何配置？", ""),
-                },
-            },
-            "maturity": {
-                "title": "安索夫矩陣",
-                "desc": "尋找新成長機會",
-                "layout": [("grid", ["ansoff-mp", "ansoff-pd", "ansoff-md", "ansoff-d"]), ("single", ["ansoff-priority"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "ansoff-mp": ("市場滲透", "是否還有滲透空間？", ""),
-                    "ansoff-pd": ("產品開發", "向現有客戶銷售新產品的機會？", ""),
-                    "ansoff-md": ("市場開發", "能否將現有產品帶到新市場？", ""),
-                    "ansoff-d": ("多角化", "是否該考慮多角化？", ""),
-                    "ansoff-priority": ("主要新成長向量：", "最可行的新成長路徑是什麼？", ""),
-                },
-            },
-            "decline": {
-                "title": "安索夫矩陣（轉型焦點）",
-                "desc": "考慮全新的產品/市場組合",
-                "layout": [("grid", ["ansoff-mp", "ansoff-pd", "ansoff-md", "ansoff-d"]), ("single", ["ansoff-renewal"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "ansoff-mp": ("市場滲透", "（通常在此階段不相關）", ""),
-                    "ansoff-pd": ("產品開發", "透過新產品轉型的機會？", ""),
-                    "ansoff-md": ("市場開發", "能否將產品帶到新市場？", ""),
-                    "ansoff-d": ("多角化", "進入哪個新產品/市場？", ""),
-                    "ansoff-renewal": ("「第二曲線」選擇：", "最可行的轉型路徑是什麼？", ""),
-                },
-            },
-        },
-    },
-    "BCG 矩陣": {
-        "id_prefix": "bcg",
-        "stages": {
-            "growth": {
-                "title": "BCG 矩陣",
-                "desc": "評估事業單位並配置資源",
-                "layout": [("grid", ["bcg-stars", "bcg-questions", "bcg-cows", "bcg-dogs"]), ("single", ["bcg-implications"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "bcg-stars": ("明星事業 (Stars)", "列出「明星」事業與策略", "(高成長、高市佔)"),
-                    "bcg-questions": ("問題事業 (Question Marks)", "列出「問題」事業與策略", "(高成長、低市佔)"),
-                    "bcg-cows": ("金牛事業 (Cash Cows)", "列出「金牛」事業與策略", "(低成長、高市佔)"),
-                    "bcg-dogs": ("狗事業 (Dogs)", "列出「狗」事業與策略", "(低成長、低市佔)"),
-                    "bcg-implications": ("資源配置意涵：", "現金流應如何在各單位間流動？", ""),
-                },
-            },
-            "maturity": {
-                "title": "BCG 矩陣",
-                "desc": "管理「金牛」事業以資助新投資",
-                "layout": [("grid", ["bcg-stars", "bcg-questions", "bcg-cows", "bcg-dogs"]), ("single", ["bcg-implications"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "bcg-stars": ("明星事業", "是否還有剩餘的「明星」？", "(高成長、高市佔)"),
-                    "bcg-questions": ("問題事業", "是否有新的「問題」？", "(高成長、低市佔)"),
-                    "bcg-cows": ("金牛事業", "如何最大化現金流？", "(低成長、高市佔)"),
-                    "bcg-dogs": ("狗事業", "策略為何？", "(低成長、低市佔)"),
-                    "bcg-implications": ("資源配置意涵：", "「金牛」資金應流向何處？", ""),
-                },
-            },
-            "decline": {
-                "title": "BCG 矩陣",
-                "desc": "識別並管理「狗」事業",
-                "layout": [("grid", ["bcg-stars", "bcg-questions", "bcg-cows", "bcg-dogs"]), ("single", ["bcg-implications"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "bcg-stars": ("明星事業", "是否還有剩餘？", "(高成長、高市佔)"),
-                    "bcg-questions": ("問題事業", "是否還有剩餘？", "(高成長、低市佔)"),
-                    "bcg-cows": ("金牛事業", "是否還有現金流可收割？", "(低成長、高市佔)"),
-                    "bcg-dogs": ("狗事業", "哪些是「狗」？策略為何？", "(低成長、低市佔)"),
-                    "bcg-implications": ("資源退出策略：", "如何退出「狗」事業？如何最大化殘值？", ""),
-                },
-            },
-        },
-    },
-    "經驗曲線": {
-        "id_prefix": "ws",
-        "stages": {
-            "growth": {
-                "title": "經驗曲線",
-                "desc": "考慮成本優勢與定價策略",
-                "layout": [("bare", ["ws-ec"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "ws-ec": ("", "經驗曲線效應是否顯著？是否應使用策略定價？", ""),
-                },
-            },
-        },
-    },
-    "波特基本策略": {
-        "id_prefix": "generic",
-        "stages": {
-            "maturity": {
-                "title": "波特基本策略",
-                "desc": "定義核心競爭策略，避免「中間狀態」",
-                "layout": [("grid", ["generic-cost", "generic-diff", "generic-focus"]), ("single", ["generic-stuck"])],
-                # key: (標籤, 提示文字, 標籤後的小字說明)
-                "items": {
-                    "generic-cost": ("成本領導", "如何在整個價值鏈中降低成本？", ""),
-                    "generic-diff": ("差異化", "差異化的基礎是什麼？是否可持續？", ""),
-                    "generic-focus": ("聚焦", "聚焦於哪個利基？", ""),
-                    "generic-stuck": ("是否陷入「中間狀態」？", "我們的策略是否清晰？", ""),
-                },
-            },
-        },
-    },
+# 階段判讀時，這個階段最該回頭看的分析（唯讀提示，不重複填）
+STAGE_READING_TOOLS = {
+    "startup": ["② SWOT 分析", "④ VRIO 分析", "③ 五力分析"],
+    "growth": ["⑥ 安索夫矩陣", "⑤ BCG 矩陣", "③ 五力分析", "⑧ 經驗曲線"],
+    "maturity": ["⑤ BCG 矩陣", "⑦ 波特基本策略", "③ 五力分析", "② SWOT 分析"],
+    "decline": ["② SWOT 分析", "⑤ BCG 矩陣", "⑥ 安索夫矩陣", "④ VRIO 分析"],
 }
 
-STAGE_ORDER = {
-    "startup": ["SWOT 分析", "VRIO 框架", "波特五力分析"],
-    "growth": ["安索夫矩陣", "波特五力分析", "BCG 矩陣", "經驗曲線", "VRIO 框架"],
-    "maturity": ["波特五力分析", "波特基本策略", "BCG 矩陣", "安索夫矩陣", "SWOT 分析", "VRIO 框架"],
-    "decline": ["SWOT 分析", "BCG 矩陣", "安索夫矩陣", "VRIO 框架"],
-}
+# ── 行動計畫 ──────────────────────────────────────────────────
 
-OVERVIEW = {
-    "startup": {
-        "heading": "🌱 1. 創業/導入期",
-        "tools": [
-            ("SWOT 分析", "快速評估初始內部條件（優勢/劣勢）與外部環境（機會/威脅），建立基準認知。"),
-            ("VRIO 框架", "問「我們為什麼會贏？」是否擁有獨特、難以模仿的資源？識別並保護早期優勢。"),
-            ("波特五力分析", "初步評估目標市場的吸引力，幫助選擇初始進入點。"),
-        ],
-    },
-    "growth": {
-        "heading": "🚀 2. 成長期",
-        "tools": [
-            ("安索夫矩陣", "系統性思考成長路徑，指導資源配置。"),
-            ("波特五力分析", "深度分析產業結構，制定競爭策略。"),
-            ("BCG 矩陣", "評估多事業單位，決定資源分配。"),
-            ("經驗曲線", "累積產量帶來的單位成本下降，決定成本優勢與定價空間。"),
-            ("VRIO 框架", "重新檢視成長期新增的優勢，是否仍具價值、稀缺、難以模仿且有組織支撐。"),
-        ],
-    },
-    "maturity": {
-        "heading": "🌳 3. 成熟期",
-        "tools": [
-            ("波特五力分析", "監控激烈競爭，找出降低競爭強度的著力點。"),
-            ("波特基本策略", "明確核心戰略，避免陷入「中間狀態」。"),
-            ("BCG 矩陣", "管理「金牛」事業以資助新投資。"),
-            ("安索夫矩陣", "在成長趨緩時尋找新的成長向量。"),
-            ("SWOT 分析", "定期重新檢視內外部條件的變化。"),
-            ("VRIO 框架", "確保核心資源在競爭對手的追趕下仍可持續。"),
-        ],
-    },
-    "decline": {
-        "heading": "🍂 4. 衰退/轉型期",
-        "tools": [
-            ("SWOT 分析", "評估轉型可能性，決定退出或重生。"),
-            ("BCG 矩陣", "識別並管理「狗」事業，決定資源退出順序。"),
-            ("安索夫矩陣", "考慮全新產品/市場組合的多角化。"),
-            ("VRIO 框架", "盤點哪些資源可轉移到新領域，並規劃還缺什麼。"),
-        ],
-    },
-}
+ACTION_ROWS = 4
+ACTION_FIELDS = [("what", "要做什麼"), ("owner", "負責人"), ("due", "期限"), ("metric", "成功指標")]
 
-# 「策略分析」分頁最下方的總結
-SUMMARY = {
-    "heading": "✨ 總結與提醒",
-    "items": [
-        ("工具靈活性：", "各工具在不同階段都有用，只是側重點不同"),
-        ("非線性路徑：", "生命週期可能跳躍、停滯或逆轉"),
-        ("情境為王：", "工具選擇永遠取決於具體情境"),
-        ("適應力至上：", "基於快速反饋的適應性策略才是王道"),
-    ],
-}
+ACTION_INTRO = dict(
+    title="🎯 行動計畫",
+    desc="策略沒有變成「誰、在什麼時候、做到什麼數字」就只是願望。"
+         "成功指標要能被外部的人驗證，不要寫「提升滿意度」這種無法否證的句子。",
+    example="要做什麼：推出月租 40 席方案（限轉運站通勤族）／負責人：我自己（前期不外包）／"
+            "期限：2026-12-31／成功指標：月租售出 40 席，或連續兩個月月租收入 ≥ 停車收入 30%",
+)
 
-# 欄位 id 不符 f"{key}-{stage}" 慣例者。保留原名以維持既有存檔相容，不要改。
-ID_OVERRIDES = {
-    "ws-ec": "ws-growth-ec",
-}
+# ── 輸出區 ────────────────────────────────────────────────────
+
+OUTPUT_INTRO = dict(
+    title="📤 輸出與備份",
+    desc="存檔只存在這台裝置的瀏覽器裡（localStorage）。換裝置、換瀏覽器、清快取都會不見，"
+         "所以定期按「備份 JSON」留一份檔案。",
+)

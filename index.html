@@ -494,7 +494,71 @@
 
         /* ===== 🗑 危險按鈕 ===== */
         .btn-red { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-    </style>
+    
+/* ================= 🆕 v2：分析區 / 判讀區 / 行動計畫 ================= */
+.sheet-section { margin: 0 0 34px; padding-bottom: 22px; border-bottom: 1px dashed #cbd5e1; }
+.sheet-section:last-of-type { border-bottom: none; }
+.sheet-h3 { font-size: 1.32em; font-weight: 700; color: #1e3a8a; margin: 0 0 6px; }
+.sheet-desc { color: #475569; font-size: 0.95em; margin: 0 0 14px; line-height: 1.7; }
+
+.field-grid { display: grid; gap: 14px; margin-bottom: 14px; }
+.field-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 720px) { .field-grid.cols-2 { grid-template-columns: 1fr; } }
+
+.field { display: flex; flex-direction: column; }
+.field-label { font-weight: 600; color: #334155; font-size: 0.95em; margin-bottom: 5px; }
+.field-tag { font-weight: 400; font-size: 0.82em; color: #64748b; margin-left: 6px; }
+textarea.worksheet-input { width: 100%; box-sizing: border-box; min-height: 120px; padding: 14px;
+  border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 1em; line-height: 1.7;
+  color: #1e293b; background: #fff; resize: vertical; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+textarea.worksheet-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+
+.matrix-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 14px;
+  border: 2px solid #94a3b8; border-radius: 10px; overflow: hidden; }
+.matrix-2x2 .mx-cell { padding: 14px; background: #f8fafc; border-right: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
+.matrix-2x2 .mx-cell:nth-child(2n) { border-right: none; }
+.matrix-2x2 .mx-cell:nth-last-child(-n+2) { border-bottom: none; }
+.matrix-2x2 .mx-cell textarea { min-height: 130px; }
+@media (max-width: 720px) { .matrix-2x2 { grid-template-columns: 1fr; }
+  .matrix-2x2 .mx-cell { border-right: none; } .matrix-2x2 .mx-cell:nth-last-child(-n+2) { border-bottom: 1px solid #cbd5e1; } }
+
+.radio-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 14px;
+  background: #f1f5f9; border-radius: 8px; margin-bottom: 12px; }
+.radio-main { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.radio-q { font-weight: 600; color: #334155; font-size: 0.95em; }
+.radio-opt { display: inline-flex; align-items: center; gap: 5px; font-size: 0.95em; cursor: pointer; color: #1e293b; }
+.radio-opt input { width: 17px; height: 17px; cursor: pointer; }
+textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
+
+.verdict { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 8px;
+  background: #f1f5f9; border-left: 5px solid #94a3b8; margin-bottom: 14px; font-size: 0.95em; }
+.verdict-label { flex: 0 0 auto; font-weight: 700; color: #475569; }
+.verdict-text { color: #1e293b; line-height: 1.7; }
+.verdict.good { background: #ecfdf5; border-left-color: #059669; }
+.verdict.mid { background: #fffbeb; border-left-color: #d97706; }
+.verdict.bad { background: #fef2f2; border-left-color: #dc2626; }
+
+.fw-guide { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 14px; }
+.fw-guide > summary { cursor: pointer; padding: 10px 14px; font-weight: 600; color: #1e40af; font-size: 0.95em; }
+.fw-guide > summary:hover { background: #eff6ff; }
+.fw-criteria, .fw-example { padding: 2px 16px 14px; margin: 0 0 12px; }
+.fw-criteria > strong, .fw-example > strong { display: block; color: #1e40af; font-size: 0.9em; margin-bottom: 6px; }
+.fw-criteria p, .fw-example p { margin: 0; color: #475569; font-size: 0.92em; line-height: 1.8; }
+.fw-example p { color: #334155; }
+
+.stage-reading { margin: 10px 0 4px; color: #475569; font-size: 0.93em; line-height: 1.75; }
+.stage-refs { margin: 6px 0 0; color: #1e40af; font-size: 0.9em; font-weight: 600; }
+
+.action-row { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
+.action-head { font-weight: 700; color: #1e3a8a; margin-bottom: 10px; font-size: 0.95em; }
+.action-row textarea.worksheet-input { min-height: 72px; }
+
+.guide-toggle { margin: 0 0 18px; }
+.guide-toggle button { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; border-radius: 8px;
+  padding: 8px 14px; font-size: 0.9em; cursor: pointer; font-family: inherit; }
+.guide-toggle button:hover { background: #dbeafe; }
+
+</style>
 
     <!-- Tailwind 產生的樣式必須排在自訂 <style> 之後：
          兩者特異度相同，順序決定誰勝出（原本 CDN 是執行時注入，天生在後面）。 -->
@@ -514,24 +578,17 @@
     <div class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-10 bg-white rounded-2xl shadow-2xl my-6 sm:my-12">
 
         <div class="mb-8 border-b-2 border-slate-200 no-print">
-            <nav class="tab-buttons" role="tablist" aria-label="工作表分頁">
-                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">📚 策略分析</button>
+            <nav class="tab-buttons no-print" role="tablist" aria-label="工作表分頁">
+                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">📋 現況與分析</button>
                 <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">🌱 創業期</button>
                 <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">🚀 成長期</button>
                 <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">🌳 成熟期</button>
                 <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">🍂 衰退/轉型期</button>
+                <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">🎯 行動計畫</button>
                 <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">🎮 認知作弊器</button>
             </nav>
         </div>
         
-        <div class="mb-8" id="ws-topic-block">
-            <label for="ws-topic" class="text-xl font-semibold text-gray-800 block mb-2"> 📋 分析對象（公司/產品/專案）
-            </label>
-            <input type="text" id="ws-topic" class="worksheet-input" placeholder="請輸入要分析的公司名稱、產品線或專案名稱..." style="min-height: 50px;">
-        </div>
-        
-        <hr class="my-8 border-slate-300" id="ws-topic-hr">
-
         <div id="tab-content-analysis" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-analysis">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
                 <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent"> 商業生命週期與策略工具整合指南
@@ -539,7 +596,7 @@
             </h1>
             
             <p class="analysis-p mb-10 text-lg">
-                企業如同生命體，會經歷不同的發展階段。理解公司當前所處的生命週期階段，並選擇適當的戰略工具，是制定有效策略的關鍵。本工具整合了生命週期理論與經典策略框架，幫助您更系統化地思考。
+                企業如同生命體，會經歷不同的發展階段。本工具把「與階段無關的分析」集中在這一頁做一次，各階段分頁只留下該階段特有的判讀問題；每個框架都附上判讀準則與實例。
             </p>
 
             <section class="analysis-section no-print" id="stageDiagnosis">
@@ -555,202 +612,302 @@
                 </div>
             </section>
 
-                        <section class="analysis-section">
-                <h2 class="analysis-h2">🌱 1. 創業/導入期</h2>
-                <h3 class="analysis-h3">階段重點：</h3>
-                <ul class="analysis-ul">
-                    <li><strong>核心目標：</strong>存活、驗證商業模式、尋找產品市場契合度 (PMF)</li>
-                    <li><strong>主要挑戰：</strong>資源有限、市場認知度低、高度不確定性、驗證可行性</li>
-                </ul>
-                <h3 class="analysis-h3">關鍵工具運用（與「創業期」分頁的 3 個工具一致）：</h3>
-                <div class="analysis-tool">
-                    <strong>SWOT 分析：</strong>快速評估初始內部條件（優勢/劣勢）與外部環境（機會/威脅），建立基準認知。
+            <div class="guide-toggle no-print">
+                <button type="button" id="guideToggle">📖 展開全部判讀準則與實例</button>
+                <span class="field-tag">每個框架的判讀準則預設收合，需要時再展開。</span>
+            </div>
+                        <section class="sheet-section" id="sec-obj">
+                <h3 class="sheet-h3">① 對象與現況</h3>
+                <p class="sheet-desc">先把「在分析什麼」寫清楚。這一段含糊，後面每一個框架都會跟著含糊。</p>
+                <div class="field-grid cols-2">
+                    <div class="field" data-item="公司／產品／專案名稱">
+                        <label class="field-label" for="obj-name">公司／產品／專案名稱</label>
+                        <textarea id="obj-name" class="worksheet-input" placeholder="例如：埔里轉運站旁停車場＋蝦皮智取店"></textarea>
+                    </div>
+                    <div class="field" data-item="提供什麼（一句話）">
+                        <label class="field-label" for="obj-offer">提供什麼（一句話）</label>
+                        <textarea id="obj-offer" class="worksheet-input" placeholder="用一句話說清楚你賣什麼、解決誰的什麼問題"></textarea>
+                    </div>
                 </div>
-                <div class="analysis-tool">
-                    <strong>VRIO 框架：</strong>問「我們為什麼會贏？」是否擁有獨特、難以模仿的資源？識別並保護早期優勢。
+                <div class="field-grid cols-2">
+                    <div class="field" data-item="產業與市場範圍">
+                        <label class="field-label" for="obj-industry">產業與市場範圍</label>
+                        <textarea id="obj-industry" class="worksheet-input" placeholder="例如：南投埔里鎮、轉運站周邊 500 公尺"></textarea>
+                    </div>
+                    <div class="field" data-item="主要客群">
+                        <label class="field-label" for="obj-customers">主要客群</label>
+                        <textarea id="obj-customers" class="worksheet-input" placeholder="誰付錢？誰使用？兩個可能不是同一群人"></textarea>
+                    </div>
                 </div>
-                <div class="analysis-tool">
-                    <strong>波特五力分析：</strong>初步評估目標市場的吸引力，幫助選擇初始進入點。
+                <div class="field-grid cols-2">
+                    <div class="field" data-item="目前規模">
+                        <label class="field-label" for="obj-scale">目前規模</label>
+                        <textarea id="obj-scale" class="worksheet-input" placeholder="營收／人數／據點數／月流量，用你手上有的數字"></textarea>
+                    </div>
+                    <div class="field" data-item="目前自認所處階段">
+                        <label class="field-label" for="obj-stage">目前自認所處階段</label>
+                        <textarea id="obj-stage" class="worksheet-input" placeholder="創業期／成長期／成熟期／衰退轉型期；不確定就用上面的「階段判讀」"></textarea>
+                    </div>
+                </div>
+            <div class="field" data-item="這份分析要回答的問題">
+                <label class="field-label" for="obj-question">這份分析要回答的問題</label>
+                <textarea id="obj-question" class="worksheet-input" placeholder="例如：要不要在第二個轉運站旁再開一間？"></textarea>
+            </div>
+            </section>
+            
+            <section class="sheet-section" id="sec-swot">
+                <h3 class="sheet-h3">② SWOT 分析</h3>
+                <p class="sheet-desc">SWOT 經常被寫成四張清單，然後就沒有然後了。它的價值在配對。</p>
+                <details class="fw-guide">
+                    <summary>判讀準則與實例</summary>
+                    <div class="fw-criteria"><strong>判讀準則</strong><p>S／W 是自己內部的、可以改的；O／T 是外部環境、你改不動的。<br>每一條後面都要能接「所以呢？」—— 接不出來的就刪掉，那是願望不是分析。<br>真正在做決策的是配對：S×O 進攻、W×O 補強、S×T 防禦、W×T 風險（最該先處理）。</p></div>
+                    <div class="fw-example"><strong>實例</strong><p>區域型停車場＋智取店<br>S＝自有土地、零租金成本；W＝現金流單薄，無法同時複製多點；<br>O＝轉運站啟用後每日人流可望翻倍；T＝周邊業者跟進價格戰。<br>配對：S×O 用零租金優勢撐過前期低載客；W×T 若價格戰開打，沒有第二個據點攤提成本 —— 這是最該先處理的一格。</p></div>
+                </details>
+                <div class="matrix-2x2">
+                    <div class="field mx-cell" data-item="優勢 (S)">
+                        <label class="field-label" for="swot-s">優勢 (S)<span class="field-tag">內部</span></label>
+                        <textarea id="swot-s" class="worksheet-input" placeholder="內部的、別人拿不走的。問「對手要花多久才能追上？」"></textarea>
+                    </div>
+                    <div class="field mx-cell" data-item="劣勢 (W)">
+                        <label class="field-label" for="swot-w">劣勢 (W)<span class="field-tag">內部</span></label>
+                        <textarea id="swot-w" class="worksheet-input" placeholder="內部可改的。不要寫「資源不足」這種沒有指向的答案"></textarea>
+                    </div>
+                    <div class="field mx-cell" data-item="機會 (O)">
+                        <label class="field-label" for="swot-o">機會 (O)<span class="field-tag">外部</span></label>
+                        <textarea id="swot-o" class="worksheet-input" placeholder="外部正在發生、對你有利的變化。要有時間點"></textarea>
+                    </div>
+                    <div class="field mx-cell" data-item="威脅 (T)">
+                        <label class="field-label" for="swot-t">威脅 (T)<span class="field-tag">外部</span></label>
+                        <textarea id="swot-t" class="worksheet-input" placeholder="外部正在發生、對你不利的變化。要有時間點"></textarea>
+                    </div>
                 </div>
             </section>
             
-            <section class="analysis-section">
-                <h2 class="analysis-h2">🚀 2. 成長期</h2>
-                <h3 class="analysis-h3">階段重點：</h3>
-                <ul class="analysis-ul">
-                    <li><strong>核心目標：</strong>有效擴張規模、爭奪市場份額、建立品牌與競爭護城河</li>
-                    <li><strong>主要挑戰：</strong>管理擴張複雜性、應對激烈競爭、保持高速成長</li>
-                </ul>
-                <h3 class="analysis-h3">關鍵工具運用（與「成長期」分頁的 5 個工具一致）：</h3>
-                <div class="analysis-tool">
-                    <strong>安索夫矩陣：</strong>系統性思考成長路徑，指導資源配置。
+            <section class="sheet-section" id="sec-5f">
+                <h3 class="sheet-h3">③ 五力分析（產業結構）</h3>
+                <p class="sheet-desc">五力看的是「這個產業好不好賺」，不是「你贏不贏」。這是產業體檢，不是公司體檢。</p>
+                <details class="fw-guide">
+                    <summary>判讀準則與實例</summary>
+                    <div class="fw-criteria"><strong>判讀準則</strong><p>每一力都要寫出「誰」和「他手上有多大的籌碼」：<br>　議價力高的訊號＝來源單一、轉換成本低、資訊透明、有替代選擇。<br>不要寫「競爭激烈」—— 要寫「有幾家、市佔怎麼分、誰在打價格」。<br>五力全部都強＝這個產業結構天生難賺，策略要往「換產業位置」想，不是更努力。</p></div>
+                    <div class="fw-example"><strong>實例</strong><p>半導體設備零件維修<br>供應商議價力＝高（原廠料源單一，不能換）；客戶議價力＝低（停機成本遠高於維修費）；<br>替代品＝低（沒有等效替代）；新進入者＝低（技術認證門檻）；同業競爭＝中（三家寡佔、不打價格）。<br>結論：結構好賺，護城河來自轉換成本而不是價格。</p></div>
+                </details>
+            <div class="field" data-item="現有競爭者">
+                <label class="field-label" for="5f-rivalry">現有競爭者</label>
+                <textarea id="5f-rivalry" class="worksheet-input" placeholder="幾家？市佔怎麼分？主要在打價格還是打差異？"></textarea>
+            </div>
+            <div class="field" data-item="新進入者的威脅">
+                <label class="field-label" for="5f-entrant">新進入者的威脅</label>
+                <textarea id="5f-entrant" class="worksheet-input" placeholder="他進來要花多久、多少錢？有沒有執照／認證／通路門檻？"></textarea>
+            </div>
+            <div class="field" data-item="替代品的威脅">
+                <label class="field-label" for="5f-substitute">替代品的威脅</label>
+                <textarea id="5f-substitute" class="worksheet-input" placeholder="客戶「不買你的」還能怎麼解決同一件事？"></textarea>
+            </div>
+            <div class="field" data-item="供應商的議價力">
+                <label class="field-label" for="5f-supplier">供應商的議價力</label>
+                <textarea id="5f-supplier" class="worksheet-input" placeholder="你的料源有幾家？換一家要多久？"></textarea>
+            </div>
+            <div class="field" data-item="客戶的議價力">
+                <label class="field-label" for="5f-buyer">客戶的議價力</label>
+                <textarea id="5f-buyer" class="worksheet-input" placeholder="客戶集中度？他換掉你要付出什麼？"></textarea>
+            </div>
+            </section>
+            
+            <section class="sheet-section" id="sec-vrio">
+                <h3 class="sheet-h3">④ VRIO 分析（內部資源）</h3>
+                <p class="sheet-desc">VRIO 是四道關卡，不是四個形容詞。四題一路問下去，會得到四種結論之一。</p>
+                <details class="fw-guide">
+                    <summary>判讀準則與實例</summary>
+                    <div class="fw-criteria"><strong>判讀準則</strong><p>V 價值性：這項資源能不能讓你提高售價、降低成本，或擋掉一個威脅？<br>R 稀有性：現在有幾個對手也有？<br>I 難以模仿：對手要花多久、多少錢才能複製？（不是「很難」，是「大約多久」）<br>O 組織運用：你有沒有流程、人才、獎酬制度真的在用它？<br><br>　V 否 → 競爭劣勢（這不是資源，是負擔）<br>　V 是、R 否 → 競爭均勢（人人都有的門檻）<br>　V 是、R 是、I 否 → 暫時優勢（領先，但要一直往前跑）<br>　V 是、R 是、I 是、O 否 → 未利用的潛力（有牌不會打，問題出在組織）<br>　四項皆為是 → 持續優勢（這才是護城河）</p></div>
+                    <div class="fw-example"><strong>實例</strong><p>自有土地上的既有停車場<br>V＝是（同地段替代品租金高，價格有空間）；R＝是（同地段土地不止一塊，但可出租的不多）；<br>I＝否（對手持現金也能買地，約 1～2 年就能複製）→ 結論：暫時優勢。<br>策略含義：趁領先期把客戶關係與動線體驗做深，讓下一個對手進來時已經來不及。</p></div>
+                </details>
+            <div class="field" data-item="要檢驗的核心資源／能力">
+                <label class="field-label" for="vrio-resource">要檢驗的核心資源／能力</label>
+                <textarea id="vrio-resource" class="worksheet-input" placeholder="一次一項。有多項就複製這一組再做一次"></textarea>
+            </div>
+            <div class="radio-row" data-radio="vrio-v">
+                <div class="radio-main">
+                    <span class="radio-q">V</span>
+                    <label class="radio-opt"><input type="radio" name="vrio-v" value="yes" data-save="vrio-v"> 是</label>
+                    <label class="radio-opt"><input type="radio" name="vrio-v" value="no" data-save="vrio-v"> 否</label>
                 </div>
-                <div class="analysis-tool">
-                    <strong>波特五力分析：</strong>深度分析產業結構，制定競爭策略。
+                <textarea id="vrio-v-note" class="worksheet-input radio-note" placeholder="連到具體的價格、成本或風險"></textarea>
+            </div>
+            <div class="radio-row" data-radio="vrio-r">
+                <div class="radio-main">
+                    <span class="radio-q">R</span>
+                    <label class="radio-opt"><input type="radio" name="vrio-r" value="yes" data-save="vrio-r"> 是</label>
+                    <label class="radio-opt"><input type="radio" name="vrio-r" value="no" data-save="vrio-r"> 否</label>
                 </div>
-                <div class="analysis-tool">
-                    <strong>BCG 矩陣：</strong>評估多事業單位，決定資源分配。
+                <textarea id="vrio-r-note" class="worksheet-input radio-note" placeholder="寫出數量或名字"></textarea>
+            </div>
+            <div class="radio-row" data-radio="vrio-i">
+                <div class="radio-main">
+                    <span class="radio-q">I</span>
+                    <label class="radio-opt"><input type="radio" name="vrio-i" value="yes" data-save="vrio-i"> 是</label>
+                    <label class="radio-opt"><input type="radio" name="vrio-i" value="no" data-save="vrio-i"> 否</label>
                 </div>
-                <div class="analysis-tool">
-                    <strong>經驗曲線：</strong>累積產量帶來的單位成本下降，決定成本優勢與定價空間。
+                <textarea id="vrio-i-note" class="worksheet-input radio-note" placeholder="用時間和金錢回答，不要寫「很難」"></textarea>
+            </div>
+            <div class="radio-row" data-radio="vrio-o">
+                <div class="radio-main">
+                    <span class="radio-q">O</span>
+                    <label class="radio-opt"><input type="radio" name="vrio-o" value="yes" data-save="vrio-o"> 是</label>
+                    <label class="radio-opt"><input type="radio" name="vrio-o" value="no" data-save="vrio-o"> 否</label>
                 </div>
-                <div class="analysis-tool">
-                    <strong>VRIO 框架：</strong>重新檢視成長期新增的優勢，是否仍具價值、稀缺、難以模仿且有組織支撐。
+                <textarea id="vrio-o-note" class="worksheet-input radio-note" placeholder="有沒有流程、負責人、獎酬在支撐"></textarea>
+            </div>
+                <div class="verdict" id="vrio-verdict">
+                    <span class="verdict-label">自動判定</span>
+                    <span class="verdict-text">把上面的選項選完，這裡會自動算出結論。</span>
                 </div>
             </section>
             
-            <section class="analysis-section">
-                <h2 class="analysis-h2">🌳 3. 成熟期</h2>
-                <h3 class="analysis-h3">階段重點：</h3>
-                <ul class="analysis-ul">
-                    <li><strong>核心目標：</strong>維持利潤與市佔率、提升效率、尋找新成長動能</li>
-                    <li><strong>主要挑戰：</strong>應對激烈競爭、管理客戶關係、克服組織僵化</li>
-                </ul>
-                <h3 class="analysis-h3">關鍵工具運用（與「成熟期」分頁的 6 個工具一致）：</h3>
-                <div class="analysis-tool">
-                    <strong>波特五力分析：</strong>監控激烈競爭，找出降低競爭強度的著力點。
+            <section class="sheet-section" id="sec-bcg">
+                <h3 class="sheet-h3">⑤ BCG 矩陣（事業組合）</h3>
+                <p class="sheet-desc">用兩個可觀測的變數定象限，不要憑感覺擺位置：市場成長率 × 相對市佔（你 ÷ 最大對手）。</p>
+                <details class="fw-guide">
+                    <summary>判讀準則與實例</summary>
+                    <div class="fw-criteria"><strong>判讀準則</strong><p>現金流方向才是重點，不是「這事業好不好」：<br>　明星（高成長 × 高市佔）：還在吃現金，但值得投，目標是把領先變成護城河。<br>　金牛（低成長 × 高市佔）：產現金，收割它、用它養別的。<br>　問號（高成長 × 低市佔）：選擇性投資 —— 要嘛打進前三，要嘛退出，不要吊著。<br>　狗（低成長 × 低市佔）：退出、轉型，或縮到只剩必要投入。<br>相對市佔 &lt; 1 就是「不是第一」。多個事業單位請逐一做，並比較彼此的現金流關係。</p></div>
+                    <div class="fw-example"><strong>實例</strong><p>自有土地停車場：成長率高（轉運站啟用）、相對市佔高（周邊唯一可比規模）→ 明星。<br>含義：現在該投設備與動線，不是急著漲價 —— 先把領先幅度拉開。</p></div>
+                </details>
+            <div class="field" data-item="事業單位名稱">
+                <label class="field-label" for="bcg-unit">事業單位名稱</label>
+                <textarea id="bcg-unit" class="worksheet-input" placeholder="一次一個。多個單位請分別做並比較現金流"></textarea>
+            </div>
+            <div class="radio-row" data-radio="bcg-growth">
+                <div class="radio-main">
+                    <span class="radio-q">市場成長率</span>
+                    <label class="radio-opt"><input type="radio" name="bcg-growth" value="hi" data-save="bcg-growth"> 高</label>
+                    <label class="radio-opt"><input type="radio" name="bcg-growth" value="lo" data-save="bcg-growth"> 低</label>
                 </div>
-                <div class="analysis-tool">
-                    <strong>波特基本策略：</strong>明確核心戰略，避免陷入「中間狀態」。
+            </div>
+            <div class="radio-row" data-radio="bcg-share">
+                <div class="radio-main">
+                    <span class="radio-q">相對市佔（你 ÷ 最大對手）</span>
+                    <label class="radio-opt"><input type="radio" name="bcg-share" value="hi" data-save="bcg-share"> 高（≥1）</label>
+                    <label class="radio-opt"><input type="radio" name="bcg-share" value="lo" data-save="bcg-share"> 低（&lt;1）</label>
                 </div>
-                <div class="analysis-tool">
-                    <strong>BCG 矩陣：</strong>管理「金牛」事業以資助新投資。
+            </div>
+                <div class="verdict" id="bcg-verdict">
+                    <span class="verdict-label">自動判定</span>
+                    <span class="verdict-text">把上面的選項選完，這裡會自動算出結論。</span>
                 </div>
-                <div class="analysis-tool">
-                    <strong>安索夫矩陣：</strong>在成長趨緩時尋找新的成長向量。
-                </div>
-                <div class="analysis-tool">
-                    <strong>SWOT 分析：</strong>定期重新檢視內外部條件的變化。
-                </div>
-                <div class="analysis-tool">
-                    <strong>VRIO 框架：</strong>確保核心資源在競爭對手的追趕下仍可持續。
-                </div>
+            <div class="field" data-item="對應策略（由象限推出）">
+                <label class="field-label" for="bcg-strategy">對應策略（由象限推出）</label>
+                <textarea id="bcg-strategy" class="worksheet-input" placeholder="先看上面算出的象限，再寫你要做什麼"></textarea>
+            </div>
             </section>
             
-            <section class="analysis-section">
-                <h2 class="analysis-h2">🍂 4. 衰退/轉型期</h2>
-                <h3 class="analysis-h3">階段重點：</h3>
-                <ul class="analysis-ul">
-                    <li><strong>核心目標：</strong>優雅退出或尋找「第二曲線」實現轉型</li>
-                    <li><strong>主要挑戰：</strong>決策退出 vs. 轉型、重新配置資源、管理變革阻力</li>
-                </ul>
-                <h3 class="analysis-h3">關鍵工具運用（與「衰退/轉型期」分頁的 4 個工具一致）：</h3>
-                <div class="analysis-tool">
-                    <strong>SWOT 分析：</strong>評估轉型可能性，決定退出或重生。
+            <section class="sheet-section" id="sec-ansoff">
+                <h3 class="sheet-h3">⑥ 安索夫矩陣（成長方向）</h3>
+                <p class="sheet-desc">「現有／新」產品 ×「現有／新」市場，四個格子。風險由低到高：滲透 → 市場開發 → 產品開發 → 多角化。</p>
+                <details class="fw-guide">
+                    <summary>判讀準則與實例</summary>
+                    <div class="fw-criteria"><strong>判讀準則</strong><p>資源有限時，預設答案是「先榨乾市場滲透」，不是直接跳到多角化。<br>只有當現有市場明顯做不動了（成長率趨零、客戶飽和），才往下一格走。<br>多角化是最貴的一格：你要同時學新產品和新市場 —— 除非有明確理由，否則它通常是逃生而不是策略。</p></div>
+                    <div class="fw-example"><strong>實例</strong><p>停車場＋智取店<br>市場滲透＝向現有車主推月租與洗車；市場開發＝把智取店服務推給轉運站乘客；<br>產品開發＝加裝充電樁服務電動車；多角化＝到別的鄉鎮開第二個據點（同時是新市場與新營運模式）。<br>主戰場：市場滲透 —— 邊際成本最低，先做。</p></div>
+                </details>
+                <div class="matrix-2x2">
+                    <div class="field mx-cell" data-item="市場滲透（現有產品 × 現有市場）">
+                        <label class="field-label" for="ansoff-marketpen">市場滲透（現有產品 × 現有市場）</label>
+                        <textarea id="ansoff-marketpen" class="worksheet-input" placeholder="怎麼讓現有客戶買更多／來更頻繁？"></textarea>
+                    </div>
+                    <div class="field mx-cell" data-item="市場開發（現有產品 × 新市場）">
+                        <label class="field-label" for="ansoff-dev">市場開發（現有產品 × 新市場）</label>
+                        <textarea id="ansoff-dev" class="worksheet-input" placeholder="同一套東西還能賣給誰？"></textarea>
+                    </div>
+                    <div class="field mx-cell" data-item="產品開發（新產品 × 現有市場）">
+                        <label class="field-label" for="ansoff-product">產品開發（新產品 × 現有市場）</label>
+                        <textarea id="ansoff-product" class="worksheet-input" placeholder="現有客戶還需要什麼、你順手做得到？"></textarea>
+                    </div>
+                    <div class="field mx-cell" data-item="多角化（新產品 × 新市場）">
+                        <label class="field-label" for="ansoff-diversify">多角化（新產品 × 新市場）</label>
+                        <textarea id="ansoff-diversify" class="worksheet-input" placeholder="最貴的一格。寫之前先問「為什麼非做不可」"></textarea>
+                    </div>
                 </div>
-                <div class="analysis-tool">
-                    <strong>BCG 矩陣：</strong>識別並管理「狗」事業，決定資源退出順序。
-                </div>
-                <div class="analysis-tool">
-                    <strong>安索夫矩陣：</strong>考慮全新產品/市場組合的多角化。
-                </div>
-                <div class="analysis-tool">
-                    <strong>VRIO 框架：</strong>盤點哪些資源可轉移到新領域，並規劃還缺什麼。
-                </div>
+            <div class="field" data-item="主戰場：先打哪一格？為什麼？">
+                <label class="field-label" for="ansoff-choice">主戰場：先打哪一格？為什麼？</label>
+                <textarea id="ansoff-choice" class="worksheet-input" placeholder="通常答案是市場滲透 —— 除非你有明確理由"></textarea>
+            </div>
             </section>
             
-            <hr class="my-10 border-slate-300">
-            <section class="analysis-section">
-                <h2 class="analysis-h2">✨ 總結與提醒</h2>
-                <ul class="analysis-ul">
-                    <li><strong>工具靈活性：</strong>各工具在不同階段都有用，只是側重點不同</li>
-                    <li><strong>非線性路徑：</strong>生命週期可能跳躍、停滯或逆轉</li>
-                    <li><strong>情境為王：</strong>工具選擇永遠取決於具體情境</li>
-                    <li><strong>適應力至上：</strong>基於快速反饋的適應性策略才是王道</li>
-                </ul>
+            <section class="sheet-section" id="sec-porter">
+                <h3 class="sheet-h3">⑦ 波特基本策略</h3>
+                <p class="sheet-desc">三種策略只能選一種。「兩種都做」的結果是卡在中間（stuck in the middle），通常最慘。</p>
+                <details class="fw-guide">
+                    <summary>判讀準則與實例</summary>
+                    <div class="fw-criteria"><strong>判讀準則</strong><p>成本領先：你的結構成本就是比別人低（規模、自有資產、製程），所以能用價格擋人。<br>差異化：客戶願意為某個東西多付錢，而你做得到、對手做不到。<br>集中：只在一個小範圍做到前兩者之一，放棄其他市場。<br><br>選定之後要看一致性：選成本領先卻在花錢做品牌，選差異化卻在砍服務成本 —— 那就是還沒選。</p></div>
+                    <div class="fw-example"><strong>實例</strong><p>自有土地停車場：偏向「集中」—— 只在轉運站周邊這個範圍，用零租金做到最低價；<br>不追求全鎮覆蓋，也不去做高價代客泊車。</p></div>
+                </details>
+            <div class="radio-row" data-radio="porter-choice">
+                <div class="radio-main">
+                    <span class="radio-q">你要用哪一種？</span>
+                    <label class="radio-opt"><input type="radio" name="porter-choice" value="cost" data-save="porter-choice"> 成本領先</label>
+                    <label class="radio-opt"><input type="radio" name="porter-choice" value="diff" data-save="porter-choice"> 差異化</label>
+                    <label class="radio-opt"><input type="radio" name="porter-choice" value="focus" data-save="porter-choice"> 集中</label>
+                </div>
+            </div>
+            <div class="field" data-item="為什麼選這個？資源配置要怎麼一致？">
+                <label class="field-label" for="porter-why">為什麼選這個？資源配置要怎麼一致？</label>
+                <textarea id="porter-why" class="worksheet-input" placeholder="寫出「所以我會把錢花在…、不花在…」"></textarea>
+            </div>
             </section>
+            
+            <section class="sheet-section" id="sec-ec">
+                <h3 class="sheet-h3">⑧ 經驗曲線</h3>
+                <p class="sheet-desc">累積產量每翻一倍，單位成本會下降一個固定比例。重點是「你有沒有在累積」，不是「你有沒有比對手便宜」。</p>
+                <details class="fw-guide">
+                    <summary>判讀準則與實例</summary>
+                    <div class="fw-criteria"><strong>判讀準則</strong><p>有用的問法：過去一年你的累積產量／服務量翻倍了嗎？有沒有哪一項成本跟著下降？<br>如果你的量沒在長，經驗曲線對你就是靜止的 —— 那代表你的優勢只能靠別的東西。<br>反向用法：對手量比你大，他的成本就會持續比你低，價格戰你打不贏。</p></div>
+                    <div class="fw-example"><strong>實例</strong><p>停車場：車位數固定，累積量＝累積服務車次。<br>推月租讓固定車主佔比提高 → 每日周轉次數上升 → 每車次分攤的人力與清潔成本下降。</p></div>
+                </details>
+            <div class="field" data-item="你累積了什麼？哪一項成本跟著降？">
+                <label class="field-label" for="ec-note">你累積了什麼？哪一項成本跟著降？</label>
+                <textarea id="ec-note" class="worksheet-input" placeholder="沒有在累積就明說，那也是結論"></textarea>
+            </div>
+            </section>
+            
+            <section class="sheet-section" id="sec-synth">
+                <h3 class="sheet-h3">⑨ 綜合判斷</h3>
+                <p class="sheet-desc">把上面八段收斂成一頁。這一頁就是你要拿去做決定的東西。</p>
+            <div class="field" data-item="如果只能改一件事">
+                <label class="field-label" for="synth-key">如果只能改一件事</label>
+                <textarea id="synth-key" class="worksheet-input" placeholder="寫一件。寫兩件等於沒選"></textarea>
+            </div>
+            <div class="field" data-item="整體判斷">
+                <label class="field-label" for="synth-verdict">整體判斷</label>
+                <textarea id="synth-verdict" class="worksheet-input" placeholder="把 SWOT 配對、五力結構、VRIO 結論串成一句話"></textarea>
+            </div>
+            </section>
+            
 </div>
         
                 <div id="tab-content-startup" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-startup">
             <section class="stage-section">
-                <h2 class="stage-title">🌱 創業/導入期</h2>
+                <h2 class="stage-title">🌱 創業／導入期判讀</h2>
                 <div class="stage-focus">
                     <h3>本階段重點</h3>
                     <ul>
-                        <li><strong>核心目標：</strong>存活、驗證商業模式、尋找產品市場契合度 (PMF)</li>
-                        <li><strong>主要挑戰：</strong>資源有限、市場認知度低、高度不確定性、驗證可行性</li>
+                        <li><strong>核心目標：</strong>找到可重複的商業模式（PMF）</li>
+                        <li><strong>主要挑戰：</strong>現金流與需求驗證</li>
                     </ul>
+                    <p class="stage-reading">這個階段唯一該問的是「有沒有人真的要用、願不願意付錢」。所有分析都要回到這一點。</p>
+                    <p class="stage-refs">↩ 回頭看：② SWOT 分析、④ VRIO 分析、③ 五力分析</p>
                 </div>
                 <div class="tool-block">
-                    <label class="tool-label">SWOT 分析</label>
-                    <p class="tool-description">評估初始內部與外部條件</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="swot-s-startup" class="sub-label">優勢 (Strengths)</label>
-                            <textarea id="swot-s-startup" class="worksheet-input" placeholder="例如：團隊背景、技術能力、獨特洞察..."></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="swot-w-startup" class="sub-label">劣勢 (Weaknesses)</label>
-                            <textarea id="swot-w-startup" class="worksheet-input" placeholder="例如：資金限制、經驗不足、資源限制..."></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="swot-o-startup" class="sub-label">機會 (Opportunities)</label>
-                            <textarea id="swot-o-startup" class="worksheet-input" placeholder="例如：市場空白、新趨勢、政策支持..."></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="swot-t-startup" class="sub-label">威脅 (Threats)</label>
-                            <textarea id="swot-t-startup" class="worksheet-input" placeholder="例如：潛在競爭者、法規不明、技術風險..."></textarea>
-                        </div>
+                    <label class="tool-label">階段判讀</label>
+                    <p class="tool-description">分析在「📋 現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
+                    <div class="field" data-item="最核心的矛盾是什麼？">
+                        <label class="field-label" for="read-startup-1">最核心的矛盾是什麼？</label>
+                        <textarea id="read-startup-1" class="worksheet-input" placeholder="例如：想驗證需求，但現金只夠撐六個月"></textarea>
                     </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">VRIO 框架</label>
-                    <p class="tool-description">識別早期獨特且可防守的優勢</p>
-                    <div class="input-group mb-4">
-                        <label for="vrio-resource-startup" class="sub-label">識別核心資源/能力：</label>
-                        <textarea id="vrio-resource-startup" class="worksheet-input" placeholder="列出潛在的早期優勢（例如：創辦人洞察、專利、特殊管道...）"></textarea>
+                    <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
+                        <label class="field-label" for="read-startup-2">從上面的分析看，這個階段最該先做的一件事</label>
+                        <textarea id="read-startup-2" class="worksheet-input" placeholder="通常不是擴張，是把一個具體客群做透"></textarea>
                     </div>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="vrio-v-startup" class="sub-label">價值性 (Value)</label>
-                            <textarea id="vrio-v-startup" class="worksheet-input" placeholder="是否有助於把握機會或中和威脅？能否創造客戶價值？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="vrio-r-startup" class="sub-label">稀缺性 (Rarity)</label>
-                            <textarea id="vrio-r-startup" class="worksheet-input" placeholder="有多少競爭者擁有這項資源？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="vrio-i-startup" class="sub-label">難以模仿性 (Imitability)</label>
-                            <textarea id="vrio-i-startup" class="worksheet-input" placeholder="競爭者模仿的成本是否很高？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="vrio-o-startup" class="sub-label">組織性 (Organization)</label>
-                            <textarea id="vrio-o-startup" class="worksheet-input" placeholder="公司是否有組織來利用此資源？"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="vrio-sustain-startup" class="sub-label">可持續性與保護策略：</label>
-                        <textarea id="vrio-sustain-startup" class="worksheet-input" placeholder="基於 VRIO 分析，我們的持續優勢是什麼？如何保護/強化？"></textarea>
-                    </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">波特五力分析</label>
-                    <p class="tool-description">評估基本市場吸引力</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="5f-entrants-startup" class="sub-label">新進入者威脅</label>
-                            <textarea id="5f-entrants-startup" class="worksheet-input" placeholder="進入這個市場容易嗎？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-buyers-startup" class="sub-label">買方議價能力</label>
-                            <textarea id="5f-buyers-startup" class="worksheet-input" placeholder="早期客戶是否有很多選擇？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-suppliers-startup" class="sub-label">供應商議價能力</label>
-                            <textarea id="5f-suppliers-startup" class="worksheet-input" placeholder="關鍵供應商是否稀缺或強勢？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-substitutes-startup" class="sub-label">替代品威脅</label>
-                            <textarea id="5f-substitutes-startup" class="worksheet-input" placeholder="是否有其他方式滿足客戶需求？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-rivalry-startup" class="sub-label">競爭強度</label>
-                            <textarea id="5f-rivalry-startup" class="worksheet-input" placeholder="誰是直接對手？他們強大嗎？"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="5f-conclusion-startup" class="sub-label">初步結論與進入點：</label>
-                        <textarea id="5f-conclusion-startup" class="worksheet-input" placeholder="基於五力分析，這個市場有吸引力嗎？什麼進入點可以避開最大壓力？"></textarea>
+                    <div class="field" data-item="什麼訊號出現時，代表可以進入成長期？">
+                        <label class="field-label" for="read-startup-3">什麼訊號出現時，代表可以進入成長期？</label>
+                        <textarea id="read-startup-3" class="worksheet-input" placeholder="要有數字，不要寫「感覺穩定」"></textarea>
                     </div>
                 </div>
             </section>
@@ -758,137 +915,30 @@
         
         <div id="tab-content-growth" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-growth">
             <section class="stage-section">
-                <h2 class="stage-title">🚀 成長期</h2>
-                <div class="carry-bar no-print">
-                    <button type="button" class="carry-btn" data-carry="growth">⤵ 帶入創業/導入期的VRIO、波特五力</button>
-                    <span class="carry-hint">只複製上一階段「已填寫」的同框架欄位。目標欄位若已有內容會接在後面，不覆蓋。</span>
-                </div>
+                <h2 class="stage-title">🚀 成長期判讀</h2>
                 <div class="stage-focus">
                     <h3>本階段重點</h3>
                     <ul>
-                        <li><strong>核心目標：</strong>有效擴張規模、爭奪市場份額、建立品牌與競爭護城河</li>
-                        <li><strong>主要挑戰：</strong>管理擴張複雜性、應對激烈競爭、保持高速成長</li>
+                        <li><strong>核心目標：</strong>把已驗證的模式規模化</li>
+                        <li><strong>主要挑戰：</strong>規模化與資金、組織跟不上</li>
                     </ul>
+                    <p class="stage-reading">需求已被驗證，風險轉移到「複製得夠快嗎、品質會不會掉、現金夠不夠撐」。</p>
+                    <p class="stage-refs">↩ 回頭看：⑥ 安索夫矩陣、⑤ BCG 矩陣、③ 五力分析、⑧ 經驗曲線</p>
                 </div>
                 <div class="tool-block">
-                    <label class="tool-label">安索夫矩陣</label>
-                    <p class="tool-description">系統性思考成長路徑與資源配置</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="ansoff-mp-growth" class="sub-label">市場滲透</label>
-                            <textarea id="ansoff-mp-growth" class="worksheet-input" placeholder="如何向現有市場銷售更多現有產品？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="ansoff-pd-growth" class="sub-label">產品開發</label>
-                            <textarea id="ansoff-pd-growth" class="worksheet-input" placeholder="如何向現有市場銷售新產品？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="ansoff-md-growth" class="sub-label">市場開發</label>
-                            <textarea id="ansoff-md-growth" class="worksheet-input" placeholder="如何向新市場銷售現有產品？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="ansoff-d-growth" class="sub-label">多角化</label>
-                            <textarea id="ansoff-d-growth" class="worksheet-input" placeholder="是否應進入新產品/市場領域？"></textarea>
-                        </div>
+                    <label class="tool-label">階段判讀</label>
+                    <p class="tool-description">分析在「📋 現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
+                    <div class="field" data-item="最核心的矛盾是什麼？">
+                        <label class="field-label" for="read-growth-1">最核心的矛盾是什麼？</label>
+                        <textarea id="read-growth-1" class="worksheet-input" placeholder="例如：訂單成長速度大於交付能力"></textarea>
                     </div>
-                    <div class="input-group mt-4">
-                        <label for="ansoff-priority-growth" class="sub-label">主要成長引擎與資源配置：</label>
-                        <textarea id="ansoff-priority-growth" class="worksheet-input" placeholder="我們的主要成長引擎是什麼？資源應如何配置？"></textarea>
+                    <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
+                        <label class="field-label" for="read-growth-2">從上面的分析看，這個階段最該先做的一件事</label>
+                        <textarea id="read-growth-2" class="worksheet-input" placeholder="通常是補瓶頸，不是再加業績"></textarea>
                     </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">波特五力分析</label>
-                    <p class="tool-description">深度分析產業結構與競爭動態</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="5f-entrants-growth" class="sub-label">新進入者威脅</label>
-                            <textarea id="5f-entrants-growth" class="worksheet-input" placeholder="進入障礙有多高？如何提高？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-buyers-growth" class="sub-label">買方議價能力</label>
-                            <textarea id="5f-buyers-growth" class="worksheet-input" placeholder="如何降低買方力量？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-suppliers-growth" class="sub-label">供應商議價能力</label>
-                            <textarea id="5f-suppliers-growth" class="worksheet-input" placeholder="如何降低供應商力量？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-substitutes-growth" class="sub-label">替代品威脅</label>
-                            <textarea id="5f-substitutes-growth" class="worksheet-input" placeholder="如何與替代品競爭？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-rivalry-growth" class="sub-label">競爭強度</label>
-                            <textarea id="5f-rivalry-growth" class="worksheet-input" placeholder="如何脫穎而出？"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="5f-implications-growth" class="sub-label">策略意涵：</label>
-                        <textarea id="5f-implications-growth" class="worksheet-input" placeholder="應採取哪些防守或進攻行動？"></textarea>
-                    </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">BCG 矩陣</label>
-                    <p class="tool-description">評估事業單位並配置資源</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="bcg-stars-growth" class="sub-label">明星事業 (Stars)</label>
-                            <span class="sub-label-hint">(高成長、高市佔)</span>
-                            <textarea id="bcg-stars-growth" class="worksheet-input" placeholder="列出「明星」事業與策略"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="bcg-questions-growth" class="sub-label">問題事業 (Question Marks)</label>
-                            <span class="sub-label-hint">(高成長、低市佔)</span>
-                            <textarea id="bcg-questions-growth" class="worksheet-input" placeholder="列出「問題」事業與策略"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="bcg-cows-growth" class="sub-label">金牛事業 (Cash Cows)</label>
-                            <span class="sub-label-hint">(低成長、高市佔)</span>
-                            <textarea id="bcg-cows-growth" class="worksheet-input" placeholder="列出「金牛」事業與策略"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="bcg-dogs-growth" class="sub-label">狗事業 (Dogs)</label>
-                            <span class="sub-label-hint">(低成長、低市佔)</span>
-                            <textarea id="bcg-dogs-growth" class="worksheet-input" placeholder="列出「狗」事業與策略"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="bcg-implications-growth" class="sub-label">資源配置意涵：</label>
-                        <textarea id="bcg-implications-growth" class="worksheet-input" placeholder="現金流應如何在各單位間流動？"></textarea>
-                    </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">經驗曲線</label>
-                    <p class="tool-description">考慮成本優勢與定價策略</p>
-                    <textarea id="ws-growth-ec" class="worksheet-input" placeholder="經驗曲線效應是否顯著？是否應使用策略定價？"></textarea>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">VRIO 框架</label>
-                    <p class="tool-description">重新評估並強化優勢的可持續性</p>
-                    <div class="input-group mb-4">
-                        <label for="vrio-resource-growth" class="sub-label">識別核心資源/能力：</label>
-                        <textarea id="vrio-resource-growth" class="worksheet-input" placeholder="列出成長期間建立的關鍵優勢"></textarea>
-                    </div>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="vrio-v-growth" class="sub-label">價值性 (Value)</label>
-                            <textarea id="vrio-v-growth" class="worksheet-input" placeholder="是否有助於把握機會或中和威脅？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="vrio-r-growth" class="sub-label">稀缺性 (Rarity)</label>
-                            <textarea id="vrio-r-growth" class="worksheet-input" placeholder="有多少競爭者擁有這項資源？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="vrio-i-growth" class="sub-label">難以模仿性 (Imitability)</label>
-                            <textarea id="vrio-i-growth" class="worksheet-input" placeholder="競爭者模仿的成本是否很高？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="vrio-o-growth" class="sub-label">組織性 (Organization)</label>
-                            <textarea id="vrio-o-growth" class="worksheet-input" placeholder="公司是否有組織來利用此資源？"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="vrio-sustain-growth" class="sub-label">可持續性與強化策略：</label>
-                        <textarea id="vrio-sustain-growth" class="worksheet-input" placeholder="如何持續強化並防止侵蝕？"></textarea>
+                    <div class="field" data-item="什麼訊號出現時，代表該守住而非擴張？">
+                        <label class="field-label" for="read-growth-3">什麼訊號出現時，代表該守住而非擴張？</label>
+                        <textarea id="read-growth-3" class="worksheet-input" placeholder="例如：獲客成本連續三個月上升"></textarea>
                     </div>
                 </div>
             </section>
@@ -896,180 +946,30 @@
         
         <div id="tab-content-maturity" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-maturity">
             <section class="stage-section">
-                <h2 class="stage-title">🌳 成熟期</h2>
-                <div class="carry-bar no-print">
-                    <button type="button" class="carry-btn" data-carry="maturity">⤵ 帶入成長期的波特五力、BCG、安索夫、VRIO</button>
-                    <span class="carry-hint">只複製上一階段「已填寫」的同框架欄位。目標欄位若已有內容會接在後面，不覆蓋。</span>
-                </div>
+                <h2 class="stage-title">🌳 成熟期判讀</h2>
                 <div class="stage-focus">
                     <h3>本階段重點</h3>
                     <ul>
-                        <li><strong>核心目標：</strong>維持利潤與市佔率、提升效率、尋找新成長動能</li>
-                        <li><strong>主要挑戰：</strong>應對激烈競爭、管理客戶關係、克服組織僵化</li>
+                        <li><strong>核心目標：</strong>把現金流效率最大化並找第二曲線</li>
+                        <li><strong>主要挑戰：</strong>成長停滯、組織僵化、競爭侵蝕利潤</li>
                     </ul>
+                    <p class="stage-reading">重點從「成長」變成「效率與防守」，同時要開始為下一條曲線鋪路。</p>
+                    <p class="stage-refs">↩ 回頭看：⑤ BCG 矩陣、⑦ 波特基本策略、③ 五力分析、② SWOT 分析</p>
                 </div>
                 <div class="tool-block">
-                    <label class="tool-label">波特五力分析</label>
-                    <p class="tool-description">監控激烈競爭並尋找降低競爭強度的方法</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="5f-entrants-maturity" class="sub-label">新進入者威脅</label>
-                            <textarea id="5f-entrants-maturity" class="worksheet-input" placeholder="進入障礙是否仍然有效？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-buyers-maturity" class="sub-label">買方議價能力</label>
-                            <textarea id="5f-buyers-maturity" class="worksheet-input" placeholder="如何提升忠誠度/轉換成本？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-suppliers-maturity" class="sub-label">供應商議價能力</label>
-                            <textarea id="5f-suppliers-maturity" class="worksheet-input" placeholder="供應商格局有何變化？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-substitutes-maturity" class="sub-label">替代品威脅</label>
-                            <textarea id="5f-substitutes-maturity" class="worksheet-input" placeholder="替代品是否變得更有吸引力？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="5f-rivalry-maturity" class="sub-label">競爭強度</label>
-                            <textarea id="5f-rivalry-maturity" class="worksheet-input" placeholder="如何避免價格戰？"></textarea>
-                        </div>
+                    <label class="tool-label">階段判讀</label>
+                    <p class="tool-description">分析在「📋 現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
+                    <div class="field" data-item="最核心的矛盾是什麼？">
+                        <label class="field-label" for="read-maturity-1">最核心的矛盾是什麼？</label>
+                        <textarea id="read-maturity-1" class="worksheet-input" placeholder="例如：維持服務品質的成本逐年上升，但價格漲不動"></textarea>
                     </div>
-                    <div class="input-group mt-4">
-                        <label for="5f-implications-maturity" class="sub-label">策略意涵：</label>
-                        <textarea id="5f-implications-maturity" class="worksheet-input" placeholder="如何在成熟市場中維持獲利能力？"></textarea>
+                    <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
+                        <label class="field-label" for="read-maturity-2">從上面的分析看，這個階段最該先做的一件事</label>
+                        <textarea id="read-maturity-2" class="worksheet-input" placeholder="常見答案是砍掉低效的資源配置"></textarea>
                     </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">波特基本策略</label>
-                    <p class="tool-description">定義核心競爭策略，避免「中間狀態」</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="generic-cost-maturity" class="sub-label">成本領導</label>
-                            <textarea id="generic-cost-maturity" class="worksheet-input" placeholder="如何在整個價值鏈中降低成本？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="generic-diff-maturity" class="sub-label">差異化</label>
-                            <textarea id="generic-diff-maturity" class="worksheet-input" placeholder="差異化的基礎是什麼？是否可持續？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="generic-focus-maturity" class="sub-label">聚焦</label>
-                            <textarea id="generic-focus-maturity" class="worksheet-input" placeholder="聚焦於哪個利基？"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="generic-stuck-maturity" class="sub-label">是否陷入「中間狀態」？</label>
-                        <textarea id="generic-stuck-maturity" class="worksheet-input" placeholder="我們的策略是否清晰？"></textarea>
-                    </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">BCG 矩陣</label>
-                    <p class="tool-description">管理「金牛」事業以資助新投資</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="bcg-stars-maturity" class="sub-label">明星事業</label>
-                            <span class="sub-label-hint">(高成長、高市佔)</span>
-                            <textarea id="bcg-stars-maturity" class="worksheet-input" placeholder="是否還有剩餘的「明星」？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="bcg-questions-maturity" class="sub-label">問題事業</label>
-                            <span class="sub-label-hint">(高成長、低市佔)</span>
-                            <textarea id="bcg-questions-maturity" class="worksheet-input" placeholder="是否有新的「問題」？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="bcg-cows-maturity" class="sub-label">金牛事業</label>
-                            <span class="sub-label-hint">(低成長、高市佔)</span>
-                            <textarea id="bcg-cows-maturity" class="worksheet-input" placeholder="如何最大化現金流？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="bcg-dogs-maturity" class="sub-label">狗事業</label>
-                            <span class="sub-label-hint">(低成長、低市佔)</span>
-                            <textarea id="bcg-dogs-maturity" class="worksheet-input" placeholder="策略為何？"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="bcg-implications-maturity" class="sub-label">資源配置意涵：</label>
-                        <textarea id="bcg-implications-maturity" class="worksheet-input" placeholder="「金牛」資金應流向何處？"></textarea>
-                    </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">安索夫矩陣</label>
-                    <p class="tool-description">尋找新成長機會</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="ansoff-mp-maturity" class="sub-label">市場滲透</label>
-                            <textarea id="ansoff-mp-maturity" class="worksheet-input" placeholder="是否還有滲透空間？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="ansoff-pd-maturity" class="sub-label">產品開發</label>
-                            <textarea id="ansoff-pd-maturity" class="worksheet-input" placeholder="向現有客戶銷售新產品的機會？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="ansoff-md-maturity" class="sub-label">市場開發</label>
-                            <textarea id="ansoff-md-maturity" class="worksheet-input" placeholder="能否將現有產品帶到新市場？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="ansoff-d-maturity" class="sub-label">多角化</label>
-                            <textarea id="ansoff-d-maturity" class="worksheet-input" placeholder="是否該考慮多角化？"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="ansoff-priority-maturity" class="sub-label">主要新成長向量：</label>
-                        <textarea id="ansoff-priority-maturity" class="worksheet-input" placeholder="最可行的新成長路徑是什麼？"></textarea>
-                    </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">SWOT 分析（重新評估）</label>
-                    <p class="tool-description">定期檢視變化</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="swot-s-maturity" class="sub-label">優勢 (S)</label>
-                            <textarea id="swot-s-maturity" class="worksheet-input" placeholder="我們的優勢是否仍然穩固？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="swot-w-maturity" class="sub-label">劣勢 (W)</label>
-                            <textarea id="swot-w-maturity" class="worksheet-input" placeholder="新的劣勢？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="swot-o-maturity" class="sub-label">機會 (O)</label>
-                            <textarea id="swot-o-maturity" class="worksheet-input" placeholder="新的機會？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="swot-t-maturity" class="sub-label">威脅 (T)</label>
-                            <textarea id="swot-t-maturity" class="worksheet-input" placeholder="破壞性威脅？"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="swot-implications-maturity" class="sub-label">策略意涵：</label>
-                        <textarea id="swot-implications-maturity" class="worksheet-input" placeholder="應該強化、優化、轉型還是準備轉型？"></textarea>
-                    </div>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">VRIO 框架</label>
-                    <p class="tool-description">確保核心資源的可持續性</p>
-                    <div class="input-group mb-4">
-                        <label for="vrio-resource-maturity" class="sub-label">識別核心資源/能力：</label>
-                        <textarea id="vrio-resource-maturity" class="worksheet-input" placeholder="列出我們競爭所依賴的核心優勢"></textarea>
-                    </div>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="vrio-v-maturity" class="sub-label">價值性 (V)</label>
-                            <textarea id="vrio-v-maturity" class="worksheet-input" placeholder="這項資源是否仍有價值？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="vrio-r-maturity" class="sub-label">稀缺性 (R)</label>
-                            <textarea id="vrio-r-maturity" class="worksheet-input" placeholder="是否仍然稀缺？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="vrio-i-maturity" class="sub-label">難以模仿性 (I)</label>
-                            <textarea id="vrio-i-maturity" class="worksheet-input" placeholder="對手是否已模仿？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="vrio-o-maturity" class="sub-label">組織性 (O)</label>
-                            <textarea id="vrio-o-maturity" class="worksheet-input" placeholder="組織是否仍能有效利用？"></textarea>
-                        </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="vrio-sustain-maturity" class="sub-label">可持續性與強化策略：</label>
-                        <textarea id="vrio-sustain-maturity" class="worksheet-input" placeholder="如何維持或重塑 VRIO 特性？"></textarea>
+                    <div class="field" data-item="第二曲線的候選是什麼？需要多少資源？">
+                        <label class="field-label" for="read-maturity-3">第二曲線的候選是什麼？需要多少資源？</label>
+                        <textarea id="read-maturity-3" class="worksheet-input" placeholder="沒有候選也要寫「還沒有」"></textarea>
                     </div>
                 </div>
             </section>
@@ -1077,128 +977,122 @@
         
         <div id="tab-content-decline" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-decline">
             <section class="stage-section">
-                <h2 class="stage-title">🍂 衰退/轉型期</h2>
-                <div class="carry-bar no-print">
-                    <button type="button" class="carry-btn" data-carry="decline">⤵ 帶入成熟期的SWOT、BCG、安索夫、VRIO</button>
-                    <span class="carry-hint">只複製上一階段「已填寫」的同框架欄位。目標欄位若已有內容會接在後面，不覆蓋。</span>
-                </div>
+                <h2 class="stage-title">🍂 衰退／轉型期判讀</h2>
                 <div class="stage-focus">
                     <h3>本階段重點</h3>
                     <ul>
-                        <li><strong>核心目標：</strong>優雅退出或尋找「第二曲線」實現轉型</li>
-                        <li><strong>主要挑戰：</strong>決策退出 vs. 轉型、重新配置資源、管理變革阻力</li>
+                        <li><strong>核心目標：</strong>優雅退出或找到第二曲線轉型</li>
+                        <li><strong>主要挑戰：</strong>決策退出 vs. 轉型、重新配置資源</li>
                     </ul>
+                    <p class="stage-reading">這個階段最大的風險不是衰退本身，是「拖」—— 拖著做不出決定，資源會自己流光。</p>
+                    <p class="stage-refs">↩ 回頭看：② SWOT 分析、⑤ BCG 矩陣、⑥ 安索夫矩陣、④ VRIO 分析</p>
                 </div>
                 <div class="tool-block">
-                    <label class="tool-label">SWOT 分析</label>
-                    <p class="tool-description">冷靜評估情況：退出還是轉型</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="swot-s-decline" class="sub-label">優勢 (S)</label>
-                            <textarea id="swot-s-decline" class="worksheet-input" placeholder="有哪些優勢可轉移到新領域？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="swot-w-decline" class="sub-label">劣勢 (W)</label>
-                            <textarea id="swot-w-decline" class="worksheet-input" placeholder="哪些劣勢加速了衰退？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="swot-o-decline" class="sub-label">機會 (O)</label>
-                            <textarea id="swot-o-decline" class="worksheet-input" placeholder="是否有真正的轉型機會？"></textarea>
-                        </div>
-                        <div class="input-group">
-                            <label for="swot-t-decline" class="sub-label">威脅 (T)</label>
-                            <textarea id="swot-t-decline" class="worksheet-input" placeholder="導致衰退的威脅是否不可逆？"></textarea>
-                        </div>
+                    <label class="tool-label">階段判讀</label>
+                    <p class="tool-description">分析在「📋 現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
+                    <div class="field" data-item="最核心的矛盾是什麼？">
+                        <label class="field-label" for="read-decline-1">最核心的矛盾是什麼？</label>
+                        <textarea id="read-decline-1" class="worksheet-input" placeholder="例如：轉型需要投入，但現金流正在萎縮"></textarea>
                     </div>
-                    <div class="input-group mt-4">
-                        <label for="swot-decision-decline" class="sub-label">初步決策：</label>
-                        <textarea id="swot-decision-decline" class="worksheet-input" placeholder="傾向於收割/退出還是轉型/重生？"></textarea>
+                    <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
+                        <label class="field-label" for="read-decline-2">從上面的分析看，這個階段最該先做的一件事</label>
+                        <textarea id="read-decline-2" class="worksheet-input" placeholder="通常是設停損點，不是再試一次"></textarea>
+                    </div>
+                    <div class="field" data-item="退出或轉型的決定點是什麼？（時間／數字）">
+                        <label class="field-label" for="read-decline-3">退出或轉型的決定點是什麼？（時間／數字）</label>
+                        <textarea id="read-decline-3" class="worksheet-input" placeholder="要可驗證，例如：Q2 前月租未達 40 位即退出"></textarea>
                     </div>
                 </div>
-                <div class="tool-block">
-                    <label class="tool-label">BCG 矩陣</label>
-                    <p class="tool-description">識別並管理「狗」事業</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="bcg-stars-decline" class="sub-label">明星事業</label>
-                            <span class="sub-label-hint">(高成長、高市佔)</span>
-                            <textarea id="bcg-stars-decline" class="worksheet-input" placeholder="是否還有剩餘？"></textarea>
+            </section>
+        </div>
+        
+        <div id="tab-content-actions" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-actions">
+            <section class="stage-section">
+                <h2 class="stage-title">🎯 行動計畫</h2>
+                <p class="sheet-desc">策略沒有變成「誰、在什麼時候、做到什麼數字」就只是願望。成功指標要能被外部的人驗證，不要寫「提升滿意度」這種無法否證的句子。</p>
+                <div class="fw-example"><strong>實例</strong><p>要做什麼：推出月租 40 席方案（限轉運站通勤族）／負責人：我自己（前期不外包）／期限：2026-12-31／成功指標：月租售出 40 席，或連續兩個月月租收入 ≥ 停車收入 30%</p></div>
+                <div class="action-row">
+                    <div class="action-head">第 1 項</div>
+                    <div class="field-grid cols-2">
+                        <div class="field" data-item="要做什麼">
+                            <label class="field-label" for="act-1-what">要做什麼</label>
+                            <textarea id="act-1-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
                         </div>
-                        <div class="input-group">
-                            <label for="bcg-questions-decline" class="sub-label">問題事業</label>
-                            <span class="sub-label-hint">(高成長、低市佔)</span>
-                            <textarea id="bcg-questions-decline" class="worksheet-input" placeholder="是否還有剩餘？"></textarea>
+                        <div class="field" data-item="負責人">
+                            <label class="field-label" for="act-1-owner">負責人</label>
+                            <textarea id="act-1-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
                         </div>
-                        <div class="input-group">
-                            <label for="bcg-cows-decline" class="sub-label">金牛事業</label>
-                            <span class="sub-label-hint">(低成長、高市佔)</span>
-                            <textarea id="bcg-cows-decline" class="worksheet-input" placeholder="是否還有現金流可收割？"></textarea>
+                        <div class="field" data-item="期限">
+                            <label class="field-label" for="act-1-due">期限</label>
+                            <textarea id="act-1-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
                         </div>
-                        <div class="input-group">
-                            <label for="bcg-dogs-decline" class="sub-label">狗事業</label>
-                            <span class="sub-label-hint">(低成長、低市佔)</span>
-                            <textarea id="bcg-dogs-decline" class="worksheet-input" placeholder="哪些是「狗」？策略為何？"></textarea>
+                        <div class="field" data-item="成功指標">
+                            <label class="field-label" for="act-1-metric">成功指標</label>
+                            <textarea id="act-1-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
                         </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="bcg-implications-decline" class="sub-label">資源退出策略：</label>
-                        <textarea id="bcg-implications-decline" class="worksheet-input" placeholder="如何退出「狗」事業？如何最大化殘值？"></textarea>
                     </div>
                 </div>
-                <div class="tool-block">
-                    <label class="tool-label">安索夫矩陣（轉型焦點）</label>
-                    <p class="tool-description">考慮全新的產品/市場組合</p>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="ansoff-mp-decline" class="sub-label">市場滲透</label>
-                            <textarea id="ansoff-mp-decline" class="worksheet-input" placeholder="（通常在此階段不相關）"></textarea>
+                <div class="action-row">
+                    <div class="action-head">第 2 項</div>
+                    <div class="field-grid cols-2">
+                        <div class="field" data-item="要做什麼">
+                            <label class="field-label" for="act-2-what">要做什麼</label>
+                            <textarea id="act-2-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
                         </div>
-                        <div class="input-group">
-                            <label for="ansoff-pd-decline" class="sub-label">產品開發</label>
-                            <textarea id="ansoff-pd-decline" class="worksheet-input" placeholder="透過新產品轉型的機會？"></textarea>
+                        <div class="field" data-item="負責人">
+                            <label class="field-label" for="act-2-owner">負責人</label>
+                            <textarea id="act-2-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
                         </div>
-                        <div class="input-group">
-                            <label for="ansoff-md-decline" class="sub-label">市場開發</label>
-                            <textarea id="ansoff-md-decline" class="worksheet-input" placeholder="能否將產品帶到新市場？"></textarea>
+                        <div class="field" data-item="期限">
+                            <label class="field-label" for="act-2-due">期限</label>
+                            <textarea id="act-2-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
                         </div>
-                        <div class="input-group">
-                            <label for="ansoff-d-decline" class="sub-label">多角化</label>
-                            <textarea id="ansoff-d-decline" class="worksheet-input" placeholder="進入哪個新產品/市場？"></textarea>
+                        <div class="field" data-item="成功指標">
+                            <label class="field-label" for="act-2-metric">成功指標</label>
+                            <textarea id="act-2-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
                         </div>
-                    </div>
-                    <div class="input-group mt-4">
-                        <label for="ansoff-renewal-decline" class="sub-label">「第二曲線」選擇：</label>
-                        <textarea id="ansoff-renewal-decline" class="worksheet-input" placeholder="最可行的轉型路徑是什麼？"></textarea>
                     </div>
                 </div>
-                <div class="tool-block">
-                    <label class="tool-label">VRIO 框架（轉型焦點）</label>
-                    <p class="tool-description">盤點可轉移資源並規劃新資源</p>
-                    <div class="input-group mb-4">
-                        <label for="vrio-resource-decline" class="sub-label">識別可轉移的核心資源/能力：</label>
-                        <textarea id="vrio-resource-decline" class="worksheet-input" placeholder="哪些現有 VRIO 資源可轉移到新領域？"></textarea>
-                    </div>
-                    <div class="toolkit">
-                        <div class="input-group">
-                            <label for="vrio-v-decline" class="sub-label">價值性（在新領域）</label>
-                            <textarea id="vrio-v-decline" class="worksheet-input" placeholder="在新領域中是否有價值？"></textarea>
+                <div class="action-row">
+                    <div class="action-head">第 3 項</div>
+                    <div class="field-grid cols-2">
+                        <div class="field" data-item="要做什麼">
+                            <label class="field-label" for="act-3-what">要做什麼</label>
+                            <textarea id="act-3-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
                         </div>
-                        <div class="input-group">
-                            <label for="vrio-r-decline" class="sub-label">稀缺性（在新領域）</label>
-                            <textarea id="vrio-r-decline" class="worksheet-input" placeholder="在新領域中是否稀缺？"></textarea>
+                        <div class="field" data-item="負責人">
+                            <label class="field-label" for="act-3-owner">負責人</label>
+                            <textarea id="act-3-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
                         </div>
-                        <div class="input-group">
-                            <label for="vrio-i-decline" class="sub-label">難以模仿性（在新領域）</label>
-                            <textarea id="vrio-i-decline" class="worksheet-input" placeholder="在那裡是否難以模仿？"></textarea>
+                        <div class="field" data-item="期限">
+                            <label class="field-label" for="act-3-due">期限</label>
+                            <textarea id="act-3-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
                         </div>
-                        <div class="input-group">
-                            <label for="vrio-o-decline" class="sub-label">組織性（為新領域）</label>
-                            <textarea id="vrio-o-decline" class="worksheet-input" placeholder="組織能否適應以新方式利用它？"></textarea>
+                        <div class="field" data-item="成功指標">
+                            <label class="field-label" for="act-3-metric">成功指標</label>
+                            <textarea id="act-3-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
                         </div>
                     </div>
-                    <div class="input-group mt-4">
-                        <label for="vrio-gap-decline" class="sub-label">所需的新 VRIO 資源/能力：</label>
-                        <textarea id="vrio-gap-decline" class="worksheet-input" placeholder="轉型成功需要哪些「新」VRIO 資源？如何獲得？"></textarea>
+                </div>
+                <div class="action-row">
+                    <div class="action-head">第 4 項</div>
+                    <div class="field-grid cols-2">
+                        <div class="field" data-item="要做什麼">
+                            <label class="field-label" for="act-4-what">要做什麼</label>
+                            <textarea id="act-4-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
+                        </div>
+                        <div class="field" data-item="負責人">
+                            <label class="field-label" for="act-4-owner">負責人</label>
+                            <textarea id="act-4-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
+                        </div>
+                        <div class="field" data-item="期限">
+                            <label class="field-label" for="act-4-due">期限</label>
+                            <textarea id="act-4-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
+                        </div>
+                        <div class="field" data-item="成功指標">
+                            <label class="field-label" for="act-4-metric">成功指標</label>
+                            <textarea id="act-4-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1448,12 +1342,44 @@
             growth: { btn: document.getElementById('tab-btn-growth'), content: document.getElementById('tab-content-growth') },
             maturity: { btn: document.getElementById('tab-btn-maturity'), content: document.getElementById('tab-content-maturity') },
             decline: { btn: document.getElementById('tab-btn-decline'), content: document.getElementById('tab-content-decline') },
+            actions: { btn: document.getElementById('tab-btn-actions'), content: document.getElementById('tab-content-actions') },
             cheats: { btn: document.getElementById('tab-btn-cheats'), content: document.getElementById('tab-content-cheats') }
         };
+        const SCHEMA_VERSION = 2;
+        // 舊版（v1）欄位 id → v2 欄位 id；由 src/content.py 的 ID_MIGRATION 產生
+        const ID_MIGRATION = {
+        "obj-name": ["ws-topic"],
+        "swot-s": ["swot-s-startup", "swot-s-maturity", "swot-s-decline"],
+        "swot-w": ["swot-w-startup", "swot-w-maturity", "swot-w-decline"],
+        "swot-o": ["swot-o-maturity", "swot-o-decline"],
+        "swot-t": ["swot-t-maturity", "swot-t-decline"],
+        "5f-rivalry": ["5f-rivalry-startup", "5f-rivalry-growth", "5f-rivalry-maturity"],
+        "5f-entrant": ["5f-entrants-startup", "5f-entrants-growth", "5f-entrants-maturity"],
+        "5f-substitute": ["5f-substitutes-startup", "5f-substitutes-growth", "5f-substitutes-maturity"],
+        "5f-supplier": ["5f-suppliers-startup", "5f-suppliers-growth", "5f-suppliers-maturity"],
+        "5f-buyer": ["5f-buyers-startup", "5f-buyers-growth", "5f-buyers-maturity"],
+        "vrio-resource": ["vrio-resource-startup", "vrio-resource-growth", "vrio-resource-maturity", "vrio-resource-decline"],
+        "vrio-v-note": ["vrio-v-startup", "vrio-v-growth", "vrio-v-maturity", "vrio-v-decline"],
+        "vrio-r-note": ["vrio-r-startup", "vrio-r-growth", "vrio-r-maturity", "vrio-r-decline"],
+        "vrio-i-note": ["vrio-i-startup", "vrio-i-growth", "vrio-i-maturity", "vrio-i-decline"],
+        "vrio-o-note": ["vrio-o-startup", "vrio-o-growth", "vrio-o-maturity", "vrio-o-decline"],
+        "ansoff-marketpen": ["ansoff-mp-growth", "ansoff-mp-maturity", "ansoff-mp-decline"],
+        "ansoff-dev": ["ansoff-md-growth", "ansoff-md-maturity", "ansoff-md-decline"],
+        "ansoff-product": ["ansoff-pd-growth", "ansoff-pd-maturity", "ansoff-pd-decline"],
+        "ansoff-diversify": ["ansoff-d-growth", "ansoff-d-maturity", "ansoff-d-decline"],
+        "ansoff-choice": ["ansoff-priority-growth", "ansoff-priority-maturity", "ansoff-renewal-decline"],
+        "bcg-strategy": [["明星事業 (Stars)", "bcg-stars-growth"], ["問題事業 (Question Marks)", "bcg-questions-growth"], ["金牛事業 (Cash Cows)", "bcg-cows-growth"], ["狗事業 (Dogs)", "bcg-dogs-growth"], ["明星事業", "bcg-stars-maturity"], ["問題事業", "bcg-questions-maturity"], ["金牛事業", "bcg-cows-maturity"], ["狗事業", "bcg-dogs-maturity"], ["明星事業", "bcg-stars-decline"], ["問題事業", "bcg-questions-decline"], ["金牛事業", "bcg-cows-decline"], ["狗事業", "bcg-dogs-decline"]],
+        "porter-why": [["成本領導", "generic-cost-maturity"], ["差異化", "generic-diff-maturity"], ["聚焦", "generic-focus-maturity"], ["是否陷入中間狀態", "generic-stuck-maturity"]],
+        "ec-note": ["ws-growth-ec"],
+        "read-startup-2": [["可持續性與保護策略", "vrio-sustain-startup"], ["初步結論與進入點", "5f-conclusion-startup"]],
+        "read-growth-2": [["可持續性與強化策略", "vrio-sustain-growth"], ["策略意涵", "5f-implications-growth"]],
+        "read-maturity-2": [["可持續性與強化策略", "vrio-sustain-maturity"], ["策略意涵", "5f-implications-maturity"], ["SWOT 策略意涵", "swot-implications-maturity"]],
+        "read-decline-2": [["所需的新 VRIO 資源／能力", "vrio-gap-decline"], ["初步決策", "swot-decision-decline"]]
+        };
+
         const exportButton = document.getElementById('exportButton');
         const saveButton = document.getElementById('saveButton');
         const loadButton = document.getElementById('loadButton');
-        const wsTopic = document.getElementById('ws-topic');
         
         function setActiveTab(activeTabName) {
             Object.keys(tabs).forEach(tabName => {
@@ -1468,12 +1394,6 @@
                     tabs[tabName].content.setAttribute('aria-hidden', String(!isActive));
                 }
             });
-            // 「分析對象」屬於生命週期工作表；切到認知作弊器時隱藏
-            const hideWs = (activeTabName === 'cheats');
-            const wsBlock = document.getElementById('ws-topic-block');
-            const wsHr = document.getElementById('ws-topic-hr');
-            if (wsBlock) wsBlock.style.display = hideWs ? 'none' : '';
-            if (wsHr) wsHr.style.display = hideWs ? 'none' : '';
         }
 
         Object.keys(tabs).forEach(tabName => {
@@ -1498,16 +1418,52 @@
 
         /* 把表單內容寫入 localStorage，回傳儲存時間字串 */
         function writeLocalStorage() {
-            const data = {};
-            document.querySelectorAll('input[type="text"], textarea').forEach(el => {
-                if (el.id) {
-                    data[el.id] = el.value;
-                }
+            const data = { _schema: SCHEMA_VERSION };
+            document.querySelectorAll('textarea.worksheet-input').forEach(el => {
+                if (el.id) data[el.id] = el.value;
+            });
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
+                if (el.checked) data[el.dataset.save] = el.value;
             });
             const timestamp = new Date().toLocaleString('zh-TW');
             data._savedAt = timestamp;
             localStorage.setItem('businessLifecycleData', JSON.stringify(data));
             return timestamp;
+        }
+
+        /* 舊版存檔轉換：一個新欄位可能對到多個舊欄位（同一問題在四階段各一份） */
+        function migrateV1(old) {
+            const out = { _schema: SCHEMA_VERSION, _savedAt: old._savedAt, _migratedFrom: 'v1' };
+            const used = {};
+            Object.keys(ID_MIGRATION).forEach(function (nid) {
+                const parts = [];
+                ID_MIGRATION[nid].forEach(function (s) {
+                    const label = Array.isArray(s) ? s[0] : null;
+                    const oid = Array.isArray(s) ? s[1] : s;
+                    if (used[oid]) return;
+                    const v = (old[oid] || '').trim();
+                    if (!v) return;
+                    // 同一個問題在舊版四個階段各有一份，內容一字不差時只留一份
+                    if (!label && parts.indexOf(v) >= 0) return;
+                    used[oid] = 1;
+                    parts.push((label ? '── 舊版「' + label + '」內容 ──\n' : '') + v);
+                });
+                if (parts.length) out[nid] = parts.join('\n\n');
+            });
+            return out;
+        }
+
+        /* 把一份資料寫進畫面（文字欄位 + 是/否選項），回傳寫入欄位數 */
+        function applyData(data) {
+            let n = 0;
+            Object.keys(data).forEach(function (id) {
+                if (id.charAt(0) === '_') return;
+                const el = document.getElementById(id);
+                if (el && el.tagName === 'TEXTAREA') { el.value = data[id]; n++; return; }
+                const r = document.querySelector('input[type="radio"][data-save="' + id + '"][value="' + data[id] + '"]');
+                if (r) { r.checked = true; n++; }
+            });
+            return n;
         }
 
         saveButton.addEventListener('click', () => {
@@ -1529,212 +1485,144 @@
                     return;
                 }
                 
-                const data = JSON.parse(savedData);
-                let loadedCount = 0;
-                
-                Object.keys(data).forEach(id => {
-                    if (id !== '_savedAt') {
-                        const el = document.getElementById(id);
-                        if (el) {
-                            el.value = data[id];
-                            loadedCount++;
-                        }
-                    }
-                });
-
+                const raw = JSON.parse(savedData);
+                const migrated = !raw._schema;
+                const loadedCount = applyData(migrated ? migrateV1(raw) : raw);
                 autoGrowAll();
-                const savedAt = data._savedAt || '未知時間';
-                showNotification(`✅ 已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`, 'success');
+                updateVerdicts();
+                const savedAt = raw._savedAt || '未知時間';
+                showNotification(`✅ 已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`
+                    + (migrated ? '｜已從舊版格式轉換' : ''), 'success');
             } catch (error) {
                 console.error('載入失敗：', error);
                 showNotification('❌ 載入失敗，資料可能已損壞', 'error');
             }
         });
 
-        exportButton.addEventListener('click', function() {
-            const originalText = exportButton.innerHTML;
-            exportButton.innerHTML = '⏳ 處理中...<span class="loading"></span>';
-            exportButton.disabled = true;
-            
-            setTimeout(() => {
-                try {
-                    const exportWrapper = document.createElement('div');
-                    const mainTitleText = "商業生命週期策略工作表";
+        /* ---- VRIO 自動判定：四道關卡一路問下去 ---- */
+        function vrioVerdict() {
+            const pick = k => { const el = document.querySelector('input[name="' + k + '"]:checked'); return el ? el.value : null; };
+            const box = document.getElementById('vrio-verdict');
+            if (!box) return;
+            const txt = box.querySelector('.verdict-text');
+            const v = pick('vrio-v'), r = pick('vrio-r'), ii = pick('vrio-i'), o = pick('vrio-o');
+            if (!v) { box.className = 'verdict'; txt.textContent = '先回答 V 價值性。'; return; }
+            if (v === 'no') { box.className = 'verdict bad'; txt.textContent = '競爭劣勢 —— 這不是資源，是負擔。要嘛改造它，要嘛放手。'; return; }
+            if (r === 'no') { box.className = 'verdict mid'; txt.textContent = '競爭均勢 —— 人人都有的門檻。它只能讓你不落後，不能讓你贏。'; return; }
+            if (ii === 'no') { box.className = 'verdict mid'; txt.textContent = '暫時優勢 —— 領先但守不住。趁領先期把客戶關係或規模做起來。'; return; }
+            if (o === 'no') { box.className = 'verdict mid'; txt.textContent = '未利用的潛力 —— 有牌不會打。問題在組織：流程、人才或獎酬。'; return; }
+            box.className = 'verdict good'; txt.textContent = '持續優勢 —— 這才是護城河。每年重新驗證一次，別讓它悄悄失效。';
+        }
 
-                    const titleH1 = document.createElement('h1');
-                    titleH1.textContent = mainTitleText;
-                    exportWrapper.appendChild(titleH1);
+        /* ---- BCG 自動判定：成長率 × 相對市佔 ---- */
+        function bcgVerdict() {
+            const pick = k => { const el = document.querySelector('input[name="' + k + '"]:checked'); return el ? el.value : null; };
+            const box = document.getElementById('bcg-verdict');
+            if (!box) return;
+            const txt = box.querySelector('.verdict-text');
+            const g = pick('bcg-growth'), s = pick('bcg-share');
+            if (!g || !s) { box.className = 'verdict'; txt.textContent = '把市場成長率與相對市佔選完，這裡會算出象限。'; return; }
+            if (g === 'hi' && s === 'hi') { box.className = 'verdict good'; txt.textContent = '明星（高成長 × 高市佔）—— 值得投，目標是把領先變成護城河。'; }
+            else if (g === 'hi') { box.className = 'verdict mid'; txt.textContent = '問號（高成長 × 低市佔）—— 選擇性投資：要嘛打進前三，要嘛退出，不要吊著。'; }
+            else if (s === 'hi') { box.className = 'verdict good'; txt.textContent = '金牛（低成長 × 高市佔）—— 產現金，收割它、用它養別的。'; }
+            else { box.className = 'verdict bad'; txt.textContent = '狗（低成長 × 低市佔）—— 退出、轉型，或縮到只剩必要投入。'; }
+        }
 
-                    if (wsTopic && wsTopic.value.trim()) {
-                        const topicH3 = document.createElement('h3');
-                        topicH3.style.fontSize = '14pt'; 
-                        topicH3.style.textAlign = 'center';
-                        topicH3.style.marginBottom = '20px';
-                        topicH3.textContent = "分析對象：" + wsTopic.value;
-                        exportWrapper.appendChild(topicH3);
-                    }
-                    
-                    const stageOrder = ['startup', 'growth', 'maturity', 'decline'];
-                    let hasAnyContent = false;
-                    
-                    stageOrder.forEach(stageKey => {
-                        const stageTabContent = document.getElementById(`tab-content-${stageKey}`);
-                        if (!stageTabContent) return; 
+        function updateVerdicts() { vrioVerdict(); bcgVerdict(); }
 
-                        const stageSection = stageTabContent.querySelector('.stage-section');
-                        if (!stageSection) return;
-                        
-                        let hasContent = false;
-                        stageSection.querySelectorAll('textarea.worksheet-input').forEach(textarea => {
-                            if (textarea.value.trim() !== '') {
-                                hasContent = true;
-                            }
-                        });
-                        
-                        if (!hasContent) return;
-                        hasAnyContent = true;
-
-                        if (exportWrapper.querySelector('h2')) {
-                            const pageBreak = document.createElement('p');
-                            pageBreak.setAttribute('style', 'page-break-before: always;');
-                            exportWrapper.appendChild(pageBreak);
-                        }
-                        
-                        const hr = document.createElement('hr');
-                        exportWrapper.appendChild(hr);
-
-                        const stageTitle = stageSection.querySelector('.stage-title');
-                        if (stageTitle) {
-                            const stageH2 = document.createElement('h2');
-                            stageH2.textContent = stageTitle.textContent.trim();
-                            exportWrapper.appendChild(stageH2);
-                        }
-                        
-                        const focusDiv = stageSection.querySelector('.stage-focus');
-                        if(focusDiv) {
-                            const focusClone = focusDiv.cloneNode(true);
-                            focusClone.querySelectorAll('*').forEach(el => el.removeAttribute('class')); 
-                            exportWrapper.appendChild(focusClone); 
-                        }
-
-                        stageSection.querySelectorAll('.tool-block').forEach(toolBlock => {
-                            let toolHasContent = false;
-                            toolBlock.querySelectorAll('textarea.worksheet-input').forEach(textarea => {
-                                if (textarea.value.trim() !== '') {
-                                    toolHasContent = true;
-                                }
-                            });
-                            
-                            if (!toolHasContent) return;
-                            
-                            const toolLabel = toolBlock.querySelector('.tool-label');
-                            if (toolLabel) {
-                                const toolH3 = document.createElement('h3');
-                                toolH3.textContent = toolLabel.textContent.trim();
-                                exportWrapper.appendChild(toolH3);
-                            }
-                            
-                            const toolDescription = toolBlock.querySelector('.tool-description');
-                            if (toolDescription) {
-                                const descP = document.createElement('p');
-                                descP.style.fontStyle = 'italic';
-                                descP.style.fontSize = '10pt';
-                                descP.style.color = '#6b7280';
-                                descP.textContent = toolDescription.textContent.trim();
-                                exportWrapper.appendChild(descP);
-                            }
-
-                            const singleTextarea = toolBlock.querySelector(':scope > textarea.worksheet-input');
-                            if (singleTextarea && singleTextarea.value.trim()) {
-                                const p = createParagraphFromInput(singleTextarea);
-                                exportWrapper.appendChild(p);
-                            }
-                            
-                            toolBlock.querySelectorAll('.input-group').forEach(group => {
-                                const subLabel = group.querySelector('.sub-label');
-                                const textarea = group.querySelector('textarea.worksheet-input');
-
-                                if (subLabel && textarea && textarea.value.trim()) {
-                                    const subH4 = document.createElement('h4');
-                                    
-                                    let labelText = subLabel.textContent.trim();
-                                    const hintSpan = group.querySelector('.sub-label-hint');
-                                    if (hintSpan) {
-                                        labelText += ` ${hintSpan.textContent.trim()}`; 
-                                    }
-                                    subH4.textContent = labelText;
-                                    
-                                    exportWrapper.appendChild(subH4);
-                                    const p = createParagraphFromInput(textarea);
-                                    exportWrapper.appendChild(p);
-                                } else if (textarea && !subLabel && textarea.value.trim()) {
-                                    const p = createParagraphFromInput(textarea);
-                                    exportWrapper.appendChild(p);
-                                }
-                            });
-                        });
-                    });
-                    
-                    if (!hasAnyContent) {
-                        showNotification('ℹ️ 沒有要匯出的內容，請先填寫工作表', 'error');
-                        exportButton.innerHTML = originalText;
-                        exportButton.disabled = false;
-                        return;
-                    }
-                    
-                    function createParagraphFromInput(inputElement) {
-                        const p = document.createElement('p');
-                        if (inputElement.value && inputElement.value.trim() !== '') {
-                            p.setAttribute('style', 'border: 1px solid #d1d5db; padding: 8px 10px; margin: 3px 0 12px 0; background-color: #f9fafb; white-space: pre-wrap; font-size: 10pt; color: #1f2937;');
-                            p.textContent = inputElement.value;
-                        }
-                        return p;
-                    }
-
-                    const finalHtmlString = `
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                            <meta charset="UTF-8">
-                            <style>
-                                body { font-family: 'Arial', 'Microsoft JhengHei', sans-serif; font-size: 11pt; line-height: 1.6; color: #374151; }
-                                h1 { font-size: 20pt; text-align: center; font-weight: bold; color: #111827; margin-bottom: 15px;}
-                                h2 { font-size: 16pt; font-weight: bold; color: #2980b9; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #a9d6f5; padding-bottom: 8px; } /* 顏色更新 */
-                                h3 { font-size: 13pt; font-weight: bold; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
-                                h4 { font-size: 11pt; font-weight: bold; color: #475569; margin-top: 12px; margin-bottom: 5px; }
-                                p { margin-bottom: 15px; white-space: pre-wrap; }
-                                ul { list-style: disc; margin-left: 25px; margin-bottom: 12px; font-size: 10pt; color: #2980b9; } /* 顏色更新 */
-                                .stage-focus { background-color: #eaf5fb; border: 1px solid #a9d6f5; border-radius: 6px; padding: 12px 18px; margin-bottom: 20px; } /* 顏色更新 */
-                                .stage-focus h3 { font-size: 12pt; color: #2980b9; margin-top: 8px; margin-bottom: 10px; border-bottom: none; } /* 顏色更新 */
-                                hr { border: none; border-top: 1px dashed #9ca3af; margin: 30px 0; }
-                            </style>
-                        </head>
-                        <body>
-                            ${exportWrapper.innerHTML}
-                        </body>
-                        </html>
-                    `;
-
-                    // 以 HTML 形式輸出 .doc（Word / Google Docs / LibreOffice / Pages 皆可讀取）。
-                    // 原本用 html-docx-js 產生的 .docx 內含 altChunk，只有桌面版 Word 會展開，
-                    // 其他軟體（含 python-docx、macOS 預覽）讀到的是空白文件。
-                    const converted = new Blob(['\ufeff', finalHtmlString.trim()], { type: 'application/msword' });
-
-                    const filename = `${wsTopic.value || '商業生命週期策略工作表'}_${localDateStr()}.doc`;
-                    saveAs(converted, filename);
-                    
-                    showNotification('✅ Word 文件已成功匯出（.doc）！', 'success');
-
-                } catch (error) {
-                    console.error("匯出失敗：", error);
-                    showNotification('❌ 匯出失敗，請檢查控制台', 'error');
-                } finally {
-                    exportButton.innerHTML = originalText;
-                    exportButton.disabled = false;
-                }
-            }, 100);
+        /* 一次展開／收合所有判讀準則 */
+        const guideToggle = document.getElementById('guideToggle');
+        if (guideToggle) guideToggle.addEventListener('click', function () {
+            const boxes = Array.from(document.querySelectorAll('.fw-guide'));
+            const open = boxes.some(b => !b.open);
+            boxes.forEach(b => { b.open = open; });
+            guideToggle.textContent = open ? '📖 收合全部判讀準則' : '📖 展開全部判讀準則與實例';
         });
-        
+
+        /* ---- Word 匯出：依「區塊 → 欄位」順序輸出已填寫的內容 ---- */
+        function sectionRows(sec) {
+            const rows = [];
+            Array.from(sec.querySelectorAll('.field, .radio-row, .verdict')).forEach(function (node) {
+                if (node.classList.contains('radio-row')) {
+                    const sel = node.querySelector('input:checked');
+                    const note = node.querySelector('textarea');
+                    const bits = [];
+                    if (sel) bits.push('選擇：' + sel.parentElement.textContent.trim());
+                    if (note && note.value.trim()) bits.push(note.value.trim());
+                    if (bits.length) rows.push({ label: node.querySelector('.radio-q').textContent.trim(), value: bits.join('\n') });
+                } else if (node.classList.contains('verdict')) {
+                    const t = node.querySelector('.verdict-text').textContent.trim();
+                    if (t && t.indexOf('把上面') !== 0 && t.indexOf('先回答') !== 0) rows.push({ label: '自動判定', value: t });
+                } else {
+                    const ta = node.querySelector('textarea');
+                    if (ta && ta.value.trim()) rows.push({ label: node.dataset.item || '', value: ta.value.trim() });
+                }
+            });
+            return rows;
+        }
+
+        exportButton.addEventListener('click', function () {
+            const esc2 = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+            const blocks = [];
+            let total = 0;
+
+            const anRows = [];
+            document.querySelectorAll('#tab-content-analysis .sheet-section').forEach(function (sec) {
+                const rows = sectionRows(sec);
+                if (rows.length) { anRows.push({ title: sec.querySelector('.sheet-h3').textContent.trim(), rows: rows }); total += rows.length; }
+            });
+            if (anRows.length) blocks.push({ title: '📋 現況與分析', sub: anRows });
+
+            const stSub = [];
+            ['startup', 'growth', 'maturity', 'decline'].forEach(function (st) {
+                const pane = document.getElementById('tab-content-' + st);
+                if (!pane) return;
+                const rows = sectionRows(pane);
+                if (rows.length) { stSub.push({ title: pane.querySelector('.stage-title').textContent.trim(), rows: rows }); total += rows.length; }
+            });
+            if (stSub.length) blocks.push({ title: '🧭 階段判讀', sub: stSub });
+
+            const acPane = document.getElementById('tab-content-actions');
+            const acRows = acPane ? sectionRows(acPane) : [];
+            if (acRows.length) { blocks.push({ title: '🎯 行動計畫', sub: [{ title: '行動項目', rows: acRows }] }); total += acRows.length; }
+
+            if (!total) { showNotification('ℹ️ 尚無內容可匯出，請先填寫工作表', 'error'); return; }
+
+            let body = '';
+            blocks.forEach(function (b) {
+                body += '<h2>' + esc2(b.title) + '</h2>';
+                b.sub.forEach(function (s) {
+                    body += '<h3>' + esc2(s.title) + '</h3><table>';
+                    s.rows.forEach(function (r) {
+                        body += '<tr><td class="k">' + esc2(r.label) + '</td><td class="v">' + esc2(r.value) + '</td></tr>';
+                    });
+                    body += '</table>';
+                });
+            });
+
+            const topicEl = document.getElementById('obj-name');
+            const topic = topicEl ? topicEl.value.trim() : '';
+            const finalHtmlString = `<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8"><title>策略分析報告</title>
+<style>
+body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; font-size: 12pt; line-height: 1.7; color: #1e293b; }
+h1 { font-size: 18pt; border-bottom: 2px solid #1e3a8a; padding-bottom: 6px; }
+h2 { font-size: 15pt; color: #1e3a8a; margin: 22px 0 8px; }
+h3 { font-size: 13pt; color: #334155; margin: 16px 0 6px; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 12px; }
+td { border: 1px solid #cbd5e1; padding: 7px 9px; vertical-align: top; }
+td.k { width: 30%; background: #f1f5f9; font-weight: bold; }
+</style></head><body>
+<h1>策略分析報告${topic ? '：' + esc2(topic) : ''}</h1>
+<p>產出日期：${localDateStr()}</p>
+${body}
+</body></html>`;
+
+            const blob = new Blob(['\ufeff', finalHtmlString.trim()], { type: 'application/msword' });
+            saveAs(blob, `策略分析報告_${localDateStr()}.doc`);
+            showNotification(`🚀 已匯出 ${total} 個欄位`, 'success');
+        });
+
         /* ================= ⌨️ Cmd/Ctrl+S 儲存、📐 textarea 自動長高 ================= */
         function autoGrow(el) {
             if (!el || el.tagName !== 'TEXTAREA') return;
@@ -1744,6 +1632,22 @@
         function autoGrowAll() {
             document.querySelectorAll('textarea.worksheet-input').forEach(autoGrow);
         }
+        // 開頁自動還原上次內容（含舊版格式遷移）
+        try {
+            const auto = localStorage.getItem('businessLifecycleData');
+            if (auto) {
+                const raw = JSON.parse(auto);
+                const migrated = !raw._schema;
+                applyData(migrated ? migrateV1(raw) : raw);
+                autoGrowAll();
+                updateVerdicts();
+                if (migrated) {
+                    writeLocalStorage();   // 寫回新格式，避免每次開頁重複轉換
+                    showNotification('ℹ️ 已將舊版存檔轉換為新版格式（同一批分析問題只要填一次）', 'success');
+                }
+            }
+        } catch (e) { console.warn('自動還原失敗：', e); }
+
         document.addEventListener('input', (e) => {
             if (e.target && e.target.matches && e.target.matches('textarea.worksheet-input')) autoGrow(e.target);
         });
@@ -1852,49 +1756,21 @@
         });
         renderDiag();
 
-        /* ================= ⤵ 跨階段沿用 ================= */
-        const CARRY_MAP = {
-            growth:   { from: 'startup',  label: '創業/導入期', prefixes: ['vrio-', '5f-'] },
-            maturity: { from: 'growth',   label: '成長期',      prefixes: ['5f-', 'bcg-', 'ansoff-', 'vrio-'] },
-            decline:  { from: 'maturity', label: '成熟期',      prefixes: ['swot-', 'bcg-', 'ansoff-', 'vrio-'] }
-        };
-
-        function carryFromPrevious(stage) {
-            const cfg = CARRY_MAP[stage];
-            if (!cfg) return;
-            let fresh = 0, appended = 0;
-            document.querySelectorAll('textarea[id$="-' + cfg.from + '"]').forEach(src => {
-                const base = src.id.slice(0, -(cfg.from.length + 1));
-                if (!cfg.prefixes.some(px => base.indexOf(px) === 0)) return;
-                const tgt = document.getElementById(base + '-' + stage);
-                if (!tgt) return;
-                if (!src.value.trim()) return;
-                if (!tgt.value.trim()) {
-                    tgt.value = src.value; fresh++;
-                } else {
-                    tgt.value = tgt.value.replace(/\s+$/, '') + '\n── 以下為' + cfg.label + '內容 ──\n' + src.value;
-                    appended++;
-                }
-                tgt.dispatchEvent(new Event('input', { bubbles: true }));
-            });
-            autoGrowAll();
-            if (fresh + appended === 0) {
-                showNotification('ℹ️ ' + cfg.label + '沒有已填寫的對應欄位可帶入', 'error');
-                return;
-            }
-            showNotification('⤵ 已從' + cfg.label + '帶入 ' + (fresh + appended) + ' 個欄位（新增 ' + fresh + '、附加 ' + appended + '）', 'success');
-        }
-        document.querySelectorAll('.carry-btn').forEach(b => b.addEventListener('click', () => carryFromPrevious(b.getAttribute('data-carry'))));
-
+        /* 跨階段沿用已移除：v2 把分析欄位改成共用（id 不再帶階段後綴），
+           同一批問題在四個階段只填一次，不需要複製貼上。 */
         /* ================= 🗑 清空 / ⬇ 備份 / ⬆ 還原 ================= */
         const clearBtn = document.getElementById('clearButton');
         if (clearBtn) clearBtn.addEventListener('click', () => {
             if (!confirm('確定要清空所有工作表內容嗎？此動作無法復原。\n（建議先按「⬇ 備份 JSON」）')) return;
             if (!confirm('再次確認：清空後每個分頁的填寫內容都會消失。')) return;
             let n = 0;
-            document.querySelectorAll('textarea.worksheet-input, #ws-topic').forEach(el => {
+            document.querySelectorAll('textarea.worksheet-input').forEach(el => {
                 if (el.value !== '') { el.value = ''; n++; }
             });
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
+                if (el.checked) { el.checked = false; n++; }
+            });
+            updateVerdicts();
             localStorage.removeItem('businessLifecycleData');
             autoGrowAll();
             isDirty = false;
@@ -1904,8 +1780,9 @@
 
         const backupBtn = document.getElementById('backupButton');
         if (backupBtn) backupBtn.addEventListener('click', () => {
-            const data = { _app: '商業生命週期策略工具箱', _savedAt: new Date().toLocaleString('zh-TW') };
-            document.querySelectorAll('input[type="text"], textarea').forEach(el => { if (el.id) data[el.id] = el.value; });
+            const data = { _app: '商業生命週期策略工具箱', _schema: SCHEMA_VERSION, _savedAt: new Date().toLocaleString('zh-TW') };
+            document.querySelectorAll('textarea.worksheet-input').forEach(el => { if (el.id) data[el.id] = el.value; });
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => { if (el.checked) data[el.dataset.save] = el.value; });
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             saveAs(blob, `策略工作表備份_${localDateStr()}.json`);
             showNotification('⬇ 備份檔已下載（可跨裝置還原）', 'success');
@@ -1919,17 +1796,15 @@
                 const f = restoreFileEl.files && restoreFileEl.files[0];
                 if (!f) return;
                 try {
-                    const data = JSON.parse(await f.text());
-                    let n = 0;
-                    Object.keys(data).forEach(k => {
-                        if (k.charAt(0) === '_') return;
-                        const el = document.getElementById(k);
-                        if (el && 'value' in el) { el.value = data[k]; n++; }
-                    });
+                    const raw = JSON.parse(await f.text());
+                    const migrated = !raw._schema;
+                    const n = applyData(migrated ? migrateV1(raw) : raw);
+                    updateVerdicts();
                     const t = writeLocalStorage();
                     autoGrowAll();
                     isDirty = false;
-                    showNotification('⬆ 已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）', 'success');
+                    showNotification('⬆ 已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）'
+                        + (migrated ? '｜已從舊版格式轉換' : ''), 'success');
                 } catch (e) {
                     console.error('還原失敗：', e);
                     showNotification('❌ 備份檔格式錯誤，請選擇本工具匯出的 JSON', 'error');
@@ -1939,13 +1814,15 @@
         }
 
         setActiveTab('analysis');
+        updateVerdicts();
         
         /* ---- 自動儲存：停止輸入 1.5 秒後自動寫入；未儲存就關頁面會攔一次 ---- */
         let autoSaveTimer = null;
         let isDirty = false;
         
         document.addEventListener('input', (e) => {
-            if (!e.target.matches('input[type="text"], textarea')) return;
+            if (e.target.matches('input[type="radio"][data-save]')) updateVerdicts();
+            if (!e.target.matches('textarea.worksheet-input, input[type="radio"][data-save]')) return;
             isDirty = true;
             clearTimeout(autoSaveTimer);
             autoSaveTimer = setTimeout(() => {

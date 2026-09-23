@@ -494,7 +494,71 @@
 
         /* ===== 🗑 危險按鈕 ===== */
         .btn-red { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-    </style>
+    
+/* ================= 🆕 v2：分析區 / 判讀區 / 行動計畫 ================= */
+.sheet-section { margin: 0 0 34px; padding-bottom: 22px; border-bottom: 1px dashed #cbd5e1; }
+.sheet-section:last-of-type { border-bottom: none; }
+.sheet-h3 { font-size: 1.32em; font-weight: 700; color: #1e3a8a; margin: 0 0 6px; }
+.sheet-desc { color: #475569; font-size: 0.95em; margin: 0 0 14px; line-height: 1.7; }
+
+.field-grid { display: grid; gap: 14px; margin-bottom: 14px; }
+.field-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 720px) { .field-grid.cols-2 { grid-template-columns: 1fr; } }
+
+.field { display: flex; flex-direction: column; }
+.field-label { font-weight: 600; color: #334155; font-size: 0.95em; margin-bottom: 5px; }
+.field-tag { font-weight: 400; font-size: 0.82em; color: #64748b; margin-left: 6px; }
+textarea.worksheet-input { width: 100%; box-sizing: border-box; min-height: 120px; padding: 14px;
+  border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 1em; line-height: 1.7;
+  color: #1e293b; background: #fff; resize: vertical; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+textarea.worksheet-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+
+.matrix-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 14px;
+  border: 2px solid #94a3b8; border-radius: 10px; overflow: hidden; }
+.matrix-2x2 .mx-cell { padding: 14px; background: #f8fafc; border-right: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
+.matrix-2x2 .mx-cell:nth-child(2n) { border-right: none; }
+.matrix-2x2 .mx-cell:nth-last-child(-n+2) { border-bottom: none; }
+.matrix-2x2 .mx-cell textarea { min-height: 130px; }
+@media (max-width: 720px) { .matrix-2x2 { grid-template-columns: 1fr; }
+  .matrix-2x2 .mx-cell { border-right: none; } .matrix-2x2 .mx-cell:nth-last-child(-n+2) { border-bottom: 1px solid #cbd5e1; } }
+
+.radio-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 14px;
+  background: #f1f5f9; border-radius: 8px; margin-bottom: 12px; }
+.radio-main { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.radio-q { font-weight: 600; color: #334155; font-size: 0.95em; }
+.radio-opt { display: inline-flex; align-items: center; gap: 5px; font-size: 0.95em; cursor: pointer; color: #1e293b; }
+.radio-opt input { width: 17px; height: 17px; cursor: pointer; }
+textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
+
+.verdict { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 8px;
+  background: #f1f5f9; border-left: 5px solid #94a3b8; margin-bottom: 14px; font-size: 0.95em; }
+.verdict-label { flex: 0 0 auto; font-weight: 700; color: #475569; }
+.verdict-text { color: #1e293b; line-height: 1.7; }
+.verdict.good { background: #ecfdf5; border-left-color: #059669; }
+.verdict.mid { background: #fffbeb; border-left-color: #d97706; }
+.verdict.bad { background: #fef2f2; border-left-color: #dc2626; }
+
+.fw-guide { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 14px; }
+.fw-guide > summary { cursor: pointer; padding: 10px 14px; font-weight: 600; color: #1e40af; font-size: 0.95em; }
+.fw-guide > summary:hover { background: #eff6ff; }
+.fw-criteria, .fw-example { padding: 2px 16px 14px; margin: 0 0 12px; }
+.fw-criteria > strong, .fw-example > strong { display: block; color: #1e40af; font-size: 0.9em; margin-bottom: 6px; }
+.fw-criteria p, .fw-example p { margin: 0; color: #475569; font-size: 0.92em; line-height: 1.8; }
+.fw-example p { color: #334155; }
+
+.stage-reading { margin: 10px 0 4px; color: #475569; font-size: 0.93em; line-height: 1.75; }
+.stage-refs { margin: 6px 0 0; color: #1e40af; font-size: 0.9em; font-weight: 600; }
+
+.action-row { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
+.action-head { font-weight: 700; color: #1e3a8a; margin-bottom: 10px; font-size: 0.95em; }
+.action-row textarea.worksheet-input { min-height: 72px; }
+
+.guide-toggle { margin: 0 0 18px; }
+.guide-toggle button { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; border-radius: 8px;
+  padding: 8px 14px; font-size: 0.9em; cursor: pointer; font-family: inherit; }
+.guide-toggle button:hover { background: #dbeafe; }
+
+</style>
 
     <!-- Tailwind 產生的樣式必須排在自訂 <style> 之後：
          兩者特異度相同，順序決定誰勝出（原本 CDN 是執行時注入，天生在後面）。 -->
@@ -514,24 +578,17 @@
     <div class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-10 bg-white rounded-2xl shadow-2xl my-6 sm:my-12">
 
         <div class="mb-8 border-b-2 border-slate-200 no-print">
-            <nav class="tab-buttons" role="tablist" aria-label="工作表分頁">
-                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">📚 策略分析</button>
+            <nav class="tab-buttons no-print" role="tablist" aria-label="工作表分頁">
+                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">📋 現況與分析</button>
                 <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">🌱 創業期</button>
                 <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">🚀 成長期</button>
                 <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">🌳 成熟期</button>
                 <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">🍂 衰退/轉型期</button>
+                <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">🎯 行動計畫</button>
                 <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">🎮 認知作弊器</button>
             </nav>
         </div>
         
-        <div class="mb-8" id="ws-topic-block">
-            <label for="ws-topic" class="text-xl font-semibold text-gray-800 block mb-2"> 📋 分析對象（公司/產品/專案）
-            </label>
-            <input type="text" id="ws-topic" class="worksheet-input" placeholder="請輸入要分析的公司名稱、產品線或專案名稱..." style="min-height: 50px;">
-        </div>
-        
-        <hr class="my-8 border-slate-300" id="ws-topic-hr">
-
         <div id="tab-content-analysis" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-analysis">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
                 <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent"> 商業生命週期與策略工具整合指南
@@ -539,7 +596,7 @@
             </h1>
             
             <p class="analysis-p mb-10 text-lg">
-                企業如同生命體，會經歷不同的發展階段。理解公司當前所處的生命週期階段，並選擇適當的戰略工具，是制定有效策略的關鍵。本工具整合了生命週期理論與經典策略框架，幫助您更系統化地思考。
+                企業如同生命體，會經歷不同的發展階段。本工具把「與階段無關的分析」集中在這一頁做一次，各階段分頁只留下該階段特有的判讀問題；每個框架都附上判讀準則與實例。
             </p>
 
             <section class="analysis-section no-print" id="stageDiagnosis">
@@ -555,7 +612,11 @@
                 </div>
             </section>
 
-            <!--{{OVERVIEW_SECTIONS}}-->
+            <div class="guide-toggle no-print">
+                <button type="button" id="guideToggle">📖 展開全部判讀準則與實例</button>
+                <span class="field-tag">每個框架的判讀準則預設收合，需要時再展開。</span>
+            </div>
+            <!--{{ANALYSIS_SECTIONS}}-->
 </div>
         
         <!--{{STAGE_PANES}}-->
@@ -804,12 +865,16 @@
             growth: { btn: document.getElementById('tab-btn-growth'), content: document.getElementById('tab-content-growth') },
             maturity: { btn: document.getElementById('tab-btn-maturity'), content: document.getElementById('tab-content-maturity') },
             decline: { btn: document.getElementById('tab-btn-decline'), content: document.getElementById('tab-content-decline') },
+            actions: { btn: document.getElementById('tab-btn-actions'), content: document.getElementById('tab-content-actions') },
             cheats: { btn: document.getElementById('tab-btn-cheats'), content: document.getElementById('tab-content-cheats') }
         };
+        const SCHEMA_VERSION = {{SCHEMA_VERSION}};
+        // 舊版（v1）欄位 id → v2 欄位 id；由 src/content.py 的 ID_MIGRATION 產生
+        const ID_MIGRATION = {{ID_MIGRATION}};
+
         const exportButton = document.getElementById('exportButton');
         const saveButton = document.getElementById('saveButton');
         const loadButton = document.getElementById('loadButton');
-        const wsTopic = document.getElementById('ws-topic');
         
         function setActiveTab(activeTabName) {
             Object.keys(tabs).forEach(tabName => {
@@ -824,12 +889,6 @@
                     tabs[tabName].content.setAttribute('aria-hidden', String(!isActive));
                 }
             });
-            // 「分析對象」屬於生命週期工作表；切到認知作弊器時隱藏
-            const hideWs = (activeTabName === 'cheats');
-            const wsBlock = document.getElementById('ws-topic-block');
-            const wsHr = document.getElementById('ws-topic-hr');
-            if (wsBlock) wsBlock.style.display = hideWs ? 'none' : '';
-            if (wsHr) wsHr.style.display = hideWs ? 'none' : '';
         }
 
         Object.keys(tabs).forEach(tabName => {
@@ -854,16 +913,52 @@
 
         /* 把表單內容寫入 localStorage，回傳儲存時間字串 */
         function writeLocalStorage() {
-            const data = {};
-            document.querySelectorAll('input[type="text"], textarea').forEach(el => {
-                if (el.id) {
-                    data[el.id] = el.value;
-                }
+            const data = { _schema: SCHEMA_VERSION };
+            document.querySelectorAll('textarea.worksheet-input').forEach(el => {
+                if (el.id) data[el.id] = el.value;
+            });
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
+                if (el.checked) data[el.dataset.save] = el.value;
             });
             const timestamp = new Date().toLocaleString('zh-TW');
             data._savedAt = timestamp;
             localStorage.setItem('businessLifecycleData', JSON.stringify(data));
             return timestamp;
+        }
+
+        /* 舊版存檔轉換：一個新欄位可能對到多個舊欄位（同一問題在四階段各一份） */
+        function migrateV1(old) {
+            const out = { _schema: SCHEMA_VERSION, _savedAt: old._savedAt, _migratedFrom: 'v1' };
+            const used = {};
+            Object.keys(ID_MIGRATION).forEach(function (nid) {
+                const parts = [];
+                ID_MIGRATION[nid].forEach(function (s) {
+                    const label = Array.isArray(s) ? s[0] : null;
+                    const oid = Array.isArray(s) ? s[1] : s;
+                    if (used[oid]) return;
+                    const v = (old[oid] || '').trim();
+                    if (!v) return;
+                    // 同一個問題在舊版四個階段各有一份，內容一字不差時只留一份
+                    if (!label && parts.indexOf(v) >= 0) return;
+                    used[oid] = 1;
+                    parts.push((label ? '── 舊版「' + label + '」內容 ──\n' : '') + v);
+                });
+                if (parts.length) out[nid] = parts.join('\n\n');
+            });
+            return out;
+        }
+
+        /* 把一份資料寫進畫面（文字欄位 + 是/否選項），回傳寫入欄位數 */
+        function applyData(data) {
+            let n = 0;
+            Object.keys(data).forEach(function (id) {
+                if (id.charAt(0) === '_') return;
+                const el = document.getElementById(id);
+                if (el && el.tagName === 'TEXTAREA') { el.value = data[id]; n++; return; }
+                const r = document.querySelector('input[type="radio"][data-save="' + id + '"][value="' + data[id] + '"]');
+                if (r) { r.checked = true; n++; }
+            });
+            return n;
         }
 
         saveButton.addEventListener('click', () => {
@@ -885,212 +980,144 @@
                     return;
                 }
                 
-                const data = JSON.parse(savedData);
-                let loadedCount = 0;
-                
-                Object.keys(data).forEach(id => {
-                    if (id !== '_savedAt') {
-                        const el = document.getElementById(id);
-                        if (el) {
-                            el.value = data[id];
-                            loadedCount++;
-                        }
-                    }
-                });
-
+                const raw = JSON.parse(savedData);
+                const migrated = !raw._schema;
+                const loadedCount = applyData(migrated ? migrateV1(raw) : raw);
                 autoGrowAll();
-                const savedAt = data._savedAt || '未知時間';
-                showNotification(`✅ 已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`, 'success');
+                updateVerdicts();
+                const savedAt = raw._savedAt || '未知時間';
+                showNotification(`✅ 已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`
+                    + (migrated ? '｜已從舊版格式轉換' : ''), 'success');
             } catch (error) {
                 console.error('載入失敗：', error);
                 showNotification('❌ 載入失敗，資料可能已損壞', 'error');
             }
         });
 
-        exportButton.addEventListener('click', function() {
-            const originalText = exportButton.innerHTML;
-            exportButton.innerHTML = '⏳ 處理中...<span class="loading"></span>';
-            exportButton.disabled = true;
-            
-            setTimeout(() => {
-                try {
-                    const exportWrapper = document.createElement('div');
-                    const mainTitleText = "商業生命週期策略工作表";
+        /* ---- VRIO 自動判定：四道關卡一路問下去 ---- */
+        function vrioVerdict() {
+            const pick = k => { const el = document.querySelector('input[name="' + k + '"]:checked'); return el ? el.value : null; };
+            const box = document.getElementById('vrio-verdict');
+            if (!box) return;
+            const txt = box.querySelector('.verdict-text');
+            const v = pick('vrio-v'), r = pick('vrio-r'), ii = pick('vrio-i'), o = pick('vrio-o');
+            if (!v) { box.className = 'verdict'; txt.textContent = '先回答 V 價值性。'; return; }
+            if (v === 'no') { box.className = 'verdict bad'; txt.textContent = '競爭劣勢 —— 這不是資源，是負擔。要嘛改造它，要嘛放手。'; return; }
+            if (r === 'no') { box.className = 'verdict mid'; txt.textContent = '競爭均勢 —— 人人都有的門檻。它只能讓你不落後，不能讓你贏。'; return; }
+            if (ii === 'no') { box.className = 'verdict mid'; txt.textContent = '暫時優勢 —— 領先但守不住。趁領先期把客戶關係或規模做起來。'; return; }
+            if (o === 'no') { box.className = 'verdict mid'; txt.textContent = '未利用的潛力 —— 有牌不會打。問題在組織：流程、人才或獎酬。'; return; }
+            box.className = 'verdict good'; txt.textContent = '持續優勢 —— 這才是護城河。每年重新驗證一次，別讓它悄悄失效。';
+        }
 
-                    const titleH1 = document.createElement('h1');
-                    titleH1.textContent = mainTitleText;
-                    exportWrapper.appendChild(titleH1);
+        /* ---- BCG 自動判定：成長率 × 相對市佔 ---- */
+        function bcgVerdict() {
+            const pick = k => { const el = document.querySelector('input[name="' + k + '"]:checked'); return el ? el.value : null; };
+            const box = document.getElementById('bcg-verdict');
+            if (!box) return;
+            const txt = box.querySelector('.verdict-text');
+            const g = pick('bcg-growth'), s = pick('bcg-share');
+            if (!g || !s) { box.className = 'verdict'; txt.textContent = '把市場成長率與相對市佔選完，這裡會算出象限。'; return; }
+            if (g === 'hi' && s === 'hi') { box.className = 'verdict good'; txt.textContent = '明星（高成長 × 高市佔）—— 值得投，目標是把領先變成護城河。'; }
+            else if (g === 'hi') { box.className = 'verdict mid'; txt.textContent = '問號（高成長 × 低市佔）—— 選擇性投資：要嘛打進前三，要嘛退出，不要吊著。'; }
+            else if (s === 'hi') { box.className = 'verdict good'; txt.textContent = '金牛（低成長 × 高市佔）—— 產現金，收割它、用它養別的。'; }
+            else { box.className = 'verdict bad'; txt.textContent = '狗（低成長 × 低市佔）—— 退出、轉型，或縮到只剩必要投入。'; }
+        }
 
-                    if (wsTopic && wsTopic.value.trim()) {
-                        const topicH3 = document.createElement('h3');
-                        topicH3.style.fontSize = '14pt'; 
-                        topicH3.style.textAlign = 'center';
-                        topicH3.style.marginBottom = '20px';
-                        topicH3.textContent = "分析對象：" + wsTopic.value;
-                        exportWrapper.appendChild(topicH3);
-                    }
-                    
-                    const stageOrder = ['startup', 'growth', 'maturity', 'decline'];
-                    let hasAnyContent = false;
-                    
-                    stageOrder.forEach(stageKey => {
-                        const stageTabContent = document.getElementById(`tab-content-${stageKey}`);
-                        if (!stageTabContent) return; 
+        function updateVerdicts() { vrioVerdict(); bcgVerdict(); }
 
-                        const stageSection = stageTabContent.querySelector('.stage-section');
-                        if (!stageSection) return;
-                        
-                        let hasContent = false;
-                        stageSection.querySelectorAll('textarea.worksheet-input').forEach(textarea => {
-                            if (textarea.value.trim() !== '') {
-                                hasContent = true;
-                            }
-                        });
-                        
-                        if (!hasContent) return;
-                        hasAnyContent = true;
-
-                        if (exportWrapper.querySelector('h2')) {
-                            const pageBreak = document.createElement('p');
-                            pageBreak.setAttribute('style', 'page-break-before: always;');
-                            exportWrapper.appendChild(pageBreak);
-                        }
-                        
-                        const hr = document.createElement('hr');
-                        exportWrapper.appendChild(hr);
-
-                        const stageTitle = stageSection.querySelector('.stage-title');
-                        if (stageTitle) {
-                            const stageH2 = document.createElement('h2');
-                            stageH2.textContent = stageTitle.textContent.trim();
-                            exportWrapper.appendChild(stageH2);
-                        }
-                        
-                        const focusDiv = stageSection.querySelector('.stage-focus');
-                        if(focusDiv) {
-                            const focusClone = focusDiv.cloneNode(true);
-                            focusClone.querySelectorAll('*').forEach(el => el.removeAttribute('class')); 
-                            exportWrapper.appendChild(focusClone); 
-                        }
-
-                        stageSection.querySelectorAll('.tool-block').forEach(toolBlock => {
-                            let toolHasContent = false;
-                            toolBlock.querySelectorAll('textarea.worksheet-input').forEach(textarea => {
-                                if (textarea.value.trim() !== '') {
-                                    toolHasContent = true;
-                                }
-                            });
-                            
-                            if (!toolHasContent) return;
-                            
-                            const toolLabel = toolBlock.querySelector('.tool-label');
-                            if (toolLabel) {
-                                const toolH3 = document.createElement('h3');
-                                toolH3.textContent = toolLabel.textContent.trim();
-                                exportWrapper.appendChild(toolH3);
-                            }
-                            
-                            const toolDescription = toolBlock.querySelector('.tool-description');
-                            if (toolDescription) {
-                                const descP = document.createElement('p');
-                                descP.style.fontStyle = 'italic';
-                                descP.style.fontSize = '10pt';
-                                descP.style.color = '#6b7280';
-                                descP.textContent = toolDescription.textContent.trim();
-                                exportWrapper.appendChild(descP);
-                            }
-
-                            const singleTextarea = toolBlock.querySelector(':scope > textarea.worksheet-input');
-                            if (singleTextarea && singleTextarea.value.trim()) {
-                                const p = createParagraphFromInput(singleTextarea);
-                                exportWrapper.appendChild(p);
-                            }
-                            
-                            toolBlock.querySelectorAll('.input-group').forEach(group => {
-                                const subLabel = group.querySelector('.sub-label');
-                                const textarea = group.querySelector('textarea.worksheet-input');
-
-                                if (subLabel && textarea && textarea.value.trim()) {
-                                    const subH4 = document.createElement('h4');
-                                    
-                                    let labelText = subLabel.textContent.trim();
-                                    const hintSpan = group.querySelector('.sub-label-hint');
-                                    if (hintSpan) {
-                                        labelText += ` ${hintSpan.textContent.trim()}`; 
-                                    }
-                                    subH4.textContent = labelText;
-                                    
-                                    exportWrapper.appendChild(subH4);
-                                    const p = createParagraphFromInput(textarea);
-                                    exportWrapper.appendChild(p);
-                                } else if (textarea && !subLabel && textarea.value.trim()) {
-                                    const p = createParagraphFromInput(textarea);
-                                    exportWrapper.appendChild(p);
-                                }
-                            });
-                        });
-                    });
-                    
-                    if (!hasAnyContent) {
-                        showNotification('ℹ️ 沒有要匯出的內容，請先填寫工作表', 'error');
-                        exportButton.innerHTML = originalText;
-                        exportButton.disabled = false;
-                        return;
-                    }
-                    
-                    function createParagraphFromInput(inputElement) {
-                        const p = document.createElement('p');
-                        if (inputElement.value && inputElement.value.trim() !== '') {
-                            p.setAttribute('style', 'border: 1px solid #d1d5db; padding: 8px 10px; margin: 3px 0 12px 0; background-color: #f9fafb; white-space: pre-wrap; font-size: 10pt; color: #1f2937;');
-                            p.textContent = inputElement.value;
-                        }
-                        return p;
-                    }
-
-                    const finalHtmlString = `
-                        <!DOCTYPE html>
-                        <html>
-                        <head>
-                            <meta charset="UTF-8">
-                            <style>
-                                body { font-family: 'Arial', 'Microsoft JhengHei', sans-serif; font-size: 11pt; line-height: 1.6; color: #374151; }
-                                h1 { font-size: 20pt; text-align: center; font-weight: bold; color: #111827; margin-bottom: 15px;}
-                                h2 { font-size: 16pt; font-weight: bold; color: #2980b9; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #a9d6f5; padding-bottom: 8px; } /* 顏色更新 */
-                                h3 { font-size: 13pt; font-weight: bold; color: #1f2937; margin-top: 20px; margin-bottom: 10px; }
-                                h4 { font-size: 11pt; font-weight: bold; color: #475569; margin-top: 12px; margin-bottom: 5px; }
-                                p { margin-bottom: 15px; white-space: pre-wrap; }
-                                ul { list-style: disc; margin-left: 25px; margin-bottom: 12px; font-size: 10pt; color: #2980b9; } /* 顏色更新 */
-                                .stage-focus { background-color: #eaf5fb; border: 1px solid #a9d6f5; border-radius: 6px; padding: 12px 18px; margin-bottom: 20px; } /* 顏色更新 */
-                                .stage-focus h3 { font-size: 12pt; color: #2980b9; margin-top: 8px; margin-bottom: 10px; border-bottom: none; } /* 顏色更新 */
-                                hr { border: none; border-top: 1px dashed #9ca3af; margin: 30px 0; }
-                            </style>
-                        </head>
-                        <body>
-                            ${exportWrapper.innerHTML}
-                        </body>
-                        </html>
-                    `;
-
-                    // 以 HTML 形式輸出 .doc（Word / Google Docs / LibreOffice / Pages 皆可讀取）。
-                    // 原本用 html-docx-js 產生的 .docx 內含 altChunk，只有桌面版 Word 會展開，
-                    // 其他軟體（含 python-docx、macOS 預覽）讀到的是空白文件。
-                    const converted = new Blob(['\ufeff', finalHtmlString.trim()], { type: 'application/msword' });
-
-                    const filename = `${wsTopic.value || '商業生命週期策略工作表'}_${localDateStr()}.doc`;
-                    saveAs(converted, filename);
-                    
-                    showNotification('✅ Word 文件已成功匯出（.doc）！', 'success');
-
-                } catch (error) {
-                    console.error("匯出失敗：", error);
-                    showNotification('❌ 匯出失敗，請檢查控制台', 'error');
-                } finally {
-                    exportButton.innerHTML = originalText;
-                    exportButton.disabled = false;
-                }
-            }, 100);
+        /* 一次展開／收合所有判讀準則 */
+        const guideToggle = document.getElementById('guideToggle');
+        if (guideToggle) guideToggle.addEventListener('click', function () {
+            const boxes = Array.from(document.querySelectorAll('.fw-guide'));
+            const open = boxes.some(b => !b.open);
+            boxes.forEach(b => { b.open = open; });
+            guideToggle.textContent = open ? '📖 收合全部判讀準則' : '📖 展開全部判讀準則與實例';
         });
-        
+
+        /* ---- Word 匯出：依「區塊 → 欄位」順序輸出已填寫的內容 ---- */
+        function sectionRows(sec) {
+            const rows = [];
+            Array.from(sec.querySelectorAll('.field, .radio-row, .verdict')).forEach(function (node) {
+                if (node.classList.contains('radio-row')) {
+                    const sel = node.querySelector('input:checked');
+                    const note = node.querySelector('textarea');
+                    const bits = [];
+                    if (sel) bits.push('選擇：' + sel.parentElement.textContent.trim());
+                    if (note && note.value.trim()) bits.push(note.value.trim());
+                    if (bits.length) rows.push({ label: node.querySelector('.radio-q').textContent.trim(), value: bits.join('\n') });
+                } else if (node.classList.contains('verdict')) {
+                    const t = node.querySelector('.verdict-text').textContent.trim();
+                    if (t && t.indexOf('把上面') !== 0 && t.indexOf('先回答') !== 0) rows.push({ label: '自動判定', value: t });
+                } else {
+                    const ta = node.querySelector('textarea');
+                    if (ta && ta.value.trim()) rows.push({ label: node.dataset.item || '', value: ta.value.trim() });
+                }
+            });
+            return rows;
+        }
+
+        exportButton.addEventListener('click', function () {
+            const esc2 = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+            const blocks = [];
+            let total = 0;
+
+            const anRows = [];
+            document.querySelectorAll('#tab-content-analysis .sheet-section').forEach(function (sec) {
+                const rows = sectionRows(sec);
+                if (rows.length) { anRows.push({ title: sec.querySelector('.sheet-h3').textContent.trim(), rows: rows }); total += rows.length; }
+            });
+            if (anRows.length) blocks.push({ title: '📋 現況與分析', sub: anRows });
+
+            const stSub = [];
+            ['startup', 'growth', 'maturity', 'decline'].forEach(function (st) {
+                const pane = document.getElementById('tab-content-' + st);
+                if (!pane) return;
+                const rows = sectionRows(pane);
+                if (rows.length) { stSub.push({ title: pane.querySelector('.stage-title').textContent.trim(), rows: rows }); total += rows.length; }
+            });
+            if (stSub.length) blocks.push({ title: '🧭 階段判讀', sub: stSub });
+
+            const acPane = document.getElementById('tab-content-actions');
+            const acRows = acPane ? sectionRows(acPane) : [];
+            if (acRows.length) { blocks.push({ title: '🎯 行動計畫', sub: [{ title: '行動項目', rows: acRows }] }); total += acRows.length; }
+
+            if (!total) { showNotification('ℹ️ 尚無內容可匯出，請先填寫工作表', 'error'); return; }
+
+            let body = '';
+            blocks.forEach(function (b) {
+                body += '<h2>' + esc2(b.title) + '</h2>';
+                b.sub.forEach(function (s) {
+                    body += '<h3>' + esc2(s.title) + '</h3><table>';
+                    s.rows.forEach(function (r) {
+                        body += '<tr><td class="k">' + esc2(r.label) + '</td><td class="v">' + esc2(r.value) + '</td></tr>';
+                    });
+                    body += '</table>';
+                });
+            });
+
+            const topicEl = document.getElementById('obj-name');
+            const topic = topicEl ? topicEl.value.trim() : '';
+            const finalHtmlString = `<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="UTF-8"><title>策略分析報告</title>
+<style>
+body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; font-size: 12pt; line-height: 1.7; color: #1e293b; }
+h1 { font-size: 18pt; border-bottom: 2px solid #1e3a8a; padding-bottom: 6px; }
+h2 { font-size: 15pt; color: #1e3a8a; margin: 22px 0 8px; }
+h3 { font-size: 13pt; color: #334155; margin: 16px 0 6px; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 12px; }
+td { border: 1px solid #cbd5e1; padding: 7px 9px; vertical-align: top; }
+td.k { width: 30%; background: #f1f5f9; font-weight: bold; }
+</style></head><body>
+<h1>策略分析報告${topic ? '：' + esc2(topic) : ''}</h1>
+<p>產出日期：${localDateStr()}</p>
+${body}
+</body></html>`;
+
+            const blob = new Blob(['\ufeff', finalHtmlString.trim()], { type: 'application/msword' });
+            saveAs(blob, `策略分析報告_${localDateStr()}.doc`);
+            showNotification(`🚀 已匯出 ${total} 個欄位`, 'success');
+        });
+
         /* ================= ⌨️ Cmd/Ctrl+S 儲存、📐 textarea 自動長高 ================= */
         function autoGrow(el) {
             if (!el || el.tagName !== 'TEXTAREA') return;
@@ -1100,6 +1127,22 @@
         function autoGrowAll() {
             document.querySelectorAll('textarea.worksheet-input').forEach(autoGrow);
         }
+        // 開頁自動還原上次內容（含舊版格式遷移）
+        try {
+            const auto = localStorage.getItem('businessLifecycleData');
+            if (auto) {
+                const raw = JSON.parse(auto);
+                const migrated = !raw._schema;
+                applyData(migrated ? migrateV1(raw) : raw);
+                autoGrowAll();
+                updateVerdicts();
+                if (migrated) {
+                    writeLocalStorage();   // 寫回新格式，避免每次開頁重複轉換
+                    showNotification('ℹ️ 已將舊版存檔轉換為新版格式（同一批分析問題只要填一次）', 'success');
+                }
+            }
+        } catch (e) { console.warn('自動還原失敗：', e); }
+
         document.addEventListener('input', (e) => {
             if (e.target && e.target.matches && e.target.matches('textarea.worksheet-input')) autoGrow(e.target);
         });
@@ -1208,49 +1251,21 @@
         });
         renderDiag();
 
-        /* ================= ⤵ 跨階段沿用 ================= */
-        const CARRY_MAP = {
-            growth:   { from: 'startup',  label: '創業/導入期', prefixes: ['vrio-', '5f-'] },
-            maturity: { from: 'growth',   label: '成長期',      prefixes: ['5f-', 'bcg-', 'ansoff-', 'vrio-'] },
-            decline:  { from: 'maturity', label: '成熟期',      prefixes: ['swot-', 'bcg-', 'ansoff-', 'vrio-'] }
-        };
-
-        function carryFromPrevious(stage) {
-            const cfg = CARRY_MAP[stage];
-            if (!cfg) return;
-            let fresh = 0, appended = 0;
-            document.querySelectorAll('textarea[id$="-' + cfg.from + '"]').forEach(src => {
-                const base = src.id.slice(0, -(cfg.from.length + 1));
-                if (!cfg.prefixes.some(px => base.indexOf(px) === 0)) return;
-                const tgt = document.getElementById(base + '-' + stage);
-                if (!tgt) return;
-                if (!src.value.trim()) return;
-                if (!tgt.value.trim()) {
-                    tgt.value = src.value; fresh++;
-                } else {
-                    tgt.value = tgt.value.replace(/\s+$/, '') + '\n── 以下為' + cfg.label + '內容 ──\n' + src.value;
-                    appended++;
-                }
-                tgt.dispatchEvent(new Event('input', { bubbles: true }));
-            });
-            autoGrowAll();
-            if (fresh + appended === 0) {
-                showNotification('ℹ️ ' + cfg.label + '沒有已填寫的對應欄位可帶入', 'error');
-                return;
-            }
-            showNotification('⤵ 已從' + cfg.label + '帶入 ' + (fresh + appended) + ' 個欄位（新增 ' + fresh + '、附加 ' + appended + '）', 'success');
-        }
-        document.querySelectorAll('.carry-btn').forEach(b => b.addEventListener('click', () => carryFromPrevious(b.getAttribute('data-carry'))));
-
+        /* 跨階段沿用已移除：v2 把分析欄位改成共用（id 不再帶階段後綴），
+           同一批問題在四個階段只填一次，不需要複製貼上。 */
         /* ================= 🗑 清空 / ⬇ 備份 / ⬆ 還原 ================= */
         const clearBtn = document.getElementById('clearButton');
         if (clearBtn) clearBtn.addEventListener('click', () => {
             if (!confirm('確定要清空所有工作表內容嗎？此動作無法復原。\n（建議先按「⬇ 備份 JSON」）')) return;
             if (!confirm('再次確認：清空後每個分頁的填寫內容都會消失。')) return;
             let n = 0;
-            document.querySelectorAll('textarea.worksheet-input, #ws-topic').forEach(el => {
+            document.querySelectorAll('textarea.worksheet-input').forEach(el => {
                 if (el.value !== '') { el.value = ''; n++; }
             });
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
+                if (el.checked) { el.checked = false; n++; }
+            });
+            updateVerdicts();
             localStorage.removeItem('businessLifecycleData');
             autoGrowAll();
             isDirty = false;
@@ -1260,8 +1275,9 @@
 
         const backupBtn = document.getElementById('backupButton');
         if (backupBtn) backupBtn.addEventListener('click', () => {
-            const data = { _app: '商業生命週期策略工具箱', _savedAt: new Date().toLocaleString('zh-TW') };
-            document.querySelectorAll('input[type="text"], textarea').forEach(el => { if (el.id) data[el.id] = el.value; });
+            const data = { _app: '商業生命週期策略工具箱', _schema: SCHEMA_VERSION, _savedAt: new Date().toLocaleString('zh-TW') };
+            document.querySelectorAll('textarea.worksheet-input').forEach(el => { if (el.id) data[el.id] = el.value; });
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => { if (el.checked) data[el.dataset.save] = el.value; });
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             saveAs(blob, `策略工作表備份_${localDateStr()}.json`);
             showNotification('⬇ 備份檔已下載（可跨裝置還原）', 'success');
@@ -1275,17 +1291,15 @@
                 const f = restoreFileEl.files && restoreFileEl.files[0];
                 if (!f) return;
                 try {
-                    const data = JSON.parse(await f.text());
-                    let n = 0;
-                    Object.keys(data).forEach(k => {
-                        if (k.charAt(0) === '_') return;
-                        const el = document.getElementById(k);
-                        if (el && 'value' in el) { el.value = data[k]; n++; }
-                    });
+                    const raw = JSON.parse(await f.text());
+                    const migrated = !raw._schema;
+                    const n = applyData(migrated ? migrateV1(raw) : raw);
+                    updateVerdicts();
                     const t = writeLocalStorage();
                     autoGrowAll();
                     isDirty = false;
-                    showNotification('⬆ 已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）', 'success');
+                    showNotification('⬆ 已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）'
+                        + (migrated ? '｜已從舊版格式轉換' : ''), 'success');
                 } catch (e) {
                     console.error('還原失敗：', e);
                     showNotification('❌ 備份檔格式錯誤，請選擇本工具匯出的 JSON', 'error');
@@ -1295,13 +1309,15 @@
         }
 
         setActiveTab('analysis');
+        updateVerdicts();
         
         /* ---- 自動儲存：停止輸入 1.5 秒後自動寫入；未儲存就關頁面會攔一次 ---- */
         let autoSaveTimer = null;
         let isDirty = false;
         
         document.addEventListener('input', (e) => {
-            if (!e.target.matches('input[type="text"], textarea')) return;
+            if (e.target.matches('input[type="radio"][data-save]')) updateVerdicts();
+            if (!e.target.matches('textarea.worksheet-input, input[type="radio"][data-save]')) return;
             isDirty = true;
             clearTimeout(autoSaveTimer);
             autoSaveTimer = setTimeout(() => {

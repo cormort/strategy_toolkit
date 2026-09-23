@@ -18,122 +18,179 @@ def esc(t):
     return (t or '').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;')
 
 
-def field_id(key, stage):
-    """欄位 id 一律由 key + 階段組成；例外見 content.ID_OVERRIDES。"""
-    return C.ID_OVERRIDES.get(key) or '%s-%s' % (key, stage)
+def esc_nl(t):
+    """保留換行的文字（判讀準則、實例）"""
+    return esc(t).replace('\n', '<br>')
 
 
-def render_group(key, stage, items, cls, ind):
+def field(key, items, ind='            ', cls='field'):
     label, ph, hint = items[key]
-    out = ['%s<div class="%s">' % (ind, cls)]
-    if label:
-        out.append('%s    <label for="%s" class="sub-label">%s</label>'
-                   % (ind, field_id(key, stage), esc(label)))
-    if hint:
-        out.append('%s    <span class="sub-label-hint">%s</span>' % (ind, esc(hint)))
+    out = ['%s<div class="%s" data-item="%s">' % (ind, cls, esc(label))]
+    out.append('%s    <label class="field-label" for="%s">%s%s</label>'
+               % (ind, key, esc(label),
+                  '' if not hint else '<span class="field-tag">%s</span>' % esc(hint)))
     out.append('%s    <textarea id="%s" class="worksheet-input" placeholder="%s"></textarea>'
-               % (ind, field_id(key, stage), esc(ph)))
+               % (ind, key, esc(ph)))
     out.append('%s</div>' % ind)
     return out
 
 
-def render_tool_block(fw_key, stage):
-    d = C.FRAMEWORKS[fw_key]['stages'][stage]
-    out = ['                <div class="tool-block">',
-           '                    <label class="tool-label">%s</label>' % esc(d['title']),
-           '                    <p class="tool-description">%s</p>' % esc(d['desc'])]
-    grids = 0
-    for kind, keys in d['layout']:
-        if kind == 'grid':
-            out.append('                    <div class="toolkit">')
-            for k in keys:
-                out += render_group(k, stage, d['items'], 'input-group', '                        ')
-            out.append('                    </div>')
-            grids += 1
-        elif kind == 'single':
-            # 版面慣例：排在矩陣前面用 mb-4（下方留白），排在矩陣後面用 mt-4（上方留白）
-            cls = 'input-group mb-4' if grids == 0 else 'input-group mt-4'
-            for k in keys:
-                out += render_group(k, stage, d['items'], cls, '                    ')
-        elif kind == 'bare':
-            for k in keys:
-                out.append('                    <textarea id="%s" class="worksheet-input" placeholder="%s"></textarea>'
-                           % (field_id(k, stage), esc(d['items'][k][1])))
-    out.append('                </div>')
+def radio_row(key, opts, note_key, items, ind='            ', question=None):
+    """是/否選項（+ 選填說明欄）。選項也會存檔（data-save）。"""
+    ph = ''
+    if note_key:
+        ph = items[note_key][1]
+        if question is None:
+            question = items[note_key][0].split('：')[0]
+    q = question or key
+    out = ['%s<div class="radio-row" data-radio="%s">' % (ind, key),
+           '%s    <div class="radio-main">' % ind,
+           '%s        <span class="radio-q">%s</span>' % (ind, esc(q))]
+    for val, text in opts:
+        out.append('%s        <label class="radio-opt"><input type="radio" name="%s" value="%s" '
+                   'data-save="%s"> %s</label>' % (ind, key, val, key, esc(text)))
+    out.append('%s    </div>' % ind)
+    if note_key:
+        out.append('%s    <textarea id="%s" class="worksheet-input radio-note" placeholder="%s"></textarea>'
+                   % (ind, note_key, esc(ph)))
+    out.append('%s</div>' % ind)
     return out
 
 
-def render_carry_bar(stage):
-    m = C.STAGE_META[stage]
-    if not m.get('carry_from'):
-        return []
-    return ['                <div class="carry-bar no-print">',
-            '                    <button type="button" class="carry-btn" data-carry="%s">⤵ 帶入%s的%s</button>'
-            % (stage, m['carry_label_from'], m['carry_tools']),
-            '                    <span class="carry-hint">只複製上一階段「已填寫」的同框架欄位。目標欄位若已有內容會接在後面，不覆蓋。</span>',
-            '                </div>']
+def render_section(sec):
+    out = ['            <section class="sheet-section" id="sec-%s">' % sec['key'],
+           '                <h3 class="sheet-h3">%s %s</h3>' % (sec['num'], esc(sec['title'])),
+           '                <p class="sheet-desc">%s</p>' % esc(sec['desc'])]
+    if sec.get('criteria') or sec.get('example'):
+        out.append('                <details class="fw-guide">')
+        out.append('                    <summary>判讀準則與實例</summary>')
+        if sec.get('criteria'):
+            out.append('                    <div class="fw-criteria"><strong>判讀準則</strong><p>%s</p></div>'
+                       % esc_nl(sec['criteria']))
+        if sec.get('example'):
+            out.append('                    <div class="fw-example"><strong>實例</strong><p>%s</p></div>'
+                       % esc_nl(sec['example']))
+        out.append('                </details>')
+
+    items = sec['items']
+    for g in sec['layout']:
+        kind = g[0]
+        if kind == 'grid':
+            out.append('                <div class="field-grid cols-%d">' % g[1])
+            for k in g[2]:
+                out += field(k, items, '                    ')
+            out.append('                </div>')
+        elif kind == 'matrix':
+            out.append('                <div class="matrix-2x2">')
+            for k in g[2]:
+                out += field(k, items, '                    ', 'field mx-cell')
+            out.append('                </div>')
+        elif kind == 'list':
+            for k in g[1]:
+                out += field(k, items)
+        elif kind == 'radio':
+            out += radio_row(g[1], g[2], g[3], items, question=(g[4] if len(g) > 4 else None))
+        elif kind == 'verdict':
+            out.append('                <div class="verdict" id="%s-verdict">' % g[1])
+            out.append('                    <span class="verdict-label">自動判定</span>')
+            out.append('                    <span class="verdict-text">把上面的選項選完，這裡會自動算出結論。</span>')
+            out.append('                </div>')
+    out.append('            </section>')
+    return out
+
+
+def render_analysis_sections():
+    out = []
+    for sec in C.ANALYSIS:
+        out += render_section(sec)
+        out.append('            ')
+    return out
+
+
+def read_field(key, items, ind='                    '):
+    label, ph, _ = items[key]
+    return ['%s<div class="field" data-item="%s">' % (ind, esc(label)),
+            '%s    <label class="field-label" for="%s">%s</label>' % (ind, key, esc(label)),
+            '%s    <textarea id="%s" class="worksheet-input" placeholder="%s"></textarea>'
+            % (ind, key, esc(ph)),
+            '%s</div>' % ind]
 
 
 def render_stage_pane(stage):
     m = C.STAGE_META[stage]
-    out = ['        <div id="tab-content-%s" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-%s">' % (stage, stage),
+    out = ['        <div id="tab-content-%s" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-%s">'
+           % (stage, stage),
            '            <section class="stage-section">',
-           '                <h2 class="stage-title">%s</h2>' % esc(m['pane_title'])]
-    out += render_carry_bar(stage)
-    out += ['                <div class="stage-focus">',
-            '                    <h3>本階段重點</h3>',
-            '                    <ul>',
-            '                        <li><strong>核心目標：</strong>%s</li>' % esc(m['goal']),
-            '                        <li><strong>主要挑戰：</strong>%s</li>' % esc(m['challenge']),
-            '                    </ul>',
-            '                </div>']
-    for fw_key in C.STAGE_ORDER[stage]:
-        out += render_tool_block(fw_key, stage)
+           '                <h2 class="stage-title">%s</h2>' % esc(m['pane_title']),
+           '                <div class="stage-focus">',
+           '                    <h3>本階段重點</h3>',
+           '                    <ul>',
+           '                        <li><strong>核心目標：</strong>%s</li>' % esc(m['goal']),
+           '                        <li><strong>主要挑戰：</strong>%s</li>' % esc(m['challenge']),
+           '                    </ul>',
+           '                    <p class="stage-reading">%s</p>' % esc(m['reading']),
+           '                    <p class="stage-refs">↩ 回頭看：%s</p>' % esc('、'.join(C.STAGE_READING_TOOLS[stage])),
+           '                </div>',
+           '                <div class="tool-block">',
+           '                    <label class="tool-label">階段判讀</label>',
+           '                    <p class="tool-description">分析在「📋 現況與分析」分頁做一次就好；'
+           '這裡只回答這個階段特有的問題。</p>']
+    for k in m['items']:
+        out += read_field(k, m['items'])
+    out += ['                </div>',
+            '            </section>',
+            '        </div>']
+    return out
+
+
+def render_action_pane():
+    a = C.ACTION_INTRO
+    ph = {'what': '例如：推出月租 40 席方案', 'owner': '誰負責、有沒有決定權',
+          'due': 'YYYY-MM-DD', 'metric': '可被外人驗證的數字'}
+    out = ['        <div id="tab-content-actions" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-actions">',
+           '            <section class="stage-section">',
+           '                <h2 class="stage-title">%s</h2>' % esc(a['title']),
+           '                <p class="sheet-desc">%s</p>' % esc(a['desc']),
+           '                <div class="fw-example"><strong>實例</strong><p>%s</p></div>' % esc_nl(a['example'])]
+    for r in range(1, C.ACTION_ROWS + 1):
+        out.append('                <div class="action-row">')
+        out.append('                    <div class="action-head">第 %d 項</div>' % r)
+        out.append('                    <div class="field-grid cols-2">')
+        for fk, fl in C.ACTION_FIELDS:
+            key = 'act-%d-%s' % (r, fk)
+            out.append('                        <div class="field" data-item="%s">' % esc(fl))
+            out.append('                            <label class="field-label" for="%s">%s</label>' % (key, esc(fl)))
+            out.append('                            <textarea id="%s" class="worksheet-input" placeholder="%s"></textarea>'
+                       % (key, esc(ph[fk])))
+            out.append('                        </div>')
+        out.append('                    </div>')
+        out.append('                </div>')
     out += ['            </section>',
             '        </div>']
     return out
 
 
-def render_overview_sections():
-    out = []
-    for i, stage in enumerate(C.STAGES):
-        ov = C.OVERVIEW[stage]
-        m = C.STAGE_META[stage]
-        out.append('            <section class="analysis-section">')
-        out.append('                <h2 class="analysis-h2">%s</h2>' % esc(ov['heading']))
-        out.append('                <h3 class="analysis-h3">階段重點：</h3>')
-        out.append('                <ul class="analysis-ul">')
-        out.append('                    <li><strong>核心目標：</strong>%s</li>' % esc(m['goal']))
-        out.append('                    <li><strong>主要挑戰：</strong>%s</li>' % esc(m['challenge']))
-        out.append('                </ul>')
-        out.append('                <h3 class="analysis-h3">關鍵工具運用（與「%s」分頁的 %d 個工具一致）：</h3>'
-                   % (m['tab_label'], len(ov['tools'])))
-        for fw, note in ov['tools']:
-            out.append('                <div class="analysis-tool">')
-            out.append('                    <strong>%s：</strong>%s' % (esc(fw), esc(note)))
-            out.append('                </div>')
-        out.append('            </section>')
-        out.append('            ')
-    out.append('            <hr class="my-10 border-slate-300">')
-    out.append('            <section class="analysis-section">')
-    out.append('                <h2 class="analysis-h2">%s</h2>' % esc(C.SUMMARY['heading']))
-    out.append('                <ul class="analysis-ul">')
-    for label, rest in C.SUMMARY['items']:
-        out.append('                    <li><strong>%s</strong>%s</li>' % (esc(label), esc(rest)))
-    out.append('                </ul>')
-    out.append('            </section>')
-    return out
-
-
 def main():
     tpl = open(os.path.join(HERE, 'template.html'), encoding='utf-8').read()
+
+    html = tpl.replace('<!--{{ANALYSIS_SECTIONS}}-->', '\n'.join(render_analysis_sections()))
+    # 舊存檔對應表由 content.py 產生（單一真實來源），注入到頁面的 JS
+    def jsval(v):
+        if isinstance(v, (list, tuple)):
+            return '[' + ', '.join(jsval(x) for x in v) + ']'
+        return '"%s"' % str(v).replace('"', '\\"')
+    mig = ['        "%s": %s' % (k, jsval(vs)) for k, vs in C.ID_MIGRATION.items()]
+    html = html.replace('{{SCHEMA_VERSION}}', str(C.SCHEMA_VERSION))
+    html = html.replace('{{ID_MIGRATION}}', '{\n' + ',\n'.join(mig) + '\n        }')
+
     panes = []
     for i, s in enumerate(C.STAGES):
         if i:
             panes.append('        ')
         panes += render_stage_pane(s)
-    html = tpl.replace('<!--{{STAGE_PANES}}-->', '\n'.join(panes))
-    html = html.replace('<!--{{OVERVIEW_SECTIONS}}-->', '\n'.join(render_overview_sections()))
+    panes.append('        ')
+    panes += render_action_pane()
+    html = html.replace('<!--{{STAGE_PANES}}-->', '\n'.join(panes))
 
     left = re.findall(r'<!--\{\{[A-Z_]+\}\}-->', html)
     if left:
@@ -143,10 +200,15 @@ def main():
 
     ids = re.findall(r'<textarea[^>]*id="([^"]+)"', html)
     dup = sorted({x for x in ids if ids.count(x) > 1})
-    print('產生 index.html：%d bytes，%d 個欄位%s' % (len(html.encode()), len(ids),
-          '' if not dup else '，⚠️ 重複 id: %s' % dup))
-    print('%d 個框架、%d 個階段、%d 條總覽說明'
-          % (len(C.FRAMEWORKS), len(C.STAGES), sum(len(v['tools']) for v in C.OVERVIEW.values())))
+    n_an = sum(len(s['items']) for s in C.ANALYSIS)
+    n_rd = sum(len(m['items']) for m in C.STAGE_META.values())
+    n_ac = C.ACTION_ROWS * len(C.ACTION_FIELDS)
+    print('產生 index.html：%d bytes' % len(html.encode()))
+    print('  文字欄位 %d 個（分析 %d + 判讀 %d + 行動 %d）%s'
+          % (len(ids), n_an, n_rd, n_ac, '' if not dup else '，⚠️ 重複 id: %s' % dup))
+    print('  是/否選項 %d 個、分析區塊 %d 個、階段 %d 個、判讀準則 %d 段'
+          % (len(re.findall(r'data-save="', html)), len(C.ANALYSIS), len(C.STAGES),
+             sum(1 for s in C.ANALYSIS if s.get('criteria'))))
 
 
 if __name__ == '__main__':
