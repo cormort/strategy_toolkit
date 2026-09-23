@@ -399,6 +399,53 @@
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
         }
+    
+        /* ===================================================================
+           🎮 認知作弊器（Strategy Toolkit）— 整合區塊專用樣式
+           顏色沿用本站藍 (#3498db) 作為外框，語意色保留原設計
+           =================================================================== */
+        .cheat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.25rem; }
+        .cheat-card {
+            display: flex; flex-direction: column; justify-content: space-between;
+            background: #fff; border: 1px solid #e2e8f0; border-radius: 0.75rem;
+            padding: 1.25rem; box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+        }
+        .cheat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.08); border-color: #94a3b8; }
+        .cheat-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .7rem; }
+        .cheat-id { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: .72rem;
+            font-weight: 700; color: #2980b9; background: #eaf5fb; padding: .18rem .5rem; border-radius: .35rem; }
+        .cheat-cat { font-size: .72rem; font-weight: 600; color: #64748b; }
+        .cheat-title { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: .7rem; }
+        .cheat-block { margin-bottom: .8rem; font-size: .88rem; }
+        .cheat-label { font-size: .72rem; font-weight: 700; letter-spacing: .04em; margin-bottom: .28rem; }
+        .cheat-bug { color: #d97706; } .cheat-trigger { color: #2980b9; }
+        .cheat-action { color: #059669; } .cheat-taboo { color: #e11d48; }
+        .cheat-action-panel { background: #ecfdf5; border-left: 3px solid #059669; padding: .6rem .8rem;
+            border-radius: 0 .5rem .5rem 0; font-weight: 600; color: #065f46; line-height: 1.45; }
+        .cheat-taboo-panel { background: #fff1f2; border-left: 3px solid #e11d48; padding: .5rem .75rem;
+            border-radius: 0 .5rem .5rem 0; font-size: .8rem; color: #9f1239; }
+        .cheat-footer { margin-top: 1.1rem; padding-top: .9rem; border-top: 1px solid #f1f5f9;
+            display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+        .cheat-timer { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1rem; font-weight: 700; color: #2980b9; }
+        .cheat-note { font-size: .75rem; color: #64748b; }
+        .cheat-btn { background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: .4rem .8rem;
+            border-radius: .5rem; font-size: .8rem; font-weight: 600; cursor: pointer;
+            display: inline-flex; align-items: center; gap: .35rem; transition: all .15s ease; }
+        .cheat-btn:hover { background: #3498db; color: #fff; border-color: #3498db; }
+        .cheat-controls { display: flex; flex-direction: column; gap: .9rem; background: #f8fafc;
+            border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.75rem; }
+        .cheat-search { position: relative; }
+        .cheat-search input { width: 100%; padding: .7rem 1rem .7rem 2.4rem; font-size: .92rem;
+            border: 1.5px solid #cbd5e1; border-radius: .5rem; outline: none; background: #fff; transition: all .2s ease; }
+        .cheat-search input:focus { border-color: #3498db; box-shadow: 0 0 0 3px rgba(52,152,219,.15); }
+        .cheat-search span { position: absolute; left: .8rem; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+        .cheat-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+        .cheat-chip { border: 1px solid #e2e8f0; color: #64748b; background: #fff; padding: .35rem .8rem;
+            border-radius: .5rem; font-size: .82rem; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+        .cheat-chip:hover { background: #f1f5f9; color: #0f172a; }
+        .cheat-chip.active { background: #3498db; color: #fff; border-color: #3498db; }
+        .cheat-empty { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #64748b; }
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GHGBM401HN"></script>
@@ -421,16 +468,17 @@
                 <button id="tab-btn-growth" class="tab-btn inactive">🚀 成長期</button>
                 <button id="tab-btn-maturity" class="tab-btn inactive">🌳 成熟期</button>
                 <button id="tab-btn-decline" class="tab-btn inactive">🍂 衰退/轉型期</button>
+                <button id="tab-btn-cheats" class="tab-btn inactive">🎮 認知作弊器</button>
             </nav>
         </div>
         
-        <div class="mb-8">
+        <div class="mb-8" id="ws-topic-block">
             <label for="ws-topic" class="text-xl font-semibold text-gray-800 block mb-2"> 📋 分析對象（公司/產品/專案）
             </label>
             <input type="text" id="ws-topic" class="worksheet-input" placeholder="請輸入要分析的公司名稱、產品線或專案名稱..." style="min-height: 50px;">
         </div>
         
-        <hr class="my-8 border-slate-300">
+        <hr class="my-8 border-slate-300" id="ws-topic-hr">
 
         <div id="tab-content-analysis" class="tab-content active">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
@@ -1058,6 +1106,215 @@
             </section>
         </div>
 
+        <!-- ================= 🎮 認知作弊器（整合自 Strategy Toolkit） ================= -->
+        <div id="tab-content-cheats" class="tab-content">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
+                <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">人類作弊器策略工具箱</span>
+            </h1>
+            <p class="analysis-p mb-6 text-lg">
+                將頂級認知心理學與行為經濟學轉化為隨身調用的作弊代碼。當人性漏洞浮現時，以最小物理動作實施精準攔截。
+            </p>
+
+            <div class="cheat-controls no-print">
+                <div class="cheat-search">
+                    <span>🔍</span>
+                    <input type="search" id="cheatSearch" placeholder="搜尋工具名稱、心理 Bug、情境關鍵字（例如：談判、拖延、定價、內耗）...">
+                </div>
+                <div class="cheat-chips" id="cheatChips">
+                    <button class="cheat-chip active" data-cat="all">全部工具 (5)</button>
+                    <button class="cheat-chip" data-cat="negotiation">商務談判 &amp; 說服</button>
+                    <button class="cheat-chip" data-cat="decision">策略止損 &amp; 決策</button>
+                    <button class="cheat-chip" data-cat="execution">動量點火 &amp; 執行</button>
+                    <button class="cheat-chip" data-cat="emotion">思維切斷 &amp; 抗內耗</button>
+                </div>
+            </div>
+
+            <div class="cheat-grid" id="cheatGrid">
+            <article class="cheat-card" data-category="negotiation" data-keywords="談判 報價 沉默 尷尬 錨點 心理戰 讓步 僵局">
+                <div>
+                    <div class="cheat-top">
+                        <span class="cheat-id">MOD-01</span>
+                        <span class="cheat-cat">商務談判 // 社交博弈</span>
+                    </div>
+                    <h3 class="cheat-title">極端戰略沉默協議</h3>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <p class="text-slate-500">大腦對社交空白具有強烈的生理恐懼與填補衝動，往往會自亂陣腳主動讓步。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <p>報出極端高價錨點後、向對方提出重大要求後、或對話陷入僵局時。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-action-panel">完成報價後：立刻咬緊舌頭，強制閉嘴 30 秒。</div>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-taboo-panel">嚴禁在對方開口前回應或主動補充藉口／打折。</div>
+                    </div>
+                </div>
+
+                <div class="cheat-footer">
+                    <span class="cheat-timer" id="timer-01">00:30</span>
+                    <button class="cheat-btn" onclick="startCheatTimer('timer-01', 30)">啟動 30 秒沉默</button>
+                </div>
+            </article>
+
+            <article class="cheat-card" data-category="decision" data-keywords="沉沒成本 止損 項目 復盤 開除 經理人 割肉 稟賦效應">
+                <div>
+                    <div class="cheat-top">
+                        <span class="cheat-id">MOD-02</span>
+                        <span class="cheat-cat">決策止損 // 戰略重構</span>
+                    </div>
+                    <h3 class="cheat-title">空降旁觀者置換協議</h3>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <p class="text-slate-500">沉沒成本謬誤與稟賦效應：對過往付出難以割捨，導致持續加碼維持虧損行為。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <p>專案持續虧損但捨不得收手、不良合作關係糾纏不清、因投入過多而猶豫。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-action-panel">想像自己被開除，空降的冷血職業經理人第一刀砍什麼，現在就立刻砍什麼。</div>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-taboo-panel">嚴禁回顧「已經投入了多少成本」，不要為過去的屍體買單。</div>
+                    </div>
+                </div>
+
+                <div class="cheat-footer">
+                    <span class="cheat-note">葛洛夫置換法則</span>
+                    <button class="cheat-btn" onclick="cheatNotify('【空降旁觀者審查】抹除過去投入歷史：如果今天重新開始，你還會投 1 元嗎？若不會，立刻簽署清算！')">執行冷血置換</button>
+                </div>
+            </article>
+
+            <article class="cheat-card" data-category="execution" data-keywords="拖延 點火 動量 靜摩擦力 前額葉 沙發 手機 開始">
+                <div>
+                    <div class="cheat-top">
+                        <span class="cheat-id">MOD-03</span>
+                        <span class="cheat-cat">動量點火 // 跨越靜摩擦力</span>
+                    </div>
+                    <h3 class="cheat-title">兩分鐘微重力點火協議</h3>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <p class="text-slate-500">大腦面對龐大任務會產生高靜摩擦阻力，多巴胺系統會誘使身體逃避至低阻力娛樂。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <p>癱坐滑手機明知該工作卻動不了、面對複雜文件不知從何下手、嚴重拖延。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-action-panel">手機螢幕朝下扣在桌上，坐在鍵盤前敲下 3 個字母或標題，持續 2 分鐘。</div>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-taboo-panel">嚴禁在開始前規劃宏大架構或試圖一口氣完成整份工作。</div>
+                    </div>
+                </div>
+
+                <div class="cheat-footer">
+                    <span class="cheat-timer" id="timer-03">02:00</span>
+                    <button class="cheat-btn" onclick="startCheatTimer('timer-03', 120)">啟動點火 2 分鐘</button>
+                </div>
+            </article>
+
+            <article class="cheat-card" data-category="negotiation" data-keywords="說服 損失厭惡 銷售 提案 框架 前景理論 主管 客戶">
+                <div>
+                    <div class="cheat-top">
+                        <span class="cheat-id">MOD-04</span>
+                        <span class="cheat-cat">說服重塑 // 損失框架</span>
+                    </div>
+                    <h3 class="cheat-title">損失框架反轉協議</h3>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <p class="text-slate-500">前景理論：人類對「潛在損失」的痛苦感知是「同等獲益」愉悅感的 2 倍以上。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <p>向主管/客戶提案遭遇拖延推託、對方覺得「維持現狀也可以」時。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-action-panel">將「導入能賺多少」全部改寫為「維持現狀每天白白流失多少真金白銀」。</div>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-taboo-panel">嚴禁只描繪美好願景；沒有失去痛苦的刺激，對手大腦不會行動。</div>
+                    </div>
+                </div>
+
+                <div class="cheat-footer">
+                    <span class="cheat-note">康納曼損失矩陣</span>
+                    <button class="cheat-btn" onclick="cheatNotify('【損失語法檢核】 ❌「這能幫您提升 20% 效率」→ ✅「您每延遲一週，正白白燃燒 15 萬工時成本，因為…」')">檢查語句框架</button>
+                </div>
+            </article>
+
+            <article class="cheat-card" data-category="emotion" data-keywords="內耗 焦慮 反芻 憤怒 洗臉 物理切割 DMN 自責 生氣">
+                <div>
+                    <div class="cheat-top">
+                        <span class="cheat-id">MOD-05</span>
+                        <span class="cheat-cat">思維切斷 // 神經重置</span>
+                    </div>
+                    <h3 class="cheat-title">十分鐘物理切割協議</h3>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <p class="text-slate-500">大腦 DMN 迴路陷入思維反芻（Rumination），越試圖「想開」大腦空轉耗能越嚴重。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <p>受冒犯氣得發抖、腦海瘋狂重播爭吵畫面、陷入極度內耗或自責。</p>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-action-panel">強制離開螢幕，雙手投入具體物理活動（洗冷水臉、用力擦桌子）10 分鐘。</div>
+                    </div>
+
+                    <div class="cheat-block">
+                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-taboo-panel">嚴禁坐在原位嘗試「推理化解」或在通訊軟體上敲鍵盤筆戰。</div>
+                    </div>
+                </div>
+
+                <div class="cheat-footer">
+                    <span class="cheat-timer" id="timer-05">10:00</span>
+                    <button class="cheat-btn" onclick="startCheatTimer('timer-05', 600)">啟動物理切割</button>
+                </div>
+            </article>
+            </div>
+
+            <div id="cheatEmpty" class="cheat-empty" style="display:none;">
+                <p>未找到符合條件的策略工具。</p>
+            </div>
+
+            <div class="analysis-tool mt-8">
+                <strong>使用說明：</strong>本區塊為「隨身作弊代碼」，與上方生命週期工作表各自獨立；卡片不納入 Word 匯出與資料儲存範圍。計時器結束會發出提示音。
+            </div>
+        </div>
+
         <div class="text-center mt-12 space-y-4 no-print">
             <div class="flex flex-wrap justify-center gap-4">
                 <button id="saveButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
@@ -1083,7 +1340,8 @@
             startup: { btn: document.getElementById('tab-btn-startup'), content: document.getElementById('tab-content-startup') },
             growth: { btn: document.getElementById('tab-btn-growth'), content: document.getElementById('tab-content-growth') },
             maturity: { btn: document.getElementById('tab-btn-maturity'), content: document.getElementById('tab-content-maturity') },
-            decline: { btn: document.getElementById('tab-btn-decline'), content: document.getElementById('tab-content-decline') }
+            decline: { btn: document.getElementById('tab-btn-decline'), content: document.getElementById('tab-content-decline') },
+            cheats: { btn: document.getElementById('tab-btn-cheats'), content: document.getElementById('tab-content-cheats') }
         };
         const exportButton = document.getElementById('exportButton');
         const saveButton = document.getElementById('saveButton');
@@ -1101,6 +1359,12 @@
                     tabs[tabName].content.classList.toggle('active', isActive);
                 }
             });
+            // 「分析對象」屬於生命週期工作表；切到認知作弊器時隱藏
+            const hideWs = (activeTabName === 'cheats');
+            const wsBlock = document.getElementById('ws-topic-block');
+            const wsHr = document.getElementById('ws-topic-hr');
+            if (wsBlock) wsBlock.style.display = hideWs ? 'none' : '';
+            if (wsHr) wsHr.style.display = hideWs ? 'none' : '';
         }
 
         Object.keys(tabs).forEach(tabName => {
@@ -1120,6 +1384,8 @@
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
         }
+
+        window.showNotification = showNotification;   // 供認知作弊器區塊使用
 
         saveButton.addEventListener('click', () => {
             try {
@@ -1372,5 +1638,79 @@
     });
     </script>
 
+
+    <script>
+    /* =====================================================================
+       🎮 認知作弊器 — 計時器 / 搜尋 / 分類篩選
+       （與生命週期工作表獨立；不寫入 localStorage，也不納入 Word 匯出）
+       ===================================================================== */
+    const cheatIntervals = {};
+    let cheatCategory = 'all';
+
+    function cheatBeep() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, ctx.currentTime);
+            osc.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.25);
+        } catch (e) { /* 瀏覽器不支援音效時靜默 */ }
+    }
+
+    function startCheatTimer(elemId, seconds) {
+        const el = document.getElementById(elemId);
+        if (!el) return;
+        if (cheatIntervals[elemId]) clearInterval(cheatIntervals[elemId]);
+        let left = seconds;
+        const render = () => {
+            const m = String(Math.floor(left / 60)).padStart(2, '0');
+            const s = String(left % 60).padStart(2, '0');
+            el.textContent = m + ':' + s;
+        };
+        render();
+        cheatIntervals[elemId] = setInterval(() => {
+            left--;
+            if (left <= 0) {
+                clearInterval(cheatIntervals[elemId]);
+                delete cheatIntervals[elemId];
+                el.textContent = 'COMPLETED';
+                cheatBeep();
+                if (window.showNotification) window.showNotification('⏱ 計時結束 — 立刻執行卡片上的動作，不要重新評估。', 'success');
+            } else { render(); }
+        }, 1000);
+    }
+
+    function cheatNotify(msg) {
+        if (window.showNotification) { window.showNotification(msg, 'success'); }
+        else { alert(msg); }
+    }
+
+    function cheatFilter() {
+        const q = (document.getElementById('cheatSearch').value || '').trim().toLowerCase();
+        let shown = 0;
+        document.querySelectorAll('#cheatGrid .cheat-card').forEach(card => {
+            const cat = card.getAttribute('data-category');
+            const hay = (card.getAttribute('data-keywords') + ' ' + card.innerText).toLowerCase();
+            const ok = (cheatCategory === 'all' || cat === cheatCategory) && (!q || hay.includes(q));
+            card.style.display = ok ? 'flex' : 'none';
+            if (ok) shown++;
+        });
+        document.getElementById('cheatEmpty').style.display = shown === 0 ? 'block' : 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const search = document.getElementById('cheatSearch');
+        if (search) search.addEventListener('input', cheatFilter);
+        document.querySelectorAll('#cheatChips .cheat-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                cheatCategory = chip.getAttribute('data-cat');
+                document.querySelectorAll('#cheatChips .cheat-chip').forEach(c => c.classList.toggle('active', c === chip));
+                cheatFilter();
+            });
+        });
+    });
+    </script>
 </body>
 </html>
