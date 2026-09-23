@@ -1355,8 +1355,11 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             const v = pick('vrio-v'), r = pick('vrio-r'), ii = pick('vrio-i'), o = pick('vrio-o');
             if (!v) { box.className = 'verdict'; txt.textContent = '先回答 V 價值性。'; return; }
             if (v === 'no') { box.className = 'verdict bad'; txt.textContent = '競爭劣勢 —— 這不是資源，是負擔。要嘛改造它，要嘛放手。'; return; }
+            if (!r) { box.className = 'verdict'; txt.textContent = '接著回答 R 稀有性。'; return; }
             if (r === 'no') { box.className = 'verdict mid'; txt.textContent = '競爭均勢 —— 人人都有的門檻。它只能讓你不落後，不能讓你贏。'; return; }
+            if (!ii) { box.className = 'verdict'; txt.textContent = '接著回答 I 難以模仿。'; return; }
             if (ii === 'no') { box.className = 'verdict mid'; txt.textContent = '暫時優勢 —— 領先但守不住。趁領先期把客戶關係或規模做起來。'; return; }
+            if (!o) { box.className = 'verdict'; txt.textContent = '接著回答 O 組織運用。'; return; }
             if (o === 'no') { box.className = 'verdict mid'; txt.textContent = '未利用的潛力 —— 有牌不會打。問題在組織：流程、人才或獎酬。'; return; }
             box.className = 'verdict good'; txt.textContent = '持續優勢 —— 這才是護城河。每年重新驗證一次，別讓它悄悄失效。';
         }
@@ -1364,7 +1367,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         /* ---- BCG：每個事業單位各自判定 + 自動畫點 + 組合摘要 ---- */
         const BCG_Q = {
             star: { name: '明星', cls: 'good', note: '值得投，把領先變成護城河' },
-            question: { name: '問號', cls: 'mid', note: '選擇性投資：打進前三或退出' },
+            question: { name: '問號', cls: 'mid', note: '選擇性投資：打到第一或退出' },
             cow: { name: '金牛', cls: 'good', note: '產現金，收割它養別的' },
             dog: { name: '狗', cls: 'bad', note: '退出、轉型或縮到只剩必要投入' }
         };
@@ -1418,7 +1421,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 if (unset) txt += '（' + unset + ' 個還沒選完）';
                 const tips = [];
                 if (tally.dog) tips.push('狗 ' + tally.dog + ' 個：先決定退出順序，不要繼續投入。');
-                if (tally.question) tips.push('問號 ' + tally.question + ' 個：要嘛打進前三，要嘛退出，不要吊著。');
+                if (tally.question) tips.push('問號 ' + tally.question + ' 個：要嘛打到第一（相對市佔 ≥1），要嘛退出，不要吊著。');
                 if (tally.cow && (tally.star || tally.question)) tips.push('金牛的現金優先拿去養明星與問號。');
                 sum.innerHTML = '<strong>組合摘要</strong>　' + txt + (tips.length ? '<br>' + tips.join('<br>') : '');
             }
@@ -1528,7 +1531,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     else if (includeEmpty) rows.push({ label: node.querySelector('.radio-q').textContent.trim(), value: '', hint: '（勾選）' });
                 } else if (node.classList.contains('verdict')) {
                     const t = node.querySelector('.verdict-text').textContent.trim();
-                    if (t && t.indexOf('把上面') !== 0 && t.indexOf('先回答') !== 0) rows.push({ label: '自動判定', value: t });
+                    if (t && t.indexOf('把上面') !== 0 && t.indexOf('先回答') !== 0 && t.indexOf('接著回答') !== 0) rows.push({ label: '自動判定', value: t });
                 } else {
                     const ta = node.querySelector('textarea');
                     const sel = node.querySelector('select');

@@ -122,7 +122,7 @@ BCG `bcg-<n>-<欄>`。改 id 等於使用者的存檔找不到欄位。舊版（
   accent、灰階、扁平、字重 300/400/600、介面不用 emoji）。它靠「同特異度、後者勝」覆寫上面的舊規則，
   要改樣式改這一層。字重若有增減，要同步改 `<head>` 的 Google Fonts `wght@` 參數，否則該字重不會載入。
 - 通知（`.notification`）是 `position: fixed`，列印時會被重複印在每一頁，已在 `@media print` 隱藏。
-- 改動後請驗證：`python3 src/render.py` 應產出 **70 個文字欄位、35 個是/否選項、4 個下拉**，
+- 改動後請驗證：`python3 src/render.py` 應產出 **70 個文字欄位、37 個是/否選項、4 個下拉**，
   且無重複 id（`render.py` 會自己檢查欄位數加總與重複 id）
 - `build.sh` 的產出必須可重現（連跑兩次 sha256 相同）
 - 遷移邏輯若改動，兩種舊存檔都要實測：v1（無 `_schema`）與 v2（`_schema: 2`），
