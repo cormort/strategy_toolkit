@@ -904,7 +904,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">創業期</button>
                 <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">成長期</button>
                 <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">成熟期</button>
-                <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">衰退/轉型期</button>
+                <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">衰退轉型期</button>
                 <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">行動計畫</button>
                 <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">認知作弊器</button>
             </nav>
@@ -918,7 +918,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
             <section class="analysis-section no-print" id="stageDiagnosis">
                 <h2 class="analysis-h2">不確定自己在哪一期？先做 4 題判定</h2>
-                <p class="analysis-p mb-4">依實際狀況各選一項，系統統計後給出建議階段，可直接跳到對應的工作表。生命週期可能跳躍、停滯或逆轉，判定結果只是起點，不是結論。</p>
+                <p class="analysis-p mb-4">依實際狀況各選一項，系統統計後給出建議階段，可直接跳到對應的工作表。生命週期可能跳躍、停滯或逆轉，判定結果只是起點，不是結論。有多個事業單位時，以①的分析對象作答；各單位階段不同是正常的，差異寫進⑤ BCG。</p>
                 <div class="diag-grid" id="diagQuestions"></div>
                 <div class="diag-result" id="diagResult">
                     <div id="diagOutcome" class="diag-empty">尚未作答 —— 選滿 4 題即顯示建議階段。</div>
@@ -963,7 +963,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  </div>
  <div class="field" data-item="目前自認所處階段">
   <label class="field-label" for="obj-stage">目前自認所處階段</label>
-  <textarea id="obj-stage" class="worksheet-input" placeholder="創業期／成長期／成熟期／衰退轉型期；不確定就用上面的「階段判讀」"></textarea>
+  <textarea id="obj-stage" class="worksheet-input" placeholder="創業期／成長期／成熟期／衰退轉型期；不確定就用上面的「階段判定」。多個事業單位階段不同時，這裡寫主要對象的階段，其他單位的差異寫進⑤ BCG 各列的策略欄"></textarea>
  </div>
  </div>
  <div class="field" data-item="這份分析要回答的問題">
@@ -972,41 +972,13 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  </div>
  </section>
  
- <section class="sheet-section" id="sec-swot">
- <h3 class="sheet-h3">② SWOT 分析</h3>
- <p class="sheet-desc">SWOT 經常被寫成四張清單，然後就沒有然後了。它的價值在配對。</p>
- <details class="fw-guide">
- <summary>判讀準則與實例</summary>
- <div class="fw-criteria"><strong>判讀準則</strong><p>S／W 是自己內部的、可以改的；O／T 是外部環境、你改不動的。<br>每一條後面都要能接「所以呢？」—— 接不出來的就刪掉，那是願望不是分析。<br>真正在做決策的是配對：S×O 進攻、W×O 補強、S×T 防禦、W×T 風險（最該先處理）。</p></div>
- <div class="fw-example"><strong>實例</strong><p>區域型停車場＋智取店<br>S＝自有土地、不必付租金（但土地可以出租，機會成本＝同地段市場租金）；W＝現金流單薄，無法同時複製多點；<br>O＝轉運站啟用後每日人流可望翻倍；T＝周邊業者跟進價格戰。<br>配對：S×O 用零租金優勢撐過前期低載客；W×T 若價格戰開打，沒有第二個據點攤提成本 —— 這是最該先處理的一格。</p></div>
- </details>
- <div class="matrix-2x2">
- <div class="field mx-cell" data-item="優勢 (S)">
-  <label class="field-label" for="swot-s">優勢 (S)<span class="field-tag">內部</span></label>
-  <textarea id="swot-s" class="worksheet-input" placeholder="內部的、別人拿不走的。問「對手要花多久才能追上？」"></textarea>
- </div>
- <div class="field mx-cell" data-item="劣勢 (W)">
-  <label class="field-label" for="swot-w">劣勢 (W)<span class="field-tag">內部</span></label>
-  <textarea id="swot-w" class="worksheet-input" placeholder="內部可改的。不要寫「資源不足」這種沒有指向的答案"></textarea>
- </div>
- <div class="field mx-cell" data-item="機會 (O)">
-  <label class="field-label" for="swot-o">機會 (O)<span class="field-tag">外部</span></label>
-  <textarea id="swot-o" class="worksheet-input" placeholder="外部正在發生、對你有利的變化。要有時間點"></textarea>
- </div>
- <div class="field mx-cell" data-item="威脅 (T)">
-  <label class="field-label" for="swot-t">威脅 (T)<span class="field-tag">外部</span></label>
-  <textarea id="swot-t" class="worksheet-input" placeholder="外部正在發生、對你不利的變化。要有時間點"></textarea>
- </div>
- </div>
- </section>
- 
  <section class="sheet-section" id="sec-5f">
- <h3 class="sheet-h3">③ 五力分析（產業結構）</h3>
+ <h3 class="sheet-h3">② 五力分析（產業結構）</h3>
  <p class="sheet-desc">五力看的是「這個產業好不好賺」，不是「你贏不贏」。這是產業體檢，不是公司體檢。</p>
  <details class="fw-guide">
  <summary>判讀準則與實例</summary>
  <div class="fw-criteria"><strong>判讀準則</strong><p>每一力都要寫出「誰」和「他手上有多大的籌碼」：<br>　供應商議價力高＝料源集中、你換掉他的成本高、沒有替代料。<br>　客戶議價力高＝客戶集中或採購量大、他換掉你的成本低、資訊透明、有替代選擇。<br>不要寫「競爭激烈」—— 要寫「有幾家、市佔怎麼分、誰在打價格」。<br>五力全部都強＝這個產業結構天生難賺，策略要往「換產業位置」想，不是更努力。</p></div>
- <div class="fw-example"><strong>實例</strong><p>半導體設備零件維修<br>供應商議價力＝高（原廠料源單一，不能換）；客戶議價力＝低（停機成本遠高於維修費）；<br>替代品＝低（沒有等效替代）；新進入者＝低（技術認證門檻）；同業競爭＝中（三家寡佔、不打價格）。<br>結論：結構好賺，護城河來自轉換成本而不是價格。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>半導體設備零件維修<br>供應商議價力＝高（原廠料源單一，不能換）；客戶議價力＝中（客戶是少數大廠、集中度高，但停機成本遠高於維修費，對價格不敏感）；<br>替代品＝低（沒有等效替代）；新進入者＝低（技術認證門檻）；同業競爭＝中（三家寡佔、不打價格）。<br>結論：結構好賺，護城河來自轉換成本而不是價格。</p></div>
  </details>
  <div class="field" data-item="現有競爭者">
   <label class="field-label" for="5f-rivalry">現有競爭者</label>
@@ -1031,7 +1003,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  </section>
  
  <section class="sheet-section" id="sec-vrio">
- <h3 class="sheet-h3">④ VRIO 分析（內部資源）</h3>
+ <h3 class="sheet-h3">③ VRIO 分析（內部資源）</h3>
  <p class="sheet-desc">VRIO 是四道關卡，不是四個形容詞。四題一路問下去，會得到四種結論之一。</p>
  <details class="fw-guide">
  <summary>判讀準則與實例</summary>
@@ -1077,6 +1049,34 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  <div class="verdict" id="vrio-verdict">
  <span class="verdict-label">自動判定</span>
  <span class="verdict-text">把上面的選項選完，這裡會自動算出結論。</span>
+ </div>
+ </section>
+ 
+ <section class="sheet-section" id="sec-swot">
+ <h3 class="sheet-h3">④ SWOT 分析</h3>
+ <p class="sheet-desc">SWOT 放在五力與 VRIO 之後，因為它是收斂而不是起點：S／W 從③ VRIO 歸納，O／T 從② 五力與外部變化歸納。SWOT 經常被寫成四張清單，然後就沒有然後了。它的價值在配對。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>S／W 是自己內部的、可以改的；O／T 是外部環境、你改不動的。<br>每一條後面都要能接「所以呢？」—— 接不出來的就刪掉，那是願望不是分析。<br>真正在做決策的是配對：S×O 進攻、W×O 補強、S×T 防禦、W×T 風險（最該先處理）。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>區域型停車場＋智取店<br>S＝自有土地、不必付租金（但土地可以出租，機會成本＝同地段市場租金）；W＝現金流單薄，無法同時複製多點；<br>O＝轉運站啟用後每日人流可望翻倍；T＝周邊業者跟進價格戰。<br>配對：S×O 用零租金優勢撐過前期低載客；W×T 若價格戰開打，沒有第二個據點攤提成本 —— 這是最該先處理的一格。</p></div>
+ </details>
+ <div class="matrix-2x2">
+ <div class="field mx-cell" data-item="優勢 (S)">
+  <label class="field-label" for="swot-s">優勢 (S)<span class="field-tag">內部</span></label>
+  <textarea id="swot-s" class="worksheet-input" placeholder="內部的、別人拿不走的。問「對手要花多久才能追上？」"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="劣勢 (W)">
+  <label class="field-label" for="swot-w">劣勢 (W)<span class="field-tag">內部</span></label>
+  <textarea id="swot-w" class="worksheet-input" placeholder="內部可改的。不要寫「資源不足」這種沒有指向的答案"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="機會 (O)">
+  <label class="field-label" for="swot-o">機會 (O)<span class="field-tag">外部</span></label>
+  <textarea id="swot-o" class="worksheet-input" placeholder="外部正在發生、對你有利的變化。要有時間點"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="威脅 (T)">
+  <label class="field-label" for="swot-t">威脅 (T)<span class="field-tag">外部</span></label>
+  <textarea id="swot-t" class="worksheet-input" placeholder="外部正在發生、對你不利的變化。要有時間點"></textarea>
+ </div>
  </div>
  </section>
  
@@ -1342,14 +1342,14 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  
  <section class="sheet-section" id="sec-synth">
  <h3 class="sheet-h3">⑨ 綜合判斷</h3>
- <p class="sheet-desc">把上面八段收斂成一頁。這一頁就是你要拿去做決定的東西。</p>
+ <p class="sheet-desc">把上面八段收斂成一頁，回頭回答①「這份分析要回答的問題」。這一頁就是你要拿去做決定的東西。</p>
  <div class="field" data-item="如果只能改一件事">
   <label class="field-label" for="synth-key">如果只能改一件事</label>
   <textarea id="synth-key" class="worksheet-input" placeholder="寫一件。寫兩件等於沒選"></textarea>
  </div>
- <div class="field" data-item="整體判斷">
-  <label class="field-label" for="synth-verdict">整體判斷</label>
-  <textarea id="synth-verdict" class="worksheet-input" placeholder="把 SWOT 配對、五力結構、VRIO 結論串成一句話"></textarea>
+ <div class="field" data-item="整體判斷：①的問題，答案是什麼？">
+  <label class="field-label" for="synth-verdict">整體判斷：①的問題，答案是什麼？</label>
+  <textarea id="synth-verdict" class="worksheet-input" placeholder="先直接回答①的問題，再列兩三個最關鍵的依據並註明出自哪個框架（例如：五力結構、VRIO 結論、BCG 位置、SWOT 配對）"></textarea>
  </div>
  </section>
  
@@ -1357,7 +1357,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         
          <div id="tab-content-startup" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-startup">
  <section class="stage-section">
- <h2 class="stage-title">創業／導入期判讀</h2>
+ <h2 class="stage-title">創業期判讀</h2>
  <div class="stage-focus">
  <h3>本階段重點</h3>
  <ul>
@@ -1365,7 +1365,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  <li><strong>主要挑戰：</strong>現金流與需求驗證</li>
  </ul>
  <p class="stage-reading">這個階段唯一該問的是「有沒有人真的要用、願不願意付錢」。所有分析都要回到這一點。</p>
- <p class="stage-refs">回頭看：② SWOT 分析、④ VRIO 分析、③ 五力分析</p>
+ <p class="stage-refs">回頭看：④ SWOT 分析、③ VRIO 分析、② 五力分析</p>
  </div>
  <div class="tool-block">
  <label class="tool-label">階段判讀</label>
@@ -1396,7 +1396,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  <li><strong>主要挑戰：</strong>規模化與資金、組織跟不上</li>
  </ul>
  <p class="stage-reading">需求已被驗證，風險轉移到「複製得夠快嗎、品質會不會掉、現金夠不夠撐」。</p>
- <p class="stage-refs">回頭看：⑥ 安索夫矩陣、⑤ BCG 矩陣、③ 五力分析、⑧ 經驗曲線</p>
+ <p class="stage-refs">回頭看：⑥ 安索夫矩陣、⑤ BCG 矩陣、② 五力分析、⑧ 經驗曲線</p>
  </div>
  <div class="tool-block">
  <label class="tool-label">階段判讀</label>
@@ -1427,7 +1427,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  <li><strong>主要挑戰：</strong>成長停滯、組織僵化、競爭侵蝕利潤</li>
  </ul>
  <p class="stage-reading">重點從「成長」變成「效率與防守」，同時要開始為下一條曲線鋪路。</p>
- <p class="stage-refs">回頭看：⑤ BCG 矩陣、⑦ 波特基本策略、③ 五力分析、② SWOT 分析</p>
+ <p class="stage-refs">回頭看：⑤ BCG 矩陣、⑦ 波特基本策略、② 五力分析、④ SWOT 分析</p>
  </div>
  <div class="tool-block">
  <label class="tool-label">階段判讀</label>
@@ -1450,7 +1450,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  
  <div id="tab-content-decline" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-decline">
  <section class="stage-section">
- <h2 class="stage-title">衰退／轉型期判讀</h2>
+ <h2 class="stage-title">衰退轉型期判讀</h2>
  <div class="stage-focus">
  <h3>本階段重點</h3>
  <ul>
@@ -1458,7 +1458,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  <li><strong>主要挑戰：</strong>決策退出 vs. 轉型、重新配置資源</li>
  </ul>
  <p class="stage-reading">這個階段最大的風險不是衰退本身，是「拖」—— 拖著做不出決定，資源會自己流光。</p>
- <p class="stage-refs">回頭看：② SWOT 分析、⑤ BCG 矩陣、⑥ 安索夫矩陣、④ VRIO 分析</p>
+ <p class="stage-refs">回頭看：④ SWOT 分析、⑤ BCG 矩陣、⑥ 安索夫矩陣、③ VRIO 分析</p>
  </div>
  <div class="tool-block">
  <label class="tool-label">階段判讀</label>
@@ -1617,7 +1617,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">人類作弊器策略工具箱</span>
             </h1>
             <p class="analysis-p mb-6 text-lg">
-                將頂級認知心理學與行為經濟學轉化為隨身調用的作弊代碼。當人性漏洞浮現時，以最小物理動作實施精準攔截。
+                把認知心理學與行為經濟學裡幾個研究較充分的現象，整理成當場就能用的小動作。這些是經驗法則，不保證每次有效。
             </p>
 
             <div class="cheat-controls no-print">
@@ -1645,12 +1645,12 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
                     <div class="cheat-block">
                         <div class="cheat-label cheat-bug">底層認知漏洞</div>
-                        <p class="text-slate-500">大腦對社交空白具有強烈的生理恐懼與填補衝動，往往會自亂陣腳主動讓步。</p>
+                        <p class="text-slate-500">多數人難以忍受對話中的沉默，常會主動補話、解釋，甚至先讓步。</p>
                     </div>
 
                     <div class="cheat-block">
                         <div class="cheat-label cheat-trigger">觸發情境</div>
-                        <p>報出極端高價錨點後、向對方提出重大要求後、或對話陷入僵局時。</p>
+                        <p>報價後、向對方提出重大要求後、或對話陷入僵局時。</p>
                     </div>
 
                     <div class="cheat-block">
@@ -1660,7 +1660,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
                     <div class="cheat-block">
                         <div class="cheat-label cheat-taboo">致命禁忌</div>
-                        <div class="cheat-taboo-panel">嚴禁在對方開口前回應或主動補充藉口／打折。</div>
+                        <div class="cheat-taboo-panel">嚴禁在對方開口前回應或主動補充藉口／打折。開價要有依據：離譜的錨點可能讓對方直接離席。</div>
                     </div>
                 </div>
 
@@ -1715,7 +1715,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
                     <div class="cheat-block">
                         <div class="cheat-label cheat-bug">底層認知漏洞</div>
-                        <p class="text-slate-500">大腦面對龐大任務會產生高靜摩擦阻力，多巴胺系統會誘使身體逃避至低阻力娛樂。</p>
+                        <p class="text-slate-500">任務越龐大、越模糊，開始的門檻越高，人就越容易轉向立刻有回饋的娛樂。</p>
                     </div>
 
                     <div class="cheat-block">
@@ -1750,7 +1750,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
                     <div class="cheat-block">
                         <div class="cheat-label cheat-bug">底層認知漏洞</div>
-                        <p class="text-slate-500">前景理論：人類對「潛在損失」的痛苦感知是「同等獲益」愉悅感的 2 倍以上。</p>
+                        <p class="text-slate-500">前景理論（損失趨避）：同樣金額，損失帶來的感受大約是獲益的 1.5～2.5 倍（各研究估計不同）。</p>
                     </div>
 
                     <div class="cheat-block">
@@ -1765,7 +1765,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
                     <div class="cheat-block">
                         <div class="cheat-label cheat-taboo">致命禁忌</div>
-                        <div class="cheat-taboo-panel">嚴禁只描繪美好願景；沒有失去痛苦的刺激，對手大腦不會行動。</div>
+                        <div class="cheat-taboo-panel">嚴禁只描繪美好願景 —— 對方容易選擇維持現狀。但損失要用真實數字，誇大會失去信任。</div>
                     </div>
                 </div>
 
@@ -1785,7 +1785,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
                     <div class="cheat-block">
                         <div class="cheat-label cheat-bug">底層認知漏洞</div>
-                        <p class="text-slate-500">大腦 DMN 迴路陷入思維反芻（Rumination），越試圖「想開」大腦空轉耗能越嚴重。</p>
+                        <p class="text-slate-500">情緒激動時容易反覆重想（反芻，Rumination），越想「想開」往往越陷越深；先轉移注意力讓情緒降溫，比硬想更有效。</p>
                     </div>
 
                     <div class="cheat-block">
@@ -2392,7 +2392,7 @@ ${bodyHtml}
         }
 
         /* ================= 階段判定 ================= */
-        const STAGE_LABEL = { startup: '創業/導入期', growth: '成長期', maturity: '成熟期', decline: '衰退/轉型期' };
+        const STAGE_LABEL = { startup: '創業期', growth: '成長期', maturity: '成熟期', decline: '衰退轉型期' };
         const STAGE_ORDER = ['startup', 'growth', 'maturity', 'decline'];
         const DIAG = [
             { q: '公司目前的營收狀況？', opts: [
@@ -2410,11 +2410,11 @@ ${bodyHtml}
                 { t: '競爭者快速增加，彼此搶佔地盤', s: 'growth' },
                 { t: '競爭者多且勢均力敵，常打價格戰', s: 'maturity' },
                 { t: '競爭者陸續退出，市場在萎縮', s: 'decline' } ] },
-            { q: '組織與資源狀態？', opts: [
-                { t: '資源有限、一人多工、決策很快', s: 'startup' },
-                { t: '人數快速增加，流程開始變複雜', s: 'growth' },
-                { t: '組織僵化，決策明顯變慢', s: 'maturity' },
-                { t: '需要縮編、重整或轉型', s: 'decline' } ] }
+            { q: '客戶與需求狀況？', opts: [
+                { t: '只有少數早期客戶在試用', s: 'startup' },
+                { t: '新客戶快速湧入，市場整體在擴大', s: 'growth' },
+                { t: '營收主要來自回購，新客越來越難找', s: 'maturity' },
+                { t: '老客戶流失，整體需求在萎縮', s: 'decline' } ] }
         ];
         const diagPick = {};
 
