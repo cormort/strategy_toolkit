@@ -6,7 +6,7 @@
          內容來源：src/content.py ／ 版面來源：src/template.html
          改完請執行：bash build.sh -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商業生命週期策略工具 (已修正 v2)</title>
+    <title>{{TITLE}}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     
@@ -558,6 +558,57 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
   padding: 8px 14px; font-size: 0.9em; cursor: pointer; font-family: inherit; }
 .guide-toggle button:hover { background: #dbeafe; }
 
+
+/* ---- v3：BCG 多事業單位 ---- */
+.bcg-wrap { margin-bottom: 16px; }
+.bcg-plot { position: relative; margin-bottom: 10px; }
+.bcg-ylab, .bcg-xlab { font-size: 0.82em; color: #64748b; font-weight: 600; }
+.bcg-ylab { margin-bottom: 4px; }
+.bcg-xlab { text-align: right; margin-top: 4px; }
+.bcg-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 120px 120px;
+  border: 2px solid #94a3b8; border-radius: 10px; overflow: hidden; }
+.bcg-cell { position: relative; padding: 8px 10px; background: #f8fafc; }
+.bcg-cell.q-question { background: #fffbeb; border-right: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
+.bcg-cell.q-star { background: #ecfdf5; border-bottom: 1px solid #cbd5e1; }
+.bcg-cell.q-dog { background: #fef2f2; border-right: 1px solid #cbd5e1; }
+.bcg-cell.q-cow { background: #f0f9ff; }
+.bcg-cellname { font-weight: 700; color: #334155; font-size: 0.9em; }
+.bcg-cellnote { display: block; font-size: 0.74em; color: #64748b; margin-top: 1px; }
+.bcg-dot { position: absolute; transform: translate(-50%, -50%); background: #1e3a8a; color: #fff;
+  font-size: 0.7em; padding: 3px 7px; border-radius: 999px; white-space: nowrap; max-width: 92px;
+  overflow: hidden; text-overflow: ellipsis; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+.bcg-dot.q-star { background: #047857; } .bcg-dot.q-question { background: #b45309; }
+.bcg-dot.q-cow { background: #0369a1; } .bcg-dot.q-dog { background: #b91c1c; }
+.bcg-summary { font-size: 0.9em; color: #334155; background: #f8fafc; border-left: 5px solid #94a3b8;
+  border-radius: 8px; padding: 11px 14px; line-height: 1.75; margin-bottom: 16px; }
+.bcg-units { display: grid; gap: 12px; }
+.bcg-row { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; background: #fff; }
+.bcg-row-head { font-weight: 700; color: #1e3a8a; font-size: 0.93em; margin-bottom: 8px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.bcg-del { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; border-radius: 6px;
+  padding: 3px 9px; font-size: 0.82em; cursor: pointer; font-family: inherit; }
+.bcg-del:hover { background: #fee2e2; }
+.bcg-row-body { display: grid; gap: 10px; }
+.bcg-row .radio-row { margin-bottom: 0; }
+.bcg-name { min-height: 46px !important; }
+.bcg-badge { margin-bottom: 0; font-size: 0.9em; }
+.bcg-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+.bcg-actions button { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; border-radius: 8px;
+  padding: 8px 14px; font-size: 0.9em; cursor: pointer; font-family: inherit; }
+.bcg-actions button:hover { background: #dbeafe; }
+
+/* ---- v3：行動追蹤 ---- */
+.status-select { padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit;
+  font-size: 0.95em; background: #fff; color: #1e293b; }
+.status-select.doing { border-color: #2563eb; color: #1d4ed8; font-weight: 600; }
+.status-select.done { border-color: #059669; color: #047857; font-weight: 600; }
+.status-select.drop { color: #94a3b8; }
+.status-select.overdue { border-color: #dc2626; background: #fef2f2; color: #b91c1c; }
+.action-summary { background: #f8fafc; border-left: 5px solid #94a3b8; border-radius: 8px;
+  padding: 12px 14px; margin-bottom: 14px; font-size: 0.92em; color: #334155; line-height: 1.8; }
+.action-summary .ok { color: #047857; font-weight: 700; }
+.action-summary .warn { color: #b91c1c; font-weight: 700; }
+
 </style>
 
     <!-- Tailwind 產生的樣式必須排在自訂 <style> 之後：
@@ -840,6 +891,9 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 <button id="exportButton" class="btn-base btn-blue export-btn focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     🚀 匯出為 Word 文件
                 </button>
+                <button id="blankExportButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    📄 匯出空白表格
+                </button>
                 <button id="backupButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     ⬇ 備份 JSON
                 </button>
@@ -869,6 +923,10 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             cheats: { btn: document.getElementById('tab-btn-cheats'), content: document.getElementById('tab-content-cheats') }
         };
         const SCHEMA_VERSION = {{SCHEMA_VERSION}};
+        const ACTION_ROWS = {{ACTION_ROWS}};
+        const ID_MIGRATION_V2 = {{ID_MIGRATION_V2}};
+        const BCG_MAX_UNITS = {{BCG_MAX_UNITS}};
+        const BCG_DEFAULT_UNITS = {{BCG_DEFAULT_UNITS}};
         // 舊版（v1）欄位 id → v2 欄位 id；由 src/content.py 的 ID_MIGRATION 產生
         const ID_MIGRATION = {{ID_MIGRATION}};
 
@@ -920,6 +978,9 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
                 if (el.checked) data[el.dataset.save] = el.value;
             });
+            document.querySelectorAll('select[data-save]').forEach(el => { data[el.dataset.save] = el.value; });
+            if (window.__reviewedAt) data._reviewedAt = window.__reviewedAt;
+            else if (data._reviewedAt === undefined) { /* 首次儲存 */ }
             const timestamp = new Date().toLocaleString('zh-TW');
             data._savedAt = timestamp;
             localStorage.setItem('businessLifecycleData', JSON.stringify(data));
@@ -949,12 +1010,36 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         }
 
         /* 把一份資料寫進畫面（文字欄位 + 是/否選項），回傳寫入欄位數 */
+        /* v2 → v3：BCG 欄位改名（bcg-unit → bcg-1-unit 等） */
+        function migrateV2to3(old) {
+            const out = Object.assign({}, old, { _schema: 3 });
+            Object.keys(ID_MIGRATION_V2).forEach(function (nid) {
+                ID_MIGRATION_V2[nid].forEach(function (oid) {
+                    if (old[oid] !== undefined && old[oid] !== '' && (out[nid] === undefined || out[nid] === '')) out[nid] = old[oid];
+                    delete out[oid];
+                });
+            });
+            if (!old._schema || old._schema < 2) return out;   // v1 已在 migrateV1 對到新 id
+            return out;
+        }
+        /* 任何版本 → 現行版本；回傳 {data, changed} */
+        function migrate(raw) {
+            let d = raw, changed = false;
+            if (!d._schema || d._schema < 2) { d = migrateV1(d); changed = true; }
+            if (!d._schema || d._schema < 3) { d = migrateV2to3(d); changed = true; }
+            return { data: d, changed: changed };
+        }
+
         function applyData(data) {
             let n = 0;
+            if (data._reviewedAt) window.__reviewedAt = data._reviewedAt;
             Object.keys(data).forEach(function (id) {
                 if (id.charAt(0) === '_') return;
                 const el = document.getElementById(id);
-                if (el && el.tagName === 'TEXTAREA') { el.value = data[id]; n++; return; }
+                if (el && (el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
+                    if (el.tagName === 'SELECT' && !Array.prototype.some.call(el.options, o => o.value === data[id])) return;
+                    el.value = data[id]; n++; return;
+                }
                 const r = document.querySelector('input[type="radio"][data-save="' + id + '"][value="' + data[id] + '"]');
                 if (r) { r.checked = true; n++; }
             });
@@ -981,13 +1066,14 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 }
                 
                 const raw = JSON.parse(savedData);
-                const migrated = !raw._schema;
-                const loadedCount = applyData(migrated ? migrateV1(raw) : raw);
+                const m = migrate(raw);
+                const loadedCount = applyData(m.data);
                 autoGrowAll();
+                bcgSyncHidden();
                 updateVerdicts();
                 const savedAt = raw._savedAt || '未知時間';
                 showNotification(`✅ 已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`
-                    + (migrated ? '｜已從舊版格式轉換' : ''), 'success');
+                    + (m.changed ? '｜已從舊版格式轉換' : ''), 'success');
             } catch (error) {
                 console.error('載入失敗：', error);
                 showNotification('❌ 載入失敗，資料可能已損壞', 'error');
@@ -1009,33 +1095,161 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             box.className = 'verdict good'; txt.textContent = '持續優勢 —— 這才是護城河。每年重新驗證一次，別讓它悄悄失效。';
         }
 
-        /* ---- BCG 自動判定：成長率 × 相對市佔 ---- */
-        function bcgVerdict() {
-            const pick = k => { const el = document.querySelector('input[name="' + k + '"]:checked'); return el ? el.value : null; };
-            const box = document.getElementById('bcg-verdict');
-            if (!box) return;
-            const txt = box.querySelector('.verdict-text');
-            const g = pick('bcg-growth'), s = pick('bcg-share');
-            if (!g || !s) { box.className = 'verdict'; txt.textContent = '把市場成長率與相對市佔選完，這裡會算出象限。'; return; }
-            if (g === 'hi' && s === 'hi') { box.className = 'verdict good'; txt.textContent = '明星（高成長 × 高市佔）—— 值得投，目標是把領先變成護城河。'; }
-            else if (g === 'hi') { box.className = 'verdict mid'; txt.textContent = '問號（高成長 × 低市佔）—— 選擇性投資：要嘛打進前三，要嘛退出，不要吊著。'; }
-            else if (s === 'hi') { box.className = 'verdict good'; txt.textContent = '金牛（低成長 × 高市佔）—— 產現金，收割它、用它養別的。'; }
-            else { box.className = 'verdict bad'; txt.textContent = '狗（低成長 × 低市佔）—— 退出、轉型，或縮到只剩必要投入。'; }
+        /* ---- BCG：每個事業單位各自判定 + 自動畫點 + 組合摘要 ---- */
+        const BCG_Q = {
+            star: { name: '明星', cls: 'good', note: '值得投，把領先變成護城河' },
+            question: { name: '問號', cls: 'mid', note: '選擇性投資：打進前三或退出' },
+            cow: { name: '金牛', cls: 'good', note: '產現金，收割它養別的' },
+            dog: { name: '狗', cls: 'bad', note: '退出、轉型或縮到只剩必要投入' }
+        };
+        function bcqPick(n, k) {
+            const el = document.querySelector('input[name="bcg-' + n + '-' + k + '"]:checked');
+            return el ? el.value : null;
         }
+        function bcgUnitQuadrant(n) {
+            const g = bcqPick(n, 'growth'), s = bcqPick(n, 'share');
+            if (!g || !s) return null;
+            return g === 'hi' ? (s === 'hi' ? 'star' : 'question') : (s === 'hi' ? 'cow' : 'dog');
+        }
+        function bcgVerdict() {
+            const rows = Array.from(document.querySelectorAll('#bcgUnits .bcg-row'));
+            const seen = {};
+            document.querySelectorAll('#bcgPlot .bcg-dot').forEach(function (d) { d.remove(); });
+            const units = [];
+            rows.forEach(function (row) {
+                const n = row.dataset.unit;
+                const q = bcgUnitQuadrant(n);
+                const box = document.getElementById('bcg-' + n + '-quadrant');
+                if (box) {
+                    const t = box.querySelector('.verdict-text');
+                    if (!q) { box.className = 'verdict bcg-badge'; t.textContent = '選完成長率與相對市佔即自動判定。'; }
+                    else { box.className = 'verdict bcg-badge ' + BCG_Q[q].cls; t.textContent = BCG_Q[q].name + '（' + BCG_Q[q].note + '）'; }
+                }
+                if (row.hidden) return;
+                const nmEl = document.getElementById('bcg-' + n + '-unit');
+                const nm = nmEl && nmEl.value.trim();
+                units.push({ n: n, name: nm || ('單位 ' + n), q: q });
+            });
+            units.forEach(function (u) {
+                if (!u.q) return;
+                seen[u.q] = (seen[u.q] || 0) + 1;
+                const cell = document.querySelector('#bcgPlot .bcg-cell[data-q="' + u.q + '"]');
+                if (!cell) return;
+                const d = document.createElement('span');
+                d.className = 'bcg-dot q-' + u.q;
+                d.style.left = (24 + ((seen[u.q] - 1) % 3) * 26) + '%';
+                d.style.top = (58 + Math.floor((seen[u.q] - 1) / 3) * 26) + '%';
+                d.textContent = u.name.slice(0, 4);
+                cell.appendChild(d);
+            });
+            const sum = document.getElementById('bcgSummary');
+            if (sum) {
+                const tally = { star: 0, question: 0, cow: 0, dog: 0 };
+                let unset = 0;
+                units.forEach(function (u) { if (u.q) tally[u.q]++; else unset++; });
+                let txt = '共 <strong>' + units.length + '</strong> 個事業單位：明星 ' + tally.star
+                    + '　·　問號 ' + tally.question + '　·　金牛 ' + tally.cow + '　·　狗 ' + tally.dog;
+                if (unset) txt += '（' + unset + ' 個還沒選完）';
+                const tips = [];
+                if (tally.dog) tips.push('狗 ' + tally.dog + ' 個：先決定退出順序，不要繼續投入。');
+                if (tally.question) tips.push('問號 ' + tally.question + ' 個：要嘛打進前三，要嘛退出，不要吊著。');
+                if (tally.cow && (tally.star || tally.question)) tips.push('金牛的現金優先拿去養明星與問號。');
+                sum.innerHTML = '<strong>組合摘要</strong>　' + txt + (tips.length ? '<br>' + tips.join('<br>') : '');
+            }
+            syncBcgRemove();
+        }
+        function syncBcgRemove() {
+            const rows = Array.from(document.querySelectorAll('#bcgUnits .bcg-row'));
+            const shown = rows.filter(function (r) { return !r.hidden; });
+            rows.forEach(function (r) {
+                const b = r.querySelector('.bcg-del');
+                if (b) b.hidden = (shown.length <= 1 || r.hidden);
+            });
+        }
+        /* 依內容決定顯示幾列：有內容的列一定展開，至少 BCG_DEFAULT 列 */
+        function bcgSyncHidden() {
+            const rows = Array.from(document.querySelectorAll('#bcgUnits .bcg-row'));
+            let lastFilled = 0;
+            rows.forEach(function (r, idx) {
+                const has = Array.from(r.querySelectorAll('textarea')).some(function (t) { return t.value.trim() !== ''; })
+                    || !!r.querySelector('input[type=radio]:checked');
+                if (has) lastFilled = idx + 1;
+            });
+            const show = Math.max(BCG_DEFAULT_UNITS, lastFilled);
+            rows.forEach(function (r, idx) { r.hidden = (idx >= show); });
+        }
+        const bcgAddBtn = document.getElementById('bcgAdd');
+        if (bcgAddBtn) bcgAddBtn.addEventListener('click', function () {
+            const next = document.querySelector('#bcgUnits .bcg-row[hidden]');
+            if (!next) { showNotification('ℹ️ 已達 ' + document.querySelectorAll('#bcgUnits .bcg-row').length + ' 個單位上限', 'error'); return; }
+            next.hidden = false;
+            bcgVerdict();
+            autoGrowAll();
+            showNotification('＋ 已新增事業單位 ' + next.dataset.unit, 'success');
+        });
+        document.addEventListener('click', function (e) {
+            const b = e.target.closest ? e.target.closest('.bcg-del') : null;
+            if (!b) return;
+            const row = b.closest('.bcg-row');
+            if (!row || b.hidden) return;
+            if (!confirm('移除「事業單位 ' + row.dataset.unit + '」？這一列的內容會一起清掉。')) return;
+            row.querySelectorAll('textarea').forEach(function (t) { t.value = ''; });
+            row.querySelectorAll('input[type=radio]').forEach(function (r) { r.checked = false; });
+            row.hidden = true;
+            bcgVerdict(); autoGrowAll();
+            showNotification('✕ 已移除事業單位 ' + row.dataset.unit, 'success');
+        });
 
-        function updateVerdicts() { vrioVerdict(); bcgVerdict(); }
+        /* ---- 行動追蹤：狀態、逾期標紅、進度摘要 ---- */
+        function actionReview() {
+            const today = localDateStr();
+            let filled = 0, done = 0, doing = 0, overdue = 0;
+            for (let r = 1; r <= ACTION_ROWS; r++) {
+                const g = id => { const el = document.getElementById(id); return el ? String(el.value || '') : ''; };
+                const what = g('act-' + r + '-what').trim();
+                const due = g('act-' + r + '-due').trim();
+                const st = g('act-' + r + '-status') || 'todo';
+                if (what) filled++;
+                if (st === 'done') done++;
+                else if (st === 'doing') doing++;
+                const isOver = !!due && /^\d{4}-\d{2}-\d{2}$/.test(due) && due < today && st !== 'done' && st !== 'drop';
+                if (isOver) overdue++;
+                const sel = document.getElementById('act-' + r + '-status');
+                if (sel) {
+                    sel.classList.toggle('doing', st === 'doing');
+                    sel.classList.toggle('done', st === 'done');
+                    sel.classList.toggle('drop', st === 'drop');
+                    sel.classList.toggle('overdue', isOver);
+                }
+            }
+            const box = document.getElementById('actionSummary');
+            if (!box) return;
+            const last = (window.__reviewedAt || '') ? '<br>上次檢視：' + window.__reviewedAt : '';
+            box.innerHTML = '<strong>進度</strong>　已填 ' + filled + ' 項　·　已完成 <span class="ok">' + done
+                + '</span>　·　進行中 ' + doing
+                + (overdue ? '　·　<span class="warn">逾期 ' + overdue + ' 項</span>' : '') + last;
+        }
+        const reviewBtn = document.getElementById('actionReviewBtn');
+        if (reviewBtn) reviewBtn.addEventListener('click', function () {
+            window.__reviewedAt = new Date().toLocaleString('zh-TW');
+            writeLocalStorage();
+            actionReview();
+            showNotification('✅ 已記錄檢視時間（' + window.__reviewedAt + '）', 'success');
+        });
+
+        function updateVerdicts() { vrioVerdict(); bcgVerdict(); actionReview(); }
 
         /* 一次展開／收合所有判讀準則 */
         const guideToggle = document.getElementById('guideToggle');
         if (guideToggle) guideToggle.addEventListener('click', function () {
             const boxes = Array.from(document.querySelectorAll('.fw-guide'));
-            const open = boxes.some(b => !b.open);
-            boxes.forEach(b => { b.open = open; });
+            const open = boxes.some(function (b) { return !b.open; });
+            boxes.forEach(function (b) { b.open = open; });
             guideToggle.textContent = open ? '📖 收合全部判讀準則' : '📖 展開全部判讀準則與實例';
         });
 
-        /* ---- Word 匯出：依「區塊 → 欄位」順序輸出已填寫的內容 ---- */
-        function sectionRows(sec) {
+        /* ---- Word 匯出 ---- */        /* ---- Word 匯出：依「區塊 → 欄位」順序輸出已填寫的內容 ---- */
+        function sectionRows(sec, includeEmpty) {
             const rows = [];
             Array.from(sec.querySelectorAll('.field, .radio-row, .verdict')).forEach(function (node) {
                 if (node.classList.contains('radio-row')) {
@@ -1045,60 +1259,80 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     if (sel) bits.push('選擇：' + sel.parentElement.textContent.trim());
                     if (note && note.value.trim()) bits.push(note.value.trim());
                     if (bits.length) rows.push({ label: node.querySelector('.radio-q').textContent.trim(), value: bits.join('\n') });
+                    else if (includeEmpty) rows.push({ label: node.querySelector('.radio-q').textContent.trim(), value: '', hint: '（勾選）' });
                 } else if (node.classList.contains('verdict')) {
                     const t = node.querySelector('.verdict-text').textContent.trim();
                     if (t && t.indexOf('把上面') !== 0 && t.indexOf('先回答') !== 0) rows.push({ label: '自動判定', value: t });
                 } else {
                     const ta = node.querySelector('textarea');
-                    if (ta && ta.value.trim()) rows.push({ label: node.dataset.item || '', value: ta.value.trim() });
+                    const sel = node.querySelector('select');
+                    const labEl = node.querySelector('.field-label');
+                    const label = node.dataset.item || (labEl ? labEl.textContent.trim() : '');
+                    const v = ta ? ta.value.trim() : (sel ? (sel.value === 'todo' ? '' : sel.options[sel.selectedIndex].text) : '');
+                    if (v) rows.push({ label: label, value: v });
+                    else if (includeEmpty) rows.push({ label: label, value: '', hint: ta ? (ta.placeholder || '') : '（下拉）' });
                 }
             });
             return rows;
         }
 
-        exportButton.addEventListener('click', function () {
-            const esc2 = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+        /* 收集區塊（includeEmpty = 空白表格也要） */
+        function collectBlocks(includeEmpty) {
             const blocks = [];
-            let total = 0;
-
             const anRows = [];
             document.querySelectorAll('#tab-content-analysis .sheet-section').forEach(function (sec) {
-                const rows = sectionRows(sec);
-                if (rows.length) { anRows.push({ title: sec.querySelector('.sheet-h3').textContent.trim(), rows: rows }); total += rows.length; }
+                const rows = sectionRows(sec, includeEmpty);
+                if (!rows.length) return;
+                const g = sec.querySelector('.fw-guide');
+                const guide = (includeEmpty && g) ? g.textContent.replace(/\s+/g, ' ').trim() : '';
+                const desc = sec.querySelector('.sheet-desc');
+                anRows.push({ title: sec.querySelector('.sheet-h3').textContent.trim(),
+                              rows: rows, guide: guide, desc: desc ? desc.textContent.trim() : '' });
             });
             if (anRows.length) blocks.push({ title: '📋 現況與分析', sub: anRows });
-
             const stSub = [];
             ['startup', 'growth', 'maturity', 'decline'].forEach(function (st) {
                 const pane = document.getElementById('tab-content-' + st);
                 if (!pane) return;
-                const rows = sectionRows(pane);
-                if (rows.length) { stSub.push({ title: pane.querySelector('.stage-title').textContent.trim(), rows: rows }); total += rows.length; }
+                const rows = sectionRows(pane, includeEmpty);
+                if (rows.length) stSub.push({ title: pane.querySelector('.stage-title').textContent.trim(), rows: rows });
             });
             if (stSub.length) blocks.push({ title: '🧭 階段判讀', sub: stSub });
-
             const acPane = document.getElementById('tab-content-actions');
-            const acRows = acPane ? sectionRows(acPane) : [];
-            if (acRows.length) { blocks.push({ title: '🎯 行動計畫', sub: [{ title: '行動項目', rows: acRows }] }); total += acRows.length; }
+            const acRows = acPane ? sectionRows(acPane, includeEmpty) : [];
+            if (acRows.length) blocks.push({ title: '🎯 行動計畫', sub: [{ title: '行動項目', rows: acRows }] });
+            return blocks;
+        }
 
-            if (!total) { showNotification('ℹ️ 尚無內容可匯出，請先填寫工作表', 'error'); return; }
-
-            let body = '';
+        /* 把區塊組成報告內文；blank = true 時空欄位留空格並顯示填寫提示 */
+        function buildDocBody(blocks, blank) {
+            const esc2 = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+            let body = '', total = 0;
             blocks.forEach(function (b) {
                 body += '<h2>' + esc2(b.title) + '</h2>';
                 b.sub.forEach(function (s) {
-                    body += '<h3>' + esc2(s.title) + '</h3><table>';
+                    body += '<h3>' + esc2(s.title) + '</h3>';
+                    if (s.desc) body += '<p style="color:#475569;font-size:0.92em;margin:0 0 6px;">' + esc2(s.desc) + '</p>';
+                    if (s.guide) body += '<p style="background:#f8fafc;border-left:4px solid #94a3b8;padding:8px 10px;color:#475569;font-size:0.86em;margin:0 0 8px;">' + esc2(s.guide) + '</p>';
+                    body += '<table>';
                     s.rows.forEach(function (r) {
-                        body += '<tr><td class="k">' + esc2(r.label) + '</td><td class="v">' + esc2(r.value) + '</td></tr>';
+                        total++;
+                        const v = r.value ? esc2(r.value)
+                            : (blank ? '<div style="min-height:2.8em;color:#94a3b8;font-size:0.85em;">' + esc2(r.hint || '') + '</div>' : '');
+                        body += '<tr><td class="k">' + esc2(r.label) + '</td><td class="v">' + v + '</td></tr>';
                     });
                     body += '</table>';
                 });
             });
+            return { html: body, total: total };
+        }
 
+        /* 產生並下載 .doc */
+        function downloadDoc(bodyHtml, title, filename) {
             const topicEl = document.getElementById('obj-name');
             const topic = topicEl ? topicEl.value.trim() : '';
             const finalHtmlString = `<!DOCTYPE html>
-<html lang="zh-Hant"><head><meta charset="UTF-8"><title>策略分析報告</title>
+<html lang="zh-Hant"><head><meta charset="UTF-8"><title>${title}</title>
 <style>
 body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; font-size: 12pt; line-height: 1.7; color: #1e293b; }
 h1 { font-size: 18pt; border-bottom: 2px solid #1e3a8a; padding-bottom: 6px; }
@@ -1108,15 +1342,30 @@ table { border-collapse: collapse; width: 100%; margin-bottom: 12px; }
 td { border: 1px solid #cbd5e1; padding: 7px 9px; vertical-align: top; }
 td.k { width: 30%; background: #f1f5f9; font-weight: bold; }
 </style></head><body>
-<h1>策略分析報告${topic ? '：' + esc2(topic) : ''}</h1>
+<h1>${title}${topic ? '：' + topic.replace(/&/g, '&amp;').replace(/</g, '&lt;') : ''}</h1>
 <p>產出日期：${localDateStr()}</p>
-${body}
+${bodyHtml}
 </body></html>`;
-
             const blob = new Blob(['\ufeff', finalHtmlString.trim()], { type: 'application/msword' });
-            saveAs(blob, `策略分析報告_${localDateStr()}.doc`);
-            showNotification(`🚀 已匯出 ${total} 個欄位`, 'success');
+            saveAs(blob, filename);
+        }
+
+        exportButton.addEventListener('click', function () {
+            const blocks = collectBlocks(false);
+            const doc = buildDocBody(blocks, false);
+            if (!doc.total) { showNotification('ℹ️ 尚無內容可匯出，請先填寫工作表', 'error'); return; }
+            downloadDoc(doc.html, '策略分析報告', `策略分析報告_${localDateStr()}.doc`);
+            showNotification(`🚀 已匯出 ${doc.total} 個欄位`, 'success');
         });
+
+        const blankBtn = document.getElementById('blankExportButton');
+        if (blankBtn) blankBtn.addEventListener('click', function () {
+            const doc = buildDocBody(collectBlocks(true), true);
+            downloadDoc(doc.html, '策略工作表（空白）', `策略工作表空白_${localDateStr()}.doc`);
+            showNotification(`📄 已匯出空白表格（${doc.total} 個欄位）`, 'success');
+        });
+
+        /* 匯出邏輯已整併到上面的 collectBlocks / buildDocBody / downloadDoc */
 
         /* ================= ⌨️ Cmd/Ctrl+S 儲存、📐 textarea 自動長高 ================= */
         function autoGrow(el) {
@@ -1132,11 +1381,12 @@ ${body}
             const auto = localStorage.getItem('businessLifecycleData');
             if (auto) {
                 const raw = JSON.parse(auto);
-                const migrated = !raw._schema;
-                applyData(migrated ? migrateV1(raw) : raw);
+                const m = migrate(raw);
+                applyData(m.data);
                 autoGrowAll();
+                bcgSyncHidden();
                 updateVerdicts();
-                if (migrated) {
+                if (m.changed) {
                     writeLocalStorage();   // 寫回新格式，避免每次開頁重複轉換
                     showNotification('ℹ️ 已將舊版存檔轉換為新版格式（同一批分析問題只要填一次）', 'success');
                 }
@@ -1265,6 +1515,11 @@ ${body}
             document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
                 if (el.checked) { el.checked = false; n++; }
             });
+            document.querySelectorAll('select[data-save]').forEach(el => {
+                if (el.value !== 'todo' && el.selectedIndex > 0) { el.value = 'todo'; n++; }
+            });
+            window.__reviewedAt = '';
+            bcgSyncHidden();
             updateVerdicts();
             localStorage.removeItem('businessLifecycleData');
             autoGrowAll();
@@ -1292,14 +1547,15 @@ ${body}
                 if (!f) return;
                 try {
                     const raw = JSON.parse(await f.text());
-                    const migrated = !raw._schema;
-                    const n = applyData(migrated ? migrateV1(raw) : raw);
+                    const m = migrate(raw);
+                    const n = applyData(m.data);
+                    bcgSyncHidden();
                     updateVerdicts();
                     const t = writeLocalStorage();
                     autoGrowAll();
                     isDirty = false;
                     showNotification('⬆ 已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）'
-                        + (migrated ? '｜已從舊版格式轉換' : ''), 'success');
+                        + (m.changed ? '｜已從舊版格式轉換' : ''), 'success');
                 } catch (e) {
                     console.error('還原失敗：', e);
                     showNotification('❌ 備份檔格式錯誤，請選擇本工具匯出的 JSON', 'error');
@@ -1316,8 +1572,11 @@ ${body}
         let isDirty = false;
         
         document.addEventListener('input', (e) => {
-            if (e.target.matches('input[type="radio"][data-save]')) updateVerdicts();
-            if (!e.target.matches('textarea.worksheet-input, input[type="radio"][data-save]')) return;
+            if (e.target.matches('input[type="radio"][data-save]')) { bcgVerdict(); vrioVerdict(); }
+            if (e.target.matches('select[data-save]') && e.target.id && e.target.id.indexOf('bcg') === 0) bcgVerdict();
+            if (e.target.id && /^act-\d+-/.test(e.target.id)) actionReview();
+            if (e.target.matches('textarea.worksheet-input, input[type="radio"][data-save], select[data-save]')) { /* 進自動儲存 */ }
+            else if (!e.target.id || !/^act-\d+-/.test(e.target.id)) return;
             isDirty = true;
             clearTimeout(autoSaveTimer);
             autoSaveTimer = setTimeout(() => {

@@ -13,7 +13,9 @@ v2 與 v1 的差別：
 欄位 id 就是存檔的 key，所以 ID_MIGRATION 是「舊存檔能不能搬過來」的關鍵。
 """
 
-SCHEMA_VERSION = 2
+TITLE = "商業生命週期策略工具箱 v3"
+
+SCHEMA_VERSION = 3
 
 # 舊版（v1）欄位 id → v2 新欄位 id。
 # 值可以是純字串，或 (標籤, 舊id) —— 有標籤者會加上「── 舊版『標籤』內容 ──」再接內容。
@@ -40,12 +42,12 @@ ID_MIGRATION = {
     "ansoff-product": ["ansoff-pd-growth", "ansoff-pd-maturity", "ansoff-pd-decline"],
     "ansoff-diversify": ["ansoff-d-growth", "ansoff-d-maturity", "ansoff-d-decline"],
     "ansoff-choice": ["ansoff-priority-growth", "ansoff-priority-maturity", "ansoff-renewal-decline"],
-    "bcg-strategy": [("明星事業 (Stars)", "bcg-stars-growth"), ("問題事業 (Question Marks)", "bcg-questions-growth"),
-                     ("金牛事業 (Cash Cows)", "bcg-cows-growth"), ("狗事業 (Dogs)", "bcg-dogs-growth"),
-                     ("明星事業", "bcg-stars-maturity"), ("問題事業", "bcg-questions-maturity"),
-                     ("金牛事業", "bcg-cows-maturity"), ("狗事業", "bcg-dogs-maturity"),
-                     ("明星事業", "bcg-stars-decline"), ("問題事業", "bcg-questions-decline"),
-                     ("金牛事業", "bcg-cows-decline"), ("狗事業", "bcg-dogs-decline")],
+    "bcg-1-strategy": [("明星事業 (Stars)", "bcg-stars-growth"), ("問題事業 (Question Marks)", "bcg-questions-growth"),
+                       ("金牛事業 (Cash Cows)", "bcg-cows-growth"), ("狗事業 (Dogs)", "bcg-dogs-growth"),
+                       ("明星事業", "bcg-stars-maturity"), ("問題事業", "bcg-questions-maturity"),
+                       ("金牛事業", "bcg-cows-maturity"), ("狗事業", "bcg-dogs-maturity"),
+                       ("明星事業", "bcg-stars-decline"), ("問題事業", "bcg-questions-decline"),
+                       ("金牛事業", "bcg-cows-decline"), ("狗事業", "bcg-dogs-decline")],
     "porter-why": [("成本領導", "generic-cost-maturity"), ("差異化", "generic-diff-maturity"),
                    ("聚焦", "generic-focus-maturity"), ("是否陷入中間狀態", "generic-stuck-maturity")],
     "ec-note": ["ws-growth-ec"],
@@ -55,6 +57,14 @@ ID_MIGRATION = {
     "read-maturity-2": [("可持續性與強化策略", "vrio-sustain-maturity"), ("策略意涵", "5f-implications-maturity"),
                         ("SWOT 策略意涵", "swot-implications-maturity")],
     "read-decline-2": [("所需的新 VRIO 資源／能力", "vrio-gap-decline"), ("初步決策", "swot-decision-decline")],
+}
+
+# v2 → v3：BCG 從「單一事業單位」改為多個（bcg-<n>-*），舊欄位平移為第 1 個單位。
+ID_MIGRATION_V2 = {
+    "bcg-1-unit": ["bcg-unit"],
+    "bcg-1-growth": ["bcg-growth"],
+    "bcg-1-share": ["bcg-share"],
+    "bcg-1-strategy": ["bcg-strategy"],
 }
 
 # ── ①～⑨ 分析區（填一次，與階段無關）─────────────────────────────
@@ -148,24 +158,19 @@ ANALYSIS = [
     ),
     dict(
         key="bcg", num="⑤", title="BCG 矩陣（事業組合）",
-        desc="用兩個可觀測的變數定象限，不要憑感覺擺位置：市場成長率 × 相對市佔（你 ÷ 最大對手）。",
+        desc="用兩個可觀測的變數定象限，不要憑感覺擺位置：市場成長率 × 相對市佔（你 ÷ 最大對手）。"
+             "每個事業單位各填一列，下面會自動畫出位置。",
         criteria="現金流方向才是重點，不是「這事業好不好」：\n"
                  "　明星（高成長 × 高市佔）：還在吃現金，但值得投，目標是把領先變成護城河。\n"
                  "　金牛（低成長 × 高市佔）：產現金，收割它、用它養別的。\n"
                  "　問號（高成長 × 低市佔）：選擇性投資 —— 要嘛打進前三，要嘛退出，不要吊著。\n"
                  "　狗（低成長 × 低市佔）：退出、轉型，或縮到只剩必要投入。\n"
-                 "相對市佔 < 1 就是「不是第一」。多個事業單位請逐一做，並比較彼此的現金流關係。",
-        example="自有土地停車場：成長率高（轉運站啟用）、相對市佔高（周邊唯一可比規模）→ 明星。\n"
-                "含義：現在該投設備與動線，不是急著漲價 —— 先把領先幅度拉開。",
-        layout=[("list", ["bcg-unit"]),
-                ("radio", "bcg-growth", [("hi", "高"), ("lo", "低")], None, "市場成長率"),
-                ("radio", "bcg-share", [("hi", "高（≥1）"), ("lo", "低（<1）")], None, "相對市佔（你 ÷ 最大對手）"),
-                ("verdict", "bcg"),
-                ("list", ["bcg-strategy"])],
-        items={
-            "bcg-unit": ("事業單位名稱", "一次一個。多個單位請分別做並比較現金流", ""),
-            "bcg-strategy": ("對應策略（由象限推出）", "先看上面算出的象限，再寫你要做什麼", ""),
-        },
+                 "相對市佔 < 1 就是「不是第一」。多個單位請一起看：金牛的現金流向明星與問號，狗要想退出順序。",
+        example="停車場：成長率高（轉運站啟用）、相對市佔高 → 明星（現在該投設備與動線，先拉開領先幅度）\n"
+                "智取店：成長率高、相對市佔低（蝦皮自有品牌在旁）→ 問號（先看它能不能進前三，否則只是耗資源）\n"
+                "洗車：成長率低、市佔高 → 金牛（不要加投資，用它的現金養別的事業）",
+        layout=[("bcgmatrix", None)],
+        items={},
     ),
     dict(
         key="ansoff", num="⑥", title="安索夫矩陣（成長方向）",
@@ -285,7 +290,19 @@ STAGE_READING_TOOLS = {
 # ── 行動計畫 ──────────────────────────────────────────────────
 
 ACTION_ROWS = 4
+
+BCG_MAX_UNITS = 6
+BCG_DEFAULT_UNITS = 3
+BCG_UNIT_FIELDS = [("unit", "事業單位名稱", "例如：停車場、智取店、洗車"),
+                   ("strategy", "對應策略（由象限推出）", "先看自動判定的象限，再寫你要做什麼")]
+BCG_GROWTH_OPTIONS = [("hi", "高"), ("lo", "低")]
+BCG_SHARE_OPTIONS = [("hi", "高（≥1）"), ("lo", "低（<1）")]
+BCG_QUADRANTS = [("star", "明星", "高成長 × 高市佔"), ("question", "問號", "高成長 × 低市佔"),
+                 ("cow", "金牛", "低成長 × 高市佔"), ("dog", "狗", "低成長 × 低市佔")]
 ACTION_FIELDS = [("what", "要做什麼"), ("owner", "負責人"), ("due", "期限"), ("metric", "成功指標")]
+
+# 每項行動的狀態（下拉；會存檔）
+ACTION_STATUS = [("todo", "未開始"), ("doing", "進行中"), ("done", "已完成"), ("drop", "已取消")]
 
 ACTION_INTRO = dict(
     title="🎯 行動計畫",
