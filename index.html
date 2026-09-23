@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-<!-- ⚠️ 這個檔案是產生出來的，不要直接編輯。
+<!-- 這個檔案是產生出來的，不要直接編輯。
          內容來源：src/content.py ／ 版面來源：src/template.html
          改完請執行：bash build.sh -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
         * { box-sizing: border-box; }
         body { font-family: 'Inter', system-ui, sans-serif; }
         
-        /* --- 修正 2.3: Textarea 樣式 (min-height -> 120px) --- */
+        /* --- 修正 2.3: Textarea 樣式 (min-height ->120px) --- */
         /* --- 修正 3.1: 視覺一致性 (顏色更新為 #3498db) --- */
         .worksheet-input { 
             margin-top: 0.375rem; 
@@ -48,7 +48,7 @@
         /* --- Tab 樣式 (顏色更新) --- */
         .tab-buttons {
             display: flex;
-            flex-wrap: wrap;          /* 窄螢幕換行；桌面寬度下仍是一行，外觀不變 */
+            flex-wrap: wrap; /* 窄螢幕換行；桌面寬度下仍是一行，外觀不變 */
             border-bottom: 2px solid #e2e8f0;
             margin-bottom: 1.5rem;
             gap: 0.25rem;
@@ -60,7 +60,7 @@
 
         .tab-btn { 
             flex-shrink: 0;
-            white-space: nowrap;      /* 按鈕內文字不斷行，換行交給容器 */ 
+            white-space: nowrap; /* 按鈕內文字不斷行，換行交給容器 */ 
             padding: 0.875rem 1.25rem; 
             border-bottom: 3px solid transparent; 
             font-weight: 500; 
@@ -210,7 +210,7 @@
             margin-top: 0.75rem;
         }
         
-        .toolkit > .input-group {
+        .toolkit >.input-group {
             width: 300px; /* 依照建議 2.2 調整 (固定寬度) */
             max-width: 100%; /* 增加保護，避免在極窄螢幕溢出 */
             margin-bottom: 0; /* 由 gap 控制間距 */
@@ -417,7 +417,7 @@
         }
     
         /* ===================================================================
-           🎮 認知作弊器（Strategy Toolkit）— 整合區塊專用樣式
+           認知作弊器（Strategy Toolkit）— 整合區塊專用樣式
            顏色沿用本站藍 (#3498db) 作為外框，語意色保留原設計
            =================================================================== */
         .cheat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.25rem; }
@@ -463,7 +463,7 @@
         .cheat-chip.active { background: #3498db; color: #fff; border-color: #3498db; }
         .cheat-empty { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #64748b; }
     
-        /* ===== 🧭 階段判定 ===== */
+        /* ===== 階段判定 ===== */
         .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
         .diag-q { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; }
         .diag-q h4 { font-size: 0.98rem; font-weight: 700; color: #1f2937; margin-bottom: 0.6rem; }
@@ -493,10 +493,10 @@
         .carry-btn:hover { background: #3498db; color: #fff; }
         .carry-hint { font-size: 0.8rem; color: #64748b; }
 
-        /* ===== 🗑 危險按鈕 ===== */
+        /* ===== 危險按鈕 ===== */
         .btn-red { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
     
-/* ================= 🆕 v2：分析區 / 判讀區 / 行動計畫 ================= */
+/* ================= v2：分析區 / 判讀區 / 行動計畫 ================= */
 .sheet-section { margin: 0 0 34px; padding-bottom: 22px; border-bottom: 1px dashed #cbd5e1; }
 .sheet-section:last-of-type { border-bottom: none; }
 .sheet-h3 { font-size: 1.32em; font-weight: 700; color: #1e3a8a; margin: 0 0 6px; }
@@ -548,10 +548,10 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 .verdict.bad { background: #fef2f2; border-left-color: #dc2626; }
 
 .fw-guide { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 14px; }
-.fw-guide > summary { cursor: pointer; padding: 10px 14px; font-weight: 600; color: #1e40af; font-size: 0.95em; }
-.fw-guide > summary:hover { background: #eff6ff; }
+.fw-guide >summary { cursor: pointer; padding: 10px 14px; font-weight: 600; color: #1e40af; font-size: 0.95em; }
+.fw-guide >summary:hover { background: #eff6ff; }
 .fw-criteria, .fw-example { padding: 2px 16px 14px; margin: 0 0 12px; }
-.fw-criteria > strong, .fw-example > strong { display: block; color: #1e40af; font-size: 0.9em; margin-bottom: 6px; }
+.fw-criteria >strong, .fw-example >strong { display: block; color: #1e40af; font-size: 0.9em; margin-bottom: 6px; }
 .fw-criteria p, .fw-example p { margin: 0; color: #475569; font-size: 0.92em; line-height: 1.8; }
 .fw-example p { color: #334155; }
 
@@ -630,17 +630,17 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
            預編譯檔同一套順序原則）。要改商務樣式改這一層，不要回頭改上面。
            ========================================================================== */
         :root {
-            --ink: #161616;            /* Gray 100：主要文字 */
-            --ink-2: #525252;          /* Gray 70：次要文字 */
-            --ink-3: #6f6f6f;          /* Gray 60：placeholder */
-            --line: #c6c6c6;           /* Gray 30：控制項邊框 */
-            --line-2: #e0e0e0;         /* Gray 20：分隔線、卡片邊框 */
-            --surface: #f4f4f4;        /* Gray 10：次層表面 */
-            --surface-2: #e8e8e8;      /* Gray 10 hover */
-            --accent: #0f62fe;         /* Blue 60：唯一互動色 */
+            --ink: #161616; /* Gray 100：主要文字 */
+            --ink-2: #525252; /* Gray 70：次要文字 */
+            --ink-3: #6f6f6f; /* Gray 60：placeholder */
+            --line: #c6c6c6; /* Gray 30：控制項邊框 */
+            --line-2: #e0e0e0; /* Gray 20：分隔線、卡片邊框 */
+            --surface: #f4f4f4; /* Gray 10：次層表面 */
+            --surface-2: #e8e8e8; /* Gray 10 hover */
+            --accent: #0f62fe; /* Blue 60：唯一互動色 */
             --accent-hover: #0353e9;
             --accent-active: #002d9c;
-            --accent-tint: #edf5ff;    /* Blue 10 */
+            --accent-tint: #edf5ff; /* Blue 10 */
             --ok: #24a148; --ok-tint: #defbe6; --ok-ink: #0e6027;
             --warn: #f1c21b; --warn-tint: #fff8e1; --warn-ink: #8a6116;
             --bad: #da1e28; --bad-tint: #fff1f1; --bad-ink: #a2191f;
@@ -873,7 +873,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         }
 </style>
 
-    <!-- Tailwind 產生的樣式必須排在自訂 <style> 之後：
+    <!-- Tailwind 產生的樣式必須排在自訂 <style>之後：
          兩者特異度相同，順序決定誰勝出（原本 CDN 是執行時注入，天生在後面）。 -->
     <link rel="stylesheet" href="./assets/tailwind.css">
 <!-- Google tag (gtag.js) -->
@@ -896,13 +896,13 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
         <div class="mb-8 border-b-2 border-slate-200 no-print">
             <nav class="tab-buttons no-print" role="tablist" aria-label="工作表分頁">
-                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">📋 現況與分析</button>
-                <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">🌱 創業期</button>
-                <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">🚀 成長期</button>
-                <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">🌳 成熟期</button>
-                <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">🍂 衰退/轉型期</button>
-                <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">🎯 行動計畫</button>
-                <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">🎮 認知作弊器</button>
+                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">現況與分析</button>
+                <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">創業期</button>
+                <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">成長期</button>
+                <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">成熟期</button>
+                <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">衰退/轉型期</button>
+                <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">行動計畫</button>
+                <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">認知作弊器</button>
             </nav>
         </div>
         
@@ -913,694 +913,694 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             </p>
 
             <section class="analysis-section no-print" id="stageDiagnosis">
-                <h2 class="analysis-h2">🧭 不確定自己在哪一期？先做 4 題判定</h2>
+                <h2 class="analysis-h2">不確定自己在哪一期？先做 4 題判定</h2>
                 <p class="analysis-p mb-4">依實際狀況各選一項，系統統計後給出建議階段，可直接跳到對應的工作表。生命週期可能跳躍、停滯或逆轉，判定結果只是起點，不是結論。</p>
                 <div class="diag-grid" id="diagQuestions"></div>
                 <div class="diag-result" id="diagResult">
                     <div id="diagOutcome" class="diag-empty">尚未作答 —— 選滿 4 題即顯示建議階段。</div>
                     <div class="diag-actions no-print">
-                        <button type="button" class="diag-btn" id="diagReset">↺ 重新作答</button>
+                        <button type="button" class="diag-btn" id="diagReset">重新作答</button>
                         <button type="button" class="diag-btn diag-btn-primary" id="diagGo" disabled>前往該階段工作表 →</button>
                     </div>
                 </div>
             </section>
 
             <div class="guide-toggle no-print">
-                <button type="button" id="guideToggle">📖 展開全部判讀準則與實例</button>
+                <button type="button" id="guideToggle">展開全部判讀準則與實例</button>
                 <span class="field-tag">每個框架的判讀準則預設收合，需要時再展開。</span>
             </div>
-                        <section class="sheet-section" id="sec-obj">
-                <h3 class="sheet-h3">① 對象與現況</h3>
-                <p class="sheet-desc">先把「在分析什麼」寫清楚。這一段含糊，後面每一個框架都會跟著含糊。</p>
-                <div class="field-grid cols-2">
-                    <div class="field" data-item="公司／產品／專案名稱">
-                        <label class="field-label" for="obj-name">公司／產品／專案名稱</label>
-                        <textarea id="obj-name" class="worksheet-input" placeholder="例如：埔里轉運站旁停車場＋蝦皮智取店"></textarea>
-                    </div>
-                    <div class="field" data-item="提供什麼（一句話）">
-                        <label class="field-label" for="obj-offer">提供什麼（一句話）</label>
-                        <textarea id="obj-offer" class="worksheet-input" placeholder="用一句話說清楚你賣什麼、解決誰的什麼問題"></textarea>
-                    </div>
-                </div>
-                <div class="field-grid cols-2">
-                    <div class="field" data-item="產業與市場範圍">
-                        <label class="field-label" for="obj-industry">產業與市場範圍</label>
-                        <textarea id="obj-industry" class="worksheet-input" placeholder="例如：南投埔里鎮、轉運站周邊 500 公尺"></textarea>
-                    </div>
-                    <div class="field" data-item="主要客群">
-                        <label class="field-label" for="obj-customers">主要客群</label>
-                        <textarea id="obj-customers" class="worksheet-input" placeholder="誰付錢？誰使用？兩個可能不是同一群人"></textarea>
-                    </div>
-                </div>
-                <div class="field-grid cols-2">
-                    <div class="field" data-item="目前規模">
-                        <label class="field-label" for="obj-scale">目前規模</label>
-                        <textarea id="obj-scale" class="worksheet-input" placeholder="營收／人數／據點數／月流量，用你手上有的數字"></textarea>
-                    </div>
-                    <div class="field" data-item="目前自認所處階段">
-                        <label class="field-label" for="obj-stage">目前自認所處階段</label>
-                        <textarea id="obj-stage" class="worksheet-input" placeholder="創業期／成長期／成熟期／衰退轉型期；不確定就用上面的「階段判讀」"></textarea>
-                    </div>
-                </div>
-            <div class="field" data-item="這份分析要回答的問題">
-                <label class="field-label" for="obj-question">這份分析要回答的問題</label>
-                <textarea id="obj-question" class="worksheet-input" placeholder="例如：要不要在第二個轉運站旁再開一間？"></textarea>
-            </div>
-            </section>
-            
-            <section class="sheet-section" id="sec-swot">
-                <h3 class="sheet-h3">② SWOT 分析</h3>
-                <p class="sheet-desc">SWOT 經常被寫成四張清單，然後就沒有然後了。它的價值在配對。</p>
-                <details class="fw-guide">
-                    <summary>判讀準則與實例</summary>
-                    <div class="fw-criteria"><strong>判讀準則</strong><p>S／W 是自己內部的、可以改的；O／T 是外部環境、你改不動的。<br>每一條後面都要能接「所以呢？」—— 接不出來的就刪掉，那是願望不是分析。<br>真正在做決策的是配對：S×O 進攻、W×O 補強、S×T 防禦、W×T 風險（最該先處理）。</p></div>
-                    <div class="fw-example"><strong>實例</strong><p>區域型停車場＋智取店<br>S＝自有土地、零租金成本；W＝現金流單薄，無法同時複製多點；<br>O＝轉運站啟用後每日人流可望翻倍；T＝周邊業者跟進價格戰。<br>配對：S×O 用零租金優勢撐過前期低載客；W×T 若價格戰開打，沒有第二個據點攤提成本 —— 這是最該先處理的一格。</p></div>
-                </details>
-                <div class="matrix-2x2">
-                    <div class="field mx-cell" data-item="優勢 (S)">
-                        <label class="field-label" for="swot-s">優勢 (S)<span class="field-tag">內部</span></label>
-                        <textarea id="swot-s" class="worksheet-input" placeholder="內部的、別人拿不走的。問「對手要花多久才能追上？」"></textarea>
-                    </div>
-                    <div class="field mx-cell" data-item="劣勢 (W)">
-                        <label class="field-label" for="swot-w">劣勢 (W)<span class="field-tag">內部</span></label>
-                        <textarea id="swot-w" class="worksheet-input" placeholder="內部可改的。不要寫「資源不足」這種沒有指向的答案"></textarea>
-                    </div>
-                    <div class="field mx-cell" data-item="機會 (O)">
-                        <label class="field-label" for="swot-o">機會 (O)<span class="field-tag">外部</span></label>
-                        <textarea id="swot-o" class="worksheet-input" placeholder="外部正在發生、對你有利的變化。要有時間點"></textarea>
-                    </div>
-                    <div class="field mx-cell" data-item="威脅 (T)">
-                        <label class="field-label" for="swot-t">威脅 (T)<span class="field-tag">外部</span></label>
-                        <textarea id="swot-t" class="worksheet-input" placeholder="外部正在發生、對你不利的變化。要有時間點"></textarea>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="sheet-section" id="sec-5f">
-                <h3 class="sheet-h3">③ 五力分析（產業結構）</h3>
-                <p class="sheet-desc">五力看的是「這個產業好不好賺」，不是「你贏不贏」。這是產業體檢，不是公司體檢。</p>
-                <details class="fw-guide">
-                    <summary>判讀準則與實例</summary>
-                    <div class="fw-criteria"><strong>判讀準則</strong><p>每一力都要寫出「誰」和「他手上有多大的籌碼」：<br>　議價力高的訊號＝來源單一、轉換成本低、資訊透明、有替代選擇。<br>不要寫「競爭激烈」—— 要寫「有幾家、市佔怎麼分、誰在打價格」。<br>五力全部都強＝這個產業結構天生難賺，策略要往「換產業位置」想，不是更努力。</p></div>
-                    <div class="fw-example"><strong>實例</strong><p>半導體設備零件維修<br>供應商議價力＝高（原廠料源單一，不能換）；客戶議價力＝低（停機成本遠高於維修費）；<br>替代品＝低（沒有等效替代）；新進入者＝低（技術認證門檻）；同業競爭＝中（三家寡佔、不打價格）。<br>結論：結構好賺，護城河來自轉換成本而不是價格。</p></div>
-                </details>
-            <div class="field" data-item="現有競爭者">
-                <label class="field-label" for="5f-rivalry">現有競爭者</label>
-                <textarea id="5f-rivalry" class="worksheet-input" placeholder="幾家？市佔怎麼分？主要在打價格還是打差異？"></textarea>
-            </div>
-            <div class="field" data-item="新進入者的威脅">
-                <label class="field-label" for="5f-entrant">新進入者的威脅</label>
-                <textarea id="5f-entrant" class="worksheet-input" placeholder="他進來要花多久、多少錢？有沒有執照／認證／通路門檻？"></textarea>
-            </div>
-            <div class="field" data-item="替代品的威脅">
-                <label class="field-label" for="5f-substitute">替代品的威脅</label>
-                <textarea id="5f-substitute" class="worksheet-input" placeholder="客戶「不買你的」還能怎麼解決同一件事？"></textarea>
-            </div>
-            <div class="field" data-item="供應商的議價力">
-                <label class="field-label" for="5f-supplier">供應商的議價力</label>
-                <textarea id="5f-supplier" class="worksheet-input" placeholder="你的料源有幾家？換一家要多久？"></textarea>
-            </div>
-            <div class="field" data-item="客戶的議價力">
-                <label class="field-label" for="5f-buyer">客戶的議價力</label>
-                <textarea id="5f-buyer" class="worksheet-input" placeholder="客戶集中度？他換掉你要付出什麼？"></textarea>
-            </div>
-            </section>
-            
-            <section class="sheet-section" id="sec-vrio">
-                <h3 class="sheet-h3">④ VRIO 分析（內部資源）</h3>
-                <p class="sheet-desc">VRIO 是四道關卡，不是四個形容詞。四題一路問下去，會得到四種結論之一。</p>
-                <details class="fw-guide">
-                    <summary>判讀準則與實例</summary>
-                    <div class="fw-criteria"><strong>判讀準則</strong><p>V 價值性：這項資源能不能讓你提高售價、降低成本，或擋掉一個威脅？<br>R 稀有性：現在有幾個對手也有？<br>I 難以模仿：對手要花多久、多少錢才能複製？（不是「很難」，是「大約多久」）<br>O 組織運用：你有沒有流程、人才、獎酬制度真的在用它？<br><br>　V 否 → 競爭劣勢（這不是資源，是負擔）<br>　V 是、R 否 → 競爭均勢（人人都有的門檻）<br>　V 是、R 是、I 否 → 暫時優勢（領先，但要一直往前跑）<br>　V 是、R 是、I 是、O 否 → 未利用的潛力（有牌不會打，問題出在組織）<br>　四項皆為是 → 持續優勢（這才是護城河）</p></div>
-                    <div class="fw-example"><strong>實例</strong><p>自有土地上的既有停車場<br>V＝是（同地段替代品租金高，價格有空間）；R＝是（同地段土地不止一塊，但可出租的不多）；<br>I＝否（對手持現金也能買地，約 1～2 年就能複製）→ 結論：暫時優勢。<br>策略含義：趁領先期把客戶關係與動線體驗做深，讓下一個對手進來時已經來不及。</p></div>
-                </details>
-            <div class="field" data-item="要檢驗的核心資源／能力">
-                <label class="field-label" for="vrio-resource">要檢驗的核心資源／能力</label>
-                <textarea id="vrio-resource" class="worksheet-input" placeholder="一次一項。有多項就複製這一組再做一次"></textarea>
-            </div>
-            <div class="radio-row" data-radio="vrio-v">
-                <div class="radio-main">
-                    <span class="radio-q">V</span>
-                    <label class="radio-opt"><input type="radio" name="vrio-v" value="yes" data-save="vrio-v"> 是</label>
-                    <label class="radio-opt"><input type="radio" name="vrio-v" value="no" data-save="vrio-v"> 否</label>
-                </div>
-                <textarea id="vrio-v-note" class="worksheet-input radio-note" placeholder="連到具體的價格、成本或風險"></textarea>
-            </div>
-            <div class="radio-row" data-radio="vrio-r">
-                <div class="radio-main">
-                    <span class="radio-q">R</span>
-                    <label class="radio-opt"><input type="radio" name="vrio-r" value="yes" data-save="vrio-r"> 是</label>
-                    <label class="radio-opt"><input type="radio" name="vrio-r" value="no" data-save="vrio-r"> 否</label>
-                </div>
-                <textarea id="vrio-r-note" class="worksheet-input radio-note" placeholder="寫出數量或名字"></textarea>
-            </div>
-            <div class="radio-row" data-radio="vrio-i">
-                <div class="radio-main">
-                    <span class="radio-q">I</span>
-                    <label class="radio-opt"><input type="radio" name="vrio-i" value="yes" data-save="vrio-i"> 是</label>
-                    <label class="radio-opt"><input type="radio" name="vrio-i" value="no" data-save="vrio-i"> 否</label>
-                </div>
-                <textarea id="vrio-i-note" class="worksheet-input radio-note" placeholder="用時間和金錢回答，不要寫「很難」"></textarea>
-            </div>
-            <div class="radio-row" data-radio="vrio-o">
-                <div class="radio-main">
-                    <span class="radio-q">O</span>
-                    <label class="radio-opt"><input type="radio" name="vrio-o" value="yes" data-save="vrio-o"> 是</label>
-                    <label class="radio-opt"><input type="radio" name="vrio-o" value="no" data-save="vrio-o"> 否</label>
-                </div>
-                <textarea id="vrio-o-note" class="worksheet-input radio-note" placeholder="有沒有流程、負責人、獎酬在支撐"></textarea>
-            </div>
-                <div class="verdict" id="vrio-verdict">
-                    <span class="verdict-label">自動判定</span>
-                    <span class="verdict-text">把上面的選項選完，這裡會自動算出結論。</span>
-                </div>
-            </section>
-            
-            <section class="sheet-section" id="sec-bcg">
-                <h3 class="sheet-h3">⑤ BCG 矩陣（事業組合）</h3>
-                <p class="sheet-desc">用兩個可觀測的變數定象限，不要憑感覺擺位置：市場成長率 × 相對市佔（你 ÷ 最大對手）。每個事業單位各填一列，下面會自動畫出位置。</p>
-                <details class="fw-guide">
-                    <summary>判讀準則與實例</summary>
-                    <div class="fw-criteria"><strong>判讀準則</strong><p>現金流方向才是重點，不是「這事業好不好」：<br>　明星（高成長 × 高市佔）：還在吃現金，但值得投，目標是把領先變成護城河。<br>　金牛（低成長 × 高市佔）：產現金，收割它、用它養別的。<br>　問號（高成長 × 低市佔）：選擇性投資 —— 要嘛打進前三，要嘛退出，不要吊著。<br>　狗（低成長 × 低市佔）：退出、轉型，或縮到只剩必要投入。<br>相對市佔 &lt; 1 就是「不是第一」。多個單位請一起看：金牛的現金流向明星與問號，狗要想退出順序。</p></div>
-                    <div class="fw-example"><strong>實例</strong><p>停車場：成長率高（轉運站啟用）、相對市佔高 → 明星（現在該投設備與動線，先拉開領先幅度）<br>智取店：成長率高、相對市佔低（蝦皮自有品牌在旁）→ 問號（先看它能不能進前三，否則只是耗資源）<br>洗車：成長率低、市佔高 → 金牛（不要加投資，用它的現金養別的事業）</p></div>
-                </details>
-                <div class="bcg-wrap">
-                    <div class="bcg-plot" id="bcgPlot">
-                        <div class="bcg-ylab">市場成長率 高 ↑</div>
-                        <div class="bcg-xlab">相對市佔（你 ÷ 最大對手） 高 →</div>
-                        <div class="bcg-grid">
-                            <div class="bcg-cell q-question" data-q="question"><span class="bcg-cellname">問號</span><span class="bcg-cellnote">高成長 × 低市佔</span></div>
-                            <div class="bcg-cell q-star" data-q="star"><span class="bcg-cellname">明星</span><span class="bcg-cellnote">高成長 × 高市佔</span></div>
-                            <div class="bcg-cell q-dog" data-q="dog"><span class="bcg-cellname">狗</span><span class="bcg-cellnote">低成長 × 低市佔</span></div>
-                            <div class="bcg-cell q-cow" data-q="cow"><span class="bcg-cellname">金牛</span><span class="bcg-cellnote">低成長 × 高市佔</span></div>
-                        </div>
-                    </div>
-                    <div class="bcg-summary" id="bcgSummary"></div>
-                </div>
-                <div class="bcg-units" id="bcgUnits">
-                    <div class="bcg-row" data-unit="1">
-                        <div class="bcg-row-head">事業單位 1<button type="button" class="bcg-del no-print" data-del="1">移除</button></div>
-                        <div class="bcg-row-body">
-                            <div class="field" data-item="事業單位名稱">
-                                <label class="field-label" for="bcg-1-unit">事業單位名稱</label>
-                                <textarea id="bcg-1-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-1-growth" data-bcg="growth">
-                                <div class="radio-main"><span class="radio-q">市場成長率</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-1-growth" value="hi" data-save="bcg-1-growth"> 高</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-1-growth" value="lo" data-save="bcg-1-growth"> 低</label>
-                                </div>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-1-share" data-bcg="share">
-                                <div class="radio-main"><span class="radio-q">相對市佔</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-1-share" value="hi" data-save="bcg-1-share"> 高（≥1）</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-1-share" value="lo" data-save="bcg-1-share"> 低（&lt;1）</label>
-                                </div>
-                            </div>
-                            <div class="verdict bcg-badge" id="bcg-1-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
-                            <div class="field" data-item="對應策略（由象限推出）">
-                                <label class="field-label" for="bcg-1-strategy">對應策略（由象限推出）</label>
-                                <textarea id="bcg-1-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bcg-row" data-unit="2">
-                        <div class="bcg-row-head">事業單位 2<button type="button" class="bcg-del no-print" data-del="2">移除</button></div>
-                        <div class="bcg-row-body">
-                            <div class="field" data-item="事業單位名稱">
-                                <label class="field-label" for="bcg-2-unit">事業單位名稱</label>
-                                <textarea id="bcg-2-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-2-growth" data-bcg="growth">
-                                <div class="radio-main"><span class="radio-q">市場成長率</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-2-growth" value="hi" data-save="bcg-2-growth"> 高</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-2-growth" value="lo" data-save="bcg-2-growth"> 低</label>
-                                </div>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-2-share" data-bcg="share">
-                                <div class="radio-main"><span class="radio-q">相對市佔</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-2-share" value="hi" data-save="bcg-2-share"> 高（≥1）</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-2-share" value="lo" data-save="bcg-2-share"> 低（&lt;1）</label>
-                                </div>
-                            </div>
-                            <div class="verdict bcg-badge" id="bcg-2-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
-                            <div class="field" data-item="對應策略（由象限推出）">
-                                <label class="field-label" for="bcg-2-strategy">對應策略（由象限推出）</label>
-                                <textarea id="bcg-2-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bcg-row" data-unit="3">
-                        <div class="bcg-row-head">事業單位 3<button type="button" class="bcg-del no-print" data-del="3">移除</button></div>
-                        <div class="bcg-row-body">
-                            <div class="field" data-item="事業單位名稱">
-                                <label class="field-label" for="bcg-3-unit">事業單位名稱</label>
-                                <textarea id="bcg-3-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-3-growth" data-bcg="growth">
-                                <div class="radio-main"><span class="radio-q">市場成長率</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-3-growth" value="hi" data-save="bcg-3-growth"> 高</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-3-growth" value="lo" data-save="bcg-3-growth"> 低</label>
-                                </div>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-3-share" data-bcg="share">
-                                <div class="radio-main"><span class="radio-q">相對市佔</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-3-share" value="hi" data-save="bcg-3-share"> 高（≥1）</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-3-share" value="lo" data-save="bcg-3-share"> 低（&lt;1）</label>
-                                </div>
-                            </div>
-                            <div class="verdict bcg-badge" id="bcg-3-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
-                            <div class="field" data-item="對應策略（由象限推出）">
-                                <label class="field-label" for="bcg-3-strategy">對應策略（由象限推出）</label>
-                                <textarea id="bcg-3-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bcg-row" data-unit="4" hidden>
-                        <div class="bcg-row-head">事業單位 4<button type="button" class="bcg-del no-print" data-del="4">移除</button></div>
-                        <div class="bcg-row-body">
-                            <div class="field" data-item="事業單位名稱">
-                                <label class="field-label" for="bcg-4-unit">事業單位名稱</label>
-                                <textarea id="bcg-4-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-4-growth" data-bcg="growth">
-                                <div class="radio-main"><span class="radio-q">市場成長率</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-4-growth" value="hi" data-save="bcg-4-growth"> 高</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-4-growth" value="lo" data-save="bcg-4-growth"> 低</label>
-                                </div>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-4-share" data-bcg="share">
-                                <div class="radio-main"><span class="radio-q">相對市佔</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-4-share" value="hi" data-save="bcg-4-share"> 高（≥1）</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-4-share" value="lo" data-save="bcg-4-share"> 低（&lt;1）</label>
-                                </div>
-                            </div>
-                            <div class="verdict bcg-badge" id="bcg-4-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
-                            <div class="field" data-item="對應策略（由象限推出）">
-                                <label class="field-label" for="bcg-4-strategy">對應策略（由象限推出）</label>
-                                <textarea id="bcg-4-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bcg-row" data-unit="5" hidden>
-                        <div class="bcg-row-head">事業單位 5<button type="button" class="bcg-del no-print" data-del="5">移除</button></div>
-                        <div class="bcg-row-body">
-                            <div class="field" data-item="事業單位名稱">
-                                <label class="field-label" for="bcg-5-unit">事業單位名稱</label>
-                                <textarea id="bcg-5-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-5-growth" data-bcg="growth">
-                                <div class="radio-main"><span class="radio-q">市場成長率</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-5-growth" value="hi" data-save="bcg-5-growth"> 高</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-5-growth" value="lo" data-save="bcg-5-growth"> 低</label>
-                                </div>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-5-share" data-bcg="share">
-                                <div class="radio-main"><span class="radio-q">相對市佔</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-5-share" value="hi" data-save="bcg-5-share"> 高（≥1）</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-5-share" value="lo" data-save="bcg-5-share"> 低（&lt;1）</label>
-                                </div>
-                            </div>
-                            <div class="verdict bcg-badge" id="bcg-5-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
-                            <div class="field" data-item="對應策略（由象限推出）">
-                                <label class="field-label" for="bcg-5-strategy">對應策略（由象限推出）</label>
-                                <textarea id="bcg-5-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bcg-row" data-unit="6" hidden>
-                        <div class="bcg-row-head">事業單位 6<button type="button" class="bcg-del no-print" data-del="6">移除</button></div>
-                        <div class="bcg-row-body">
-                            <div class="field" data-item="事業單位名稱">
-                                <label class="field-label" for="bcg-6-unit">事業單位名稱</label>
-                                <textarea id="bcg-6-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-6-growth" data-bcg="growth">
-                                <div class="radio-main"><span class="radio-q">市場成長率</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-6-growth" value="hi" data-save="bcg-6-growth"> 高</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-6-growth" value="lo" data-save="bcg-6-growth"> 低</label>
-                                </div>
-                            </div>
-                            <div class="radio-row" data-radio="bcg-6-share" data-bcg="share">
-                                <div class="radio-main"><span class="radio-q">相對市佔</span>
-                                    <label class="radio-opt"><input type="radio" name="bcg-6-share" value="hi" data-save="bcg-6-share"> 高（≥1）</label>
-                                    <label class="radio-opt"><input type="radio" name="bcg-6-share" value="lo" data-save="bcg-6-share"> 低（&lt;1）</label>
-                                </div>
-                            </div>
-                            <div class="verdict bcg-badge" id="bcg-6-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
-                            <div class="field" data-item="對應策略（由象限推出）">
-                                <label class="field-label" for="bcg-6-strategy">對應策略（由象限推出）</label>
-                                <textarea id="bcg-6-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bcg-actions no-print">
-                    <button type="button" id="bcgAdd">＋ 新增事業單位</button>
-                    <span class="field-tag">最多 6 個。移除的單位，內容會一起刪掉。</span>
-                </div>
-            </section>
-            
-            <section class="sheet-section" id="sec-ansoff">
-                <h3 class="sheet-h3">⑥ 安索夫矩陣（成長方向）</h3>
-                <p class="sheet-desc">「現有／新」產品 ×「現有／新」市場，四個格子。風險由低到高：滲透 → 市場開發 → 產品開發 → 多角化。</p>
-                <details class="fw-guide">
-                    <summary>判讀準則與實例</summary>
-                    <div class="fw-criteria"><strong>判讀準則</strong><p>資源有限時，預設答案是「先榨乾市場滲透」，不是直接跳到多角化。<br>只有當現有市場明顯做不動了（成長率趨零、客戶飽和），才往下一格走。<br>多角化是最貴的一格：你要同時學新產品和新市場 —— 除非有明確理由，否則它通常是逃生而不是策略。</p></div>
-                    <div class="fw-example"><strong>實例</strong><p>停車場＋智取店<br>市場滲透＝向現有車主推月租與洗車；市場開發＝把智取店服務推給轉運站乘客；<br>產品開發＝加裝充電樁服務電動車；多角化＝到別的鄉鎮開第二個據點（同時是新市場與新營運模式）。<br>主戰場：市場滲透 —— 邊際成本最低，先做。</p></div>
-                </details>
-                <div class="matrix-2x2">
-                    <div class="field mx-cell" data-item="市場滲透（現有產品 × 現有市場）">
-                        <label class="field-label" for="ansoff-marketpen">市場滲透（現有產品 × 現有市場）</label>
-                        <textarea id="ansoff-marketpen" class="worksheet-input" placeholder="怎麼讓現有客戶買更多／來更頻繁？"></textarea>
-                    </div>
-                    <div class="field mx-cell" data-item="市場開發（現有產品 × 新市場）">
-                        <label class="field-label" for="ansoff-dev">市場開發（現有產品 × 新市場）</label>
-                        <textarea id="ansoff-dev" class="worksheet-input" placeholder="同一套東西還能賣給誰？"></textarea>
-                    </div>
-                    <div class="field mx-cell" data-item="產品開發（新產品 × 現有市場）">
-                        <label class="field-label" for="ansoff-product">產品開發（新產品 × 現有市場）</label>
-                        <textarea id="ansoff-product" class="worksheet-input" placeholder="現有客戶還需要什麼、你順手做得到？"></textarea>
-                    </div>
-                    <div class="field mx-cell" data-item="多角化（新產品 × 新市場）">
-                        <label class="field-label" for="ansoff-diversify">多角化（新產品 × 新市場）</label>
-                        <textarea id="ansoff-diversify" class="worksheet-input" placeholder="最貴的一格。寫之前先問「為什麼非做不可」"></textarea>
-                    </div>
-                </div>
-            <div class="field" data-item="主戰場：先打哪一格？為什麼？">
-                <label class="field-label" for="ansoff-choice">主戰場：先打哪一格？為什麼？</label>
-                <textarea id="ansoff-choice" class="worksheet-input" placeholder="通常答案是市場滲透 —— 除非你有明確理由"></textarea>
-            </div>
-            </section>
-            
-            <section class="sheet-section" id="sec-porter">
-                <h3 class="sheet-h3">⑦ 波特基本策略</h3>
-                <p class="sheet-desc">三種策略只能選一種。「兩種都做」的結果是卡在中間（stuck in the middle），通常最慘。</p>
-                <details class="fw-guide">
-                    <summary>判讀準則與實例</summary>
-                    <div class="fw-criteria"><strong>判讀準則</strong><p>成本領先：你的結構成本就是比別人低（規模、自有資產、製程），所以能用價格擋人。<br>差異化：客戶願意為某個東西多付錢，而你做得到、對手做不到。<br>集中：只在一個小範圍做到前兩者之一，放棄其他市場。<br><br>選定之後要看一致性：選成本領先卻在花錢做品牌，選差異化卻在砍服務成本 —— 那就是還沒選。</p></div>
-                    <div class="fw-example"><strong>實例</strong><p>自有土地停車場：偏向「集中」—— 只在轉運站周邊這個範圍，用零租金做到最低價；<br>不追求全鎮覆蓋，也不去做高價代客泊車。</p></div>
-                </details>
-            <div class="radio-row" data-radio="porter-choice">
-                <div class="radio-main">
-                    <span class="radio-q">你要用哪一種？</span>
-                    <label class="radio-opt"><input type="radio" name="porter-choice" value="cost" data-save="porter-choice"> 成本領先</label>
-                    <label class="radio-opt"><input type="radio" name="porter-choice" value="diff" data-save="porter-choice"> 差異化</label>
-                    <label class="radio-opt"><input type="radio" name="porter-choice" value="focus" data-save="porter-choice"> 集中</label>
-                </div>
-            </div>
-            <div class="field" data-item="為什麼選這個？資源配置要怎麼一致？">
-                <label class="field-label" for="porter-why">為什麼選這個？資源配置要怎麼一致？</label>
-                <textarea id="porter-why" class="worksheet-input" placeholder="寫出「所以我會把錢花在…、不花在…」"></textarea>
-            </div>
-            </section>
-            
-            <section class="sheet-section" id="sec-ec">
-                <h3 class="sheet-h3">⑧ 經驗曲線</h3>
-                <p class="sheet-desc">累積產量每翻一倍，單位成本會下降一個固定比例。重點是「你有沒有在累積」，不是「你有沒有比對手便宜」。</p>
-                <details class="fw-guide">
-                    <summary>判讀準則與實例</summary>
-                    <div class="fw-criteria"><strong>判讀準則</strong><p>有用的問法：過去一年你的累積產量／服務量翻倍了嗎？有沒有哪一項成本跟著下降？<br>如果你的量沒在長，經驗曲線對你就是靜止的 —— 那代表你的優勢只能靠別的東西。<br>反向用法：對手量比你大，他的成本就會持續比你低，價格戰你打不贏。</p></div>
-                    <div class="fw-example"><strong>實例</strong><p>停車場：車位數固定，累積量＝累積服務車次。<br>推月租讓固定車主佔比提高 → 每日周轉次數上升 → 每車次分攤的人力與清潔成本下降。</p></div>
-                </details>
-            <div class="field" data-item="你累積了什麼？哪一項成本跟著降？">
-                <label class="field-label" for="ec-note">你累積了什麼？哪一項成本跟著降？</label>
-                <textarea id="ec-note" class="worksheet-input" placeholder="沒有在累積就明說，那也是結論"></textarea>
-            </div>
-            </section>
-            
-            <section class="sheet-section" id="sec-synth">
-                <h3 class="sheet-h3">⑨ 綜合判斷</h3>
-                <p class="sheet-desc">把上面八段收斂成一頁。這一頁就是你要拿去做決定的東西。</p>
-            <div class="field" data-item="如果只能改一件事">
-                <label class="field-label" for="synth-key">如果只能改一件事</label>
-                <textarea id="synth-key" class="worksheet-input" placeholder="寫一件。寫兩件等於沒選"></textarea>
-            </div>
-            <div class="field" data-item="整體判斷">
-                <label class="field-label" for="synth-verdict">整體判斷</label>
-                <textarea id="synth-verdict" class="worksheet-input" placeholder="把 SWOT 配對、五力結構、VRIO 結論串成一句話"></textarea>
-            </div>
-            </section>
-            
+             <section class="sheet-section" id="sec-obj">
+ <h3 class="sheet-h3">① 對象與現況</h3>
+ <p class="sheet-desc">先把「在分析什麼」寫清楚。這一段含糊，後面每一個框架都會跟著含糊。</p>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="公司／產品／專案名稱">
+  <label class="field-label" for="obj-name">公司／產品／專案名稱</label>
+  <textarea id="obj-name" class="worksheet-input" placeholder="例如：埔里轉運站旁停車場＋蝦皮智取店"></textarea>
+ </div>
+ <div class="field" data-item="提供什麼（一句話）">
+  <label class="field-label" for="obj-offer">提供什麼（一句話）</label>
+  <textarea id="obj-offer" class="worksheet-input" placeholder="用一句話說清楚你賣什麼、解決誰的什麼問題"></textarea>
+ </div>
+ </div>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="產業與市場範圍">
+  <label class="field-label" for="obj-industry">產業與市場範圍</label>
+  <textarea id="obj-industry" class="worksheet-input" placeholder="例如：南投埔里鎮、轉運站周邊 500 公尺"></textarea>
+ </div>
+ <div class="field" data-item="主要客群">
+  <label class="field-label" for="obj-customers">主要客群</label>
+  <textarea id="obj-customers" class="worksheet-input" placeholder="誰付錢？誰使用？兩個可能不是同一群人"></textarea>
+ </div>
+ </div>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="目前規模">
+  <label class="field-label" for="obj-scale">目前規模</label>
+  <textarea id="obj-scale" class="worksheet-input" placeholder="營收／人數／據點數／月流量，用你手上有的數字"></textarea>
+ </div>
+ <div class="field" data-item="目前自認所處階段">
+  <label class="field-label" for="obj-stage">目前自認所處階段</label>
+  <textarea id="obj-stage" class="worksheet-input" placeholder="創業期／成長期／成熟期／衰退轉型期；不確定就用上面的「階段判讀」"></textarea>
+ </div>
+ </div>
+ <div class="field" data-item="這份分析要回答的問題">
+  <label class="field-label" for="obj-question">這份分析要回答的問題</label>
+  <textarea id="obj-question" class="worksheet-input" placeholder="例如：要不要在第二個轉運站旁再開一間？"></textarea>
+ </div>
+ </section>
+ 
+ <section class="sheet-section" id="sec-swot">
+ <h3 class="sheet-h3">② SWOT 分析</h3>
+ <p class="sheet-desc">SWOT 經常被寫成四張清單，然後就沒有然後了。它的價值在配對。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>S／W 是自己內部的、可以改的；O／T 是外部環境、你改不動的。<br>每一條後面都要能接「所以呢？」—— 接不出來的就刪掉，那是願望不是分析。<br>真正在做決策的是配對：S×O 進攻、W×O 補強、S×T 防禦、W×T 風險（最該先處理）。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>區域型停車場＋智取店<br>S＝自有土地、零租金成本；W＝現金流單薄，無法同時複製多點；<br>O＝轉運站啟用後每日人流可望翻倍；T＝周邊業者跟進價格戰。<br>配對：S×O 用零租金優勢撐過前期低載客；W×T 若價格戰開打，沒有第二個據點攤提成本 —— 這是最該先處理的一格。</p></div>
+ </details>
+ <div class="matrix-2x2">
+ <div class="field mx-cell" data-item="優勢 (S)">
+  <label class="field-label" for="swot-s">優勢 (S)<span class="field-tag">內部</span></label>
+  <textarea id="swot-s" class="worksheet-input" placeholder="內部的、別人拿不走的。問「對手要花多久才能追上？」"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="劣勢 (W)">
+  <label class="field-label" for="swot-w">劣勢 (W)<span class="field-tag">內部</span></label>
+  <textarea id="swot-w" class="worksheet-input" placeholder="內部可改的。不要寫「資源不足」這種沒有指向的答案"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="機會 (O)">
+  <label class="field-label" for="swot-o">機會 (O)<span class="field-tag">外部</span></label>
+  <textarea id="swot-o" class="worksheet-input" placeholder="外部正在發生、對你有利的變化。要有時間點"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="威脅 (T)">
+  <label class="field-label" for="swot-t">威脅 (T)<span class="field-tag">外部</span></label>
+  <textarea id="swot-t" class="worksheet-input" placeholder="外部正在發生、對你不利的變化。要有時間點"></textarea>
+ </div>
+ </div>
+ </section>
+ 
+ <section class="sheet-section" id="sec-5f">
+ <h3 class="sheet-h3">③ 五力分析（產業結構）</h3>
+ <p class="sheet-desc">五力看的是「這個產業好不好賺」，不是「你贏不贏」。這是產業體檢，不是公司體檢。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>每一力都要寫出「誰」和「他手上有多大的籌碼」：<br>　議價力高的訊號＝來源單一、轉換成本低、資訊透明、有替代選擇。<br>不要寫「競爭激烈」—— 要寫「有幾家、市佔怎麼分、誰在打價格」。<br>五力全部都強＝這個產業結構天生難賺，策略要往「換產業位置」想，不是更努力。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>半導體設備零件維修<br>供應商議價力＝高（原廠料源單一，不能換）；客戶議價力＝低（停機成本遠高於維修費）；<br>替代品＝低（沒有等效替代）；新進入者＝低（技術認證門檻）；同業競爭＝中（三家寡佔、不打價格）。<br>結論：結構好賺，護城河來自轉換成本而不是價格。</p></div>
+ </details>
+ <div class="field" data-item="現有競爭者">
+  <label class="field-label" for="5f-rivalry">現有競爭者</label>
+  <textarea id="5f-rivalry" class="worksheet-input" placeholder="幾家？市佔怎麼分？主要在打價格還是打差異？"></textarea>
+ </div>
+ <div class="field" data-item="新進入者的威脅">
+  <label class="field-label" for="5f-entrant">新進入者的威脅</label>
+  <textarea id="5f-entrant" class="worksheet-input" placeholder="他進來要花多久、多少錢？有沒有執照／認證／通路門檻？"></textarea>
+ </div>
+ <div class="field" data-item="替代品的威脅">
+  <label class="field-label" for="5f-substitute">替代品的威脅</label>
+  <textarea id="5f-substitute" class="worksheet-input" placeholder="客戶「不買你的」還能怎麼解決同一件事？"></textarea>
+ </div>
+ <div class="field" data-item="供應商的議價力">
+  <label class="field-label" for="5f-supplier">供應商的議價力</label>
+  <textarea id="5f-supplier" class="worksheet-input" placeholder="你的料源有幾家？換一家要多久？"></textarea>
+ </div>
+ <div class="field" data-item="客戶的議價力">
+  <label class="field-label" for="5f-buyer">客戶的議價力</label>
+  <textarea id="5f-buyer" class="worksheet-input" placeholder="客戶集中度？他換掉你要付出什麼？"></textarea>
+ </div>
+ </section>
+ 
+ <section class="sheet-section" id="sec-vrio">
+ <h3 class="sheet-h3">④ VRIO 分析（內部資源）</h3>
+ <p class="sheet-desc">VRIO 是四道關卡，不是四個形容詞。四題一路問下去，會得到四種結論之一。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>V 價值性：這項資源能不能讓你提高售價、降低成本，或擋掉一個威脅？<br>R 稀有性：現在有幾個對手也有？<br>I 難以模仿：對手要花多久、多少錢才能複製？（不是「很難」，是「大約多久」）<br>O 組織運用：你有沒有流程、人才、獎酬制度真的在用它？<br><br>　V 否 → 競爭劣勢（這不是資源，是負擔）<br>　V 是、R 否 → 競爭均勢（人人都有的門檻）<br>　V 是、R 是、I 否 → 暫時優勢（領先，但要一直往前跑）<br>　V 是、R 是、I 是、O 否 → 未利用的潛力（有牌不會打，問題出在組織）<br>　四項皆為是 → 持續優勢（這才是護城河）</p></div>
+ <div class="fw-example"><strong>實例</strong><p>自有土地上的既有停車場<br>V＝是（同地段替代品租金高，價格有空間）；R＝是（同地段土地不止一塊，但可出租的不多）；<br>I＝否（對手持現金也能買地，約 1～2 年就能複製）→ 結論：暫時優勢。<br>策略含義：趁領先期把客戶關係與動線體驗做深，讓下一個對手進來時已經來不及。</p></div>
+ </details>
+ <div class="field" data-item="要檢驗的核心資源／能力">
+  <label class="field-label" for="vrio-resource">要檢驗的核心資源／能力</label>
+  <textarea id="vrio-resource" class="worksheet-input" placeholder="一次一項。有多項就複製這一組再做一次"></textarea>
+ </div>
+ <div class="radio-row" data-radio="vrio-v">
+  <div class="radio-main">
+  <span class="radio-q">V</span>
+  <label class="radio-opt"><input type="radio" name="vrio-v" value="yes" data-save="vrio-v">是</label>
+  <label class="radio-opt"><input type="radio" name="vrio-v" value="no" data-save="vrio-v">否</label>
+  </div>
+  <textarea id="vrio-v-note" class="worksheet-input radio-note" placeholder="連到具體的價格、成本或風險"></textarea>
+ </div>
+ <div class="radio-row" data-radio="vrio-r">
+  <div class="radio-main">
+  <span class="radio-q">R</span>
+  <label class="radio-opt"><input type="radio" name="vrio-r" value="yes" data-save="vrio-r">是</label>
+  <label class="radio-opt"><input type="radio" name="vrio-r" value="no" data-save="vrio-r">否</label>
+  </div>
+  <textarea id="vrio-r-note" class="worksheet-input radio-note" placeholder="寫出數量或名字"></textarea>
+ </div>
+ <div class="radio-row" data-radio="vrio-i">
+  <div class="radio-main">
+  <span class="radio-q">I</span>
+  <label class="radio-opt"><input type="radio" name="vrio-i" value="yes" data-save="vrio-i">是</label>
+  <label class="radio-opt"><input type="radio" name="vrio-i" value="no" data-save="vrio-i">否</label>
+  </div>
+  <textarea id="vrio-i-note" class="worksheet-input radio-note" placeholder="用時間和金錢回答，不要寫「很難」"></textarea>
+ </div>
+ <div class="radio-row" data-radio="vrio-o">
+  <div class="radio-main">
+  <span class="radio-q">O</span>
+  <label class="radio-opt"><input type="radio" name="vrio-o" value="yes" data-save="vrio-o">是</label>
+  <label class="radio-opt"><input type="radio" name="vrio-o" value="no" data-save="vrio-o">否</label>
+  </div>
+  <textarea id="vrio-o-note" class="worksheet-input radio-note" placeholder="有沒有流程、負責人、獎酬在支撐"></textarea>
+ </div>
+ <div class="verdict" id="vrio-verdict">
+ <span class="verdict-label">自動判定</span>
+ <span class="verdict-text">把上面的選項選完，這裡會自動算出結論。</span>
+ </div>
+ </section>
+ 
+ <section class="sheet-section" id="sec-bcg">
+ <h3 class="sheet-h3">⑤ BCG 矩陣（事業組合）</h3>
+ <p class="sheet-desc">用兩個可觀測的變數定象限，不要憑感覺擺位置：市場成長率 × 相對市佔（你 ÷ 最大對手）。每個事業單位各填一列，下面會自動畫出位置。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>現金流方向才是重點，不是「這事業好不好」：<br>　明星（高成長 × 高市佔）：還在吃現金，但值得投，目標是把領先變成護城河。<br>　金牛（低成長 × 高市佔）：產現金，收割它、用它養別的。<br>　問號（高成長 × 低市佔）：選擇性投資 —— 要嘛打進前三，要嘛退出，不要吊著。<br>　狗（低成長 × 低市佔）：退出、轉型，或縮到只剩必要投入。<br>相對市佔 &lt; 1 就是「不是第一」。多個單位請一起看：金牛的現金流向明星與問號，狗要想退出順序。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>停車場：成長率高（轉運站啟用）、相對市佔高 → 明星（現在該投設備與動線，先拉開領先幅度）<br>智取店：成長率高、相對市佔低（蝦皮自有品牌在旁）→ 問號（先看它能不能進前三，否則只是耗資源）<br>洗車：成長率低、市佔高 → 金牛（不要加投資，用它的現金養別的事業）</p></div>
+ </details>
+ <div class="bcg-wrap">
+  <div class="bcg-plot" id="bcgPlot">
+  <div class="bcg-ylab">市場成長率 高 ↑</div>
+  <div class="bcg-xlab">相對市佔（你 ÷ 最大對手） 高 →</div>
+  <div class="bcg-grid">
+  <div class="bcg-cell q-question" data-q="question"><span class="bcg-cellname">問號</span><span class="bcg-cellnote">高成長 × 低市佔</span></div>
+  <div class="bcg-cell q-star" data-q="star"><span class="bcg-cellname">明星</span><span class="bcg-cellnote">高成長 × 高市佔</span></div>
+  <div class="bcg-cell q-dog" data-q="dog"><span class="bcg-cellname">狗</span><span class="bcg-cellnote">低成長 × 低市佔</span></div>
+  <div class="bcg-cell q-cow" data-q="cow"><span class="bcg-cellname">金牛</span><span class="bcg-cellnote">低成長 × 高市佔</span></div>
+  </div>
+  </div>
+  <div class="bcg-summary" id="bcgSummary"></div>
+ </div>
+ <div class="bcg-units" id="bcgUnits">
+  <div class="bcg-row" data-unit="1">
+   <div class="bcg-row-head">事業單位 1<button type="button" class="bcg-del no-print" data-del="1">移除</button></div>
+   <div class="bcg-row-body">
+   <div class="field" data-item="事業單位名稱">
+   <label class="field-label" for="bcg-1-unit">事業單位名稱</label>
+   <textarea id="bcg-1-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
+   </div>
+   <div class="radio-row" data-radio="bcg-1-growth" data-bcg="growth">
+   <div class="radio-main"><span class="radio-q">市場成長率</span>
+   <label class="radio-opt"><input type="radio" name="bcg-1-growth" value="hi" data-save="bcg-1-growth">高</label>
+   <label class="radio-opt"><input type="radio" name="bcg-1-growth" value="lo" data-save="bcg-1-growth">低</label>
+   </div>
+   </div>
+   <div class="radio-row" data-radio="bcg-1-share" data-bcg="share">
+   <div class="radio-main"><span class="radio-q">相對市佔</span>
+   <label class="radio-opt"><input type="radio" name="bcg-1-share" value="hi" data-save="bcg-1-share">高（≥1）</label>
+   <label class="radio-opt"><input type="radio" name="bcg-1-share" value="lo" data-save="bcg-1-share">低（&lt;1）</label>
+   </div>
+   </div>
+   <div class="verdict bcg-badge" id="bcg-1-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
+   <div class="field" data-item="對應策略（由象限推出）">
+   <label class="field-label" for="bcg-1-strategy">對應策略（由象限推出）</label>
+   <textarea id="bcg-1-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
+   </div>
+   </div>
+  </div>
+  <div class="bcg-row" data-unit="2">
+   <div class="bcg-row-head">事業單位 2<button type="button" class="bcg-del no-print" data-del="2">移除</button></div>
+   <div class="bcg-row-body">
+   <div class="field" data-item="事業單位名稱">
+   <label class="field-label" for="bcg-2-unit">事業單位名稱</label>
+   <textarea id="bcg-2-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
+   </div>
+   <div class="radio-row" data-radio="bcg-2-growth" data-bcg="growth">
+   <div class="radio-main"><span class="radio-q">市場成長率</span>
+   <label class="radio-opt"><input type="radio" name="bcg-2-growth" value="hi" data-save="bcg-2-growth">高</label>
+   <label class="radio-opt"><input type="radio" name="bcg-2-growth" value="lo" data-save="bcg-2-growth">低</label>
+   </div>
+   </div>
+   <div class="radio-row" data-radio="bcg-2-share" data-bcg="share">
+   <div class="radio-main"><span class="radio-q">相對市佔</span>
+   <label class="radio-opt"><input type="radio" name="bcg-2-share" value="hi" data-save="bcg-2-share">高（≥1）</label>
+   <label class="radio-opt"><input type="radio" name="bcg-2-share" value="lo" data-save="bcg-2-share">低（&lt;1）</label>
+   </div>
+   </div>
+   <div class="verdict bcg-badge" id="bcg-2-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
+   <div class="field" data-item="對應策略（由象限推出）">
+   <label class="field-label" for="bcg-2-strategy">對應策略（由象限推出）</label>
+   <textarea id="bcg-2-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
+   </div>
+   </div>
+  </div>
+  <div class="bcg-row" data-unit="3">
+   <div class="bcg-row-head">事業單位 3<button type="button" class="bcg-del no-print" data-del="3">移除</button></div>
+   <div class="bcg-row-body">
+   <div class="field" data-item="事業單位名稱">
+   <label class="field-label" for="bcg-3-unit">事業單位名稱</label>
+   <textarea id="bcg-3-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
+   </div>
+   <div class="radio-row" data-radio="bcg-3-growth" data-bcg="growth">
+   <div class="radio-main"><span class="radio-q">市場成長率</span>
+   <label class="radio-opt"><input type="radio" name="bcg-3-growth" value="hi" data-save="bcg-3-growth">高</label>
+   <label class="radio-opt"><input type="radio" name="bcg-3-growth" value="lo" data-save="bcg-3-growth">低</label>
+   </div>
+   </div>
+   <div class="radio-row" data-radio="bcg-3-share" data-bcg="share">
+   <div class="radio-main"><span class="radio-q">相對市佔</span>
+   <label class="radio-opt"><input type="radio" name="bcg-3-share" value="hi" data-save="bcg-3-share">高（≥1）</label>
+   <label class="radio-opt"><input type="radio" name="bcg-3-share" value="lo" data-save="bcg-3-share">低（&lt;1）</label>
+   </div>
+   </div>
+   <div class="verdict bcg-badge" id="bcg-3-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
+   <div class="field" data-item="對應策略（由象限推出）">
+   <label class="field-label" for="bcg-3-strategy">對應策略（由象限推出）</label>
+   <textarea id="bcg-3-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
+   </div>
+   </div>
+  </div>
+  <div class="bcg-row" data-unit="4" hidden>
+   <div class="bcg-row-head">事業單位 4<button type="button" class="bcg-del no-print" data-del="4">移除</button></div>
+   <div class="bcg-row-body">
+   <div class="field" data-item="事業單位名稱">
+   <label class="field-label" for="bcg-4-unit">事業單位名稱</label>
+   <textarea id="bcg-4-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
+   </div>
+   <div class="radio-row" data-radio="bcg-4-growth" data-bcg="growth">
+   <div class="radio-main"><span class="radio-q">市場成長率</span>
+   <label class="radio-opt"><input type="radio" name="bcg-4-growth" value="hi" data-save="bcg-4-growth">高</label>
+   <label class="radio-opt"><input type="radio" name="bcg-4-growth" value="lo" data-save="bcg-4-growth">低</label>
+   </div>
+   </div>
+   <div class="radio-row" data-radio="bcg-4-share" data-bcg="share">
+   <div class="radio-main"><span class="radio-q">相對市佔</span>
+   <label class="radio-opt"><input type="radio" name="bcg-4-share" value="hi" data-save="bcg-4-share">高（≥1）</label>
+   <label class="radio-opt"><input type="radio" name="bcg-4-share" value="lo" data-save="bcg-4-share">低（&lt;1）</label>
+   </div>
+   </div>
+   <div class="verdict bcg-badge" id="bcg-4-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
+   <div class="field" data-item="對應策略（由象限推出）">
+   <label class="field-label" for="bcg-4-strategy">對應策略（由象限推出）</label>
+   <textarea id="bcg-4-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
+   </div>
+   </div>
+  </div>
+  <div class="bcg-row" data-unit="5" hidden>
+   <div class="bcg-row-head">事業單位 5<button type="button" class="bcg-del no-print" data-del="5">移除</button></div>
+   <div class="bcg-row-body">
+   <div class="field" data-item="事業單位名稱">
+   <label class="field-label" for="bcg-5-unit">事業單位名稱</label>
+   <textarea id="bcg-5-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
+   </div>
+   <div class="radio-row" data-radio="bcg-5-growth" data-bcg="growth">
+   <div class="radio-main"><span class="radio-q">市場成長率</span>
+   <label class="radio-opt"><input type="radio" name="bcg-5-growth" value="hi" data-save="bcg-5-growth">高</label>
+   <label class="radio-opt"><input type="radio" name="bcg-5-growth" value="lo" data-save="bcg-5-growth">低</label>
+   </div>
+   </div>
+   <div class="radio-row" data-radio="bcg-5-share" data-bcg="share">
+   <div class="radio-main"><span class="radio-q">相對市佔</span>
+   <label class="radio-opt"><input type="radio" name="bcg-5-share" value="hi" data-save="bcg-5-share">高（≥1）</label>
+   <label class="radio-opt"><input type="radio" name="bcg-5-share" value="lo" data-save="bcg-5-share">低（&lt;1）</label>
+   </div>
+   </div>
+   <div class="verdict bcg-badge" id="bcg-5-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
+   <div class="field" data-item="對應策略（由象限推出）">
+   <label class="field-label" for="bcg-5-strategy">對應策略（由象限推出）</label>
+   <textarea id="bcg-5-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
+   </div>
+   </div>
+  </div>
+  <div class="bcg-row" data-unit="6" hidden>
+   <div class="bcg-row-head">事業單位 6<button type="button" class="bcg-del no-print" data-del="6">移除</button></div>
+   <div class="bcg-row-body">
+   <div class="field" data-item="事業單位名稱">
+   <label class="field-label" for="bcg-6-unit">事業單位名稱</label>
+   <textarea id="bcg-6-unit" class="worksheet-input bcg-name" placeholder="例如：停車場、智取店、洗車"></textarea>
+   </div>
+   <div class="radio-row" data-radio="bcg-6-growth" data-bcg="growth">
+   <div class="radio-main"><span class="radio-q">市場成長率</span>
+   <label class="radio-opt"><input type="radio" name="bcg-6-growth" value="hi" data-save="bcg-6-growth">高</label>
+   <label class="radio-opt"><input type="radio" name="bcg-6-growth" value="lo" data-save="bcg-6-growth">低</label>
+   </div>
+   </div>
+   <div class="radio-row" data-radio="bcg-6-share" data-bcg="share">
+   <div class="radio-main"><span class="radio-q">相對市佔</span>
+   <label class="radio-opt"><input type="radio" name="bcg-6-share" value="hi" data-save="bcg-6-share">高（≥1）</label>
+   <label class="radio-opt"><input type="radio" name="bcg-6-share" value="lo" data-save="bcg-6-share">低（&lt;1）</label>
+   </div>
+   </div>
+   <div class="verdict bcg-badge" id="bcg-6-quadrant"><span class="verdict-label">象限</span><span class="verdict-text">選完成長率與相對市佔即自動判定。</span></div>
+   <div class="field" data-item="對應策略（由象限推出）">
+   <label class="field-label" for="bcg-6-strategy">對應策略（由象限推出）</label>
+   <textarea id="bcg-6-strategy" class="worksheet-input" placeholder="先看自動判定的象限，再寫你要做什麼"></textarea>
+   </div>
+   </div>
+  </div>
+ </div>
+ <div class="bcg-actions no-print">
+  <button type="button" id="bcgAdd">＋ 新增事業單位</button>
+  <span class="field-tag">最多 6 個。移除的單位，內容會一起刪掉。</span>
+ </div>
+ </section>
+ 
+ <section class="sheet-section" id="sec-ansoff">
+ <h3 class="sheet-h3">⑥ 安索夫矩陣（成長方向）</h3>
+ <p class="sheet-desc">「現有／新」產品 ×「現有／新」市場，四個格子。風險由低到高：滲透 → 市場開發 → 產品開發 → 多角化。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>資源有限時，預設答案是「先榨乾市場滲透」，不是直接跳到多角化。<br>只有當現有市場明顯做不動了（成長率趨零、客戶飽和），才往下一格走。<br>多角化是最貴的一格：你要同時學新產品和新市場 —— 除非有明確理由，否則它通常是逃生而不是策略。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>停車場＋智取店<br>市場滲透＝向現有車主推月租與洗車；市場開發＝把智取店服務推給轉運站乘客；<br>產品開發＝加裝充電樁服務電動車；多角化＝到別的鄉鎮開第二個據點（同時是新市場與新營運模式）。<br>主戰場：市場滲透 —— 邊際成本最低，先做。</p></div>
+ </details>
+ <div class="matrix-2x2">
+ <div class="field mx-cell" data-item="市場滲透（現有產品 × 現有市場）">
+  <label class="field-label" for="ansoff-marketpen">市場滲透（現有產品 × 現有市場）</label>
+  <textarea id="ansoff-marketpen" class="worksheet-input" placeholder="怎麼讓現有客戶買更多／來更頻繁？"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="市場開發（現有產品 × 新市場）">
+  <label class="field-label" for="ansoff-dev">市場開發（現有產品 × 新市場）</label>
+  <textarea id="ansoff-dev" class="worksheet-input" placeholder="同一套東西還能賣給誰？"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="產品開發（新產品 × 現有市場）">
+  <label class="field-label" for="ansoff-product">產品開發（新產品 × 現有市場）</label>
+  <textarea id="ansoff-product" class="worksheet-input" placeholder="現有客戶還需要什麼、你順手做得到？"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="多角化（新產品 × 新市場）">
+  <label class="field-label" for="ansoff-diversify">多角化（新產品 × 新市場）</label>
+  <textarea id="ansoff-diversify" class="worksheet-input" placeholder="最貴的一格。寫之前先問「為什麼非做不可」"></textarea>
+ </div>
+ </div>
+ <div class="field" data-item="主戰場：先打哪一格？為什麼？">
+  <label class="field-label" for="ansoff-choice">主戰場：先打哪一格？為什麼？</label>
+  <textarea id="ansoff-choice" class="worksheet-input" placeholder="通常答案是市場滲透 —— 除非你有明確理由"></textarea>
+ </div>
+ </section>
+ 
+ <section class="sheet-section" id="sec-porter">
+ <h3 class="sheet-h3">⑦ 波特基本策略</h3>
+ <p class="sheet-desc">三種策略只能選一種。「兩種都做」的結果是卡在中間（stuck in the middle），通常最慘。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>成本領先：你的結構成本就是比別人低（規模、自有資產、製程），所以能用價格擋人。<br>差異化：客戶願意為某個東西多付錢，而你做得到、對手做不到。<br>集中：只在一個小範圍做到前兩者之一，放棄其他市場。<br><br>選定之後要看一致性：選成本領先卻在花錢做品牌，選差異化卻在砍服務成本 —— 那就是還沒選。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>自有土地停車場：偏向「集中」—— 只在轉運站周邊這個範圍，用零租金做到最低價；<br>不追求全鎮覆蓋，也不去做高價代客泊車。</p></div>
+ </details>
+ <div class="radio-row" data-radio="porter-choice">
+  <div class="radio-main">
+  <span class="radio-q">你要用哪一種？</span>
+  <label class="radio-opt"><input type="radio" name="porter-choice" value="cost" data-save="porter-choice">成本領先</label>
+  <label class="radio-opt"><input type="radio" name="porter-choice" value="diff" data-save="porter-choice">差異化</label>
+  <label class="radio-opt"><input type="radio" name="porter-choice" value="focus" data-save="porter-choice">集中</label>
+  </div>
+ </div>
+ <div class="field" data-item="為什麼選這個？資源配置要怎麼一致？">
+  <label class="field-label" for="porter-why">為什麼選這個？資源配置要怎麼一致？</label>
+  <textarea id="porter-why" class="worksheet-input" placeholder="寫出「所以我會把錢花在…、不花在…」"></textarea>
+ </div>
+ </section>
+ 
+ <section class="sheet-section" id="sec-ec">
+ <h3 class="sheet-h3">⑧ 經驗曲線</h3>
+ <p class="sheet-desc">累積產量每翻一倍，單位成本會下降一個固定比例。重點是「你有沒有在累積」，不是「你有沒有比對手便宜」。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>有用的問法：過去一年你的累積產量／服務量翻倍了嗎？有沒有哪一項成本跟著下降？<br>如果你的量沒在長，經驗曲線對你就是靜止的 —— 那代表你的優勢只能靠別的東西。<br>反向用法：對手量比你大，他的成本就會持續比你低，價格戰你打不贏。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>停車場：車位數固定，累積量＝累積服務車次。<br>推月租讓固定車主佔比提高 → 每日周轉次數上升 → 每車次分攤的人力與清潔成本下降。</p></div>
+ </details>
+ <div class="field" data-item="你累積了什麼？哪一項成本跟著降？">
+  <label class="field-label" for="ec-note">你累積了什麼？哪一項成本跟著降？</label>
+  <textarea id="ec-note" class="worksheet-input" placeholder="沒有在累積就明說，那也是結論"></textarea>
+ </div>
+ </section>
+ 
+ <section class="sheet-section" id="sec-synth">
+ <h3 class="sheet-h3">⑨ 綜合判斷</h3>
+ <p class="sheet-desc">把上面八段收斂成一頁。這一頁就是你要拿去做決定的東西。</p>
+ <div class="field" data-item="如果只能改一件事">
+  <label class="field-label" for="synth-key">如果只能改一件事</label>
+  <textarea id="synth-key" class="worksheet-input" placeholder="寫一件。寫兩件等於沒選"></textarea>
+ </div>
+ <div class="field" data-item="整體判斷">
+  <label class="field-label" for="synth-verdict">整體判斷</label>
+  <textarea id="synth-verdict" class="worksheet-input" placeholder="把 SWOT 配對、五力結構、VRIO 結論串成一句話"></textarea>
+ </div>
+ </section>
+ 
 </div>
         
-                <div id="tab-content-startup" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-startup">
-            <section class="stage-section">
-                <h2 class="stage-title">🌱 創業／導入期判讀</h2>
-                <div class="stage-focus">
-                    <h3>本階段重點</h3>
-                    <ul>
-                        <li><strong>核心目標：</strong>找到可重複的商業模式（PMF）</li>
-                        <li><strong>主要挑戰：</strong>現金流與需求驗證</li>
-                    </ul>
-                    <p class="stage-reading">這個階段唯一該問的是「有沒有人真的要用、願不願意付錢」。所有分析都要回到這一點。</p>
-                    <p class="stage-refs">↩ 回頭看：② SWOT 分析、④ VRIO 分析、③ 五力分析</p>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">階段判讀</label>
-                    <p class="tool-description">分析在「📋 現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
-                    <div class="field" data-item="最核心的矛盾是什麼？">
-                        <label class="field-label" for="read-startup-1">最核心的矛盾是什麼？</label>
-                        <textarea id="read-startup-1" class="worksheet-input" placeholder="例如：想驗證需求，但現金只夠撐六個月"></textarea>
-                    </div>
-                    <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
-                        <label class="field-label" for="read-startup-2">從上面的分析看，這個階段最該先做的一件事</label>
-                        <textarea id="read-startup-2" class="worksheet-input" placeholder="通常不是擴張，是把一個具體客群做透"></textarea>
-                    </div>
-                    <div class="field" data-item="什麼訊號出現時，代表可以進入成長期？">
-                        <label class="field-label" for="read-startup-3">什麼訊號出現時，代表可以進入成長期？</label>
-                        <textarea id="read-startup-3" class="worksheet-input" placeholder="要有數字，不要寫「感覺穩定」"></textarea>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <div id="tab-content-growth" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-growth">
-            <section class="stage-section">
-                <h2 class="stage-title">🚀 成長期判讀</h2>
-                <div class="stage-focus">
-                    <h3>本階段重點</h3>
-                    <ul>
-                        <li><strong>核心目標：</strong>把已驗證的模式規模化</li>
-                        <li><strong>主要挑戰：</strong>規模化與資金、組織跟不上</li>
-                    </ul>
-                    <p class="stage-reading">需求已被驗證，風險轉移到「複製得夠快嗎、品質會不會掉、現金夠不夠撐」。</p>
-                    <p class="stage-refs">↩ 回頭看：⑥ 安索夫矩陣、⑤ BCG 矩陣、③ 五力分析、⑧ 經驗曲線</p>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">階段判讀</label>
-                    <p class="tool-description">分析在「📋 現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
-                    <div class="field" data-item="最核心的矛盾是什麼？">
-                        <label class="field-label" for="read-growth-1">最核心的矛盾是什麼？</label>
-                        <textarea id="read-growth-1" class="worksheet-input" placeholder="例如：訂單成長速度大於交付能力"></textarea>
-                    </div>
-                    <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
-                        <label class="field-label" for="read-growth-2">從上面的分析看，這個階段最該先做的一件事</label>
-                        <textarea id="read-growth-2" class="worksheet-input" placeholder="通常是補瓶頸，不是再加業績"></textarea>
-                    </div>
-                    <div class="field" data-item="什麼訊號出現時，代表該守住而非擴張？">
-                        <label class="field-label" for="read-growth-3">什麼訊號出現時，代表該守住而非擴張？</label>
-                        <textarea id="read-growth-3" class="worksheet-input" placeholder="例如：獲客成本連續三個月上升"></textarea>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <div id="tab-content-maturity" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-maturity">
-            <section class="stage-section">
-                <h2 class="stage-title">🌳 成熟期判讀</h2>
-                <div class="stage-focus">
-                    <h3>本階段重點</h3>
-                    <ul>
-                        <li><strong>核心目標：</strong>把現金流效率最大化並找第二曲線</li>
-                        <li><strong>主要挑戰：</strong>成長停滯、組織僵化、競爭侵蝕利潤</li>
-                    </ul>
-                    <p class="stage-reading">重點從「成長」變成「效率與防守」，同時要開始為下一條曲線鋪路。</p>
-                    <p class="stage-refs">↩ 回頭看：⑤ BCG 矩陣、⑦ 波特基本策略、③ 五力分析、② SWOT 分析</p>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">階段判讀</label>
-                    <p class="tool-description">分析在「📋 現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
-                    <div class="field" data-item="最核心的矛盾是什麼？">
-                        <label class="field-label" for="read-maturity-1">最核心的矛盾是什麼？</label>
-                        <textarea id="read-maturity-1" class="worksheet-input" placeholder="例如：維持服務品質的成本逐年上升，但價格漲不動"></textarea>
-                    </div>
-                    <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
-                        <label class="field-label" for="read-maturity-2">從上面的分析看，這個階段最該先做的一件事</label>
-                        <textarea id="read-maturity-2" class="worksheet-input" placeholder="常見答案是砍掉低效的資源配置"></textarea>
-                    </div>
-                    <div class="field" data-item="第二曲線的候選是什麼？需要多少資源？">
-                        <label class="field-label" for="read-maturity-3">第二曲線的候選是什麼？需要多少資源？</label>
-                        <textarea id="read-maturity-3" class="worksheet-input" placeholder="沒有候選也要寫「還沒有」"></textarea>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <div id="tab-content-decline" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-decline">
-            <section class="stage-section">
-                <h2 class="stage-title">🍂 衰退／轉型期判讀</h2>
-                <div class="stage-focus">
-                    <h3>本階段重點</h3>
-                    <ul>
-                        <li><strong>核心目標：</strong>優雅退出或找到第二曲線轉型</li>
-                        <li><strong>主要挑戰：</strong>決策退出 vs. 轉型、重新配置資源</li>
-                    </ul>
-                    <p class="stage-reading">這個階段最大的風險不是衰退本身，是「拖」—— 拖著做不出決定，資源會自己流光。</p>
-                    <p class="stage-refs">↩ 回頭看：② SWOT 分析、⑤ BCG 矩陣、⑥ 安索夫矩陣、④ VRIO 分析</p>
-                </div>
-                <div class="tool-block">
-                    <label class="tool-label">階段判讀</label>
-                    <p class="tool-description">分析在「📋 現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
-                    <div class="field" data-item="最核心的矛盾是什麼？">
-                        <label class="field-label" for="read-decline-1">最核心的矛盾是什麼？</label>
-                        <textarea id="read-decline-1" class="worksheet-input" placeholder="例如：轉型需要投入，但現金流正在萎縮"></textarea>
-                    </div>
-                    <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
-                        <label class="field-label" for="read-decline-2">從上面的分析看，這個階段最該先做的一件事</label>
-                        <textarea id="read-decline-2" class="worksheet-input" placeholder="通常是設停損點，不是再試一次"></textarea>
-                    </div>
-                    <div class="field" data-item="退出或轉型的決定點是什麼？（時間／數字）">
-                        <label class="field-label" for="read-decline-3">退出或轉型的決定點是什麼？（時間／數字）</label>
-                        <textarea id="read-decline-3" class="worksheet-input" placeholder="要可驗證，例如：Q2 前月租未達 40 位即退出"></textarea>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <div id="tab-content-actions" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-actions">
-            <section class="stage-section">
-                <h2 class="stage-title">🎯 行動計畫</h2>
-                <p class="sheet-desc">策略沒有變成「誰、在什麼時候、做到什麼數字」就只是願望。成功指標要能被外部的人驗證，不要寫「提升滿意度」這種無法否證的句子。</p>
-                <div class="fw-example"><strong>實例</strong><p>要做什麼：推出月租 40 席方案（限轉運站通勤族）／負責人：我自己（前期不外包）／期限：2026-12-31／成功指標：月租售出 40 席，或連續兩個月月租收入 ≥ 停車收入 30%</p></div>
-                <div class="action-row" data-row="1">
-                    <div class="action-head">第 1 項</div>
-                    <div class="field-grid cols-2">
-                        <div class="field" data-item="要做什麼">
-                            <label class="field-label" for="act-1-what">要做什麼</label>
-                            <textarea id="act-1-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
-                        </div>
-                        <div class="field" data-item="負責人">
-                            <label class="field-label" for="act-1-owner">負責人</label>
-                            <textarea id="act-1-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
-                        </div>
-                        <div class="field" data-item="期限">
-                            <label class="field-label" for="act-1-due">期限</label>
-                            <textarea id="act-1-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
-                        </div>
-                        <div class="field" data-item="成功指標">
-                            <label class="field-label" for="act-1-metric">成功指標</label>
-                            <textarea id="act-1-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
-                        </div>
-                        <div class="field">
-                            <label class="field-label" for="act-1-status">狀態</label>
-                            <select id="act-1-status" class="status-select" data-save="act-1-status">
-                                <option value="todo">未開始</option>
-                                <option value="doing">進行中</option>
-                                <option value="done">已完成</option>
-                                <option value="drop">已取消</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="action-row" data-row="2">
-                    <div class="action-head">第 2 項</div>
-                    <div class="field-grid cols-2">
-                        <div class="field" data-item="要做什麼">
-                            <label class="field-label" for="act-2-what">要做什麼</label>
-                            <textarea id="act-2-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
-                        </div>
-                        <div class="field" data-item="負責人">
-                            <label class="field-label" for="act-2-owner">負責人</label>
-                            <textarea id="act-2-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
-                        </div>
-                        <div class="field" data-item="期限">
-                            <label class="field-label" for="act-2-due">期限</label>
-                            <textarea id="act-2-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
-                        </div>
-                        <div class="field" data-item="成功指標">
-                            <label class="field-label" for="act-2-metric">成功指標</label>
-                            <textarea id="act-2-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
-                        </div>
-                        <div class="field">
-                            <label class="field-label" for="act-2-status">狀態</label>
-                            <select id="act-2-status" class="status-select" data-save="act-2-status">
-                                <option value="todo">未開始</option>
-                                <option value="doing">進行中</option>
-                                <option value="done">已完成</option>
-                                <option value="drop">已取消</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="action-row" data-row="3">
-                    <div class="action-head">第 3 項</div>
-                    <div class="field-grid cols-2">
-                        <div class="field" data-item="要做什麼">
-                            <label class="field-label" for="act-3-what">要做什麼</label>
-                            <textarea id="act-3-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
-                        </div>
-                        <div class="field" data-item="負責人">
-                            <label class="field-label" for="act-3-owner">負責人</label>
-                            <textarea id="act-3-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
-                        </div>
-                        <div class="field" data-item="期限">
-                            <label class="field-label" for="act-3-due">期限</label>
-                            <textarea id="act-3-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
-                        </div>
-                        <div class="field" data-item="成功指標">
-                            <label class="field-label" for="act-3-metric">成功指標</label>
-                            <textarea id="act-3-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
-                        </div>
-                        <div class="field">
-                            <label class="field-label" for="act-3-status">狀態</label>
-                            <select id="act-3-status" class="status-select" data-save="act-3-status">
-                                <option value="todo">未開始</option>
-                                <option value="doing">進行中</option>
-                                <option value="done">已完成</option>
-                                <option value="drop">已取消</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="action-row" data-row="4">
-                    <div class="action-head">第 4 項</div>
-                    <div class="field-grid cols-2">
-                        <div class="field" data-item="要做什麼">
-                            <label class="field-label" for="act-4-what">要做什麼</label>
-                            <textarea id="act-4-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
-                        </div>
-                        <div class="field" data-item="負責人">
-                            <label class="field-label" for="act-4-owner">負責人</label>
-                            <textarea id="act-4-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
-                        </div>
-                        <div class="field" data-item="期限">
-                            <label class="field-label" for="act-4-due">期限</label>
-                            <textarea id="act-4-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
-                        </div>
-                        <div class="field" data-item="成功指標">
-                            <label class="field-label" for="act-4-metric">成功指標</label>
-                            <textarea id="act-4-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
-                        </div>
-                        <div class="field">
-                            <label class="field-label" for="act-4-status">狀態</label>
-                            <select id="act-4-status" class="status-select" data-save="act-4-status">
-                                <option value="todo">未開始</option>
-                                <option value="doing">進行中</option>
-                                <option value="done">已完成</option>
-                                <option value="drop">已取消</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="action-summary" id="actionSummary"></div>
-                <div class="bcg-actions no-print">
-                    <button type="button" id="actionReviewBtn">✅ 記錄本次檢視（把「今天看過」記下來）</button>
-                    <span class="field-tag">期限格式用 YYYY-MM-DD，逾期且未完成的項目會自動標紅。</span>
-                </div>
-            </section>
-        </div>
-<!-- ================= 🎮 認知作弊器（整合自 Strategy Toolkit） ================= -->
+         <div id="tab-content-startup" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-startup">
+ <section class="stage-section">
+ <h2 class="stage-title">創業／導入期判讀</h2>
+ <div class="stage-focus">
+ <h3>本階段重點</h3>
+ <ul>
+ <li><strong>核心目標：</strong>找到可重複的商業模式（PMF）</li>
+ <li><strong>主要挑戰：</strong>現金流與需求驗證</li>
+ </ul>
+ <p class="stage-reading">這個階段唯一該問的是「有沒有人真的要用、願不願意付錢」。所有分析都要回到這一點。</p>
+ <p class="stage-refs">回頭看：② SWOT 分析、④ VRIO 分析、③ 五力分析</p>
+ </div>
+ <div class="tool-block">
+ <label class="tool-label">階段判讀</label>
+ <p class="tool-description">分析在「現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
+ <div class="field" data-item="最核心的矛盾是什麼？">
+  <label class="field-label" for="read-startup-1">最核心的矛盾是什麼？</label>
+  <textarea id="read-startup-1" class="worksheet-input" placeholder="例如：想驗證需求，但現金只夠撐六個月"></textarea>
+ </div>
+ <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
+  <label class="field-label" for="read-startup-2">從上面的分析看，這個階段最該先做的一件事</label>
+  <textarea id="read-startup-2" class="worksheet-input" placeholder="通常不是擴張，是把一個具體客群做透"></textarea>
+ </div>
+ <div class="field" data-item="什麼訊號出現時，代表可以進入成長期？">
+  <label class="field-label" for="read-startup-3">什麼訊號出現時，代表可以進入成長期？</label>
+  <textarea id="read-startup-3" class="worksheet-input" placeholder="要有數字，不要寫「感覺穩定」"></textarea>
+ </div>
+ </div>
+ </section>
+ </div>
+ 
+ <div id="tab-content-growth" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-growth">
+ <section class="stage-section">
+ <h2 class="stage-title">成長期判讀</h2>
+ <div class="stage-focus">
+ <h3>本階段重點</h3>
+ <ul>
+ <li><strong>核心目標：</strong>把已驗證的模式規模化</li>
+ <li><strong>主要挑戰：</strong>規模化與資金、組織跟不上</li>
+ </ul>
+ <p class="stage-reading">需求已被驗證，風險轉移到「複製得夠快嗎、品質會不會掉、現金夠不夠撐」。</p>
+ <p class="stage-refs">回頭看：⑥ 安索夫矩陣、⑤ BCG 矩陣、③ 五力分析、⑧ 經驗曲線</p>
+ </div>
+ <div class="tool-block">
+ <label class="tool-label">階段判讀</label>
+ <p class="tool-description">分析在「現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
+ <div class="field" data-item="最核心的矛盾是什麼？">
+  <label class="field-label" for="read-growth-1">最核心的矛盾是什麼？</label>
+  <textarea id="read-growth-1" class="worksheet-input" placeholder="例如：訂單成長速度大於交付能力"></textarea>
+ </div>
+ <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
+  <label class="field-label" for="read-growth-2">從上面的分析看，這個階段最該先做的一件事</label>
+  <textarea id="read-growth-2" class="worksheet-input" placeholder="通常是補瓶頸，不是再加業績"></textarea>
+ </div>
+ <div class="field" data-item="什麼訊號出現時，代表該守住而非擴張？">
+  <label class="field-label" for="read-growth-3">什麼訊號出現時，代表該守住而非擴張？</label>
+  <textarea id="read-growth-3" class="worksheet-input" placeholder="例如：獲客成本連續三個月上升"></textarea>
+ </div>
+ </div>
+ </section>
+ </div>
+ 
+ <div id="tab-content-maturity" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-maturity">
+ <section class="stage-section">
+ <h2 class="stage-title">成熟期判讀</h2>
+ <div class="stage-focus">
+ <h3>本階段重點</h3>
+ <ul>
+ <li><strong>核心目標：</strong>把現金流效率最大化並找第二曲線</li>
+ <li><strong>主要挑戰：</strong>成長停滯、組織僵化、競爭侵蝕利潤</li>
+ </ul>
+ <p class="stage-reading">重點從「成長」變成「效率與防守」，同時要開始為下一條曲線鋪路。</p>
+ <p class="stage-refs">回頭看：⑤ BCG 矩陣、⑦ 波特基本策略、③ 五力分析、② SWOT 分析</p>
+ </div>
+ <div class="tool-block">
+ <label class="tool-label">階段判讀</label>
+ <p class="tool-description">分析在「現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
+ <div class="field" data-item="最核心的矛盾是什麼？">
+  <label class="field-label" for="read-maturity-1">最核心的矛盾是什麼？</label>
+  <textarea id="read-maturity-1" class="worksheet-input" placeholder="例如：維持服務品質的成本逐年上升，但價格漲不動"></textarea>
+ </div>
+ <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
+  <label class="field-label" for="read-maturity-2">從上面的分析看，這個階段最該先做的一件事</label>
+  <textarea id="read-maturity-2" class="worksheet-input" placeholder="常見答案是砍掉低效的資源配置"></textarea>
+ </div>
+ <div class="field" data-item="第二曲線的候選是什麼？需要多少資源？">
+  <label class="field-label" for="read-maturity-3">第二曲線的候選是什麼？需要多少資源？</label>
+  <textarea id="read-maturity-3" class="worksheet-input" placeholder="沒有候選也要寫「還沒有」"></textarea>
+ </div>
+ </div>
+ </section>
+ </div>
+ 
+ <div id="tab-content-decline" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-decline">
+ <section class="stage-section">
+ <h2 class="stage-title">衰退／轉型期判讀</h2>
+ <div class="stage-focus">
+ <h3>本階段重點</h3>
+ <ul>
+ <li><strong>核心目標：</strong>優雅退出或找到第二曲線轉型</li>
+ <li><strong>主要挑戰：</strong>決策退出 vs. 轉型、重新配置資源</li>
+ </ul>
+ <p class="stage-reading">這個階段最大的風險不是衰退本身，是「拖」—— 拖著做不出決定，資源會自己流光。</p>
+ <p class="stage-refs">回頭看：② SWOT 分析、⑤ BCG 矩陣、⑥ 安索夫矩陣、④ VRIO 分析</p>
+ </div>
+ <div class="tool-block">
+ <label class="tool-label">階段判讀</label>
+ <p class="tool-description">分析在「現況與分析」分頁做一次就好；這裡只回答這個階段特有的問題。</p>
+ <div class="field" data-item="最核心的矛盾是什麼？">
+  <label class="field-label" for="read-decline-1">最核心的矛盾是什麼？</label>
+  <textarea id="read-decline-1" class="worksheet-input" placeholder="例如：轉型需要投入，但現金流正在萎縮"></textarea>
+ </div>
+ <div class="field" data-item="從上面的分析看，這個階段最該先做的一件事">
+  <label class="field-label" for="read-decline-2">從上面的分析看，這個階段最該先做的一件事</label>
+  <textarea id="read-decline-2" class="worksheet-input" placeholder="通常是設停損點，不是再試一次"></textarea>
+ </div>
+ <div class="field" data-item="退出或轉型的決定點是什麼？（時間／數字）">
+  <label class="field-label" for="read-decline-3">退出或轉型的決定點是什麼？（時間／數字）</label>
+  <textarea id="read-decline-3" class="worksheet-input" placeholder="要可驗證，例如：Q2 前月租未達 40 位即退出"></textarea>
+ </div>
+ </div>
+ </section>
+ </div>
+ 
+ <div id="tab-content-actions" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-actions">
+ <section class="stage-section">
+ <h2 class="stage-title">行動計畫</h2>
+ <p class="sheet-desc">策略沒有變成「誰、在什麼時候、做到什麼數字」就只是願望。成功指標要能被外部的人驗證，不要寫「提升滿意度」這種無法否證的句子。</p>
+ <div class="fw-example"><strong>實例</strong><p>要做什麼：推出月租 40 席方案（限轉運站通勤族）／負責人：我自己（前期不外包）／期限：2026-12-31／成功指標：月租售出 40 席，或連續兩個月月租收入 ≥ 停車收入 30%</p></div>
+ <div class="action-row" data-row="1">
+ <div class="action-head">第 1 項</div>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="要做什麼">
+ <label class="field-label" for="act-1-what">要做什麼</label>
+ <textarea id="act-1-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
+ </div>
+ <div class="field" data-item="負責人">
+ <label class="field-label" for="act-1-owner">負責人</label>
+ <textarea id="act-1-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
+ </div>
+ <div class="field" data-item="期限">
+ <label class="field-label" for="act-1-due">期限</label>
+ <textarea id="act-1-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
+ </div>
+ <div class="field" data-item="成功指標">
+ <label class="field-label" for="act-1-metric">成功指標</label>
+ <textarea id="act-1-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
+ </div>
+ <div class="field">
+ <label class="field-label" for="act-1-status">狀態</label>
+ <select id="act-1-status" class="status-select" data-save="act-1-status">
+ <option value="todo">未開始</option>
+ <option value="doing">進行中</option>
+ <option value="done">已完成</option>
+ <option value="drop">已取消</option>
+ </select>
+ </div>
+ </div>
+ </div>
+ <div class="action-row" data-row="2">
+ <div class="action-head">第 2 項</div>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="要做什麼">
+ <label class="field-label" for="act-2-what">要做什麼</label>
+ <textarea id="act-2-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
+ </div>
+ <div class="field" data-item="負責人">
+ <label class="field-label" for="act-2-owner">負責人</label>
+ <textarea id="act-2-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
+ </div>
+ <div class="field" data-item="期限">
+ <label class="field-label" for="act-2-due">期限</label>
+ <textarea id="act-2-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
+ </div>
+ <div class="field" data-item="成功指標">
+ <label class="field-label" for="act-2-metric">成功指標</label>
+ <textarea id="act-2-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
+ </div>
+ <div class="field">
+ <label class="field-label" for="act-2-status">狀態</label>
+ <select id="act-2-status" class="status-select" data-save="act-2-status">
+ <option value="todo">未開始</option>
+ <option value="doing">進行中</option>
+ <option value="done">已完成</option>
+ <option value="drop">已取消</option>
+ </select>
+ </div>
+ </div>
+ </div>
+ <div class="action-row" data-row="3">
+ <div class="action-head">第 3 項</div>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="要做什麼">
+ <label class="field-label" for="act-3-what">要做什麼</label>
+ <textarea id="act-3-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
+ </div>
+ <div class="field" data-item="負責人">
+ <label class="field-label" for="act-3-owner">負責人</label>
+ <textarea id="act-3-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
+ </div>
+ <div class="field" data-item="期限">
+ <label class="field-label" for="act-3-due">期限</label>
+ <textarea id="act-3-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
+ </div>
+ <div class="field" data-item="成功指標">
+ <label class="field-label" for="act-3-metric">成功指標</label>
+ <textarea id="act-3-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
+ </div>
+ <div class="field">
+ <label class="field-label" for="act-3-status">狀態</label>
+ <select id="act-3-status" class="status-select" data-save="act-3-status">
+ <option value="todo">未開始</option>
+ <option value="doing">進行中</option>
+ <option value="done">已完成</option>
+ <option value="drop">已取消</option>
+ </select>
+ </div>
+ </div>
+ </div>
+ <div class="action-row" data-row="4">
+ <div class="action-head">第 4 項</div>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="要做什麼">
+ <label class="field-label" for="act-4-what">要做什麼</label>
+ <textarea id="act-4-what" class="worksheet-input" placeholder="例如：推出月租 40 席方案"></textarea>
+ </div>
+ <div class="field" data-item="負責人">
+ <label class="field-label" for="act-4-owner">負責人</label>
+ <textarea id="act-4-owner" class="worksheet-input" placeholder="誰負責、有沒有決定權"></textarea>
+ </div>
+ <div class="field" data-item="期限">
+ <label class="field-label" for="act-4-due">期限</label>
+ <textarea id="act-4-due" class="worksheet-input" placeholder="YYYY-MM-DD"></textarea>
+ </div>
+ <div class="field" data-item="成功指標">
+ <label class="field-label" for="act-4-metric">成功指標</label>
+ <textarea id="act-4-metric" class="worksheet-input" placeholder="可被外人驗證的數字"></textarea>
+ </div>
+ <div class="field">
+ <label class="field-label" for="act-4-status">狀態</label>
+ <select id="act-4-status" class="status-select" data-save="act-4-status">
+ <option value="todo">未開始</option>
+ <option value="doing">進行中</option>
+ <option value="done">已完成</option>
+ <option value="drop">已取消</option>
+ </select>
+ </div>
+ </div>
+ </div>
+ <div class="action-summary" id="actionSummary"></div>
+ <div class="bcg-actions no-print">
+ <button type="button" id="actionReviewBtn">記錄本次檢視（把「今天看過」記下來）</button>
+ <span class="field-tag">期限格式用 YYYY-MM-DD，逾期且未完成的項目會自動標紅。</span>
+ </div>
+ </section>
+ </div>
+<!-- ================= 認知作弊器（整合自 Strategy Toolkit） ================= -->
         <div id="tab-content-cheats" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-cheats">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
                 <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">人類作弊器策略工具箱</span>
@@ -1611,7 +1611,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
             <div class="cheat-controls no-print">
                 <div class="cheat-search">
-                    <span>🔍</span>
+                    <span></span>
                     <input type="search" id="cheatSearch" placeholder="搜尋工具名稱、心理 Bug、情境關鍵字（例如：談判、拖延、定價、內耗）...">
                 </div>
                 <div class="cheat-chips" id="cheatChips">
@@ -1633,22 +1633,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">極端戰略沉默協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">大腦對社交空白具有強烈的生理恐懼與填補衝動，往往會自亂陣腳主動讓步。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>報出極端高價錨點後、向對方提出重大要求後、或對話陷入僵局時。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">完成報價後：立刻咬緊舌頭，強制閉嘴 30 秒。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁在對方開口前回應或主動補充藉口／打折。</div>
                     </div>
                 </div>
@@ -1668,22 +1668,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">空降旁觀者置換協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">沉沒成本謬誤與稟賦效應：對過往付出難以割捨，導致持續加碼維持虧損行為。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>專案持續虧損但捨不得收手、不良合作關係糾纏不清、因投入過多而猶豫。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">想像自己被開除，空降的冷血職業經理人第一刀砍什麼，現在就立刻砍什麼。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁回顧「已經投入了多少成本」，不要為過去的屍體買單。</div>
                     </div>
                 </div>
@@ -1703,22 +1703,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">兩分鐘微重力點火協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">大腦面對龐大任務會產生高靜摩擦阻力，多巴胺系統會誘使身體逃避至低阻力娛樂。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>癱坐滑手機明知該工作卻動不了、面對複雜文件不知從何下手、嚴重拖延。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">手機螢幕朝下扣在桌上，坐在鍵盤前敲下 3 個字母或標題，持續 2 分鐘。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁在開始前規劃宏大架構或試圖一口氣完成整份工作。</div>
                     </div>
                 </div>
@@ -1738,29 +1738,29 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">損失框架反轉協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">前景理論：人類對「潛在損失」的痛苦感知是「同等獲益」愉悅感的 2 倍以上。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>向主管/客戶提案遭遇拖延推託、對方覺得「維持現狀也可以」時。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">將「導入能賺多少」全部改寫為「維持現狀每天白白流失多少真金白銀」。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁只描繪美好願景；沒有失去痛苦的刺激，對手大腦不會行動。</div>
                     </div>
                 </div>
 
                 <div class="cheat-footer">
                     <span class="cheat-note">康納曼損失矩陣</span>
-                    <button class="cheat-btn" onclick="cheatNotify('【損失語法檢核】 ❌「這能幫您提升 20% 效率」→ ✅「您每延遲一週，正白白燃燒 15 萬工時成本，因為…」')">檢查語句框架</button>
+                    <button class="cheat-btn" onclick="cheatNotify('【損失語法檢核】 「這能幫您提升 20% 效率」→ 「您每延遲一週，正白白燃燒 15 萬工時成本，因為…」')">檢查語句框架</button>
                 </div>
             </article>
 
@@ -1773,22 +1773,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">十分鐘物理切割協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">大腦 DMN 迴路陷入思維反芻（Rumination），越試圖「想開」大腦空轉耗能越嚴重。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>受冒犯氣得發抖、腦海瘋狂重播爭吵畫面、陷入極度內耗或自責。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">強制離開螢幕，雙手投入具體物理活動（洗冷水臉、用力擦桌子）10 分鐘。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁坐在原位嘗試「推理化解」或在通訊軟體上敲鍵盤筆戰。</div>
                     </div>
                 </div>
@@ -1812,36 +1812,36 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         <div class="text-center mt-12 space-y-4 no-print">
             <div class="flex flex-wrap justify-center gap-4">
                 <button id="saveButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    💾 儲存至瀏覽器
+                    儲存至瀏覽器
                 </button>
                 <button id="loadButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    📂 載入已儲存資料
+                    載入已儲存資料
                 </button>
                 <button id="exportButton" class="btn-base btn-blue export-btn focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    🚀 匯出為 Word 文件
+                    匯出為 Word 文件
                 </button>
                 <button id="blankExportButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    📄 匯出空白表格
+                    匯出空白表格
                 </button>
                 <button id="backupButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    ⬇ 備份 JSON
+                    備份 JSON
                 </button>
                 <button id="restoreButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    ⬆ 還原備份
+                    還原備份
                 </button>
                 <button id="clearButton" class="btn-base btn-red focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
-                    🗑 清空全部
+                    清空全部
                 </button>
                 <input type="file" id="restoreFile" accept=".json,application/json" style="display:none">
             </div>
             <p class="text-sm text-slate-500 mt-2">
-                💡 提示：定期儲存您的工作，避免資料遺失
+                提示：定期儲存您的工作，避免資料遺失
             </p>
         </div>
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () =>{
         const tabs = {
             analysis: { btn: document.getElementById('tab-btn-analysis'), content: document.getElementById('tab-content-analysis') },
             startup: { btn: document.getElementById('tab-btn-startup'), content: document.getElementById('tab-content-startup') },
@@ -1854,50 +1854,50 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         const SCHEMA_VERSION = 3;
         const ACTION_ROWS = 4;
         const ID_MIGRATION_V2 = {
-        "bcg-1-unit": ["bcg-unit"],
-        "bcg-1-growth": ["bcg-growth"],
-        "bcg-1-share": ["bcg-share"],
-        "bcg-1-strategy": ["bcg-strategy"]
-        };
+ "bcg-1-unit": ["bcg-unit"],
+ "bcg-1-growth": ["bcg-growth"],
+ "bcg-1-share": ["bcg-share"],
+ "bcg-1-strategy": ["bcg-strategy"]
+ };
         const BCG_MAX_UNITS = 6;
         const BCG_DEFAULT_UNITS = 3;
         // 舊版（v1）欄位 id → v2 欄位 id；由 src/content.py 的 ID_MIGRATION 產生
         const ID_MIGRATION = {
-        "obj-name": ["ws-topic"],
-        "swot-s": ["swot-s-startup", "swot-s-maturity", "swot-s-decline"],
-        "swot-w": ["swot-w-startup", "swot-w-maturity", "swot-w-decline"],
-        "swot-o": ["swot-o-maturity", "swot-o-decline"],
-        "swot-t": ["swot-t-maturity", "swot-t-decline"],
-        "5f-rivalry": ["5f-rivalry-startup", "5f-rivalry-growth", "5f-rivalry-maturity"],
-        "5f-entrant": ["5f-entrants-startup", "5f-entrants-growth", "5f-entrants-maturity"],
-        "5f-substitute": ["5f-substitutes-startup", "5f-substitutes-growth", "5f-substitutes-maturity"],
-        "5f-supplier": ["5f-suppliers-startup", "5f-suppliers-growth", "5f-suppliers-maturity"],
-        "5f-buyer": ["5f-buyers-startup", "5f-buyers-growth", "5f-buyers-maturity"],
-        "vrio-resource": ["vrio-resource-startup", "vrio-resource-growth", "vrio-resource-maturity", "vrio-resource-decline"],
-        "vrio-v-note": ["vrio-v-startup", "vrio-v-growth", "vrio-v-maturity", "vrio-v-decline"],
-        "vrio-r-note": ["vrio-r-startup", "vrio-r-growth", "vrio-r-maturity", "vrio-r-decline"],
-        "vrio-i-note": ["vrio-i-startup", "vrio-i-growth", "vrio-i-maturity", "vrio-i-decline"],
-        "vrio-o-note": ["vrio-o-startup", "vrio-o-growth", "vrio-o-maturity", "vrio-o-decline"],
-        "ansoff-marketpen": ["ansoff-mp-growth", "ansoff-mp-maturity", "ansoff-mp-decline"],
-        "ansoff-dev": ["ansoff-md-growth", "ansoff-md-maturity", "ansoff-md-decline"],
-        "ansoff-product": ["ansoff-pd-growth", "ansoff-pd-maturity", "ansoff-pd-decline"],
-        "ansoff-diversify": ["ansoff-d-growth", "ansoff-d-maturity", "ansoff-d-decline"],
-        "ansoff-choice": ["ansoff-priority-growth", "ansoff-priority-maturity", "ansoff-renewal-decline"],
-        "bcg-1-strategy": [["明星事業 (Stars)", "bcg-stars-growth"], ["問題事業 (Question Marks)", "bcg-questions-growth"], ["金牛事業 (Cash Cows)", "bcg-cows-growth"], ["狗事業 (Dogs)", "bcg-dogs-growth"], ["明星事業", "bcg-stars-maturity"], ["問題事業", "bcg-questions-maturity"], ["金牛事業", "bcg-cows-maturity"], ["狗事業", "bcg-dogs-maturity"], ["明星事業", "bcg-stars-decline"], ["問題事業", "bcg-questions-decline"], ["金牛事業", "bcg-cows-decline"], ["狗事業", "bcg-dogs-decline"]],
-        "porter-why": [["成本領導", "generic-cost-maturity"], ["差異化", "generic-diff-maturity"], ["聚焦", "generic-focus-maturity"], ["是否陷入中間狀態", "generic-stuck-maturity"]],
-        "ec-note": ["ws-growth-ec"],
-        "read-startup-2": [["可持續性與保護策略", "vrio-sustain-startup"], ["初步結論與進入點", "5f-conclusion-startup"]],
-        "read-growth-2": [["可持續性與強化策略", "vrio-sustain-growth"], ["策略意涵", "5f-implications-growth"]],
-        "read-maturity-2": [["可持續性與強化策略", "vrio-sustain-maturity"], ["策略意涵", "5f-implications-maturity"], ["SWOT 策略意涵", "swot-implications-maturity"]],
-        "read-decline-2": [["所需的新 VRIO 資源／能力", "vrio-gap-decline"], ["初步決策", "swot-decision-decline"]]
-        };
+ "obj-name": ["ws-topic"],
+ "swot-s": ["swot-s-startup", "swot-s-maturity", "swot-s-decline"],
+ "swot-w": ["swot-w-startup", "swot-w-maturity", "swot-w-decline"],
+ "swot-o": ["swot-o-maturity", "swot-o-decline"],
+ "swot-t": ["swot-t-maturity", "swot-t-decline"],
+ "5f-rivalry": ["5f-rivalry-startup", "5f-rivalry-growth", "5f-rivalry-maturity"],
+ "5f-entrant": ["5f-entrants-startup", "5f-entrants-growth", "5f-entrants-maturity"],
+ "5f-substitute": ["5f-substitutes-startup", "5f-substitutes-growth", "5f-substitutes-maturity"],
+ "5f-supplier": ["5f-suppliers-startup", "5f-suppliers-growth", "5f-suppliers-maturity"],
+ "5f-buyer": ["5f-buyers-startup", "5f-buyers-growth", "5f-buyers-maturity"],
+ "vrio-resource": ["vrio-resource-startup", "vrio-resource-growth", "vrio-resource-maturity", "vrio-resource-decline"],
+ "vrio-v-note": ["vrio-v-startup", "vrio-v-growth", "vrio-v-maturity", "vrio-v-decline"],
+ "vrio-r-note": ["vrio-r-startup", "vrio-r-growth", "vrio-r-maturity", "vrio-r-decline"],
+ "vrio-i-note": ["vrio-i-startup", "vrio-i-growth", "vrio-i-maturity", "vrio-i-decline"],
+ "vrio-o-note": ["vrio-o-startup", "vrio-o-growth", "vrio-o-maturity", "vrio-o-decline"],
+ "ansoff-marketpen": ["ansoff-mp-growth", "ansoff-mp-maturity", "ansoff-mp-decline"],
+ "ansoff-dev": ["ansoff-md-growth", "ansoff-md-maturity", "ansoff-md-decline"],
+ "ansoff-product": ["ansoff-pd-growth", "ansoff-pd-maturity", "ansoff-pd-decline"],
+ "ansoff-diversify": ["ansoff-d-growth", "ansoff-d-maturity", "ansoff-d-decline"],
+ "ansoff-choice": ["ansoff-priority-growth", "ansoff-priority-maturity", "ansoff-renewal-decline"],
+ "bcg-1-strategy": [["明星事業 (Stars)", "bcg-stars-growth"], ["問題事業 (Question Marks)", "bcg-questions-growth"], ["金牛事業 (Cash Cows)", "bcg-cows-growth"], ["狗事業 (Dogs)", "bcg-dogs-growth"], ["明星事業", "bcg-stars-maturity"], ["問題事業", "bcg-questions-maturity"], ["金牛事業", "bcg-cows-maturity"], ["狗事業", "bcg-dogs-maturity"], ["明星事業", "bcg-stars-decline"], ["問題事業", "bcg-questions-decline"], ["金牛事業", "bcg-cows-decline"], ["狗事業", "bcg-dogs-decline"]],
+ "porter-why": [["成本領導", "generic-cost-maturity"], ["差異化", "generic-diff-maturity"], ["聚焦", "generic-focus-maturity"], ["是否陷入中間狀態", "generic-stuck-maturity"]],
+ "ec-note": ["ws-growth-ec"],
+ "read-startup-2": [["可持續性與保護策略", "vrio-sustain-startup"], ["初步結論與進入點", "5f-conclusion-startup"]],
+ "read-growth-2": [["可持續性與強化策略", "vrio-sustain-growth"], ["策略意涵", "5f-implications-growth"]],
+ "read-maturity-2": [["可持續性與強化策略", "vrio-sustain-maturity"], ["策略意涵", "5f-implications-maturity"], ["SWOT 策略意涵", "swot-implications-maturity"]],
+ "read-decline-2": [["所需的新 VRIO 資源／能力", "vrio-gap-decline"], ["初步決策", "swot-decision-decline"]]
+ };
 
         const exportButton = document.getElementById('exportButton');
         const saveButton = document.getElementById('saveButton');
         const loadButton = document.getElementById('loadButton');
         
         function setActiveTab(activeTabName) {
-            Object.keys(tabs).forEach(tabName => {
+            Object.keys(tabs).forEach(tabName =>{
                 const isActive = tabName === activeTabName;
                 if (tabs[tabName].btn) {
                     tabs[tabName].btn.classList.toggle('active', isActive);
@@ -1911,9 +1911,9 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             });
         }
 
-        Object.keys(tabs).forEach(tabName => {
+        Object.keys(tabs).forEach(tabName =>{
             if (tabs[tabName].btn) {
-                tabs[tabName].btn.addEventListener('click', () => setActiveTab(tabName));
+                tabs[tabName].btn.addEventListener('click', () =>setActiveTab(tabName));
             }
         });
 
@@ -1923,24 +1923,24 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             notification.textContent = message;
             document.body.appendChild(notification);
             
-            setTimeout(() => {
+            setTimeout(() =>{
                 notification.style.animation = 'slideIn 0.3s ease-out reverse';
-                setTimeout(() => notification.remove(), 300);
+                setTimeout(() =>notification.remove(), 300);
             }, 3000);
         }
 
-        window.showNotification = showNotification;   // 供認知作弊器區塊使用
+        window.showNotification = showNotification; // 供認知作弊器區塊使用
 
         /* 把表單內容寫入 localStorage，回傳儲存時間字串 */
         function writeLocalStorage() {
             const data = { _schema: SCHEMA_VERSION };
-            document.querySelectorAll('textarea.worksheet-input').forEach(el => {
+            document.querySelectorAll('textarea.worksheet-input').forEach(el =>{
                 if (el.id) data[el.id] = el.value;
             });
-            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el =>{
                 if (el.checked) data[el.dataset.save] = el.value;
             });
-            document.querySelectorAll('select[data-save]').forEach(el => { data[el.dataset.save] = el.value; });
+            document.querySelectorAll('select[data-save]').forEach(el =>{ data[el.dataset.save] = el.value; });
             if (window.__reviewedAt) data._reviewedAt = window.__reviewedAt;
             else if (data._reviewedAt === undefined) { /* 首次儲存 */ }
             const timestamp = new Date().toLocaleString('zh-TW');
@@ -1981,7 +1981,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     delete out[oid];
                 });
             });
-            if (!old._schema || old._schema < 2) return out;   // v1 已在 migrateV1 對到新 id
+            if (!old._schema || old._schema < 2) return out; // v1 已在 migrateV1 對到新 id
             return out;
         }
         /* 任何版本 → 現行版本；回傳 {data, changed} */
@@ -1999,7 +1999,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 if (id.charAt(0) === '_') return;
                 const el = document.getElementById(id);
                 if (el && (el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
-                    if (el.tagName === 'SELECT' && !Array.prototype.some.call(el.options, o => o.value === data[id])) return;
+                    if (el.tagName === 'SELECT' && !Array.prototype.some.call(el.options, o =>o.value === data[id])) return;
                     el.value = data[id]; n++; return;
                 }
                 const r = document.querySelector('input[type="radio"][data-save="' + id + '"][value="' + data[id] + '"]');
@@ -2008,22 +2008,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             return n;
         }
 
-        saveButton.addEventListener('click', () => {
+        saveButton.addEventListener('click', () =>{
             try {
                 const timestamp = writeLocalStorage();
                 isDirty = false;
-                showNotification(`✅ 資料已成功儲存（${timestamp}）`, 'success');
+                showNotification(`資料已成功儲存（${timestamp}）`, 'success');
             } catch (error) {
                 console.error('儲存失敗：', error);
-                showNotification('❌ 儲存失敗，請稍後再試', 'error');
+                showNotification('儲存失敗，請稍後再試', 'error');
             }
         });
 
-        loadButton.addEventListener('click', () => {
+        loadButton.addEventListener('click', () =>{
             try {
                 const savedData = localStorage.getItem('businessLifecycleData');
                 if (!savedData) {
-                    showNotification('ℹ️ 尚無已儲存的資料', 'error');
+                    showNotification('尚無已儲存的資料', 'error');
                     return;
                 }
                 
@@ -2034,17 +2034,17 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 bcgSyncHidden();
                 updateVerdicts();
                 const savedAt = raw._savedAt || '未知時間';
-                showNotification(`✅ 已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`
+                showNotification(`已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`
                     + (m.changed ? '｜已從舊版格式轉換' : ''), 'success');
             } catch (error) {
                 console.error('載入失敗：', error);
-                showNotification('❌ 載入失敗，資料可能已損壞', 'error');
+                showNotification('載入失敗，資料可能已損壞', 'error');
             }
         });
 
         /* ---- VRIO 自動判定：四道關卡一路問下去 ---- */
         function vrioVerdict() {
-            const pick = k => { const el = document.querySelector('input[name="' + k + '"]:checked'); return el ? el.value : null; };
+            const pick = k =>{ const el = document.querySelector('input[name="' + k + '"]:checked'); return el ? el.value : null; };
             const box = document.getElementById('vrio-verdict');
             if (!box) return;
             const txt = box.querySelector('.verdict-text');
@@ -2109,7 +2109,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 const tally = { star: 0, question: 0, cow: 0, dog: 0 };
                 let unset = 0;
                 units.forEach(function (u) { if (u.q) tally[u.q]++; else unset++; });
-                let txt = '共 <strong>' + units.length + '</strong> 個事業單位：明星 ' + tally.star
+                let txt = '共 <strong>' + units.length + '</strong>個事業單位：明星 ' + tally.star
                     + '　·　問號 ' + tally.question + '　·　金牛 ' + tally.cow + '　·　狗 ' + tally.dog;
                 if (unset) txt += '（' + unset + ' 個還沒選完）';
                 const tips = [];
@@ -2143,7 +2143,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         const bcgAddBtn = document.getElementById('bcgAdd');
         if (bcgAddBtn) bcgAddBtn.addEventListener('click', function () {
             const next = document.querySelector('#bcgUnits .bcg-row[hidden]');
-            if (!next) { showNotification('ℹ️ 已達 ' + document.querySelectorAll('#bcgUnits .bcg-row').length + ' 個單位上限', 'error'); return; }
+            if (!next) { showNotification('已達 ' + document.querySelectorAll('#bcgUnits .bcg-row').length + ' 個單位上限', 'error'); return; }
             next.hidden = false;
             bcgVerdict();
             autoGrowAll();
@@ -2159,7 +2159,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             row.querySelectorAll('input[type=radio]').forEach(function (r) { r.checked = false; });
             row.hidden = true;
             bcgVerdict(); autoGrowAll();
-            showNotification('✕ 已移除事業單位 ' + row.dataset.unit, 'success');
+            showNotification('已移除事業單位 ' + row.dataset.unit, 'success');
         });
 
         /* ---- 行動追蹤：狀態、逾期標紅、進度摘要 ---- */
@@ -2167,7 +2167,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             const today = localDateStr();
             let filled = 0, done = 0, doing = 0, overdue = 0;
             for (let r = 1; r <= ACTION_ROWS; r++) {
-                const g = id => { const el = document.getElementById(id); return el ? String(el.value || '') : ''; };
+                const g = id =>{ const el = document.getElementById(id); return el ? String(el.value || '') : ''; };
                 const what = g('act-' + r + '-what').trim();
                 const due = g('act-' + r + '-due').trim();
                 const st = g('act-' + r + '-status') || 'todo';
@@ -2196,7 +2196,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             window.__reviewedAt = new Date().toLocaleString('zh-TW');
             writeLocalStorage();
             actionReview();
-            showNotification('✅ 已記錄檢視時間（' + window.__reviewedAt + '）', 'success');
+            showNotification('已記錄檢視時間（' + window.__reviewedAt + '）', 'success');
         });
 
         function updateVerdicts() { vrioVerdict(); bcgVerdict(); actionReview(); }
@@ -2207,10 +2207,10 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             const boxes = Array.from(document.querySelectorAll('.fw-guide'));
             const open = boxes.some(function (b) { return !b.open; });
             boxes.forEach(function (b) { b.open = open; });
-            guideToggle.textContent = open ? '📖 收合全部判讀準則' : '📖 展開全部判讀準則與實例';
+            guideToggle.textContent = open ? '收合全部判讀準則' : '展開全部判讀準則與實例';
         });
 
-        /* ---- Word 匯出 ---- */        /* ---- Word 匯出：依「區塊 → 欄位」順序輸出已填寫的內容 ---- */
+        /* ---- Word 匯出 ---- */ /* ---- Word 匯出：依「區塊 → 欄位」順序輸出已填寫的內容 ---- */
         function sectionRows(sec, includeEmpty) {
             const rows = [];
             Array.from(sec.querySelectorAll('.field, .radio-row, .verdict')).forEach(function (node) {
@@ -2251,7 +2251,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 anRows.push({ title: sec.querySelector('.sheet-h3').textContent.trim(),
                               rows: rows, guide: guide, desc: desc ? desc.textContent.trim() : '' });
             });
-            if (anRows.length) blocks.push({ title: '📋 現況與分析', sub: anRows });
+            if (anRows.length) blocks.push({ title: '現況與分析', sub: anRows });
             const stSub = [];
             ['startup', 'growth', 'maturity', 'decline'].forEach(function (st) {
                 const pane = document.getElementById('tab-content-' + st);
@@ -2259,16 +2259,16 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 const rows = sectionRows(pane, includeEmpty);
                 if (rows.length) stSub.push({ title: pane.querySelector('.stage-title').textContent.trim(), rows: rows });
             });
-            if (stSub.length) blocks.push({ title: '🧭 階段判讀', sub: stSub });
+            if (stSub.length) blocks.push({ title: '階段判讀', sub: stSub });
             const acPane = document.getElementById('tab-content-actions');
             const acRows = acPane ? sectionRows(acPane, includeEmpty) : [];
-            if (acRows.length) blocks.push({ title: '🎯 行動計畫', sub: [{ title: '行動項目', rows: acRows }] });
+            if (acRows.length) blocks.push({ title: '行動計畫', sub: [{ title: '行動項目', rows: acRows }] });
             return blocks;
         }
 
         /* 把區塊組成報告內文；blank = true 時空欄位留空格並顯示填寫提示 */
         function buildDocBody(blocks, blank) {
-            const esc2 = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+            const esc2 = s =>String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
             let body = '', total = 0;
             blocks.forEach(function (b) {
                 body += '<h2>' + esc2(b.title) + '</h2>';
@@ -2315,21 +2315,21 @@ ${bodyHtml}
         exportButton.addEventListener('click', function () {
             const blocks = collectBlocks(false);
             const doc = buildDocBody(blocks, false);
-            if (!doc.total) { showNotification('ℹ️ 尚無內容可匯出，請先填寫工作表', 'error'); return; }
+            if (!doc.total) { showNotification('尚無內容可匯出，請先填寫工作表', 'error'); return; }
             downloadDoc(doc.html, '策略分析報告', `策略分析報告_${localDateStr()}.doc`);
-            showNotification(`🚀 已匯出 ${doc.total} 個欄位`, 'success');
+            showNotification(`已匯出 ${doc.total} 個欄位`, 'success');
         });
 
         const blankBtn = document.getElementById('blankExportButton');
         if (blankBtn) blankBtn.addEventListener('click', function () {
             const doc = buildDocBody(collectBlocks(true), true);
             downloadDoc(doc.html, '策略工作表（空白）', `策略工作表空白_${localDateStr()}.doc`);
-            showNotification(`📄 已匯出空白表格（${doc.total} 個欄位）`, 'success');
+            showNotification(`已匯出空白表格（${doc.total} 個欄位）`, 'success');
         });
 
         /* 匯出邏輯已整併到上面的 collectBlocks / buildDocBody / downloadDoc */
 
-        /* ================= ⌨️ Cmd/Ctrl+S 儲存、📐 textarea 自動長高 ================= */
+        /* ================= ⌨Cmd/Ctrl+S 儲存、textarea 自動長高 ================= */
         function autoGrow(el) {
             if (!el || el.tagName !== 'TEXTAREA') return;
             el.style.height = 'auto';
@@ -2349,13 +2349,13 @@ ${bodyHtml}
                 bcgSyncHidden();
                 updateVerdicts();
                 if (m.changed) {
-                    writeLocalStorage();   // 寫回新格式，避免每次開頁重複轉換
-                    showNotification('ℹ️ 已將舊版存檔轉換為新版格式（同一批分析問題只要填一次）', 'success');
+                    writeLocalStorage(); // 寫回新格式，避免每次開頁重複轉換
+                    showNotification('已將舊版存檔轉換為新版格式（同一批分析問題只要填一次）', 'success');
                 }
             }
         } catch (e) { console.warn('自動還原失敗：', e); }
 
-        document.addEventListener('input', (e) => {
+        document.addEventListener('input', (e) =>{
             if (e.target && e.target.matches && e.target.matches('textarea.worksheet-input')) autoGrow(e.target);
         });
         window.addEventListener('resize', autoGrowAll);
@@ -2364,7 +2364,7 @@ ${bodyHtml}
         /* 字型載入後高度會變，等字型就緒再算一次 */
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(autoGrowAll);
 
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', (e) =>{
             if ((e.metaKey || e.ctrlKey) && (e.key === 's' || e.key === 'S') && !e.altKey) {
                 e.preventDefault();
                 if (saveButton) saveButton.click();
@@ -2377,8 +2377,8 @@ ${bodyHtml}
             return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
         }
 
-        /* ================= 🧭 階段判定 ================= */
-        const STAGE_LABEL = { startup: '🌱 創業/導入期', growth: '🚀 成長期', maturity: '🌳 成熟期', decline: '🍂 衰退/轉型期' };
+        /* ================= 階段判定 ================= */
+        const STAGE_LABEL = { startup: '創業/導入期', growth: '成長期', maturity: '成熟期', decline: '衰退/轉型期' };
         const STAGE_ORDER = ['startup', 'growth', 'maturity', 'decline'];
         const DIAG = [
             { q: '公司目前的營收狀況？', opts: [
@@ -2407,16 +2407,16 @@ ${bodyHtml}
         function renderDiag() {
             const box = document.getElementById('diagQuestions');
             if (!box) return;
-            box.innerHTML = DIAG.map((d, qi) => `
+            box.innerHTML = DIAG.map((d, qi) =>`
                 <div class="diag-q">
                     <h4>${qi + 1}. ${d.q}</h4>
-                    ${d.opts.map(o => `
+                    ${d.opts.map(o =>`
                         <label class="diag-opt">
                             <input type="radio" name="diag-${qi}" value="${o.s}" data-q="${qi}">
                             <span>${o.t}</span>
                         </label>`).join('')}
                 </div>`).join('');
-            box.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', () => {
+            box.querySelectorAll('input[type="radio"]').forEach(r =>r.addEventListener('change', () =>{
                 diagPick[r.dataset.q] = r.value;
                 updateDiag();
             }));
@@ -2437,48 +2437,48 @@ ${bodyHtml}
                 return;
             }
             const tally = {};
-            Object.keys(diagPick).forEach(k => { const s = diagPick[k]; tally[s] = (tally[s] || 0) + 1; });
+            Object.keys(diagPick).forEach(k =>{ const s = diagPick[k]; tally[s] = (tally[s] || 0) + 1; });
             const max = Math.max(...Object.values(tally));
-            const winners = STAGE_ORDER.filter(s => (tally[s] || 0) === max);
+            const winners = STAGE_ORDER.filter(s =>(tally[s] || 0) === max);
             const top = winners[0];
             out.className = '';
             out.innerHTML = `<div class="diag-winner">建議階段：${STAGE_LABEL[top]}` +
-                (winners.length > 1 ? `（與 ${winners.slice(1).map(s => STAGE_LABEL[s]).join('、')} 同分）` : '') + `</div>` +
-                `<div class="diag-score">${STAGE_ORDER.map(s => STAGE_LABEL[s] + ' ' + (tally[s] || 0)).join('　·　')}　—　同分時取較早階段。</div>`;
+                (winners.length >1 ? `（與 ${winners.slice(1).map(s =>STAGE_LABEL[s]).join('、')} 同分）` : '') + `</div>` +
+                `<div class="diag-score">${STAGE_ORDER.map(s =>STAGE_LABEL[s] + ' ' + (tally[s] || 0)).join('　·　')}　—　同分時取較早階段。</div>`;
             go.disabled = false;
             go.setAttribute('data-stage', top);
             go.textContent = `前往 ${STAGE_LABEL[top]} 工作表 →`;
         }
 
         const diagGoBtn = document.getElementById('diagGo');
-        if (diagGoBtn) diagGoBtn.addEventListener('click', () => {
+        if (diagGoBtn) diagGoBtn.addEventListener('click', () =>{
             const s = diagGoBtn.getAttribute('data-stage');
             if (s) { setActiveTab(s); window.scrollTo({ top: 0, behavior: 'smooth' }); }
         });
         const diagResetBtn = document.getElementById('diagReset');
-        if (diagResetBtn) diagResetBtn.addEventListener('click', () => {
-            Object.keys(diagPick).forEach(k => delete diagPick[k]);
-            document.querySelectorAll('#diagQuestions input[type="radio"]').forEach(r => { r.checked = false; });
+        if (diagResetBtn) diagResetBtn.addEventListener('click', () =>{
+            Object.keys(diagPick).forEach(k =>delete diagPick[k]);
+            document.querySelectorAll('#diagQuestions input[type="radio"]').forEach(r =>{ r.checked = false; });
             updateDiag();
         });
         renderDiag();
 
         /* 跨階段沿用已移除：v2 把分析欄位改成共用（id 不再帶階段後綴），
            同一批問題在四個階段只填一次，不需要複製貼上。 */
-        /* ================= 🗑 清空 / ⬇ 備份 / ⬆ 還原 ================= */
+        /* ================= 清空 / 備份 / 還原 ================= */
         const clearBtn = document.getElementById('clearButton');
-        if (clearBtn) clearBtn.addEventListener('click', () => {
-            if (!confirm('確定要清空所有工作表內容嗎？此動作無法復原。\n（建議先按「⬇ 備份 JSON」）')) return;
+        if (clearBtn) clearBtn.addEventListener('click', () =>{
+            if (!confirm('確定要清空所有工作表內容嗎？此動作無法復原。\n（建議先按「備份 JSON」）')) return;
             if (!confirm('再次確認：清空後每個分頁的填寫內容都會消失。')) return;
             let n = 0;
-            document.querySelectorAll('textarea.worksheet-input').forEach(el => {
+            document.querySelectorAll('textarea.worksheet-input').forEach(el =>{
                 if (el.value !== '') { el.value = ''; n++; }
             });
-            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el =>{
                 if (el.checked) { el.checked = false; n++; }
             });
-            document.querySelectorAll('select[data-save]').forEach(el => {
-                if (el.value !== 'todo' && el.selectedIndex > 0) { el.value = 'todo'; n++; }
+            document.querySelectorAll('select[data-save]').forEach(el =>{
+                if (el.value !== 'todo' && el.selectedIndex >0) { el.value = 'todo'; n++; }
             });
             window.__reviewedAt = '';
             bcgSyncHidden();
@@ -2487,24 +2487,24 @@ ${bodyHtml}
             autoGrowAll();
             isDirty = false;
             clearTimeout(autoSaveTimer);
-            showNotification('🗑 已清空 ' + n + ' 個欄位', 'success');
+            showNotification('已清空 ' + n + ' 個欄位', 'success');
         });
 
         const backupBtn = document.getElementById('backupButton');
-        if (backupBtn) backupBtn.addEventListener('click', () => {
+        if (backupBtn) backupBtn.addEventListener('click', () =>{
             const data = { _app: '商業生命週期策略工具箱', _schema: SCHEMA_VERSION, _savedAt: new Date().toLocaleString('zh-TW') };
-            document.querySelectorAll('textarea.worksheet-input').forEach(el => { if (el.id) data[el.id] = el.value; });
-            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => { if (el.checked) data[el.dataset.save] = el.value; });
+            document.querySelectorAll('textarea.worksheet-input').forEach(el =>{ if (el.id) data[el.id] = el.value; });
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el =>{ if (el.checked) data[el.dataset.save] = el.value; });
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             saveAs(blob, `策略工作表備份_${localDateStr()}.json`);
-            showNotification('⬇ 備份檔已下載（可跨裝置還原）', 'success');
+            showNotification('備份檔已下載（可跨裝置還原）', 'success');
         });
 
         const restoreBtn = document.getElementById('restoreButton');
         const restoreFileEl = document.getElementById('restoreFile');
         if (restoreBtn && restoreFileEl) {
-            restoreBtn.addEventListener('click', () => restoreFileEl.click());
-            restoreFileEl.addEventListener('change', async () => {
+            restoreBtn.addEventListener('click', () =>restoreFileEl.click());
+            restoreFileEl.addEventListener('change', async () =>{
                 const f = restoreFileEl.files && restoreFileEl.files[0];
                 if (!f) return;
                 try {
@@ -2516,11 +2516,11 @@ ${bodyHtml}
                     const t = writeLocalStorage();
                     autoGrowAll();
                     isDirty = false;
-                    showNotification('⬆ 已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）'
+                    showNotification('已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）'
                         + (m.changed ? '｜已從舊版格式轉換' : ''), 'success');
                 } catch (e) {
                     console.error('還原失敗：', e);
-                    showNotification('❌ 備份檔格式錯誤，請選擇本工具匯出的 JSON', 'error');
+                    showNotification('備份檔格式錯誤，請選擇本工具匯出的 JSON', 'error');
                 }
                 restoreFileEl.value = '';
             });
@@ -2533,7 +2533,7 @@ ${bodyHtml}
         let autoSaveTimer = null;
         let isDirty = false;
         
-        document.addEventListener('input', (e) => {
+        document.addEventListener('input', (e) =>{
             if (e.target.matches('input[type="radio"][data-save]')) { bcgVerdict(); vrioVerdict(); }
             if (e.target.matches('select[data-save]') && e.target.id && e.target.id.indexOf('bcg') === 0) bcgVerdict();
             if (e.target.id && /^act-\d+-/.test(e.target.id)) actionReview();
@@ -2541,25 +2541,25 @@ ${bodyHtml}
             else if (!e.target.id || !/^act-\d+-/.test(e.target.id)) return;
             isDirty = true;
             clearTimeout(autoSaveTimer);
-            autoSaveTimer = setTimeout(() => {
+            autoSaveTimer = setTimeout(() =>{
                 const t = writeLocalStorage();
                 isDirty = false;
-                showNotification(`💾 已自動儲存（${t}）`, 'success');
+                showNotification(`已自動儲存（${t}）`, 'success');
             }, 1500);
         });
         
-        window.addEventListener('beforeunload', (e) => {
+        window.addEventListener('beforeunload', (e) =>{
             if (isDirty) { e.preventDefault(); e.returnValue = ''; }
         });
         
         let autoSaveInterval;
-        const startAutoSaveReminder = () => {
+        const startAutoSaveReminder = () =>{
             clearInterval(autoSaveInterval);
-            autoSaveInterval = setInterval(() => {
+            autoSaveInterval = setInterval(() =>{
                 const hasContent = Array.from(document.querySelectorAll('textarea.worksheet-input'))
-                    .some(el => el.value.trim() !== '');
+                    .some(el =>el.value.trim() !== '');
                 if (hasContent) {
-                    showNotification('💡 別忘了儲存您的工作進度！', 'success');
+                    showNotification('別忘了儲存您的工作進度！', 'success');
                 }
             }, 600000);
         };
@@ -2571,7 +2571,7 @@ ${bodyHtml}
 
     <script>
     /* =====================================================================
-       🎮 認知作弊器 — 計時器 / 搜尋 / 分類篩選
+       認知作弊器 — 計時器 / 搜尋 / 分類篩選
        （與生命週期工作表獨立；不寫入 localStorage，也不納入 Word 匯出）
        ===================================================================== */
     const cheatIntervals = {};
@@ -2594,13 +2594,13 @@ ${bodyHtml}
         if (!el) return;
         if (cheatIntervals[elemId]) clearInterval(cheatIntervals[elemId]);
         let left = seconds;
-        const render = () => {
+        const render = () =>{
             const m = String(Math.floor(left / 60)).padStart(2, '0');
             const s = String(left % 60).padStart(2, '0');
             el.textContent = m + ':' + s;
         };
         render();
-        cheatIntervals[elemId] = setInterval(() => {
+        cheatIntervals[elemId] = setInterval(() =>{
             left--;
             if (left <= 0) {
                 clearInterval(cheatIntervals[elemId]);
@@ -2620,7 +2620,7 @@ ${bodyHtml}
     function cheatFilter() {
         const q = (document.getElementById('cheatSearch').value || '').trim().toLowerCase();
         let shown = 0;
-        document.querySelectorAll('#cheatGrid .cheat-card').forEach(card => {
+        document.querySelectorAll('#cheatGrid .cheat-card').forEach(card =>{
             const cat = card.getAttribute('data-category');
             const hay = (card.getAttribute('data-keywords') + ' ' + card.innerText).toLowerCase();
             const ok = (cheatCategory === 'all' || cat === cheatCategory) && (!q || hay.includes(q));
@@ -2630,13 +2630,13 @@ ${bodyHtml}
         document.getElementById('cheatEmpty').style.display = shown === 0 ? 'block' : 'none';
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () =>{
         const search = document.getElementById('cheatSearch');
         if (search) search.addEventListener('input', cheatFilter);
-        document.querySelectorAll('#cheatChips .cheat-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
+        document.querySelectorAll('#cheatChips .cheat-chip').forEach(chip =>{
+            chip.addEventListener('click', () =>{
                 cheatCategory = chip.getAttribute('data-cat');
-                document.querySelectorAll('#cheatChips .cheat-chip').forEach(c => c.classList.toggle('active', c === chip));
+                document.querySelectorAll('#cheatChips .cheat-chip').forEach(c =>c.classList.toggle('active', c === chip));
                 cheatFilter();
             });
         });

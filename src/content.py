@@ -238,7 +238,7 @@ STAGES = ["startup", "growth", "maturity", "decline"]
 
 STAGE_META = {
     "startup": dict(
-        tab_label="創業期", pane_title="🌱 創業／導入期判讀",
+        tab_label="創業期", pane_title="創業／導入期判讀",
         goal="找到可重複的商業模式（PMF）", challenge="現金流與需求驗證",
         reading="這個階段唯一該問的是「有沒有人真的要用、願不願意付錢」。所有分析都要回到這一點。",
         items={
@@ -248,7 +248,7 @@ STAGE_META = {
         },
     ),
     "growth": dict(
-        tab_label="成長期", pane_title="🚀 成長期判讀",
+        tab_label="成長期", pane_title="成長期判讀",
         goal="把已驗證的模式規模化", challenge="規模化與資金、組織跟不上",
         reading="需求已被驗證，風險轉移到「複製得夠快嗎、品質會不會掉、現金夠不夠撐」。",
         items={
@@ -258,7 +258,7 @@ STAGE_META = {
         },
     ),
     "maturity": dict(
-        tab_label="成熟期", pane_title="🌳 成熟期判讀",
+        tab_label="成熟期", pane_title="成熟期判讀",
         goal="把現金流效率最大化並找第二曲線", challenge="成長停滯、組織僵化、競爭侵蝕利潤",
         reading="重點從「成長」變成「效率與防守」，同時要開始為下一條曲線鋪路。",
         items={
@@ -268,7 +268,7 @@ STAGE_META = {
         },
     ),
     "decline": dict(
-        tab_label="衰退/轉型期", pane_title="🍂 衰退／轉型期判讀",
+        tab_label="衰退/轉型期", pane_title="衰退／轉型期判讀",
         goal="優雅退出或找到第二曲線轉型", challenge="決策退出 vs. 轉型、重新配置資源",
         reading="這個階段最大的風險不是衰退本身，是「拖」—— 拖著做不出決定，資源會自己流光。",
         items={
@@ -305,7 +305,7 @@ ACTION_FIELDS = [("what", "要做什麼"), ("owner", "負責人"), ("due", "期�
 ACTION_STATUS = [("todo", "未開始"), ("doing", "進行中"), ("done", "已完成"), ("drop", "已取消")]
 
 ACTION_INTRO = dict(
-    title="🎯 行動計畫",
+    title="行動計畫",
     desc="策略沒有變成「誰、在什麼時候、做到什麼數字」就只是願望。"
          "成功指標要能被外部的人驗證，不要寫「提升滿意度」這種無法否證的句子。",
     example="要做什麼：推出月租 40 席方案（限轉運站通勤族）／負責人：我自己（前期不外包）／"
@@ -315,7 +315,7 @@ ACTION_INTRO = dict(
 # ── 輸出區 ────────────────────────────────────────────────────
 
 OUTPUT_INTRO = dict(
-    title="📤 輸出與備份",
+    title="輸出與備份",
     desc="存檔只存在這台裝置的瀏覽器裡（localStorage）。換裝置、換瀏覽器、清快取都會不見，"
          "所以定期按「備份 JSON」留一份檔案。",
 )

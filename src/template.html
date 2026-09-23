@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-<!-- ⚠️ 這個檔案是產生出來的，不要直接編輯。
+<!-- 這個檔案是產生出來的，不要直接編輯。
          內容來源：src/content.py ／ 版面來源：src/template.html
          改完請執行：bash build.sh -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
         * { box-sizing: border-box; }
         body { font-family: 'Inter', system-ui, sans-serif; }
         
-        /* --- 修正 2.3: Textarea 樣式 (min-height -> 120px) --- */
+        /* --- 修正 2.3: Textarea 樣式 (min-height ->120px) --- */
         /* --- 修正 3.1: 視覺一致性 (顏色更新為 #3498db) --- */
         .worksheet-input { 
             margin-top: 0.375rem; 
@@ -48,7 +48,7 @@
         /* --- Tab 樣式 (顏色更新) --- */
         .tab-buttons {
             display: flex;
-            flex-wrap: wrap;          /* 窄螢幕換行；桌面寬度下仍是一行，外觀不變 */
+            flex-wrap: wrap; /* 窄螢幕換行；桌面寬度下仍是一行，外觀不變 */
             border-bottom: 2px solid #e2e8f0;
             margin-bottom: 1.5rem;
             gap: 0.25rem;
@@ -60,7 +60,7 @@
 
         .tab-btn { 
             flex-shrink: 0;
-            white-space: nowrap;      /* 按鈕內文字不斷行，換行交給容器 */ 
+            white-space: nowrap; /* 按鈕內文字不斷行，換行交給容器 */ 
             padding: 0.875rem 1.25rem; 
             border-bottom: 3px solid transparent; 
             font-weight: 500; 
@@ -210,7 +210,7 @@
             margin-top: 0.75rem;
         }
         
-        .toolkit > .input-group {
+        .toolkit >.input-group {
             width: 300px; /* 依照建議 2.2 調整 (固定寬度) */
             max-width: 100%; /* 增加保護，避免在極窄螢幕溢出 */
             margin-bottom: 0; /* 由 gap 控制間距 */
@@ -417,7 +417,7 @@
         }
     
         /* ===================================================================
-           🎮 認知作弊器（Strategy Toolkit）— 整合區塊專用樣式
+           認知作弊器（Strategy Toolkit）— 整合區塊專用樣式
            顏色沿用本站藍 (#3498db) 作為外框，語意色保留原設計
            =================================================================== */
         .cheat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.25rem; }
@@ -463,7 +463,7 @@
         .cheat-chip.active { background: #3498db; color: #fff; border-color: #3498db; }
         .cheat-empty { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #64748b; }
     
-        /* ===== 🧭 階段判定 ===== */
+        /* ===== 階段判定 ===== */
         .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
         .diag-q { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; }
         .diag-q h4 { font-size: 0.98rem; font-weight: 700; color: #1f2937; margin-bottom: 0.6rem; }
@@ -493,10 +493,10 @@
         .carry-btn:hover { background: #3498db; color: #fff; }
         .carry-hint { font-size: 0.8rem; color: #64748b; }
 
-        /* ===== 🗑 危險按鈕 ===== */
+        /* ===== 危險按鈕 ===== */
         .btn-red { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
     
-/* ================= 🆕 v2：分析區 / 判讀區 / 行動計畫 ================= */
+/* ================= v2：分析區 / 判讀區 / 行動計畫 ================= */
 .sheet-section { margin: 0 0 34px; padding-bottom: 22px; border-bottom: 1px dashed #cbd5e1; }
 .sheet-section:last-of-type { border-bottom: none; }
 .sheet-h3 { font-size: 1.32em; font-weight: 700; color: #1e3a8a; margin: 0 0 6px; }
@@ -548,10 +548,10 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 .verdict.bad { background: #fef2f2; border-left-color: #dc2626; }
 
 .fw-guide { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 14px; }
-.fw-guide > summary { cursor: pointer; padding: 10px 14px; font-weight: 600; color: #1e40af; font-size: 0.95em; }
-.fw-guide > summary:hover { background: #eff6ff; }
+.fw-guide >summary { cursor: pointer; padding: 10px 14px; font-weight: 600; color: #1e40af; font-size: 0.95em; }
+.fw-guide >summary:hover { background: #eff6ff; }
 .fw-criteria, .fw-example { padding: 2px 16px 14px; margin: 0 0 12px; }
-.fw-criteria > strong, .fw-example > strong { display: block; color: #1e40af; font-size: 0.9em; margin-bottom: 6px; }
+.fw-criteria >strong, .fw-example >strong { display: block; color: #1e40af; font-size: 0.9em; margin-bottom: 6px; }
 .fw-criteria p, .fw-example p { margin: 0; color: #475569; font-size: 0.92em; line-height: 1.8; }
 .fw-example p { color: #334155; }
 
@@ -630,17 +630,17 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
            預編譯檔同一套順序原則）。要改商務樣式改這一層，不要回頭改上面。
            ========================================================================== */
         :root {
-            --ink: #161616;            /* Gray 100：主要文字 */
-            --ink-2: #525252;          /* Gray 70：次要文字 */
-            --ink-3: #6f6f6f;          /* Gray 60：placeholder */
-            --line: #c6c6c6;           /* Gray 30：控制項邊框 */
-            --line-2: #e0e0e0;         /* Gray 20：分隔線、卡片邊框 */
-            --surface: #f4f4f4;        /* Gray 10：次層表面 */
-            --surface-2: #e8e8e8;      /* Gray 10 hover */
-            --accent: #0f62fe;         /* Blue 60：唯一互動色 */
+            --ink: #161616; /* Gray 100：主要文字 */
+            --ink-2: #525252; /* Gray 70：次要文字 */
+            --ink-3: #6f6f6f; /* Gray 60：placeholder */
+            --line: #c6c6c6; /* Gray 30：控制項邊框 */
+            --line-2: #e0e0e0; /* Gray 20：分隔線、卡片邊框 */
+            --surface: #f4f4f4; /* Gray 10：次層表面 */
+            --surface-2: #e8e8e8; /* Gray 10 hover */
+            --accent: #0f62fe; /* Blue 60：唯一互動色 */
             --accent-hover: #0353e9;
             --accent-active: #002d9c;
-            --accent-tint: #edf5ff;    /* Blue 10 */
+            --accent-tint: #edf5ff; /* Blue 10 */
             --ok: #24a148; --ok-tint: #defbe6; --ok-ink: #0e6027;
             --warn: #f1c21b; --warn-tint: #fff8e1; --warn-ink: #8a6116;
             --bad: #da1e28; --bad-tint: #fff1f1; --bad-ink: #a2191f;
@@ -873,7 +873,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         }
 </style>
 
-    <!-- Tailwind 產生的樣式必須排在自訂 <style> 之後：
+    <!-- Tailwind 產生的樣式必須排在自訂 <style>之後：
          兩者特異度相同，順序決定誰勝出（原本 CDN 是執行時注入，天生在後面）。 -->
     <link rel="stylesheet" href="./assets/tailwind.css">
 <!-- Google tag (gtag.js) -->
@@ -896,13 +896,13 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
         <div class="mb-8 border-b-2 border-slate-200 no-print">
             <nav class="tab-buttons no-print" role="tablist" aria-label="工作表分頁">
-                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">📋 現況與分析</button>
-                <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">🌱 創業期</button>
-                <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">🚀 成長期</button>
-                <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">🌳 成熟期</button>
-                <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">🍂 衰退/轉型期</button>
-                <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">🎯 行動計畫</button>
-                <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">🎮 認知作弊器</button>
+                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">現況與分析</button>
+                <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">創業期</button>
+                <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">成長期</button>
+                <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">成熟期</button>
+                <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">衰退/轉型期</button>
+                <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">行動計畫</button>
+                <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">認知作弊器</button>
             </nav>
         </div>
         
@@ -913,27 +913,27 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             </p>
 
             <section class="analysis-section no-print" id="stageDiagnosis">
-                <h2 class="analysis-h2">🧭 不確定自己在哪一期？先做 4 題判定</h2>
+                <h2 class="analysis-h2">不確定自己在哪一期？先做 4 題判定</h2>
                 <p class="analysis-p mb-4">依實際狀況各選一項，系統統計後給出建議階段，可直接跳到對應的工作表。生命週期可能跳躍、停滯或逆轉，判定結果只是起點，不是結論。</p>
                 <div class="diag-grid" id="diagQuestions"></div>
                 <div class="diag-result" id="diagResult">
                     <div id="diagOutcome" class="diag-empty">尚未作答 —— 選滿 4 題即顯示建議階段。</div>
                     <div class="diag-actions no-print">
-                        <button type="button" class="diag-btn" id="diagReset">↺ 重新作答</button>
+                        <button type="button" class="diag-btn" id="diagReset">重新作答</button>
                         <button type="button" class="diag-btn diag-btn-primary" id="diagGo" disabled>前往該階段工作表 →</button>
                     </div>
                 </div>
             </section>
 
             <div class="guide-toggle no-print">
-                <button type="button" id="guideToggle">📖 展開全部判讀準則與實例</button>
+                <button type="button" id="guideToggle">展開全部判讀準則與實例</button>
                 <span class="field-tag">每個框架的判讀準則預設收合，需要時再展開。</span>
             </div>
             <!--{{ANALYSIS_SECTIONS}}-->
 </div>
         
         <!--{{STAGE_PANES}}-->
-<!-- ================= 🎮 認知作弊器（整合自 Strategy Toolkit） ================= -->
+<!-- ================= 認知作弊器（整合自 Strategy Toolkit） ================= -->
         <div id="tab-content-cheats" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-cheats">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
                 <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">人類作弊器策略工具箱</span>
@@ -944,7 +944,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 
             <div class="cheat-controls no-print">
                 <div class="cheat-search">
-                    <span>🔍</span>
+                    <span></span>
                     <input type="search" id="cheatSearch" placeholder="搜尋工具名稱、心理 Bug、情境關鍵字（例如：談判、拖延、定價、內耗）...">
                 </div>
                 <div class="cheat-chips" id="cheatChips">
@@ -966,22 +966,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">極端戰略沉默協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">大腦對社交空白具有強烈的生理恐懼與填補衝動，往往會自亂陣腳主動讓步。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>報出極端高價錨點後、向對方提出重大要求後、或對話陷入僵局時。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">完成報價後：立刻咬緊舌頭，強制閉嘴 30 秒。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁在對方開口前回應或主動補充藉口／打折。</div>
                     </div>
                 </div>
@@ -1001,22 +1001,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">空降旁觀者置換協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">沉沒成本謬誤與稟賦效應：對過往付出難以割捨，導致持續加碼維持虧損行為。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>專案持續虧損但捨不得收手、不良合作關係糾纏不清、因投入過多而猶豫。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">想像自己被開除，空降的冷血職業經理人第一刀砍什麼，現在就立刻砍什麼。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁回顧「已經投入了多少成本」，不要為過去的屍體買單。</div>
                     </div>
                 </div>
@@ -1036,22 +1036,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">兩分鐘微重力點火協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">大腦面對龐大任務會產生高靜摩擦阻力，多巴胺系統會誘使身體逃避至低阻力娛樂。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>癱坐滑手機明知該工作卻動不了、面對複雜文件不知從何下手、嚴重拖延。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">手機螢幕朝下扣在桌上，坐在鍵盤前敲下 3 個字母或標題，持續 2 分鐘。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁在開始前規劃宏大架構或試圖一口氣完成整份工作。</div>
                     </div>
                 </div>
@@ -1071,29 +1071,29 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">損失框架反轉協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">前景理論：人類對「潛在損失」的痛苦感知是「同等獲益」愉悅感的 2 倍以上。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>向主管/客戶提案遭遇拖延推託、對方覺得「維持現狀也可以」時。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">將「導入能賺多少」全部改寫為「維持現狀每天白白流失多少真金白銀」。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁只描繪美好願景；沒有失去痛苦的刺激，對手大腦不會行動。</div>
                     </div>
                 </div>
 
                 <div class="cheat-footer">
                     <span class="cheat-note">康納曼損失矩陣</span>
-                    <button class="cheat-btn" onclick="cheatNotify('【損失語法檢核】 ❌「這能幫您提升 20% 效率」→ ✅「您每延遲一週，正白白燃燒 15 萬工時成本，因為…」')">檢查語句框架</button>
+                    <button class="cheat-btn" onclick="cheatNotify('【損失語法檢核】 「這能幫您提升 20% 效率」→ 「您每延遲一週，正白白燃燒 15 萬工時成本，因為…」')">檢查語句框架</button>
                 </div>
             </article>
 
@@ -1106,22 +1106,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     <h3 class="cheat-title">十分鐘物理切割協議</h3>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-bug">● 底層認知漏洞</div>
+                        <div class="cheat-label cheat-bug">底層認知漏洞</div>
                         <p class="text-slate-500">大腦 DMN 迴路陷入思維反芻（Rumination），越試圖「想開」大腦空轉耗能越嚴重。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-trigger">⚡ 觸發情境</div>
+                        <div class="cheat-label cheat-trigger">觸發情境</div>
                         <p>受冒犯氣得發抖、腦海瘋狂重播爭吵畫面、陷入極度內耗或自責。</p>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-action">⚡ 最小物理動作</div>
+                        <div class="cheat-label cheat-action">最小物理動作</div>
                         <div class="cheat-action-panel">強制離開螢幕，雙手投入具體物理活動（洗冷水臉、用力擦桌子）10 分鐘。</div>
                     </div>
 
                     <div class="cheat-block">
-                        <div class="cheat-label cheat-taboo">✕ 致命禁忌</div>
+                        <div class="cheat-label cheat-taboo">致命禁忌</div>
                         <div class="cheat-taboo-panel">嚴禁坐在原位嘗試「推理化解」或在通訊軟體上敲鍵盤筆戰。</div>
                     </div>
                 </div>
@@ -1145,36 +1145,36 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         <div class="text-center mt-12 space-y-4 no-print">
             <div class="flex flex-wrap justify-center gap-4">
                 <button id="saveButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    💾 儲存至瀏覽器
+                    儲存至瀏覽器
                 </button>
                 <button id="loadButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    📂 載入已儲存資料
+                    載入已儲存資料
                 </button>
                 <button id="exportButton" class="btn-base btn-blue export-btn focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    🚀 匯出為 Word 文件
+                    匯出為 Word 文件
                 </button>
                 <button id="blankExportButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    📄 匯出空白表格
+                    匯出空白表格
                 </button>
                 <button id="backupButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    ⬇ 備份 JSON
+                    備份 JSON
                 </button>
                 <button id="restoreButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    ⬆ 還原備份
+                    還原備份
                 </button>
                 <button id="clearButton" class="btn-base btn-red focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
-                    🗑 清空全部
+                    清空全部
                 </button>
                 <input type="file" id="restoreFile" accept=".json,application/json" style="display:none">
             </div>
             <p class="text-sm text-slate-500 mt-2">
-                💡 提示：定期儲存您的工作，避免資料遺失
+                提示：定期儲存您的工作，避免資料遺失
             </p>
         </div>
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () =>{
         const tabs = {
             analysis: { btn: document.getElementById('tab-btn-analysis'), content: document.getElementById('tab-content-analysis') },
             startup: { btn: document.getElementById('tab-btn-startup'), content: document.getElementById('tab-content-startup') },
@@ -1197,7 +1197,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         const loadButton = document.getElementById('loadButton');
         
         function setActiveTab(activeTabName) {
-            Object.keys(tabs).forEach(tabName => {
+            Object.keys(tabs).forEach(tabName =>{
                 const isActive = tabName === activeTabName;
                 if (tabs[tabName].btn) {
                     tabs[tabName].btn.classList.toggle('active', isActive);
@@ -1211,9 +1211,9 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             });
         }
 
-        Object.keys(tabs).forEach(tabName => {
+        Object.keys(tabs).forEach(tabName =>{
             if (tabs[tabName].btn) {
-                tabs[tabName].btn.addEventListener('click', () => setActiveTab(tabName));
+                tabs[tabName].btn.addEventListener('click', () =>setActiveTab(tabName));
             }
         });
 
@@ -1223,24 +1223,24 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             notification.textContent = message;
             document.body.appendChild(notification);
             
-            setTimeout(() => {
+            setTimeout(() =>{
                 notification.style.animation = 'slideIn 0.3s ease-out reverse';
-                setTimeout(() => notification.remove(), 300);
+                setTimeout(() =>notification.remove(), 300);
             }, 3000);
         }
 
-        window.showNotification = showNotification;   // 供認知作弊器區塊使用
+        window.showNotification = showNotification; // 供認知作弊器區塊使用
 
         /* 把表單內容寫入 localStorage，回傳儲存時間字串 */
         function writeLocalStorage() {
             const data = { _schema: SCHEMA_VERSION };
-            document.querySelectorAll('textarea.worksheet-input').forEach(el => {
+            document.querySelectorAll('textarea.worksheet-input').forEach(el =>{
                 if (el.id) data[el.id] = el.value;
             });
-            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el =>{
                 if (el.checked) data[el.dataset.save] = el.value;
             });
-            document.querySelectorAll('select[data-save]').forEach(el => { data[el.dataset.save] = el.value; });
+            document.querySelectorAll('select[data-save]').forEach(el =>{ data[el.dataset.save] = el.value; });
             if (window.__reviewedAt) data._reviewedAt = window.__reviewedAt;
             else if (data._reviewedAt === undefined) { /* 首次儲存 */ }
             const timestamp = new Date().toLocaleString('zh-TW');
@@ -1281,7 +1281,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                     delete out[oid];
                 });
             });
-            if (!old._schema || old._schema < 2) return out;   // v1 已在 migrateV1 對到新 id
+            if (!old._schema || old._schema < 2) return out; // v1 已在 migrateV1 對到新 id
             return out;
         }
         /* 任何版本 → 現行版本；回傳 {data, changed} */
@@ -1299,7 +1299,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 if (id.charAt(0) === '_') return;
                 const el = document.getElementById(id);
                 if (el && (el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
-                    if (el.tagName === 'SELECT' && !Array.prototype.some.call(el.options, o => o.value === data[id])) return;
+                    if (el.tagName === 'SELECT' && !Array.prototype.some.call(el.options, o =>o.value === data[id])) return;
                     el.value = data[id]; n++; return;
                 }
                 const r = document.querySelector('input[type="radio"][data-save="' + id + '"][value="' + data[id] + '"]');
@@ -1308,22 +1308,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             return n;
         }
 
-        saveButton.addEventListener('click', () => {
+        saveButton.addEventListener('click', () =>{
             try {
                 const timestamp = writeLocalStorage();
                 isDirty = false;
-                showNotification(`✅ 資料已成功儲存（${timestamp}）`, 'success');
+                showNotification(`資料已成功儲存（${timestamp}）`, 'success');
             } catch (error) {
                 console.error('儲存失敗：', error);
-                showNotification('❌ 儲存失敗，請稍後再試', 'error');
+                showNotification('儲存失敗，請稍後再試', 'error');
             }
         });
 
-        loadButton.addEventListener('click', () => {
+        loadButton.addEventListener('click', () =>{
             try {
                 const savedData = localStorage.getItem('businessLifecycleData');
                 if (!savedData) {
-                    showNotification('ℹ️ 尚無已儲存的資料', 'error');
+                    showNotification('尚無已儲存的資料', 'error');
                     return;
                 }
                 
@@ -1334,17 +1334,17 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 bcgSyncHidden();
                 updateVerdicts();
                 const savedAt = raw._savedAt || '未知時間';
-                showNotification(`✅ 已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`
+                showNotification(`已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`
                     + (m.changed ? '｜已從舊版格式轉換' : ''), 'success');
             } catch (error) {
                 console.error('載入失敗：', error);
-                showNotification('❌ 載入失敗，資料可能已損壞', 'error');
+                showNotification('載入失敗，資料可能已損壞', 'error');
             }
         });
 
         /* ---- VRIO 自動判定：四道關卡一路問下去 ---- */
         function vrioVerdict() {
-            const pick = k => { const el = document.querySelector('input[name="' + k + '"]:checked'); return el ? el.value : null; };
+            const pick = k =>{ const el = document.querySelector('input[name="' + k + '"]:checked'); return el ? el.value : null; };
             const box = document.getElementById('vrio-verdict');
             if (!box) return;
             const txt = box.querySelector('.verdict-text');
@@ -1409,7 +1409,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 const tally = { star: 0, question: 0, cow: 0, dog: 0 };
                 let unset = 0;
                 units.forEach(function (u) { if (u.q) tally[u.q]++; else unset++; });
-                let txt = '共 <strong>' + units.length + '</strong> 個事業單位：明星 ' + tally.star
+                let txt = '共 <strong>' + units.length + '</strong>個事業單位：明星 ' + tally.star
                     + '　·　問號 ' + tally.question + '　·　金牛 ' + tally.cow + '　·　狗 ' + tally.dog;
                 if (unset) txt += '（' + unset + ' 個還沒選完）';
                 const tips = [];
@@ -1443,7 +1443,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         const bcgAddBtn = document.getElementById('bcgAdd');
         if (bcgAddBtn) bcgAddBtn.addEventListener('click', function () {
             const next = document.querySelector('#bcgUnits .bcg-row[hidden]');
-            if (!next) { showNotification('ℹ️ 已達 ' + document.querySelectorAll('#bcgUnits .bcg-row').length + ' 個單位上限', 'error'); return; }
+            if (!next) { showNotification('已達 ' + document.querySelectorAll('#bcgUnits .bcg-row').length + ' 個單位上限', 'error'); return; }
             next.hidden = false;
             bcgVerdict();
             autoGrowAll();
@@ -1459,7 +1459,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             row.querySelectorAll('input[type=radio]').forEach(function (r) { r.checked = false; });
             row.hidden = true;
             bcgVerdict(); autoGrowAll();
-            showNotification('✕ 已移除事業單位 ' + row.dataset.unit, 'success');
+            showNotification('已移除事業單位 ' + row.dataset.unit, 'success');
         });
 
         /* ---- 行動追蹤：狀態、逾期標紅、進度摘要 ---- */
@@ -1467,7 +1467,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             const today = localDateStr();
             let filled = 0, done = 0, doing = 0, overdue = 0;
             for (let r = 1; r <= ACTION_ROWS; r++) {
-                const g = id => { const el = document.getElementById(id); return el ? String(el.value || '') : ''; };
+                const g = id =>{ const el = document.getElementById(id); return el ? String(el.value || '') : ''; };
                 const what = g('act-' + r + '-what').trim();
                 const due = g('act-' + r + '-due').trim();
                 const st = g('act-' + r + '-status') || 'todo';
@@ -1496,7 +1496,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             window.__reviewedAt = new Date().toLocaleString('zh-TW');
             writeLocalStorage();
             actionReview();
-            showNotification('✅ 已記錄檢視時間（' + window.__reviewedAt + '）', 'success');
+            showNotification('已記錄檢視時間（' + window.__reviewedAt + '）', 'success');
         });
 
         function updateVerdicts() { vrioVerdict(); bcgVerdict(); actionReview(); }
@@ -1507,10 +1507,10 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             const boxes = Array.from(document.querySelectorAll('.fw-guide'));
             const open = boxes.some(function (b) { return !b.open; });
             boxes.forEach(function (b) { b.open = open; });
-            guideToggle.textContent = open ? '📖 收合全部判讀準則' : '📖 展開全部判讀準則與實例';
+            guideToggle.textContent = open ? '收合全部判讀準則' : '展開全部判讀準則與實例';
         });
 
-        /* ---- Word 匯出 ---- */        /* ---- Word 匯出：依「區塊 → 欄位」順序輸出已填寫的內容 ---- */
+        /* ---- Word 匯出 ---- */ /* ---- Word 匯出：依「區塊 → 欄位」順序輸出已填寫的內容 ---- */
         function sectionRows(sec, includeEmpty) {
             const rows = [];
             Array.from(sec.querySelectorAll('.field, .radio-row, .verdict')).forEach(function (node) {
@@ -1551,7 +1551,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 anRows.push({ title: sec.querySelector('.sheet-h3').textContent.trim(),
                               rows: rows, guide: guide, desc: desc ? desc.textContent.trim() : '' });
             });
-            if (anRows.length) blocks.push({ title: '📋 現況與分析', sub: anRows });
+            if (anRows.length) blocks.push({ title: '現況與分析', sub: anRows });
             const stSub = [];
             ['startup', 'growth', 'maturity', 'decline'].forEach(function (st) {
                 const pane = document.getElementById('tab-content-' + st);
@@ -1559,16 +1559,16 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 const rows = sectionRows(pane, includeEmpty);
                 if (rows.length) stSub.push({ title: pane.querySelector('.stage-title').textContent.trim(), rows: rows });
             });
-            if (stSub.length) blocks.push({ title: '🧭 階段判讀', sub: stSub });
+            if (stSub.length) blocks.push({ title: '階段判讀', sub: stSub });
             const acPane = document.getElementById('tab-content-actions');
             const acRows = acPane ? sectionRows(acPane, includeEmpty) : [];
-            if (acRows.length) blocks.push({ title: '🎯 行動計畫', sub: [{ title: '行動項目', rows: acRows }] });
+            if (acRows.length) blocks.push({ title: '行動計畫', sub: [{ title: '行動項目', rows: acRows }] });
             return blocks;
         }
 
         /* 把區塊組成報告內文；blank = true 時空欄位留空格並顯示填寫提示 */
         function buildDocBody(blocks, blank) {
-            const esc2 = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+            const esc2 = s =>String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
             let body = '', total = 0;
             blocks.forEach(function (b) {
                 body += '<h2>' + esc2(b.title) + '</h2>';
@@ -1615,21 +1615,21 @@ ${bodyHtml}
         exportButton.addEventListener('click', function () {
             const blocks = collectBlocks(false);
             const doc = buildDocBody(blocks, false);
-            if (!doc.total) { showNotification('ℹ️ 尚無內容可匯出，請先填寫工作表', 'error'); return; }
+            if (!doc.total) { showNotification('尚無內容可匯出，請先填寫工作表', 'error'); return; }
             downloadDoc(doc.html, '策略分析報告', `策略分析報告_${localDateStr()}.doc`);
-            showNotification(`🚀 已匯出 ${doc.total} 個欄位`, 'success');
+            showNotification(`已匯出 ${doc.total} 個欄位`, 'success');
         });
 
         const blankBtn = document.getElementById('blankExportButton');
         if (blankBtn) blankBtn.addEventListener('click', function () {
             const doc = buildDocBody(collectBlocks(true), true);
             downloadDoc(doc.html, '策略工作表（空白）', `策略工作表空白_${localDateStr()}.doc`);
-            showNotification(`📄 已匯出空白表格（${doc.total} 個欄位）`, 'success');
+            showNotification(`已匯出空白表格（${doc.total} 個欄位）`, 'success');
         });
 
         /* 匯出邏輯已整併到上面的 collectBlocks / buildDocBody / downloadDoc */
 
-        /* ================= ⌨️ Cmd/Ctrl+S 儲存、📐 textarea 自動長高 ================= */
+        /* ================= ⌨Cmd/Ctrl+S 儲存、textarea 自動長高 ================= */
         function autoGrow(el) {
             if (!el || el.tagName !== 'TEXTAREA') return;
             el.style.height = 'auto';
@@ -1649,13 +1649,13 @@ ${bodyHtml}
                 bcgSyncHidden();
                 updateVerdicts();
                 if (m.changed) {
-                    writeLocalStorage();   // 寫回新格式，避免每次開頁重複轉換
-                    showNotification('ℹ️ 已將舊版存檔轉換為新版格式（同一批分析問題只要填一次）', 'success');
+                    writeLocalStorage(); // 寫回新格式，避免每次開頁重複轉換
+                    showNotification('已將舊版存檔轉換為新版格式（同一批分析問題只要填一次）', 'success');
                 }
             }
         } catch (e) { console.warn('自動還原失敗：', e); }
 
-        document.addEventListener('input', (e) => {
+        document.addEventListener('input', (e) =>{
             if (e.target && e.target.matches && e.target.matches('textarea.worksheet-input')) autoGrow(e.target);
         });
         window.addEventListener('resize', autoGrowAll);
@@ -1664,7 +1664,7 @@ ${bodyHtml}
         /* 字型載入後高度會變，等字型就緒再算一次 */
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(autoGrowAll);
 
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', (e) =>{
             if ((e.metaKey || e.ctrlKey) && (e.key === 's' || e.key === 'S') && !e.altKey) {
                 e.preventDefault();
                 if (saveButton) saveButton.click();
@@ -1677,8 +1677,8 @@ ${bodyHtml}
             return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
         }
 
-        /* ================= 🧭 階段判定 ================= */
-        const STAGE_LABEL = { startup: '🌱 創業/導入期', growth: '🚀 成長期', maturity: '🌳 成熟期', decline: '🍂 衰退/轉型期' };
+        /* ================= 階段判定 ================= */
+        const STAGE_LABEL = { startup: '創業/導入期', growth: '成長期', maturity: '成熟期', decline: '衰退/轉型期' };
         const STAGE_ORDER = ['startup', 'growth', 'maturity', 'decline'];
         const DIAG = [
             { q: '公司目前的營收狀況？', opts: [
@@ -1707,16 +1707,16 @@ ${bodyHtml}
         function renderDiag() {
             const box = document.getElementById('diagQuestions');
             if (!box) return;
-            box.innerHTML = DIAG.map((d, qi) => `
+            box.innerHTML = DIAG.map((d, qi) =>`
                 <div class="diag-q">
                     <h4>${qi + 1}. ${d.q}</h4>
-                    ${d.opts.map(o => `
+                    ${d.opts.map(o =>`
                         <label class="diag-opt">
                             <input type="radio" name="diag-${qi}" value="${o.s}" data-q="${qi}">
                             <span>${o.t}</span>
                         </label>`).join('')}
                 </div>`).join('');
-            box.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', () => {
+            box.querySelectorAll('input[type="radio"]').forEach(r =>r.addEventListener('change', () =>{
                 diagPick[r.dataset.q] = r.value;
                 updateDiag();
             }));
@@ -1737,48 +1737,48 @@ ${bodyHtml}
                 return;
             }
             const tally = {};
-            Object.keys(diagPick).forEach(k => { const s = diagPick[k]; tally[s] = (tally[s] || 0) + 1; });
+            Object.keys(diagPick).forEach(k =>{ const s = diagPick[k]; tally[s] = (tally[s] || 0) + 1; });
             const max = Math.max(...Object.values(tally));
-            const winners = STAGE_ORDER.filter(s => (tally[s] || 0) === max);
+            const winners = STAGE_ORDER.filter(s =>(tally[s] || 0) === max);
             const top = winners[0];
             out.className = '';
             out.innerHTML = `<div class="diag-winner">建議階段：${STAGE_LABEL[top]}` +
-                (winners.length > 1 ? `（與 ${winners.slice(1).map(s => STAGE_LABEL[s]).join('、')} 同分）` : '') + `</div>` +
-                `<div class="diag-score">${STAGE_ORDER.map(s => STAGE_LABEL[s] + ' ' + (tally[s] || 0)).join('　·　')}　—　同分時取較早階段。</div>`;
+                (winners.length >1 ? `（與 ${winners.slice(1).map(s =>STAGE_LABEL[s]).join('、')} 同分）` : '') + `</div>` +
+                `<div class="diag-score">${STAGE_ORDER.map(s =>STAGE_LABEL[s] + ' ' + (tally[s] || 0)).join('　·　')}　—　同分時取較早階段。</div>`;
             go.disabled = false;
             go.setAttribute('data-stage', top);
             go.textContent = `前往 ${STAGE_LABEL[top]} 工作表 →`;
         }
 
         const diagGoBtn = document.getElementById('diagGo');
-        if (diagGoBtn) diagGoBtn.addEventListener('click', () => {
+        if (diagGoBtn) diagGoBtn.addEventListener('click', () =>{
             const s = diagGoBtn.getAttribute('data-stage');
             if (s) { setActiveTab(s); window.scrollTo({ top: 0, behavior: 'smooth' }); }
         });
         const diagResetBtn = document.getElementById('diagReset');
-        if (diagResetBtn) diagResetBtn.addEventListener('click', () => {
-            Object.keys(diagPick).forEach(k => delete diagPick[k]);
-            document.querySelectorAll('#diagQuestions input[type="radio"]').forEach(r => { r.checked = false; });
+        if (diagResetBtn) diagResetBtn.addEventListener('click', () =>{
+            Object.keys(diagPick).forEach(k =>delete diagPick[k]);
+            document.querySelectorAll('#diagQuestions input[type="radio"]').forEach(r =>{ r.checked = false; });
             updateDiag();
         });
         renderDiag();
 
         /* 跨階段沿用已移除：v2 把分析欄位改成共用（id 不再帶階段後綴），
            同一批問題在四個階段只填一次，不需要複製貼上。 */
-        /* ================= 🗑 清空 / ⬇ 備份 / ⬆ 還原 ================= */
+        /* ================= 清空 / 備份 / 還原 ================= */
         const clearBtn = document.getElementById('clearButton');
-        if (clearBtn) clearBtn.addEventListener('click', () => {
-            if (!confirm('確定要清空所有工作表內容嗎？此動作無法復原。\n（建議先按「⬇ 備份 JSON」）')) return;
+        if (clearBtn) clearBtn.addEventListener('click', () =>{
+            if (!confirm('確定要清空所有工作表內容嗎？此動作無法復原。\n（建議先按「備份 JSON」）')) return;
             if (!confirm('再次確認：清空後每個分頁的填寫內容都會消失。')) return;
             let n = 0;
-            document.querySelectorAll('textarea.worksheet-input').forEach(el => {
+            document.querySelectorAll('textarea.worksheet-input').forEach(el =>{
                 if (el.value !== '') { el.value = ''; n++; }
             });
-            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => {
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el =>{
                 if (el.checked) { el.checked = false; n++; }
             });
-            document.querySelectorAll('select[data-save]').forEach(el => {
-                if (el.value !== 'todo' && el.selectedIndex > 0) { el.value = 'todo'; n++; }
+            document.querySelectorAll('select[data-save]').forEach(el =>{
+                if (el.value !== 'todo' && el.selectedIndex >0) { el.value = 'todo'; n++; }
             });
             window.__reviewedAt = '';
             bcgSyncHidden();
@@ -1787,24 +1787,24 @@ ${bodyHtml}
             autoGrowAll();
             isDirty = false;
             clearTimeout(autoSaveTimer);
-            showNotification('🗑 已清空 ' + n + ' 個欄位', 'success');
+            showNotification('已清空 ' + n + ' 個欄位', 'success');
         });
 
         const backupBtn = document.getElementById('backupButton');
-        if (backupBtn) backupBtn.addEventListener('click', () => {
+        if (backupBtn) backupBtn.addEventListener('click', () =>{
             const data = { _app: '商業生命週期策略工具箱', _schema: SCHEMA_VERSION, _savedAt: new Date().toLocaleString('zh-TW') };
-            document.querySelectorAll('textarea.worksheet-input').forEach(el => { if (el.id) data[el.id] = el.value; });
-            document.querySelectorAll('input[type="radio"][data-save]').forEach(el => { if (el.checked) data[el.dataset.save] = el.value; });
+            document.querySelectorAll('textarea.worksheet-input').forEach(el =>{ if (el.id) data[el.id] = el.value; });
+            document.querySelectorAll('input[type="radio"][data-save]').forEach(el =>{ if (el.checked) data[el.dataset.save] = el.value; });
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             saveAs(blob, `策略工作表備份_${localDateStr()}.json`);
-            showNotification('⬇ 備份檔已下載（可跨裝置還原）', 'success');
+            showNotification('備份檔已下載（可跨裝置還原）', 'success');
         });
 
         const restoreBtn = document.getElementById('restoreButton');
         const restoreFileEl = document.getElementById('restoreFile');
         if (restoreBtn && restoreFileEl) {
-            restoreBtn.addEventListener('click', () => restoreFileEl.click());
-            restoreFileEl.addEventListener('change', async () => {
+            restoreBtn.addEventListener('click', () =>restoreFileEl.click());
+            restoreFileEl.addEventListener('change', async () =>{
                 const f = restoreFileEl.files && restoreFileEl.files[0];
                 if (!f) return;
                 try {
@@ -1816,11 +1816,11 @@ ${bodyHtml}
                     const t = writeLocalStorage();
                     autoGrowAll();
                     isDirty = false;
-                    showNotification('⬆ 已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）'
+                    showNotification('已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）'
                         + (m.changed ? '｜已從舊版格式轉換' : ''), 'success');
                 } catch (e) {
                     console.error('還原失敗：', e);
-                    showNotification('❌ 備份檔格式錯誤，請選擇本工具匯出的 JSON', 'error');
+                    showNotification('備份檔格式錯誤，請選擇本工具匯出的 JSON', 'error');
                 }
                 restoreFileEl.value = '';
             });
@@ -1833,7 +1833,7 @@ ${bodyHtml}
         let autoSaveTimer = null;
         let isDirty = false;
         
-        document.addEventListener('input', (e) => {
+        document.addEventListener('input', (e) =>{
             if (e.target.matches('input[type="radio"][data-save]')) { bcgVerdict(); vrioVerdict(); }
             if (e.target.matches('select[data-save]') && e.target.id && e.target.id.indexOf('bcg') === 0) bcgVerdict();
             if (e.target.id && /^act-\d+-/.test(e.target.id)) actionReview();
@@ -1841,25 +1841,25 @@ ${bodyHtml}
             else if (!e.target.id || !/^act-\d+-/.test(e.target.id)) return;
             isDirty = true;
             clearTimeout(autoSaveTimer);
-            autoSaveTimer = setTimeout(() => {
+            autoSaveTimer = setTimeout(() =>{
                 const t = writeLocalStorage();
                 isDirty = false;
-                showNotification(`💾 已自動儲存（${t}）`, 'success');
+                showNotification(`已自動儲存（${t}）`, 'success');
             }, 1500);
         });
         
-        window.addEventListener('beforeunload', (e) => {
+        window.addEventListener('beforeunload', (e) =>{
             if (isDirty) { e.preventDefault(); e.returnValue = ''; }
         });
         
         let autoSaveInterval;
-        const startAutoSaveReminder = () => {
+        const startAutoSaveReminder = () =>{
             clearInterval(autoSaveInterval);
-            autoSaveInterval = setInterval(() => {
+            autoSaveInterval = setInterval(() =>{
                 const hasContent = Array.from(document.querySelectorAll('textarea.worksheet-input'))
-                    .some(el => el.value.trim() !== '');
+                    .some(el =>el.value.trim() !== '');
                 if (hasContent) {
-                    showNotification('💡 別忘了儲存您的工作進度！', 'success');
+                    showNotification('別忘了儲存您的工作進度！', 'success');
                 }
             }, 600000);
         };
@@ -1871,7 +1871,7 @@ ${bodyHtml}
 
     <script>
     /* =====================================================================
-       🎮 認知作弊器 — 計時器 / 搜尋 / 分類篩選
+       認知作弊器 — 計時器 / 搜尋 / 分類篩選
        （與生命週期工作表獨立；不寫入 localStorage，也不納入 Word 匯出）
        ===================================================================== */
     const cheatIntervals = {};
@@ -1894,13 +1894,13 @@ ${bodyHtml}
         if (!el) return;
         if (cheatIntervals[elemId]) clearInterval(cheatIntervals[elemId]);
         let left = seconds;
-        const render = () => {
+        const render = () =>{
             const m = String(Math.floor(left / 60)).padStart(2, '0');
             const s = String(left % 60).padStart(2, '0');
             el.textContent = m + ':' + s;
         };
         render();
-        cheatIntervals[elemId] = setInterval(() => {
+        cheatIntervals[elemId] = setInterval(() =>{
             left--;
             if (left <= 0) {
                 clearInterval(cheatIntervals[elemId]);
@@ -1920,7 +1920,7 @@ ${bodyHtml}
     function cheatFilter() {
         const q = (document.getElementById('cheatSearch').value || '').trim().toLowerCase();
         let shown = 0;
-        document.querySelectorAll('#cheatGrid .cheat-card').forEach(card => {
+        document.querySelectorAll('#cheatGrid .cheat-card').forEach(card =>{
             const cat = card.getAttribute('data-category');
             const hay = (card.getAttribute('data-keywords') + ' ' + card.innerText).toLowerCase();
             const ok = (cheatCategory === 'all' || cat === cheatCategory) && (!q || hay.includes(q));
@@ -1930,13 +1930,13 @@ ${bodyHtml}
         document.getElementById('cheatEmpty').style.display = shown === 0 ? 'block' : 'none';
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () =>{
         const search = document.getElementById('cheatSearch');
         if (search) search.addEventListener('input', cheatFilter);
-        document.querySelectorAll('#cheatChips .cheat-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
+        document.querySelectorAll('#cheatChips .cheat-chip').forEach(chip =>{
+            chip.addEventListener('click', () =>{
                 cheatCategory = chip.getAttribute('data-cat');
-                document.querySelectorAll('#cheatChips .cheat-chip').forEach(c => c.classList.toggle('active', c === chip));
+                document.querySelectorAll('#cheatChips .cheat-chip').forEach(c =>c.classList.toggle('active', c === chip));
                 cheatFilter();
             });
         });
