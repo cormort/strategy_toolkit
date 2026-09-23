@@ -459,6 +459,39 @@
         .cheat-chip:hover { background: #f1f5f9; color: #0f172a; }
         .cheat-chip.active { background: #3498db; color: #fff; border-color: #3498db; }
         .cheat-empty { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #64748b; }
+    
+        /* ===== 🧭 階段判定 ===== */
+        .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+        .diag-q { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; }
+        .diag-q h4 { font-size: 0.98rem; font-weight: 700; color: #1f2937; margin-bottom: 0.6rem; }
+        .diag-opt { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.4rem 0.5rem; border-radius: 0.4rem;
+            cursor: pointer; font-size: 0.88rem; line-height: 1.45; transition: background .15s ease; }
+        .diag-opt:hover { background: #eaf5fb; }
+        .diag-opt input { margin-top: 0.25rem; accent-color: #3498db; flex: 0 0 auto; }
+        .diag-result { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: space-between;
+            background: #eaf5fb; border: 1px solid #a9d6f5; border-radius: 0.75rem; padding: 1rem 1.15rem; }
+        .diag-empty { color: #64748b; font-size: 0.92rem; }
+        .diag-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .diag-btn { background: #fff; border: 1px solid #cbd5e1; color: #1f2937; padding: 0.5rem 1rem;
+            border-radius: 0.5rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all .15s ease; }
+        .diag-btn:hover { border-color: #3498db; color: #2980b9; }
+        .diag-btn-primary { background: #3498db; border-color: #3498db; color: #fff; }
+        .diag-btn-primary:hover { background: #2980b9; border-color: #2980b9; color: #fff; }
+        .diag-btn:disabled { opacity: .45; cursor: not-allowed; }
+        .diag-btn:disabled:hover { border-color: #cbd5e1; color: #1f2937; }
+        .diag-score { font-size: 0.82rem; color: #475569; margin-top: 0.35rem; }
+        .diag-winner { font-size: 1.05rem; font-weight: 700; color: #1f2937; }
+
+        /* ===== ⤵ 跨階段沿用 ===== */
+        .carry-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem;
+            background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 0.6rem; padding: 0.7rem 0.9rem; margin-bottom: 1.5rem; }
+        .carry-btn { background: #fff; border: 1px solid #3498db; color: #2980b9; padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all .15s ease; }
+        .carry-btn:hover { background: #3498db; color: #fff; }
+        .carry-hint { font-size: 0.8rem; color: #64748b; }
+
+        /* ===== 🗑 危險按鈕 ===== */
+        .btn-red { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
     </style>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GHGBM401HN"></script>
@@ -503,6 +536,19 @@
                 企業如同生命體，會經歷不同的發展階段。理解公司當前所處的生命週期階段，並選擇適當的戰略工具，是制定有效策略的關鍵。本工具整合了生命週期理論與經典策略框架，幫助您更系統化地思考。
             </p>
 
+            <section class="analysis-section no-print" id="stageDiagnosis">
+                <h2 class="analysis-h2">🧭 不確定自己在哪一期？先做 4 題判定</h2>
+                <p class="analysis-p mb-4">依實際狀況各選一項，系統統計後給出建議階段，可直接跳到對應的工作表。生命週期可能跳躍、停滯或逆轉，判定結果只是起點，不是結論。</p>
+                <div class="diag-grid" id="diagQuestions"></div>
+                <div class="diag-result" id="diagResult">
+                    <div id="diagOutcome" class="diag-empty">尚未作答 —— 選滿 4 題即顯示建議階段。</div>
+                    <div class="diag-actions no-print">
+                        <button type="button" class="diag-btn" id="diagReset">↺ 重新作答</button>
+                        <button type="button" class="diag-btn diag-btn-primary" id="diagGo" disabled>前往該階段工作表 →</button>
+                    </div>
+                </div>
+            </section>
+
             <section class="analysis-section">
                 <h2 class="analysis-h2">🌱 1. 創業/導入期</h2>
                 <h3 class="analysis-h3">階段重點：</h3>
@@ -510,7 +556,7 @@
                     <li><strong>核心目標：</strong>存活、驗證商業模式、尋找產品市場契合度 (PMF)</li>
                     <li><strong>主要挑戰：</strong>資源有限、市場認知度低、高度不確定性、驗證可行性</li>
                 </ul>
-                <h3 class="analysis-h3">關鍵工具運用：</h3>
+                <h3 class="analysis-h3">關鍵工具運用（與「創業期」分頁的 3 個工具一致）：</h3>
                 <div class="analysis-tool">
                     <strong>SWOT 分析：</strong>快速評估初始內部條件（優勢/劣勢）與外部環境（機會/威脅），建立基準認知。
                 </div>
@@ -529,7 +575,7 @@
                     <li><strong>核心目標：</strong>有效擴張規模、爭奪市場份額、建立品牌與競爭護城河</li>
                     <li><strong>主要挑戰：</strong>管理擴張複雜性、應對激烈競爭、保持高速成長</li>
                 </ul>
-                <h3 class="analysis-h3">關鍵工具運用：</h3>
+                <h3 class="analysis-h3">關鍵工具運用（與「成長期」分頁的 5 個工具一致）：</h3>
                 <div class="analysis-tool">
                     <strong>安索夫矩陣：</strong>系統性思考成長路徑，指導資源配置。
                 </div>
@@ -538,6 +584,12 @@
                 </div>
                 <div class="analysis-tool">
                     <strong>BCG 矩陣：</strong>評估多事業單位，決定資源分配。
+                </div>
+                <div class="analysis-tool">
+                    <strong>經驗曲線：</strong>累積產量帶來的單位成本下降，決定成本優勢與定價空間。
+                </div>
+                <div class="analysis-tool">
+                    <strong>VRIO 框架：</strong>重新檢視成長期新增的優勢，是否仍具價值、稀缺、難以模仿且有組織支撐。
                 </div>
             </section>
             
@@ -548,12 +600,24 @@
                     <li><strong>核心目標：</strong>維持利潤與市佔率、提升效率、尋找新成長動能</li>
                     <li><strong>主要挑戰：</strong>應對激烈競爭、管理客戶關係、克服組織僵化</li>
                 </ul>
-                <h3 class="analysis-h3">關鍵工具運用：</h3>
+                <h3 class="analysis-h3">關鍵工具運用（與「成熟期」分頁的 6 個工具一致）：</h3>
+                <div class="analysis-tool">
+                    <strong>波特五力分析：</strong>監控激烈競爭，找出降低競爭強度的著力點。
+                </div>
                 <div class="analysis-tool">
                     <strong>波特基本策略：</strong>明確核心戰略，避免陷入「中間狀態」。
                 </div>
                 <div class="analysis-tool">
                     <strong>BCG 矩陣：</strong>管理「金牛」事業以資助新投資。
+                </div>
+                <div class="analysis-tool">
+                    <strong>安索夫矩陣：</strong>在成長趨緩時尋找新的成長向量。
+                </div>
+                <div class="analysis-tool">
+                    <strong>SWOT 分析：</strong>定期重新檢視內外部條件的變化。
+                </div>
+                <div class="analysis-tool">
+                    <strong>VRIO 框架：</strong>確保核心資源在競爭對手的追趕下仍可持續。
                 </div>
             </section>
 
@@ -564,12 +628,18 @@
                     <li><strong>核心目標：</strong>優雅退出或尋找「第二曲線」實現轉型</li>
                     <li><strong>主要挑戰：</strong>決策退出vs.轉型、重新配置資源、管理變革阻力</li>
                 </ul>
-                <h3 class="analysis-h3">關鍵工具運用：</h3>
+                <h3 class="analysis-h3">關鍵工具運用（與「衰退/轉型期」分頁的 4 個工具一致）：</h3>
                 <div class="analysis-tool">
                     <strong>SWOT 分析：</strong>評估轉型可能性，決定退出或重生。
                 </div>
                 <div class="analysis-tool">
+                    <strong>BCG 矩陣：</strong>識別並管理「狗」事業，決定資源退出順序。
+                </div>
+                <div class="analysis-tool">
                     <strong>安索夫矩陣：</strong>考慮全新產品/市場組合的多角化。
+                </div>
+                <div class="analysis-tool">
+                    <strong>VRIO 框架：</strong>盤點哪些資源可轉移到新領域，並規劃還缺什麼。
                 </div>
             </section>
             
@@ -593,8 +663,8 @@
                 <div class="stage-focus">
                     <h3>本階段重點</h3>
                     <ul>
-                        <li><strong>核心目標：</strong>存活、驗證商業模式、尋找產品市場契合度</li>
-                        <li><strong>主要挑戰：</strong>資源有限、市場認知度低、高度不確定性</li>
+                        <li><strong>核心目標：</strong>存活、驗證商業模式、尋找產品市場契合度 (PMF)</li>
+                        <li><strong>主要挑戰：</strong>資源有限、市場認知度低、高度不確定性、驗證可行性</li>
                     </ul>
                 </div>
 
@@ -685,11 +755,16 @@
         <div id="tab-content-growth" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-growth">
             <section class="stage-section">
                 <h2 class="stage-title">🚀 成長期</h2>
+
+                <div class="carry-bar no-print">
+                    <button type="button" class="carry-btn" data-carry="growth">⤵ 帶入創業/導入期的VRIO、波特五力</button>
+                    <span class="carry-hint">只複製上一階段「已填寫」的同框架欄位。目標欄位若已有內容會接在後面，不覆蓋。</span>
+                </div>
                 <div class="stage-focus">
                     <h3>本階段重點</h3>
                     <ul>
-                        <li><strong>核心目標：</strong>有效擴張規模、爭奪市場份額、建立品牌</li>
-                        <li><strong>主要挑戰：</strong>管理擴張複雜性、應對激烈競爭</li>
+                        <li><strong>核心目標：</strong>有效擴張規模、爭奪市場份額、建立品牌與競爭護城河</li>
+                        <li><strong>主要挑戰：</strong>管理擴張複雜性、應對激烈競爭、保持高速成長</li>
                     </ul>
                 </div>
 
@@ -820,11 +895,16 @@
         <div id="tab-content-maturity" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-maturity">
             <section class="stage-section">
                 <h2 class="stage-title">🌳 成熟期</h2>
+
+                <div class="carry-bar no-print">
+                    <button type="button" class="carry-btn" data-carry="maturity">⤵ 帶入成長期的波特五力、BCG、安索夫、VRIO</button>
+                    <span class="carry-hint">只複製上一階段「已填寫」的同框架欄位。目標欄位若已有內容會接在後面，不覆蓋。</span>
+                </div>
                 <div class="stage-focus">
                     <h3>本階段重點</h3>
                     <ul>
-                        <li><strong>核心目標：</strong>維持利潤與市佔率、提升效率</li>
-                        <li><strong>主要挑戰：</strong>應對激烈競爭、克服組織僵化</li>
+                        <li><strong>核心目標：</strong>維持利潤與市佔率、提升效率、尋找新成長動能</li>
+                        <li><strong>主要挑戰：</strong>應對激烈競爭、管理客戶關係、克服組織僵化</li>
                     </ul>
                 </div>
 
@@ -997,11 +1077,16 @@
         <div id="tab-content-decline" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-decline">
             <section class="stage-section">
                 <h2 class="stage-title">🍂 衰退/轉型期</h2>
+
+                <div class="carry-bar no-print">
+                    <button type="button" class="carry-btn" data-carry="decline">⤵ 帶入成熟期的SWOT、BCG、安索夫、VRIO</button>
+                    <span class="carry-hint">只複製上一階段「已填寫」的同框架欄位。目標欄位若已有內容會接在後面，不覆蓋。</span>
+                </div>
                 <div class="stage-focus">
                     <h3>本階段重點</h3>
                     <ul>
-                        <li><strong>核心目標：</strong>優雅退出或尋找「第二曲線」</li>
-                        <li><strong>主要挑戰：</strong>決策退出vs.轉型、管理變革阻力</li>
+                        <li><strong>核心目標：</strong>優雅退出或尋找「第二曲線」實現轉型</li>
+                        <li><strong>主要挑戰：</strong>決策退出 vs. 轉型、重新配置資源、管理變革阻力</li>
                     </ul>
                 </div>
 
@@ -1339,6 +1424,16 @@
                 <button id="exportButton" class="btn-base btn-blue export-btn focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     🚀 匯出為 Word 文件
                 </button>
+                <button id="backupButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    ⬇ 備份 JSON
+                </button>
+                <button id="restoreButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    ⬆ 還原備份
+                </button>
+                <button id="clearButton" class="btn-base btn-red focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                    🗑 清空全部
+                </button>
+                <input type="file" id="restoreFile" accept=".json,application/json" style="display:none">
             </div>
             <p class="text-sm text-slate-500 mt-2">
                 💡 提示：定期儲存您的工作，避免資料遺失
@@ -1625,7 +1720,7 @@
                     // 其他軟體（含 python-docx、macOS 預覽）讀到的是空白文件。
                     const converted = new Blob(['\ufeff', finalHtmlString.trim()], { type: 'application/msword' });
 
-                    const filename = `${wsTopic.value || '商業生命週期策略工作表'}_${new Date().toISOString().slice(0,10)}.doc`;
+                    const filename = `${wsTopic.value || '商業生命週期策略工作表'}_${localDateStr()}.doc`;
                     saveAs(converted, filename);
                     
                     showNotification('✅ Word 文件已成功匯出（.doc）！', 'success');
@@ -1640,6 +1735,181 @@
             }, 100);
         });
         
+        /* 本地日期字串（YYYY-MM-DD）：toISOString() 是 UTC，在台北會差一天 */
+        function localDateStr(d) {
+            d = d || new Date();
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        }
+
+        /* ================= 🧭 階段判定 ================= */
+        const STAGE_LABEL = { startup: '🌱 創業/導入期', growth: '🚀 成長期', maturity: '🌳 成熟期', decline: '🍂 衰退/轉型期' };
+        const STAGE_ORDER = ['startup', 'growth', 'maturity', 'decline'];
+        const DIAG = [
+            { q: '公司目前的營收狀況？', opts: [
+                { t: '尚無穩定營收，或仍在驗證能不能賣', s: 'startup' },
+                { t: '營收快速成長（年增 20% 以上）', s: 'growth' },
+                { t: '營收穩定，但成長趨緩', s: 'maturity' },
+                { t: '營收連續衰退', s: 'decline' } ] },
+            { q: '產品與市場的定位？', opts: [
+                { t: '還在找產品市場契合度（PMF）', s: 'startup' },
+                { t: '已有明確 PMF，正在複製擴張', s: 'growth' },
+                { t: '產品成熟，差異化越來越難', s: 'maturity' },
+                { t: '產品被替代，或需求正在消失', s: 'decline' } ] },
+            { q: '競爭環境？', opts: [
+                { t: '沒什麼人做，市場對我們也還不熟', s: 'startup' },
+                { t: '競爭者快速增加，彼此搶佔地盤', s: 'growth' },
+                { t: '競爭者多且勢均力敵，常打價格戰', s: 'maturity' },
+                { t: '競爭者陸續退出，市場在萎縮', s: 'decline' } ] },
+            { q: '組織與資源狀態？', opts: [
+                { t: '資源有限、一人多工、決策很快', s: 'startup' },
+                { t: '人數快速增加，流程開始變複雜', s: 'growth' },
+                { t: '組織僵化，決策明顯變慢', s: 'maturity' },
+                { t: '需要縮編、重整或轉型', s: 'decline' } ] }
+        ];
+        const diagPick = {};
+
+        function renderDiag() {
+            const box = document.getElementById('diagQuestions');
+            if (!box) return;
+            box.innerHTML = DIAG.map((d, qi) => `
+                <div class="diag-q">
+                    <h4>${qi + 1}. ${d.q}</h4>
+                    ${d.opts.map(o => `
+                        <label class="diag-opt">
+                            <input type="radio" name="diag-${qi}" value="${o.s}" data-q="${qi}">
+                            <span>${o.t}</span>
+                        </label>`).join('')}
+                </div>`).join('');
+            box.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', () => {
+                diagPick[r.dataset.q] = r.value;
+                updateDiag();
+            }));
+            updateDiag();
+        }
+
+        function updateDiag() {
+            const out = document.getElementById('diagOutcome');
+            const go = document.getElementById('diagGo');
+            if (!out || !go) return;
+            const n = Object.keys(diagPick).length;
+            if (n < DIAG.length) {
+                out.className = 'diag-empty';
+                out.textContent = `尚未作答（已完成 ${n} / ${DIAG.length} 題）—— 選滿後顯示建議階段。`;
+                go.disabled = true;
+                go.removeAttribute('data-stage');
+                go.textContent = '前往該階段工作表 →';
+                return;
+            }
+            const tally = {};
+            Object.keys(diagPick).forEach(k => { const s = diagPick[k]; tally[s] = (tally[s] || 0) + 1; });
+            const max = Math.max(...Object.values(tally));
+            const winners = STAGE_ORDER.filter(s => (tally[s] || 0) === max);
+            const top = winners[0];
+            out.className = '';
+            out.innerHTML = `<div class="diag-winner">建議階段：${STAGE_LABEL[top]}` +
+                (winners.length > 1 ? `（與 ${winners.slice(1).map(s => STAGE_LABEL[s]).join('、')} 同分）` : '') + `</div>` +
+                `<div class="diag-score">${STAGE_ORDER.map(s => STAGE_LABEL[s] + ' ' + (tally[s] || 0)).join('　·　')}　—　同分時取較早階段。</div>`;
+            go.disabled = false;
+            go.setAttribute('data-stage', top);
+            go.textContent = `前往 ${STAGE_LABEL[top]} 工作表 →`;
+        }
+
+        const diagGoBtn = document.getElementById('diagGo');
+        if (diagGoBtn) diagGoBtn.addEventListener('click', () => {
+            const s = diagGoBtn.getAttribute('data-stage');
+            if (s) { setActiveTab(s); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        });
+        const diagResetBtn = document.getElementById('diagReset');
+        if (diagResetBtn) diagResetBtn.addEventListener('click', () => {
+            Object.keys(diagPick).forEach(k => delete diagPick[k]);
+            document.querySelectorAll('#diagQuestions input[type="radio"]').forEach(r => { r.checked = false; });
+            updateDiag();
+        });
+        renderDiag();
+
+        /* ================= ⤵ 跨階段沿用 ================= */
+        const CARRY_MAP = {
+            growth:   { from: 'startup',  label: '創業/導入期', prefixes: ['vrio-', '5f-'] },
+            maturity: { from: 'growth',   label: '成長期',      prefixes: ['5f-', 'bcg-', 'ansoff-', 'vrio-'] },
+            decline:  { from: 'maturity', label: '成熟期',      prefixes: ['swot-', 'bcg-', 'ansoff-', 'vrio-'] }
+        };
+
+        function carryFromPrevious(stage) {
+            const cfg = CARRY_MAP[stage];
+            if (!cfg) return;
+            let fresh = 0, appended = 0;
+            document.querySelectorAll('textarea[id$="-' + cfg.from + '"]').forEach(src => {
+                const base = src.id.slice(0, -(cfg.from.length + 1));
+                if (!cfg.prefixes.some(px => base.indexOf(px) === 0)) return;
+                const tgt = document.getElementById(base + '-' + stage);
+                if (!tgt) return;
+                if (!src.value.trim()) return;
+                if (!tgt.value.trim()) {
+                    tgt.value = src.value; fresh++;
+                } else {
+                    tgt.value = tgt.value.replace(/\s+$/, '') + '\n── 以下為' + cfg.label + '內容 ──\n' + src.value;
+                    appended++;
+                }
+                tgt.dispatchEvent(new Event('input', { bubbles: true }));
+            });
+            if (fresh + appended === 0) {
+                showNotification('ℹ️ ' + cfg.label + '沒有已填寫的對應欄位可帶入', 'error');
+                return;
+            }
+            showNotification('⤵ 已從' + cfg.label + '帶入 ' + (fresh + appended) + ' 個欄位（新增 ' + fresh + '、附加 ' + appended + '）', 'success');
+        }
+        document.querySelectorAll('.carry-btn').forEach(b => b.addEventListener('click', () => carryFromPrevious(b.getAttribute('data-carry'))));
+
+        /* ================= 🗑 清空 / ⬇ 備份 / ⬆ 還原 ================= */
+        const clearBtn = document.getElementById('clearButton');
+        if (clearBtn) clearBtn.addEventListener('click', () => {
+            if (!confirm('確定要清空所有工作表內容嗎？此動作無法復原。\n（建議先按「⬇ 備份 JSON」）')) return;
+            if (!confirm('再次確認：清空後每個分頁的填寫內容都會消失。')) return;
+            let n = 0;
+            document.querySelectorAll('textarea.worksheet-input, #ws-topic').forEach(el => {
+                if (el.value !== '') { el.value = ''; n++; }
+            });
+            localStorage.removeItem('businessLifecycleData');
+            isDirty = false;
+            clearTimeout(autoSaveTimer);
+            showNotification('🗑 已清空 ' + n + ' 個欄位', 'success');
+        });
+
+        const backupBtn = document.getElementById('backupButton');
+        if (backupBtn) backupBtn.addEventListener('click', () => {
+            const data = { _app: '商業生命週期策略工具箱', _savedAt: new Date().toLocaleString('zh-TW') };
+            document.querySelectorAll('input[type="text"], textarea').forEach(el => { if (el.id) data[el.id] = el.value; });
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            saveAs(blob, `策略工作表備份_${localDateStr()}.json`);
+            showNotification('⬇ 備份檔已下載（可跨裝置還原）', 'success');
+        });
+
+        const restoreBtn = document.getElementById('restoreButton');
+        const restoreFileEl = document.getElementById('restoreFile');
+        if (restoreBtn && restoreFileEl) {
+            restoreBtn.addEventListener('click', () => restoreFileEl.click());
+            restoreFileEl.addEventListener('change', async () => {
+                const f = restoreFileEl.files && restoreFileEl.files[0];
+                if (!f) return;
+                try {
+                    const data = JSON.parse(await f.text());
+                    let n = 0;
+                    Object.keys(data).forEach(k => {
+                        if (k.charAt(0) === '_') return;
+                        const el = document.getElementById(k);
+                        if (el && 'value' in el) { el.value = data[k]; n++; }
+                    });
+                    const t = writeLocalStorage();
+                    isDirty = false;
+                    showNotification('⬆ 已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）', 'success');
+                } catch (e) {
+                    console.error('還原失敗：', e);
+                    showNotification('❌ 備份檔格式錯誤，請選擇本工具匯出的 JSON', 'error');
+                }
+                restoreFileEl.value = '';
+            });
+        }
+
         setActiveTab('analysis');
         
         /* ---- 自動儲存：停止輸入 1.5 秒後自動寫入；未儲存就關頁面會攔一次 ---- */
