@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script src="https://unpkg.com/html-docx-js/dist/html-docx.js"></script>
     
     <style>
         /* --- 全局設定 --- */
@@ -276,6 +275,20 @@
             .no-print { 
                 display: none; 
             } 
+            /* 列印時讓工作表欄位隨內容完整展開。
+               否則 textarea 固定 120px，長內容只印出可見的 1–2 行（實測 20 行只印 2 行）。 */
+            textarea.worksheet-input {
+                field-sizing: content;
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                overflow: visible !important;
+                resize: none;
+                box-shadow: none;
+            }
+            /* 進場動畫在部分列印環境會停在 opacity:0，列印時一律停用 */
+            .tab-content, .tab-content.active { animation: none !important; opacity: 1 !important; }
+            .cheat-card, .cheat-chip { break-inside: avoid; }
         }
         
         .analysis-section { 
@@ -462,13 +475,13 @@
     <div class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-10 bg-white rounded-2xl shadow-2xl my-6 sm:my-12">
 
         <div class="mb-8 border-b-2 border-slate-200 no-print">
-            <nav class="tab-buttons" aria-label="Tabs">
-                <button id="tab-btn-analysis" class="tab-btn active">📚 策略分析</button>
-                <button id="tab-btn-startup" class="tab-btn inactive">🌱 創業期</button>
-                <button id="tab-btn-growth" class="tab-btn inactive">🚀 成長期</button>
-                <button id="tab-btn-maturity" class="tab-btn inactive">🌳 成熟期</button>
-                <button id="tab-btn-decline" class="tab-btn inactive">🍂 衰退/轉型期</button>
-                <button id="tab-btn-cheats" class="tab-btn inactive">🎮 認知作弊器</button>
+            <nav class="tab-buttons" role="tablist" aria-label="工作表分頁">
+                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">📚 策略分析</button>
+                <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">🌱 創業期</button>
+                <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">🚀 成長期</button>
+                <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">🌳 成熟期</button>
+                <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">🍂 衰退/轉型期</button>
+                <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">🎮 認知作弊器</button>
             </nav>
         </div>
         
@@ -480,7 +493,7 @@
         
         <hr class="my-8 border-slate-300" id="ws-topic-hr">
 
-        <div id="tab-content-analysis" class="tab-content active">
+        <div id="tab-content-analysis" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-analysis">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
                 <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent"> 商業生命週期與策略工具整合指南
                 </span>
@@ -573,7 +586,7 @@
             </section>
         </div>
         
-        <div id="tab-content-startup" class="tab-content">
+        <div id="tab-content-startup" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-startup">
             <section class="stage-section">
                 <h2 class="stage-title">🌱 創業/導入期</h2>
                 
@@ -669,7 +682,7 @@
             </section>
         </div>
         
-        <div id="tab-content-growth" class="tab-content">
+        <div id="tab-content-growth" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-growth">
             <section class="stage-section">
                 <h2 class="stage-title">🚀 成長期</h2>
                 <div class="stage-focus">
@@ -804,7 +817,7 @@
             </section>
         </div>
         
-        <div id="tab-content-maturity" class="tab-content">
+        <div id="tab-content-maturity" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-maturity">
             <section class="stage-section">
                 <h2 class="stage-title">🌳 成熟期</h2>
                 <div class="stage-focus">
@@ -981,7 +994,7 @@
             </section>
         </div>
         
-        <div id="tab-content-decline" class="tab-content">
+        <div id="tab-content-decline" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-decline">
             <section class="stage-section">
                 <h2 class="stage-title">🍂 衰退/轉型期</h2>
                 <div class="stage-focus">
@@ -1107,7 +1120,7 @@
         </div>
 
         <!-- ================= 🎮 認知作弊器（整合自 Strategy Toolkit） ================= -->
-        <div id="tab-content-cheats" class="tab-content">
+        <div id="tab-content-cheats" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-cheats">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
                 <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">人類作弊器策略工具箱</span>
             </h1>
@@ -1354,9 +1367,11 @@
                 if (tabs[tabName].btn) {
                     tabs[tabName].btn.classList.toggle('active', isActive);
                     tabs[tabName].btn.classList.toggle('inactive', !isActive);
+                    tabs[tabName].btn.setAttribute('aria-selected', String(isActive));
                 }
                 if (tabs[tabName].content) {
                     tabs[tabName].content.classList.toggle('active', isActive);
+                    tabs[tabName].content.setAttribute('aria-hidden', String(!isActive));
                 }
             });
             // 「分析對象」屬於生命週期工作表；切到認知作弊器時隱藏
@@ -1387,19 +1402,24 @@
 
         window.showNotification = showNotification;   // 供認知作弊器區塊使用
 
+        /* 把表單內容寫入 localStorage，回傳儲存時間字串 */
+        function writeLocalStorage() {
+            const data = {};
+            document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+                if (el.id) {
+                    data[el.id] = el.value;
+                }
+            });
+            const timestamp = new Date().toLocaleString('zh-TW');
+            data._savedAt = timestamp;
+            localStorage.setItem('businessLifecycleData', JSON.stringify(data));
+            return timestamp;
+        }
+
         saveButton.addEventListener('click', () => {
             try {
-                const data = {};
-                document.querySelectorAll('input[type="text"], textarea').forEach(el => {
-                    if (el.id) {
-                        data[el.id] = el.value;
-                    }
-                });
-                
-                const timestamp = new Date().toLocaleString('zh-TW');
-                data._savedAt = timestamp;
-                
-                localStorage.setItem('businessLifecycleData', JSON.stringify(data));
+                const timestamp = writeLocalStorage();
+                isDirty = false;
                 showNotification(`✅ 資料已成功儲存（${timestamp}）`, 'success');
             } catch (error) {
                 console.error('儲存失敗：', error);
@@ -1600,15 +1620,15 @@
                         </html>
                     `;
 
-                    const converted = htmlDocx.asBlob(finalHtmlString, {
-                        orientation: 'portrait',
-                        margins: { top: 720, bottom: 720, left: 720, right: 720 }
-                    });
+                    // 以 HTML 形式輸出 .doc（Word / Google Docs / LibreOffice / Pages 皆可讀取）。
+                    // 原本用 html-docx-js 產生的 .docx 內含 altChunk，只有桌面版 Word 會展開，
+                    // 其他軟體（含 python-docx、macOS 預覽）讀到的是空白文件。
+                    const converted = new Blob(['\ufeff', finalHtmlString.trim()], { type: 'application/msword' });
 
-                    const filename = `${wsTopic.value || '商業生命週期策略工作表'}_${new Date().toISOString().slice(0,10)}.docx`;
+                    const filename = `${wsTopic.value || '商業生命週期策略工作表'}_${new Date().toISOString().slice(0,10)}.doc`;
                     saveAs(converted, filename);
                     
-                    showNotification('✅ Word 文件已成功匯出！', 'success');
+                    showNotification('✅ Word 文件已成功匯出（.doc）！', 'success');
 
                 } catch (error) {
                     console.error("匯出失敗：", error);
@@ -1621,6 +1641,25 @@
         });
         
         setActiveTab('analysis');
+        
+        /* ---- 自動儲存：停止輸入 1.5 秒後自動寫入；未儲存就關頁面會攔一次 ---- */
+        let autoSaveTimer = null;
+        let isDirty = false;
+        
+        document.addEventListener('input', (e) => {
+            if (!e.target.matches('input[type="text"], textarea')) return;
+            isDirty = true;
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                const t = writeLocalStorage();
+                isDirty = false;
+                showNotification(`💾 已自動儲存（${t}）`, 'success');
+            }, 1500);
+        });
+        
+        window.addEventListener('beforeunload', (e) => {
+            if (isDirty) { e.preventDefault(); e.returnValue = ''; }
+        });
         
         let autoSaveInterval;
         const startAutoSaveReminder = () => {
