@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>商業生命週期策略工具 (已修正 v2)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     
@@ -493,6 +492,10 @@
         /* ===== 🗑 危險按鈕 ===== */
         .btn-red { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
     </style>
+
+    <!-- Tailwind 產生的樣式必須排在自訂 <style> 之後：
+         兩者特異度相同，順序決定誰勝出（原本 CDN 是執行時注入，天生在後面）。 -->
+    <link rel="stylesheet" href="./assets/tailwind.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GHGBM401HN"></script>
 <script>
@@ -1542,7 +1545,8 @@
                         }
                     }
                 });
-                
+
+                autoGrowAll();
                 const savedAt = data._savedAt || '未知時間';
                 showNotification(`✅ 已載入 ${loadedCount} 個欄位（儲存於 ${savedAt}）`, 'success');
             } catch (error) {
@@ -1735,6 +1739,31 @@
             }, 100);
         });
         
+        /* ================= ⌨️ Cmd/Ctrl+S 儲存、📐 textarea 自動長高 ================= */
+        function autoGrow(el) {
+            if (!el || el.tagName !== 'TEXTAREA') return;
+            el.style.height = 'auto';
+            el.style.height = (el.scrollHeight + 2) + 'px';
+        }
+        function autoGrowAll() {
+            document.querySelectorAll('textarea.worksheet-input').forEach(autoGrow);
+        }
+        document.addEventListener('input', (e) => {
+            if (e.target && e.target.matches && e.target.matches('textarea.worksheet-input')) autoGrow(e.target);
+        });
+        window.addEventListener('resize', autoGrowAll);
+        window.addEventListener('load', autoGrowAll);
+        autoGrowAll();
+        /* 字型載入後高度會變，等字型就緒再算一次 */
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(autoGrowAll);
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && (e.key === 's' || e.key === 'S') && !e.altKey) {
+                e.preventDefault();
+                if (saveButton) saveButton.click();
+            }
+        });
+
         /* 本地日期字串（YYYY-MM-DD）：toISOString() 是 UTC，在台北會差一天 */
         function localDateStr(d) {
             d = d || new Date();
@@ -1852,6 +1881,7 @@
                 }
                 tgt.dispatchEvent(new Event('input', { bubbles: true }));
             });
+            autoGrowAll();
             if (fresh + appended === 0) {
                 showNotification('ℹ️ ' + cfg.label + '沒有已填寫的對應欄位可帶入', 'error');
                 return;
@@ -1870,6 +1900,7 @@
                 if (el.value !== '') { el.value = ''; n++; }
             });
             localStorage.removeItem('businessLifecycleData');
+            autoGrowAll();
             isDirty = false;
             clearTimeout(autoSaveTimer);
             showNotification('🗑 已清空 ' + n + ' 個欄位', 'success');
@@ -1900,6 +1931,7 @@
                         if (el && 'value' in el) { el.value = data[k]; n++; }
                     });
                     const t = writeLocalStorage();
+                    autoGrowAll();
                     isDirty = false;
                     showNotification('⬆ 已還原 ' + n + ' 個欄位（自動儲存 ' + t + '）', 'success');
                 } catch (e) {
