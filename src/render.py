@@ -64,9 +64,14 @@ def render_bcg_block(ind='                '):
            '%s        <div class="bcg-ylab">市場成長率 高 ↑</div>' % ind,
            '%s        <div class="bcg-xlab">相對市佔（你 ÷ 最大對手） 高 →</div>' % ind,
            '%s        <div class="bcg-grid">' % ind]
-    for cls, (q, name, note) in zip(['q-question', 'q-star', 'q-dog', 'q-cow'], C.BCG_QUADRANTS):
-        out.append('%s            <div class="bcg-cell %s" data-q="%s"><span class="bcg-cellname">%s</span>'
-                   '<span class="bcg-cellnote">%s</span></div>' % (ind, cls, q, name, note))
+    # 2×2 用列優先排列；x 軸是「相對市佔 高 →」，所以左上必須是高成長×低市佔＝問號、
+    # 右上才是明星。class 由象限 key 推導，不要再拿一份平行清單去 zip（會跟標籤對不上）。
+    _grid_order = ['question', 'star', 'dog', 'cow']
+    _by_key = {k: (n, note) for k, n, note in C.BCG_QUADRANTS}
+    for key in _grid_order:
+        name, note = _by_key[key]
+        out.append('%s            <div class="bcg-cell q-%s" data-q="%s"><span class="bcg-cellname">%s</span>'
+                   '<span class="bcg-cellnote">%s</span></div>' % (ind, key, key, name, note))
     out += ['%s        </div>' % ind,
             '%s    </div>' % ind,
             '%s    <div class="bcg-summary" id="bcgSummary"></div>' % ind,
@@ -86,7 +91,7 @@ def render_bcg_row(n, ind):
     """第 n 個事業單位"""
     q = 'bcg-%d-quadrant' % n
     out = ['%s<div class="bcg-row" data-unit="%d"%s>' % (ind, n, ' hidden' if n > C.BCG_DEFAULT_UNITS else ''),
-           '%s    <div class="bcg-row-head">事業單位 %d<button type="button" class="bcg-del no-print" data-del="%d">✕ 移除</button></div>'
+           '%s    <div class="bcg-row-head">事業單位 %d<button type="button" class="bcg-del no-print" data-del="%d">移除</button></div>'
            % (ind, n, n),
            '%s    <div class="bcg-row-body">' % ind]
     k, label, ph = C.BCG_UNIT_FIELDS[0]

@@ -618,6 +618,259 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 .action-summary .ok { color: #047857; font-weight: 700; }
 .action-summary .warn { color: #b91c1c; font-weight: 700; }
 
+
+        /* ==========================================================================
+           商務風格覆寫層（語彙取自 IBM Carbon Design System，為 CJK 長表單調整）
+           - 單一藍色 accent #0f62fe，其餘一律灰階；不用第二個彩色
+           - 扁平：以背景色分層 + 1px 細線表達層級，不用陰影、不用漸層
+           - 小圓角：控制項 2px、卡片 4px
+           - 字重紀律：300 大標 / 400 內文 / 600 強調（不用 700）
+           - 8px 間距節奏；數字用等寬數字對齊
+           放在自訂樣式最後，靠「同特異度、後者勝」覆寫上面的舊規則（與 Tailwind
+           預編譯檔同一套順序原則）。要改商務樣式改這一層，不要回頭改上面。
+           ========================================================================== */
+        :root {
+            --ink: #161616;            /* Gray 100：主要文字 */
+            --ink-2: #525252;          /* Gray 70：次要文字 */
+            --ink-3: #6f6f6f;          /* Gray 60：placeholder */
+            --line: #c6c6c6;           /* Gray 30：控制項邊框 */
+            --line-2: #e0e0e0;         /* Gray 20：分隔線、卡片邊框 */
+            --surface: #f4f4f4;        /* Gray 10：次層表面 */
+            --surface-2: #e8e8e8;      /* Gray 10 hover */
+            --accent: #0f62fe;         /* Blue 60：唯一互動色 */
+            --accent-hover: #0353e9;
+            --accent-active: #002d9c;
+            --accent-tint: #edf5ff;    /* Blue 10 */
+            --ok: #24a148; --ok-tint: #defbe6; --ok-ink: #0e6027;
+            --warn: #f1c21b; --warn-tint: #fff8e1; --warn-ink: #8a6116;
+            --bad: #da1e28; --bad-tint: #fff1f1; --bad-ink: #a2191f;
+            --r-ctl: 2px; --r-card: 4px;
+        }
+
+        /* ---------- 版面底層 ---------- */
+        body {
+            background: var(--surface) !important;
+            color: var(--ink);
+            font-family: "Inter", system-ui, -apple-system, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            font-size: 17px;
+            line-height: 1.75;
+        }
+        .container {
+            background: #ffffff !important;
+            border: 1px solid var(--line-2);
+            border-radius: var(--r-card) !important;
+            box-shadow: none !important;
+            padding: 40px 44px !important;
+        }
+        @media (max-width: 720px) { .container { padding: 20px 16px !important; } }
+
+        /* ---------- 標題階層 ---------- */
+        h1, .analysis-h2, .stage-title, .sheet-h3, h2, h3 {
+            letter-spacing: 0; font-weight: 600; color: var(--ink);
+        }
+        /* 文件標頭：移到分頁列上方，任何分頁都看得到頁面識別；左對齊、單一中性細線。
+           （原本由 Tailwind 的 .text-4xl / .font-bold / .text-center 控制，故需 !important） */
+        h1.page-title {
+            font-size: 1.75rem !important; font-weight: 300 !important; line-height: 1.3 !important;
+            color: var(--ink) !important; letter-spacing: 0 !important; text-align: left !important;
+            margin: 0 0 20px !important; padding: 0 0 16px !important;
+            border-bottom: 1px solid var(--line-2) !important;
+        }
+        h1.page-title span { color: var(--ink) !important; -webkit-text-fill-color: currentColor !important; background: none !important; }
+        h1 span { background: none !important; -webkit-text-fill-color: currentColor !important; color: var(--ink) !important; }
+        .analysis-h2 {
+            font-size: 1.375rem; font-weight: 600; color: var(--ink);
+            border-left: 3px solid var(--accent); padding-left: 14px; margin-bottom: 20px;
+        }
+        .stage-title {
+            font-size: 1.5rem; font-weight: 600; color: var(--ink);
+            background: none !important; -webkit-text-fill-color: currentColor !important;
+            border-bottom: 1px solid var(--line-2); padding-bottom: 12px; margin-bottom: 24px;
+        }
+        .sheet-h3 { font-size: 1.0625rem; font-weight: 600; color: var(--ink); margin: 0 0 8px; }
+        .sheet-desc, .analysis-p, .tool-description { color: var(--ink-2); font-size: 0.9375rem; line-height: 1.8; }
+        .sheet-section { border-bottom: 1px solid var(--line-2); margin: 0 0 32px; padding-bottom: 28px; }
+
+        /* ---------- 分頁列：Carbon tab 樣式 ---------- */
+        .tab-buttons { border-bottom: 1px solid var(--line-2); gap: 0; }
+        .tab-btn {
+            font-size: 0.875rem; font-weight: 400; color: var(--ink-2);
+            padding: 14px 16px; border-radius: 0; border-bottom: none;
+            background: transparent !important; box-shadow: none !important;
+            transition: background-color 0.15s linear, color 0.15s linear;
+        }
+        .tab-btn, .tab-btn.inactive { color: var(--ink-2) !important; }
+        .tab-btn:hover { background: var(--surface-2); color: var(--ink) !important; }
+        .tab-btn.active, .tab-btn[aria-selected="true"] {
+            color: var(--ink); font-weight: 600; background: transparent !important;
+            box-shadow: inset 0 -3px 0 0 var(--accent) !important;
+        }
+        @media (max-width: 480px) { .tab-btn { font-size: 0.8125rem; padding: 11px 12px; } }
+
+        /* ---------- 表單欄位 ---------- */
+        .field-label {
+            font-size: 0.8125rem; font-weight: 600; color: var(--ink-2);
+            letter-spacing: 0.16px; margin-bottom: 6px;
+        }
+        .field-tag { font-size: 0.75rem; font-weight: 400; color: var(--ink-3); letter-spacing: 0.16px; }
+        textarea.worksheet-input, .worksheet-input {
+            background: #ffffff !important; background-image: none !important;
+            border: 1px solid var(--line); border-radius: var(--r-ctl);
+            box-shadow: none !important; color: var(--ink);
+            font-size: 1rem; line-height: 1.7; padding: 12px 14px;
+            transition: border-color 0.15s linear;
+        }
+        textarea.worksheet-input::placeholder { color: var(--ink-3); opacity: 1; }
+        textarea.worksheet-input:hover { border-color: var(--ink-3); }
+        textarea.worksheet-input:focus, .worksheet-input:focus {
+            outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent);
+            box-shadow: none !important;
+        }
+        .radio-row { border-left: 2px solid var(--line-2); padding-left: 16px; }
+        .radio-q { font-size: 0.875rem; font-weight: 600; color: var(--ink-2); letter-spacing: 0.16px; }
+        .radio-opt { font-size: 0.9375rem; color: var(--ink); }
+        .radio-opt input { accent-color: var(--accent); width: 16px; height: 16px; }
+        .radio-note { font-size: 0.9375rem; }
+        select.status-select, .status-select {
+            background: #ffffff; border: 1px solid var(--line); border-radius: var(--r-ctl);
+            color: var(--ink); font-size: 0.9375rem; padding: 7px 10px; height: 36px;
+        }
+        .status-select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+        .status-select.overdue { border-color: var(--bad); color: var(--bad-ink); background: var(--bad-tint); font-weight: 600; }
+
+        /* ---------- 按鈕 ---------- */
+        .btn-base, .diag-btn, .diag-btn-primary, .guide-toggle, .cheat-btn {
+            border-radius: var(--r-ctl) !important; box-shadow: none !important;
+            font-size: 0.9375rem; font-weight: 600; padding: 10px 16px; min-height: 40px;
+            transition: background-color 0.15s linear, border-color 0.15s linear, color 0.15s linear;
+        }
+        .btn-blue, .diag-btn-primary { background: var(--accent) !important; color: #fff !important; border: 1px solid transparent !important; }
+        .btn-blue:hover, .diag-btn-primary:hover { background: var(--accent-hover) !important; }
+        .btn-blue:active { background: var(--accent-active) !important; }
+        .btn-base:not(.btn-blue):not(.btn-red), .diag-btn, .guide-toggle {
+            background: #ffffff !important; color: var(--accent) !important;
+            border: 1px solid var(--line) !important;
+        }
+        .btn-base:not(.btn-blue):not(.btn-red):hover, .diag-btn:hover, .guide-toggle:hover {
+            background: var(--surface) !important; border-color: var(--ink-3) !important;
+        }
+        .btn-red { background: var(--bad) !important; color: #fff !important; }
+        .btn-base:disabled, .btn-base[disabled], .diag-btn:disabled, .diag-btn-primary:disabled {
+            background: var(--surface) !important; color: #8d8d8d !important;
+            border-color: var(--line-2) !important; cursor: not-allowed;
+        }
+        .btn-base:focus-visible, .tab-btn:focus-visible, .cheat-btn:focus-visible, .bcg-del:focus-visible {
+            outline: 2px solid var(--accent); outline-offset: 2px;
+        }
+
+        /* ---------- 判定框 / 標籤（Carbon tag：淡底 + 深字 + 左側細線）---------- */
+        .verdict {
+            background: var(--surface); border: 1px solid var(--line-2); border-left: 3px solid #8d8d8d;
+            border-radius: var(--r-ctl); padding: 12px 14px; font-size: 0.9375rem; color: var(--ink);
+        }
+        .verdict-label { font-size: 0.75rem; font-weight: 600; color: var(--ink-2); letter-spacing: 0.32px; }
+        .verdict.ok, .verdict.good, .verdict.q-star, .verdict.q-cow { background: var(--ok-tint); border-left-color: var(--ok); }
+        .verdict.ok .verdict-text, .verdict.good .verdict-text, .verdict.q-star .verdict-text, .verdict.q-cow .verdict-text { color: var(--ok-ink); }
+        .verdict.warn, .verdict.mid, .verdict.q-question { background: var(--warn-tint); border-left-color: var(--warn); }
+        .verdict.warn .verdict-text, .verdict.mid .verdict-text, .verdict.q-question .verdict-text { color: var(--warn-ink); }
+        .verdict.bad, .verdict.q-dog { background: var(--bad-tint); border-left-color: var(--bad); }
+        .verdict.bad .verdict-text, .verdict.q-dog .verdict-text { color: var(--bad-ink); }
+        .verdict-text { font-weight: 600; }
+
+        /* ---------- 區塊 / 面板 ---------- */
+        .action-row { background: #ffffff; border: 1px solid var(--line-2); border-radius: var(--r-ctl); padding: 16px; }
+        .action-head { font-size: 0.9375rem; font-weight: 600; color: var(--ink); letter-spacing: 0.16px; }
+        .action-summary, .bcg-summary, .stage-focus, .stage-reading, .stage-refs, .tool-block, .diag-result, .diag-empty,
+        .bcg-wrap, .cheat-card, .cheat-action-panel, .cheat-taboo-panel {
+            background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-ctl);
+            color: var(--ink); box-shadow: none;
+        }
+        .action-summary, .bcg-summary {
+            border-left: 3px solid var(--accent); padding: 14px 16px; font-size: 0.9375rem; line-height: 1.9;
+        }
+        .action-summary strong, .bcg-summary strong { color: var(--ink-2); font-weight: 600; letter-spacing: 0.32px; font-size: 0.8125rem; }
+        .stage-focus strong, .stage-reading strong { color: var(--ink-2); font-weight: 600; }
+
+        /* ---------- BCG 矩陣 ---------- */
+        .bcg-grid { border: 1px solid var(--line); border-radius: var(--r-ctl); }
+        .bcg-cell { border-right: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); }
+        .bcg-cellname { font-weight: 600; color: var(--ink); }
+        .bcg-cellnote { color: var(--ink-2); }
+        .bcg-cell.q-star { background: var(--accent-tint); }
+        .bcg-cell.q-question { background: var(--surface); }
+        .bcg-cell.q-cow { background: var(--ok-tint); }
+        .bcg-cell.q-dog { background: var(--bad-tint); }
+        .bcg-ylab, .bcg-xlab { font-size: 0.75rem; font-weight: 600; color: var(--ink-2); letter-spacing: 0.32px; }
+        .bcg-dot {
+            background: #ffffff; color: var(--ink); border: 1px solid var(--line);
+            border-left: 3px solid var(--accent); border-radius: var(--r-ctl);
+            font-size: 0.6875rem; font-weight: 600; padding: 2px 6px; box-shadow: none;
+        }
+        /* 舊 CSS 用 .bcg-dot.q-* 設過背景（特異度 0,2,0），這裡必須同樣寫到 .q-* 才蓋得掉；
+           否則會變成深底 + 深字，圖上的標籤直接看不見 */
+        .bcg-dot.q-star, .bcg-dot.q-question, .bcg-dot.q-cow, .bcg-dot.q-dog {
+            background: #ffffff; color: var(--ink);
+        }
+        .bcg-dot.q-star { border-left-color: var(--accent); }
+        .bcg-dot.q-dog { border-left-color: var(--bad); }
+        .bcg-dot.q-cow { border-left-color: var(--ok); }
+        .bcg-dot.q-question { border-left-color: var(--warn); }
+        .bcg-row-head { font-size: 0.8125rem; font-weight: 600; color: var(--ink-2); letter-spacing: 0.32px; }
+        .bcg-del {
+            background: transparent; border: 1px solid var(--line-2); border-radius: var(--r-ctl);
+            color: var(--ink-2); font-size: 0.75rem; padding: 3px 8px; min-height: 0;
+        }
+        .bcg-del:hover { border-color: var(--bad); color: var(--bad-ink); background: var(--bad-tint); }
+
+        /* ---------- 準則 / 實例收合 ---------- */
+        .fw-criteria, details.fw-criteria {
+            background: #ffffff; border: 1px solid var(--line-2); border-radius: var(--r-ctl);
+        }
+        .fw-criteria summary { font-size: 0.8125rem; font-weight: 600; color: var(--accent); padding: 10px 14px; letter-spacing: 0.16px; }
+        .fw-guide { border-left: 3px solid var(--line); padding: 2px 0 2px 14px; color: var(--ink-2); font-size: 0.9375rem; }
+        .fw-example { color: var(--ink-2); font-size: 0.9375rem; border-top: 1px solid var(--line-2); padding-top: 10px; margin-top: 10px; }
+        .analysis-tool, .tool-label { color: var(--ink); }
+        .analysis-tool { border: 1px solid var(--line-2); border-radius: var(--r-ctl); padding: 14px 16px; background: #fff; }
+        .tool-label { font-size: 0.9375rem; font-weight: 600; }
+
+        /* ---------- 作弊器 ---------- */
+        .cheat-chip {
+            background: #ffffff; border: 1px solid var(--line); border-radius: 999px;
+            color: var(--ink-2); font-size: 0.8125rem; padding: 4px 12px;
+        }
+        .cheat-chip.active { background: var(--accent-tint); border-color: var(--accent); color: var(--accent-active); font-weight: 600; }
+        .cheat-label, .cheat-cat { color: var(--ink-2); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.32px; }
+        .cheat-title { color: var(--ink); font-size: 0.9375rem; font-weight: 600; }
+        .cheat-search, .cheat-controls input {
+            border: 1px solid var(--line); border-radius: var(--r-ctl); background: #fff;
+            padding: 8px 12px; font-size: 0.9375rem; color: var(--ink);
+        }
+        .cheat-search:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+        /* ---------- 通知（Carbon toast）---------- */
+        .notification {
+            background: var(--ink); color: #fff; border-radius: var(--r-ctl);
+            border-left: 3px solid var(--accent); padding: 13px 18px;
+            font-size: 0.875rem; box-shadow: 0 2px 6px rgba(0,0,0,0.3); max-width: 380px;
+        }
+        /* 舊 CSS 的 .notification.success / .error 是漸層綠紅（特異度 0,2,0），要同樣指名才蓋得掉 */
+        .notification.success, .notification.error {
+            background: var(--ink); color: #fff; border-radius: var(--r-ctl);
+        }
+        .notification.success { border-left: 3px solid var(--accent); }
+        .notification.error { border-left: 3px solid var(--bad); }
+
+        /* ---------- 其他細節 ---------- */
+        strong, b { font-weight: 600; }
+        table { border-color: var(--line-2); }
+        a { color: var(--accent); }
+        mark { background: var(--accent-tint); color: var(--accent-active); }
+        ::selection { background: var(--accent-tint); }
+        .diag-score { font-variant-numeric: tabular-nums; color: var(--ink-2); }
+        .diag-winner { color: var(--ink); font-weight: 600; }
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
 </style>
 
     <!-- Tailwind 產生的樣式必須排在自訂 <style> 之後：
@@ -638,6 +891,10 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
     <div class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-10 bg-white rounded-2xl shadow-2xl my-6 sm:my-12">
 
         <div class="mb-8 border-b-2 border-slate-200 no-print">
+            <h1 class="page-title">
+                <span>商業生命週期與策略工具整合指南</span>
+            </h1>
+
             <nav class="tab-buttons no-print" role="tablist" aria-label="工作表分頁">
                 <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">📋 現況與分析</button>
                 <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">🌱 創業期</button>
@@ -650,10 +907,6 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         </div>
         
         <div id="tab-content-analysis" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-analysis">
-            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
-                <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent"> 商業生命週期與策略工具整合指南
-                </span>
-            </h1>
             
             <p class="analysis-p mb-10 text-lg">
                 企業如同生命體，會經歷不同的發展階段。本工具把「與階段無關的分析」集中在這一頁做一次，各階段分頁只留下該階段特有的判讀問題；每個框架都附上判讀準則與實例。
@@ -836,17 +1089,17 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                         <div class="bcg-ylab">市場成長率 高 ↑</div>
                         <div class="bcg-xlab">相對市佔（你 ÷ 最大對手） 高 →</div>
                         <div class="bcg-grid">
-                            <div class="bcg-cell q-question" data-q="star"><span class="bcg-cellname">明星</span><span class="bcg-cellnote">高成長 × 高市佔</span></div>
-                            <div class="bcg-cell q-star" data-q="question"><span class="bcg-cellname">問號</span><span class="bcg-cellnote">高成長 × 低市佔</span></div>
-                            <div class="bcg-cell q-dog" data-q="cow"><span class="bcg-cellname">金牛</span><span class="bcg-cellnote">低成長 × 高市佔</span></div>
-                            <div class="bcg-cell q-cow" data-q="dog"><span class="bcg-cellname">狗</span><span class="bcg-cellnote">低成長 × 低市佔</span></div>
+                            <div class="bcg-cell q-question" data-q="question"><span class="bcg-cellname">問號</span><span class="bcg-cellnote">高成長 × 低市佔</span></div>
+                            <div class="bcg-cell q-star" data-q="star"><span class="bcg-cellname">明星</span><span class="bcg-cellnote">高成長 × 高市佔</span></div>
+                            <div class="bcg-cell q-dog" data-q="dog"><span class="bcg-cellname">狗</span><span class="bcg-cellnote">低成長 × 低市佔</span></div>
+                            <div class="bcg-cell q-cow" data-q="cow"><span class="bcg-cellname">金牛</span><span class="bcg-cellnote">低成長 × 高市佔</span></div>
                         </div>
                     </div>
                     <div class="bcg-summary" id="bcgSummary"></div>
                 </div>
                 <div class="bcg-units" id="bcgUnits">
                     <div class="bcg-row" data-unit="1">
-                        <div class="bcg-row-head">事業單位 1<button type="button" class="bcg-del no-print" data-del="1">✕ 移除</button></div>
+                        <div class="bcg-row-head">事業單位 1<button type="button" class="bcg-del no-print" data-del="1">移除</button></div>
                         <div class="bcg-row-body">
                             <div class="field" data-item="事業單位名稱">
                                 <label class="field-label" for="bcg-1-unit">事業單位名稱</label>
@@ -872,7 +1125,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                         </div>
                     </div>
                     <div class="bcg-row" data-unit="2">
-                        <div class="bcg-row-head">事業單位 2<button type="button" class="bcg-del no-print" data-del="2">✕ 移除</button></div>
+                        <div class="bcg-row-head">事業單位 2<button type="button" class="bcg-del no-print" data-del="2">移除</button></div>
                         <div class="bcg-row-body">
                             <div class="field" data-item="事業單位名稱">
                                 <label class="field-label" for="bcg-2-unit">事業單位名稱</label>
@@ -898,7 +1151,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                         </div>
                     </div>
                     <div class="bcg-row" data-unit="3">
-                        <div class="bcg-row-head">事業單位 3<button type="button" class="bcg-del no-print" data-del="3">✕ 移除</button></div>
+                        <div class="bcg-row-head">事業單位 3<button type="button" class="bcg-del no-print" data-del="3">移除</button></div>
                         <div class="bcg-row-body">
                             <div class="field" data-item="事業單位名稱">
                                 <label class="field-label" for="bcg-3-unit">事業單位名稱</label>
@@ -924,7 +1177,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                         </div>
                     </div>
                     <div class="bcg-row" data-unit="4" hidden>
-                        <div class="bcg-row-head">事業單位 4<button type="button" class="bcg-del no-print" data-del="4">✕ 移除</button></div>
+                        <div class="bcg-row-head">事業單位 4<button type="button" class="bcg-del no-print" data-del="4">移除</button></div>
                         <div class="bcg-row-body">
                             <div class="field" data-item="事業單位名稱">
                                 <label class="field-label" for="bcg-4-unit">事業單位名稱</label>
@@ -950,7 +1203,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                         </div>
                     </div>
                     <div class="bcg-row" data-unit="5" hidden>
-                        <div class="bcg-row-head">事業單位 5<button type="button" class="bcg-del no-print" data-del="5">✕ 移除</button></div>
+                        <div class="bcg-row-head">事業單位 5<button type="button" class="bcg-del no-print" data-del="5">移除</button></div>
                         <div class="bcg-row-body">
                             <div class="field" data-item="事業單位名稱">
                                 <label class="field-label" for="bcg-5-unit">事業單位名稱</label>
@@ -976,7 +1229,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                         </div>
                     </div>
                     <div class="bcg-row" data-unit="6" hidden>
-                        <div class="bcg-row-head">事業單位 6<button type="button" class="bcg-del no-print" data-del="6">✕ 移除</button></div>
+                        <div class="bcg-row-head">事業單位 6<button type="button" class="bcg-del no-print" data-del="6">移除</button></div>
                         <div class="bcg-row-body">
                             <div class="field" data-item="事業單位名稱">
                                 <label class="field-label" for="bcg-6-unit">事業單位名稱</label>
