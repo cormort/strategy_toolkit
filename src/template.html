@@ -1843,6 +1843,8 @@ ${bodyHtml}
             const data = { _app: '商業生命週期策略工具箱', _schema: SCHEMA_VERSION, _savedAt: new Date().toLocaleString('zh-TW') };
             document.querySelectorAll('textarea.worksheet-input').forEach(el =>{ if (el.id) data[el.id] = el.value; });
             document.querySelectorAll('input[type="radio"][data-save]').forEach(el =>{ if (el.checked) data[el.dataset.save] = el.value; });
+            document.querySelectorAll('select[data-save]').forEach(el =>{ data[el.dataset.save] = el.value; });
+            if (window.__reviewedAt) data._reviewedAt = window.__reviewedAt;
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             saveAs(blob, `策略工作表備份_${localDateStr()}.json`);
             showNotification('備份檔已下載（可跨裝置還原）', 'success');
