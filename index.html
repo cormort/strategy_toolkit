@@ -906,6 +906,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">成熟期</button>
                 <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">衰退轉型期</button>
                 <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">行動計畫</button>
+                <button id="tab-btn-exec" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-exec">執行與溝通</button>
                 <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">認知作弊器</button>
             </nav>
         </div>
@@ -1611,6 +1612,230 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  </div>
  </section>
  </div>
+ 
+ <div id="tab-content-exec" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-exec">
+ <h2 class="stage-title">執行與溝通</h2>
+ <p class="sheet-desc">策略決定「做什麼」；這一頁處理怎麼拆、怎麼排、怎麼做、怎麼說、怎麼回顧。建議順序：A OGSM 把⑨的判斷拆成目標 → B 4P 落到市場 → C 艾森豪排優先 → D 5W1H 把單一事項想完整 → E SCRUM 分輪推進 → F 黃金圈、G PREP 對人說明 → H STAR 回顧成果。每一個也都可以單獨使用。</p>
+ <p class="field-tag no-print">曾在「任務管理工具箱」網站存過資料的話，第一次開這個工具箱時會自動帶入這一頁（原站資料不會刪除）。</p>
+ <section class="sheet-section" id="sec-ogsm">
+ <h3 class="sheet-h3">A OGSM（把策略拆成目標與衡量）</h3>
+ <p class="sheet-desc">把⑨綜合判斷變成一頁計畫：一個方向、幾個數字目標、達成的做法、每個做法怎麼量。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>O 是方向，用文字、不放數字；G 是數字，要有期限，而且量的是結果（營收、市佔、滿載率），不是活動。<br>S 是選擇 —— 寫「做什麼、不做什麼」，每個 S 都要能連回某個 G；超過 3～4 個 S 就等於沒選。<br>M 分兩種：Dashboard 看 S 有沒有在推進（領先指標）；Action Plan 是有負責人與期限的具體動作。<br>常見錯誤：把動作寫成 G（「推出月租方案」是 S 或行動，不是 G）。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>O＝成為轉運站周邊通勤族的首選停車點<br>G＝2027 年底前月租 60 席、平日滿載率 85%<br>S＝① 月租綁定通勤族（不打臨停價格戰）② 停車與智取店動線整合<br>M＝Dashboard：每週月租新簽數、平日 8 點滿載率；Action Plan：12 月底前推出月租 40 席方案（細項搬到「行動計畫」分頁追蹤狀態與期限）</p></div>
+ </details>
+ <div class="field" data-item="O（Objective）最終目的">
+  <label class="field-label" for="tool-8-o">O（Objective）最終目的</label>
+  <textarea id="tool-8-o" class="worksheet-input" placeholder="一句話的方向，不放數字。例如：成為轉運站周邊通勤族的首選停車點"></textarea>
+ </div>
+ <div class="field" data-item="G（Goal）具體目標">
+  <label class="field-label" for="tool-8-g">G（Goal）具體目標</label>
+  <textarea id="tool-8-g" class="worksheet-input" placeholder="可量化、有期限的結果。例如：2027 年底前月租 60 席"></textarea>
+ </div>
+ <div class="field" data-item="S（Strategy）策略">
+  <label class="field-label" for="tool-8-s">S（Strategy）策略</label>
+  <textarea id="tool-8-s" class="worksheet-input" placeholder="做什麼、不做什麼；每一條連回一個 G"></textarea>
+ </div>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="M：衡量指標（Dashboard）">
+  <label class="field-label" for="tool-8-m-dashboard">M：衡量指標（Dashboard）</label>
+  <textarea id="tool-8-m-dashboard" class="worksheet-input" placeholder="怎麼知道 S 有在推進？例如：每週月租新簽數"></textarea>
+ </div>
+ <div class="field" data-item="M：行動計畫（Action Plan）">
+  <label class="field-label" for="tool-8-m-action">M：行動計畫（Action Plan）</label>
+  <textarea id="tool-8-m-action" class="worksheet-input" placeholder="誰、什麼時候、做什麼。要追蹤的項目搬到「行動計畫」分頁"></textarea>
+ </div>
+ </div>
+ </section>
+ <section class="sheet-section" id="sec-4p">
+ <h3 class="sheet-h3">B 4P 行銷組合</h3>
+ <p class="sheet-desc">把⑦選定的基本策略落到實際的產品、價格、通路、推廣。四個 P 要彼此一致，也要跟⑦一致。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>先確認目標客群（沿用①），四個 P 都是對這群人做的選擇。<br>一致性檢查：選成本集中卻在做昂貴的推廣、選差異化卻在打折 —— 就是矛盾。<br>4P 是賣方視角；每一格也換成客戶視角檢查一次：他得到什麼價值、總共付出多少、方不方便、怎麼知道你。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>客群＝轉運站通勤族<br>Product＝月租固定車位＋包裹代收；Price＝月租約為臨停 30 天總額的 6 成，但不低於土地機會成本；<br>Place＝現場＋LINE 預約；Promotion＝轉運站公告欄與首月優惠，不做全鎮廣告（與成本集中一致）。</p></div>
+ </details>
+ <div class="matrix-2x2">
+ <div class="field mx-cell" data-item="Product 產品">
+  <label class="field-label" for="tool-6-product">Product 產品</label>
+  <textarea id="tool-6-product" class="worksheet-input" placeholder="賣什麼？核心功能與配套服務"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="Price 價格">
+  <label class="field-label" for="tool-6-price">Price 價格</label>
+  <textarea id="tool-6-price" class="worksheet-input" placeholder="定價方式、折扣、付款；底線要算進成本與機會成本"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="Place 通路">
+  <label class="field-label" for="tool-6-place">Place 通路</label>
+  <textarea id="tool-6-place" class="worksheet-input" placeholder="客戶在哪裡買到、怎麼交付"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="Promotion 推廣">
+  <label class="field-label" for="tool-6-promotion">Promotion 推廣</label>
+  <textarea id="tool-6-promotion" class="worksheet-input" placeholder="客戶怎麼知道你？只寫會觸及目標客群的管道"></textarea>
+ </div>
+ </div>
+ </section>
+ <section class="sheet-section" id="sec-eisenhower">
+ <h3 class="sheet-h3">C 艾森豪矩陣（排優先順序）</h3>
+ <p class="sheet-desc">把手上的事依「重要」和「緊急」分四格。重要＝對目標有貢獻（對回 OGSM 的 G）；緊急＝有期限壓力。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>「重要」要用目標檢驗，不是用感覺：對不回任何 G 或行動計畫的事，就不重要。<br>第二格（重要不緊急）才是策略真正發生的地方 —— 先排進行事曆，否則會被第一、三格吃掉。<br>第三格最會騙人：感覺很忙，其實是別人的優先。交辦時要交代要的結果與期限。<br>第一格長期爆滿，通常代表第二格的預防工作做太少。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>重要且緊急：本週五前回覆轉運站管理處的租約條款<br>重要不緊急：設計月租方案、訓練代班人員<br>不重要但緊急：臨時的廠商推銷、非必要會議 → 交辦或婉拒<br>不重要不緊急：研究別的鄉鎮的地價 → 刪掉</p></div>
+ </details>
+ <div class="matrix-2x2">
+ <div class="field mx-cell" data-item="重要且緊急（馬上做）">
+  <label class="field-label" for="tool-1-q1">重要且緊急（馬上做）</label>
+  <textarea id="tool-1-q1" class="worksheet-input" placeholder="今天或本週一定要處理、對目標有直接影響的事"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="重要不緊急（排進行事曆）">
+  <label class="field-label" for="tool-1-q2">重要不緊急（排進行事曆）</label>
+  <textarea id="tool-1-q2" class="worksheet-input" placeholder="對目標有貢獻但沒人催的事 —— 寫下要排在哪一天"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="不重要但緊急（交辦）">
+  <label class="field-label" for="tool-1-q3">不重要但緊急（交辦）</label>
+  <textarea id="tool-1-q3" class="worksheet-input" placeholder="有人在催、但對你的目標沒貢獻。交給誰？"></textarea>
+ </div>
+ <div class="field mx-cell" data-item="不重要不緊急（刪掉）">
+  <label class="field-label" for="tool-1-q4">不重要不緊急（刪掉）</label>
+  <textarea id="tool-1-q4" class="worksheet-input" placeholder="可以直接不做的事"></textarea>
+ </div>
+ </div>
+ </section>
+ <section class="sheet-section" id="sec-5w1h">
+ <h3 class="sheet-h3">D 5W1H（把一件事想完整）</h3>
+ <p class="sheet-desc">拿行動計畫或第二格裡的一件事來拆，找出遺漏。一次只拆一件事。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>先寫 Why：答不出為什麼要做，其他五題不必寫。<br>Who 分清楚負責人（只能一個）和參與者；When 要有日期，不是「盡快」。<br>How 寫到「下一步具體動作」為止，並把成本（How much）一起寫進去 —— 這一項最常被漏掉。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>Why＝提高固定收入、避開臨停價格戰（對應 G：月租 60 席）<br>What＝推出月租 40 席；Who＝我負責，家人支援現場；When＝11/15 公告、12/1 開賣；<br>Where＝B 區 40 格劃為月租專區；How＝LINE 預約＋現場繳費、首月 9 折，預算 8,000 元（標線與告示）</p></div>
+ </details>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="Why 為什麼做">
+  <label class="field-label" for="tool-3-why">Why 為什麼做</label>
+  <textarea id="tool-3-why" class="worksheet-input" placeholder="連回哪一個目標？不做會怎樣？"></textarea>
+ </div>
+ <div class="field" data-item="What 做什麼">
+  <label class="field-label" for="tool-3-what">What 做什麼</label>
+  <textarea id="tool-3-what" class="worksheet-input" placeholder="具體到別人看得懂要交出什麼"></textarea>
+ </div>
+ <div class="field" data-item="Who 誰">
+  <label class="field-label" for="tool-3-who">Who 誰</label>
+  <textarea id="tool-3-who" class="worksheet-input" placeholder="負責人（一個）、參與者、對象"></textarea>
+ </div>
+ <div class="field" data-item="When 何時">
+  <label class="field-label" for="tool-3-when">When 何時</label>
+  <textarea id="tool-3-when" class="worksheet-input" placeholder="開始日、完成日、檢查點"></textarea>
+ </div>
+ <div class="field" data-item="Where 何地">
+  <label class="field-label" for="tool-3-where">Where 何地</label>
+  <textarea id="tool-3-where" class="worksheet-input" placeholder="在哪裡做、在哪裡交付"></textarea>
+ </div>
+ <div class="field" data-item="How 怎麼做（含成本）">
+  <label class="field-label" for="tool-3-how">How 怎麼做（含成本）</label>
+  <textarea id="tool-3-how" class="worksheet-input" placeholder="步驟、方法、預算"></textarea>
+ </div>
+ </div>
+ </section>
+ <section class="sheet-section" id="sec-scrum">
+ <h3 class="sheet-h3">E SCRUM（分輪推進）</h3>
+ <p class="sheet-desc">事情多、需求會變時，用 1～4 週為一輪推進，每輪結束都要有可以檢查的成果。不是軟體專案也能用。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>Product Backlog 是全部想做的事，依價值排序，越上面寫得越具體。<br>Sprint Backlog 只放這一輪做得完的；一輪中途不改目標，臨時插進來的事放回 Backlog 重新排序。<br>完成的定義（DoD）要可以檢驗 —— 「客戶已經能用」，不是「做得差不多」。<br>回顧只問三件事：保留什麼、改掉什麼、下一輪要試的一個改進。一個人也能用，重點是節奏，不是儀式。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>Backlog：月租方案、充電樁評估、智取店動線、夜間照明<br>本輪（2 週）：月租方案上線；DoD：告示已貼、LINE 預約可用、第一位客戶完成繳費<br>回顧：保留 LINE 預約；改掉現場收現金 → 下一輪改成轉帳</p></div>
+ </details>
+ <div class="field-grid cols-2">
+ <div class="field" data-item="產品待辦清單（Product Backlog）">
+  <label class="field-label" for="tool-2-backlog">產品待辦清單（Product Backlog）</label>
+  <textarea id="tool-2-backlog" class="worksheet-input" placeholder="全部想做的事，依價值排序"></textarea>
+ </div>
+ <div class="field" data-item="本輪待辦（Sprint Backlog）">
+  <label class="field-label" for="tool-2-sprint">本輪待辦（Sprint Backlog）</label>
+  <textarea id="tool-2-sprint" class="worksheet-input" placeholder="這一輪（幾週？）做得完的項目與本輪目標"></textarea>
+ </div>
+ <div class="field" data-item="完成的定義（Definition of Done）">
+  <label class="field-label" for="tool-2-dod">完成的定義（Definition of Done）</label>
+  <textarea id="tool-2-dod" class="worksheet-input" placeholder="做到什麼程度才算完成？要能檢驗"></textarea>
+ </div>
+ <div class="field" data-item="回顧（Retrospective）">
+  <label class="field-label" for="tool-2-retro">回顧（Retrospective）</label>
+  <textarea id="tool-2-retro" class="worksheet-input" placeholder="保留什麼、改掉什麼、下一輪試什麼"></textarea>
+ </div>
+ </div>
+ </section>
+ <section class="sheet-section" id="sec-golden">
+ <h3 class="sheet-h3">F 黃金圈（說明為什麼）</h3>
+ <p class="sheet-desc">由內而外說：先講為什麼（Why），再講怎麼做（How），最後才是做什麼（What）。用在對員工、夥伴、客戶說明方向。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>Why 不是「賺錢」—— 賺錢是結果；Why 是你為誰解決什麼問題、為什麼在乎。<br>How 是你跟別人不一樣的做法，應該對得上③ VRIO 的核心資源；對不上，就只是口號。<br>檢查方法：把 Why 念給客戶聽，他會覺得跟自己有關嗎？<br>黃金圈是溝通框架，不是策略分析，不能取代五力或 VRIO。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>Why＝讓搭客運的人不用為了停車和取包裹多繞一趟<br>How＝就在轉運站旁的自有土地，一次完成停車與取件<br>What＝月租／臨停車位＋蝦皮智取店</p></div>
+ </details>
+ <div class="field" data-item="Why 為什麼">
+  <label class="field-label" for="tool-5-why">Why 為什麼</label>
+  <textarea id="tool-5-why" class="worksheet-input" placeholder="你為誰解決什麼問題？為什麼在乎？"></textarea>
+ </div>
+ <div class="field" data-item="How 怎麼做">
+  <label class="field-label" for="tool-5-how">How 怎麼做</label>
+  <textarea id="tool-5-how" class="worksheet-input" placeholder="你跟別人不一樣的做法（對回 VRIO 的核心資源）"></textarea>
+ </div>
+ <div class="field" data-item="What 做什麼">
+  <label class="field-label" for="tool-5-what">What 做什麼</label>
+  <textarea id="tool-5-what" class="worksheet-input" placeholder="具體提供的產品或服務"></textarea>
+ </div>
+ </section>
+ <section class="sheet-section" id="sec-prep">
+ <h3 class="sheet-h3">G PREP（一段話講清楚）</h3>
+ <p class="sheet-desc">結論先說、給理由、舉例子、再收回結論。用在會議發言、簡報、回覆主管或客戶。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>第一句就是結論：對方只聽第一句，也知道你要什麼。<br>理由最多三個，最有力的先講。例子要具體（數字、名字、日期），不是把理由換句話再說一次。<br>最後的 Point 要比開頭更具體，最好帶一個請求 —— 你要對方決定什麼、什麼時候前。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>P＝建議 12 月推出月租 40 席<br>R＝平日早上 8 點前就停滿，臨停客之間只能削價競爭；月租能鎖住固定收入<br>E＝過去 4 週平日滿載率 92%，其中約 6 成是同一批通勤車<br>P＝請在本週決定是否劃出 B 區 40 格，我 11/15 前公告</p></div>
+ </details>
+ <div class="field" data-item="Point 結論">
+  <label class="field-label" for="tool-4-p1">Point 結論</label>
+  <textarea id="tool-4-p1" class="worksheet-input" placeholder="一句話說出你的主張或請求"></textarea>
+ </div>
+ <div class="field" data-item="Reason 理由">
+  <label class="field-label" for="tool-4-r">Reason 理由</label>
+  <textarea id="tool-4-r" class="worksheet-input" placeholder="為什麼？最多三個，最有力的先講"></textarea>
+ </div>
+ <div class="field" data-item="Example 例子">
+  <label class="field-label" for="tool-4-e">Example 例子</label>
+  <textarea id="tool-4-e" class="worksheet-input" placeholder="具體的數字、事件、日期"></textarea>
+ </div>
+ <div class="field" data-item="Point 重申結論">
+  <label class="field-label" for="tool-4-p2">Point 重申結論</label>
+  <textarea id="tool-4-p2" class="worksheet-input" placeholder="再說一次，並寫出你要對方做的決定"></textarea>
+ </div>
+ </section>
+ <section class="sheet-section" id="sec-star">
+ <h3 class="sheet-h3">H STAR 法則（回顧成果）</h3>
+ <p class="sheet-desc">把一段經驗講成有結構的故事：情境、任務、行動、結果。用在專案復盤、成果回報、績效回顧與面試。</p>
+ <details class="fw-guide">
+ <summary>判讀準則與實例</summary>
+ <div class="fw-criteria"><strong>判讀準則</strong><p>S 和 T 加起來不超過四分之一，重點放在 A 和 R。<br>A 寫「我」做了什麼：團隊做的要說清楚你的角色，而且是具體動作，不是態度。<br>R 要有數字，並對照原本的目標（可回頭對 OGSM 的 G）；沒達標也照實寫，加一句學到什麼。</p></div>
+ <div class="fw-example"><strong>實例</strong><p>S＝轉運站啟用後臨停車流大增，周邊業者開始削價<br>T＝在不降價的前提下穩住收入<br>A＝我把 B 區劃為月租、用 LINE 預約收單、首月 9 折<br>R＝兩個月售出 38 席（目標 40），月租收入佔停車收入 34%；學到：通勤族在乎「保證有位」勝過折扣</p></div>
+ </details>
+ <div class="field" data-item="S（Situation）情境">
+  <label class="field-label" for="tool-7-s">S（Situation）情境</label>
+  <textarea id="tool-7-s" class="worksheet-input" placeholder="當時的背景，兩三句就好"></textarea>
+ </div>
+ <div class="field" data-item="T（Task）任務">
+  <label class="field-label" for="tool-7-t">T（Task）任務</label>
+  <textarea id="tool-7-t" class="worksheet-input" placeholder="你要達成什麼？"></textarea>
+ </div>
+ <div class="field" data-item="A（Action）行動">
+  <label class="field-label" for="tool-7-a">A（Action）行動</label>
+  <textarea id="tool-7-a" class="worksheet-input" placeholder="你具體做了哪些事？"></textarea>
+ </div>
+ <div class="field" data-item="R（Result）結果">
+  <label class="field-label" for="tool-7-r">R（Result）結果</label>
+  <textarea id="tool-7-r" class="worksheet-input" placeholder="數字、對照目標、學到什麼"></textarea>
+ </div>
+ </section>
+ </div>
 <!-- ================= 認知作弊器（整合自 Strategy Toolkit） ================= -->
         <div id="tab-content-cheats" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-cheats">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
@@ -1860,6 +2085,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             maturity: { btn: document.getElementById('tab-btn-maturity'), content: document.getElementById('tab-content-maturity') },
             decline: { btn: document.getElementById('tab-btn-decline'), content: document.getElementById('tab-content-decline') },
             actions: { btn: document.getElementById('tab-btn-actions'), content: document.getElementById('tab-content-actions') },
+            exec: { btn: document.getElementById('tab-btn-exec'), content: document.getElementById('tab-content-exec') },
             cheats: { btn: document.getElementById('tab-btn-cheats'), content: document.getElementById('tab-content-cheats') }
         };
         const SCHEMA_VERSION = 3;
@@ -2253,18 +2479,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         }
 
         /* 收集區塊（includeEmpty = 空白表格也要） */
-        function collectBlocks(includeEmpty) {
-            const blocks = [];
-            const anRows = [];
-            document.querySelectorAll('#tab-content-analysis .sheet-section').forEach(function (sec) {
+        function paneSections(paneSel, includeEmpty) {
+            const out = [];
+            document.querySelectorAll(paneSel + ' .sheet-section').forEach(function (sec) {
                 const rows = sectionRows(sec, includeEmpty);
                 if (!rows.length) return;
                 const g = sec.querySelector('.fw-guide');
                 const guide = (includeEmpty && g) ? g.textContent.replace(/\s+/g, ' ').trim() : '';
                 const desc = sec.querySelector('.sheet-desc');
-                anRows.push({ title: sec.querySelector('.sheet-h3').textContent.trim(),
-                              rows: rows, guide: guide, desc: desc ? desc.textContent.trim() : '' });
+                out.push({ title: sec.querySelector('.sheet-h3').textContent.trim(),
+                           rows: rows, guide: guide, desc: desc ? desc.textContent.trim() : '' });
             });
+            return out;
+        }
+        function collectBlocks(includeEmpty) {
+            const blocks = [];
+            const anRows = paneSections('#tab-content-analysis', includeEmpty);
             if (anRows.length) blocks.push({ title: '現況與分析', sub: anRows });
             const stSub = [];
             ['startup', 'growth', 'maturity', 'decline'].forEach(function (st) {
@@ -2277,6 +2507,8 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             const acPane = document.getElementById('tab-content-actions');
             const acRows = acPane ? sectionRows(acPane, includeEmpty) : [];
             if (acRows.length) blocks.push({ title: '行動計畫', sub: [{ title: '行動項目', rows: acRows }] });
+            const exRows = paneSections('#tab-content-exec', includeEmpty);
+            if (exRows.length) blocks.push({ title: '執行與溝通', sub: exRows });
             return blocks;
         }
 
@@ -2368,6 +2600,39 @@ ${bodyHtml}
                 }
             }
         } catch (e) { console.warn('自動還原失敗：', e); }
+
+        // 帶入原「任務管理工具箱」存在同網域 localStorage 的資料：只做一次（旗標另存，清空全部不會重帶）。
+        // 欄位 id 沿用原站 tool-<n>-*；目前欄位已有不同內容時附加在後，不覆蓋；原站資料不刪除。
+        const TASK_TOOLKIT_KEY = 'managerToday8ToolsTabsData';
+        try {
+            const oldRaw = localStorage.getItem(TASK_TOOLKIT_KEY);
+            if (oldRaw && !localStorage.getItem(TASK_TOOLKIT_KEY + '_imported')) {
+                const old = JSON.parse(oldRaw);
+                let n = 0, topicNote = '';
+                Object.keys(old).forEach(function (id) {
+                    if (!/^tool-\d/.test(id)) return;
+                    const v = String(old[id] || '').trim();
+                    const el = document.getElementById(id);
+                    if (!v || !el || el.tagName !== 'TEXTAREA') return;
+                    const cur = el.value.trim();
+                    if (cur === v) return;
+                    el.value = cur ? el.value + '\n\n── 任務管理工具箱帶入 ──\n' + v : v;
+                    n++;
+                });
+                const topic = String(old['ws-topic'] || '').trim();
+                const objName = document.getElementById('obj-name');
+                if (topic && objName) {
+                    if (!objName.value.trim()) { objName.value = topic; n++; }
+                    else if (objName.value.trim() !== topic) topicNote = `（原主題「${topic}」未覆蓋現有的分析對象）`;
+                }
+                localStorage.setItem(TASK_TOOLKIT_KEY + '_imported', new Date().toLocaleString('zh-TW'));
+                if (n) {
+                    writeLocalStorage();
+                    autoGrowAll();
+                    showNotification('已從「任務管理工具箱」帶入 ' + n + ' 個欄位到「執行與溝通」' + topicNote, 'success');
+                }
+            }
+        } catch (e) { console.warn('任務管理工具箱資料帶入失敗：', e); }
 
         document.addEventListener('input', (e) =>{
             if (e.target && e.target.matches && e.target.matches('textarea.worksheet-input')) autoGrow(e.target);

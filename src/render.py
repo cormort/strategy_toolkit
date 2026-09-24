@@ -251,6 +251,18 @@ def render_action_pane():
     return out
 
 
+def render_exec_pane():
+    e = C.EXECUTION_INTRO
+    out = [' <div id="tab-content-exec" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-exec">',
+           ' <h2 class="stage-title">%s</h2>' % esc(e['title']),
+           ' <p class="sheet-desc">%s</p>' % esc(e['desc']),
+           ' <p class="field-tag no-print">%s</p>' % esc(e['note'])]
+    for sec in C.EXECUTION:
+        out += render_section(sec)
+    out.append(' </div>')
+    return out
+
+
 def main():
     tpl = open(os.path.join(HERE, 'template.html'), encoding='utf-8').read()
 
@@ -266,6 +278,7 @@ def main():
     html = html.replace('{{ACTION_ROWS}}', str(C.ACTION_ROWS))
     html = html.replace('{{BCG_MAX_UNITS}}', str(C.BCG_MAX_UNITS))
     html = html.replace('{{BCG_DEFAULT_UNITS}}', str(C.BCG_DEFAULT_UNITS))
+    html = html.replace('{{TASK_TOOLKIT_KEY}}', C.TASK_TOOLKIT_KEY)
     html = html.replace('{{ID_MIGRATION_V2}}', '{\n' + ',\n'.join(
         ' "%s": %s' % (k, jsval(vs)) for k, vs in C.ID_MIGRATION_V2.items()) + '\n }')
     html = html.replace('{{ID_MIGRATION}}', '{\n' + ',\n'.join(mig) + '\n }')
@@ -277,6 +290,8 @@ def main():
         panes += render_stage_pane(s)
     panes.append(' ')
     panes += render_action_pane()
+    panes.append(' ')
+    panes += render_exec_pane()
     html = html.replace('<!--{{STAGE_PANES}}-->', '\n'.join(panes))
 
     left = re.findall(r'<!--\{\{[A-Z_]+\}\}-->', html)
@@ -285,7 +300,7 @@ def main():
 
     # 防呆：JS 若引用 Python 常數，頁面上必須有對應 const 宣告
     # （少了宣告不會是語法錯誤，只會在執行時拋 ReferenceError 然後被 try/catch 吞掉）
-    for name in ('SCHEMA_VERSION', 'ACTION_ROWS', 'BCG_MAX_UNITS', 'BCG_DEFAULT_UNITS'):
+    for name in ('SCHEMA_VERSION', 'ACTION_ROWS', 'BCG_MAX_UNITS', 'BCG_DEFAULT_UNITS', 'TASK_TOOLKIT_KEY'):
         if re.search(r'\b%s\b' % name, html) and ('const %s = ' % name) not in html:
             raise SystemExit('產生失敗：JS 用到 %s 但頁面沒有 const 宣告（未注入？）' % name)
 
@@ -297,10 +312,12 @@ def main():
     n_rd = sum(len(m['items']) for m in C.STAGE_META.values())
     n_ac = C.ACTION_ROWS * len(C.ACTION_FIELDS)
     n_bcg = C.BCG_MAX_UNITS * len(C.BCG_UNIT_FIELDS)
+    n_ex = sum(len(s['items']) for s in C.EXECUTION)
     print('產生 index.html：%d bytes' % len(html.encode()))
-    print(' 文字欄位 %d 個（分析 %d + BCG 事業單位 %d + 判讀 %d + 行動 %d）%s'
-          % (len(ids), n_an, n_bcg, n_rd, n_ac, '' if not dup else '，重複 id: %s' % dup))
-    assert len(ids) == n_an + n_bcg + n_rd + n_ac, '欄位數對不上：%d vs %d' % (len(ids), n_an + n_bcg + n_rd + n_ac)
+    print(' 文字欄位 %d 個（分析 %d + BCG 事業單位 %d + 判讀 %d + 行動 %d + 執行與溝通 %d）%s'
+          % (len(ids), n_an, n_bcg, n_rd, n_ac, n_ex, '' if not dup else '，重複 id: %s' % dup))
+    assert not dup, '重複 id：%s' % dup
+    assert len(ids) == n_an + n_bcg + n_rd + n_ac + n_ex, '欄位數對不上：%d vs %d' % (len(ids), n_an + n_bcg + n_rd + n_ac + n_ex)
     print(' BCG 事業單位列 %d 列（預設顯示 %d）、行動狀態下拉 %d 個'
           % (len(re.findall(r'class="bcg-row"', html)), C.BCG_DEFAULT_UNITS, len(re.findall(r'<select[^>]*data-save="', html))))
     n_radio = len(re.findall(r'<input type="radio"[^>]*data-save="', html))

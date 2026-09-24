@@ -906,6 +906,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">成熟期</button>
                 <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">衰退轉型期</button>
                 <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">行動計畫</button>
+                <button id="tab-btn-exec" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-exec">執行與溝通</button>
                 <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">認知作弊器</button>
             </nav>
         </div>
@@ -1186,6 +1187,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             maturity: { btn: document.getElementById('tab-btn-maturity'), content: document.getElementById('tab-content-maturity') },
             decline: { btn: document.getElementById('tab-btn-decline'), content: document.getElementById('tab-content-decline') },
             actions: { btn: document.getElementById('tab-btn-actions'), content: document.getElementById('tab-content-actions') },
+            exec: { btn: document.getElementById('tab-btn-exec'), content: document.getElementById('tab-content-exec') },
             cheats: { btn: document.getElementById('tab-btn-cheats'), content: document.getElementById('tab-content-cheats') }
         };
         const SCHEMA_VERSION = {{SCHEMA_VERSION}};
@@ -1546,18 +1548,22 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         }
 
         /* 收集區塊（includeEmpty = 空白表格也要） */
-        function collectBlocks(includeEmpty) {
-            const blocks = [];
-            const anRows = [];
-            document.querySelectorAll('#tab-content-analysis .sheet-section').forEach(function (sec) {
+        function paneSections(paneSel, includeEmpty) {
+            const out = [];
+            document.querySelectorAll(paneSel + ' .sheet-section').forEach(function (sec) {
                 const rows = sectionRows(sec, includeEmpty);
                 if (!rows.length) return;
                 const g = sec.querySelector('.fw-guide');
                 const guide = (includeEmpty && g) ? g.textContent.replace(/\s+/g, ' ').trim() : '';
                 const desc = sec.querySelector('.sheet-desc');
-                anRows.push({ title: sec.querySelector('.sheet-h3').textContent.trim(),
-                              rows: rows, guide: guide, desc: desc ? desc.textContent.trim() : '' });
+                out.push({ title: sec.querySelector('.sheet-h3').textContent.trim(),
+                           rows: rows, guide: guide, desc: desc ? desc.textContent.trim() : '' });
             });
+            return out;
+        }
+        function collectBlocks(includeEmpty) {
+            const blocks = [];
+            const anRows = paneSections('#tab-content-analysis', includeEmpty);
             if (anRows.length) blocks.push({ title: '現況與分析', sub: anRows });
             const stSub = [];
             ['startup', 'growth', 'maturity', 'decline'].forEach(function (st) {
@@ -1570,6 +1576,8 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             const acPane = document.getElementById('tab-content-actions');
             const acRows = acPane ? sectionRows(acPane, includeEmpty) : [];
             if (acRows.length) blocks.push({ title: '行動計畫', sub: [{ title: '行動項目', rows: acRows }] });
+            const exRows = paneSections('#tab-content-exec', includeEmpty);
+            if (exRows.length) blocks.push({ title: '執行與溝通', sub: exRows });
             return blocks;
         }
 
@@ -1661,6 +1669,39 @@ ${bodyHtml}
                 }
             }
         } catch (e) { console.warn('自動還原失敗：', e); }
+
+        // 帶入原「任務管理工具箱」存在同網域 localStorage 的資料：只做一次（旗標另存，清空全部不會重帶）。
+        // 欄位 id 沿用原站 tool-<n>-*；目前欄位已有不同內容時附加在後，不覆蓋；原站資料不刪除。
+        const TASK_TOOLKIT_KEY = '{{TASK_TOOLKIT_KEY}}';
+        try {
+            const oldRaw = localStorage.getItem(TASK_TOOLKIT_KEY);
+            if (oldRaw && !localStorage.getItem(TASK_TOOLKIT_KEY + '_imported')) {
+                const old = JSON.parse(oldRaw);
+                let n = 0, topicNote = '';
+                Object.keys(old).forEach(function (id) {
+                    if (!/^tool-\d/.test(id)) return;
+                    const v = String(old[id] || '').trim();
+                    const el = document.getElementById(id);
+                    if (!v || !el || el.tagName !== 'TEXTAREA') return;
+                    const cur = el.value.trim();
+                    if (cur === v) return;
+                    el.value = cur ? el.value + '\n\n── 任務管理工具箱帶入 ──\n' + v : v;
+                    n++;
+                });
+                const topic = String(old['ws-topic'] || '').trim();
+                const objName = document.getElementById('obj-name');
+                if (topic && objName) {
+                    if (!objName.value.trim()) { objName.value = topic; n++; }
+                    else if (objName.value.trim() !== topic) topicNote = `（原主題「${topic}」未覆蓋現有的分析對象）`;
+                }
+                localStorage.setItem(TASK_TOOLKIT_KEY + '_imported', new Date().toLocaleString('zh-TW'));
+                if (n) {
+                    writeLocalStorage();
+                    autoGrowAll();
+                    showNotification('已從「任務管理工具箱」帶入 ' + n + ' 個欄位到「執行與溝通」' + topicNote, 'success');
+                }
+            }
+        } catch (e) { console.warn('任務管理工具箱資料帶入失敗：', e); }
 
         document.addEventListener('input', (e) =>{
             if (e.target && e.target.matches && e.target.matches('textarea.worksheet-input')) autoGrow(e.target);

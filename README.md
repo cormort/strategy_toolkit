@@ -2,7 +2,8 @@
 
 單頁 HTML 工具：把「與階段無關的策略分析」集中在一個分頁做一次，各階段分頁只留下該階段
 特有的判讀問題；每個框架都附判讀準則與實例，VRIO 與 BCG 會自動算出結論，BCG 支援多個
-事業單位並自動畫出組合矩陣，行動計畫可追蹤狀態與逾期。
+事業單位並自動畫出組合矩陣，行動計畫可追蹤狀態與逾期。「執行與溝通」分頁整合了原本的
+[任務管理工具箱](https://cormort.github.io/task_management_toolkit/)（OGSM、4P、艾森豪、5W1H、SCRUM、黃金圈、PREP、STAR）。
 
 線上：https://cormort.github.io/strategy_toolkit/
 
@@ -24,6 +25,8 @@ assets/tailwind.css   產生出來的 Tailwind 靜態 CSS
   ⑧ 經驗曲線 ⑨ 綜合判斷 —— **與階段無關，只填一次**。SWOT 排在五力與 VRIO 之後，因為它是收斂而不是起點
 - **四個階段**（創業／成長／成熟／衰退轉型）：每階段 3 題判讀（核心矛盾／該先做的一件事／訊號）
 - **行動計畫**：4 項 ×（要做什麼／負責人／期限／成功指標／狀態）
+- **執行與溝通**：A OGSM → B 4P → C 艾森豪 → D 5W1H → E SCRUM → F 黃金圈 → G PREP → H STAR，
+  從「把策略拆成目標」一路到「回顧成果」，每個工具一樣附判讀準則與實例（內容在 `content.py` 的 `EXECUTION`）
 - **認知作弊器**：隨身作弊代碼，獨立、不存檔、不匯出
 
 ## 改東西要改哪裡
@@ -62,12 +65,12 @@ assets/tailwind.css   產生出來的 Tailwind 靜態 CSS
 
 **1. 欄位 id 就是存檔的 key，不要手寫、不要改。**
 分析欄位用 `obj-name`、`swot-s` 這類固定字串；判讀欄位 `read-<階段>-<n>`；行動 `act-<列>-<欄>`；
-BCG `bcg-<n>-<欄>`。改 id 等於使用者的存檔找不到欄位。舊版（v1／v2）id → 現行 id 的對應表是
+BCG `bcg-<n>-<欄>`；執行與溝通沿用原任務管理工具箱的 `tool-<n>-<欄>`（見下方「帶入」）。改 id 等於使用者的存檔找不到欄位。舊版（v1／v2）id → 現行 id 的對應表是
 `content.py` 的 `ID_MIGRATION`（v1→v3）與 `ID_MIGRATION_V2`（v2→v3），這是「舊存檔能不能搬過來」
 的唯一依據；新增或改動欄位時要一起維護。
 
 **2. JS 不能直接寫 Python 端的常數名。**
-`SCHEMA_VERSION`、`ACTION_ROWS`、`BCG_MAX_UNITS`、`BCG_DEFAULT_UNITS` 都由 `render.py` 注入成頁面上的
+`SCHEMA_VERSION`、`ACTION_ROWS`、`BCG_MAX_UNITS`、`BCG_DEFAULT_UNITS`、`TASK_TOOLKIT_KEY` 都由 `render.py` 注入成頁面上的
 `const`。直接寫在 `template.html` 的 JS 裡會**通過語法檢查、建置也成功**，但開頁時丟
 `ReferenceError`，而且如果那句在 `try{}` 裡就會被 catch 吞掉 —— 症狀是某段初始化「什麼都沒發生」。
 `render.py` 已加入建置期檢查：JS 用到但頁面沒有對應 `const` 宣告就中止建置。
@@ -113,16 +116,21 @@ BCG `bcg-<n>-<欄>`。改 id 等於使用者的存檔找不到欄位。舊版（
 
 ## 開發備註
 
+- **從任務管理工具箱帶入**：兩站同在 `cormort.github.io`，共用 localStorage。開頁時若有原站的
+  `managerToday8ToolsTabsData` 且尚未帶入過，就把 `tool-*` 欄位帶進「執行與溝通」：本站欄位空白就填入，
+  已有不同內容就以「── 任務管理工具箱帶入 ──」附加在後；原站主題 `ws-topic` 只在 `obj-name` 空白時帶入，
+  否則在通知裡列出。帶入後寫一個 `managerToday8ToolsTabsData_imported` 旗標（獨立 key，「清空全部」不會
+  讓它重帶），原站資料不刪除。
 - 下載檔名用本地日期（`localDateStr()`），不用 `toISOString()`（那是 UTC，在台北會差一天）
 - 單欄欄位的 class 依位置決定：排在矩陣**前面**用 `mb-4`，排在**後面**用 `mt-4`（由 `render.py` 推導）
-- **分頁列用 `flex-wrap` 換行，不要改回 `overflow-x: auto` 的橫向捲動。** 7 個分頁在 1100px 容器
-  約 797px 寬；改成橫向捲動後，375px 手機只看得到 3 個分頁、其餘要靠滑動且畫面上沒有任何提示。
+- **分頁列用 `flex-wrap` 換行，不要改回 `overflow-x: auto` 的橫向捲動。** 8 個分頁在 1100px 容器
+  仍排得下一行；改成橫向捲動後，375px 手機只看得到 3 個分頁、其餘要靠滑動且畫面上沒有任何提示。
   換行後 320/375px 為 3 行、768px 為 2 行、≥1024px 仍是一行（桌面外觀逐像素不變）。
 - **視覺樣式改「商務風格覆寫層」**（`template.html` 自訂樣式最後一段，IBM Carbon 語彙：單一藍色
   accent、灰階、扁平、字重 300/400/600、介面不用 emoji）。它靠「同特異度、後者勝」覆寫上面的舊規則，
   要改樣式改這一層。字重若有增減，要同步改 `<head>` 的 Google Fonts `wght@` 參數，否則該字重不會載入。
 - 通知（`.notification`）是 `position: fixed`，列印時會被重複印在每一頁，已在 `@media print` 隱藏。
-- 改動後請驗證：`python3 src/render.py` 應產出 **70 個文字欄位、37 個是/否選項、4 個下拉**，
+- 改動後請驗證：`python3 src/render.py` 應產出 **104 個文字欄位（含執行與溝通 34）、37 個是/否選項、4 個下拉**，
   且無重複 id（`render.py` 會自己檢查欄位數加總與重複 id）
 - `build.sh` 的產出必須可重現（連跑兩次 sha256 相同）
 - 遷移邏輯若改動，兩種舊存檔都要實測：v1（無 `_schema`）與 v2（`_schema: 2`），
