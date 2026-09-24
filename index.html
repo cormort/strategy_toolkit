@@ -1733,38 +1733,6 @@ td.k { width: 30%; background: #f1f5f9; font-weight: bold; }
 <p>產出日期：${localDateStr()}</p>
 ${bodyHtml}
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const rail = document.querySelector('.workflow-rail');
-  if (!rail) return;
-  const steps = Array.from(rail.querySelectorAll('.workflow-step'));
-  const stageTabs = new Set(['startup', 'growth', 'maturity', 'decline']);
-
-  function markWorkflow(tabName) {
-    const bucket = stageTabs.has(tabName) ? 'startup' : tabName;
-    steps.forEach(function (step) {
-      step.classList.toggle('is-current', step.dataset.targetTab === bucket);
-    });
-  }
-
-  steps.forEach(function (step) {
-    step.addEventListener('click', function () {
-      const target = document.getElementById('tab-btn-' + step.dataset.targetTab);
-      if (target) {
-        target.click();
-        target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        markWorkflow(step.dataset.targetTab);
-      }
-    });
-  });
-
-  document.querySelectorAll('[role="tab"]').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      markWorkflow(tab.id.replace('tab-btn-', ''));
-    });
-  });
-});
-</script>
 
 </body></html>`;
             const blob = new Blob(['\ufeff', finalHtmlString.trim()], { type: 'application/msword' });
@@ -2200,5 +2168,37 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const rail = document.querySelector('.workflow-rail');
+  if (!rail) return;
+  const steps = Array.from(rail.querySelectorAll('.workflow-step'));
+  const stageTabs = new Set(['startup', 'growth', 'maturity', 'decline']);
+
+  function markWorkflow(tabName) {
+    const bucket = stageTabs.has(tabName) ? 'startup' : tabName;
+    steps.forEach(function (step) {
+      step.classList.toggle('is-current', step.dataset.targetTab === bucket);
+    });
+  }
+
+  steps.forEach(function (step) {
+    step.addEventListener('click', function () {
+      const target = document.getElementById('tab-btn-' + step.dataset.targetTab);
+      if (target) {
+        target.click();
+        target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        markWorkflow(step.dataset.targetTab);
+      }
+    });
+  });
+
+  document.querySelectorAll('[role="tab"]').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      markWorkflow(tab.id.replace('tab-btn-', ''));
+    });
+  });
+});
+</script>
 </body>
 </html>
