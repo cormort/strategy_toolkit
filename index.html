@@ -15,7 +15,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     
         <!-- 主要介面樣式已拆分為獨立檔案；請與本 HTML 放在同一目錄 -->
-    <link rel="stylesheet" href="./strategy_toolkit_beautified.css">
+    <link rel="stylesheet" href="./strategy_toolkit_premium.css">
 
     <!-- Tailwind 產生的樣式必須排在自訂 <style>之後：
          兩者特異度相同，順序決定誰勝出（原本 CDN 是執行時注入，天生在後面）。 -->
@@ -29,6 +29,17 @@
 
   gtag('config', 'G-GHGBM401HN');
 </script>
+    <script>
+    (function () {
+      try {
+        const stored = localStorage.getItem('strategyToolkitTheme');
+        const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = stored || (systemDark ? 'dark' : 'light');
+      } catch (_) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+    </script>
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 text-slate-800 min-h-screen">
 
@@ -41,10 +52,16 @@
                 <h1 class="page-title"><span>策略決策工作台</span></h1>
                 <p class="workspace-lead">從現況診斷、策略選擇到行動追蹤，把分散的分析收斂成一份可執行的決策。</p>
             </div>
-            <div class="workspace-hero__meta" aria-label="工具特色">
-                <span><i aria-hidden="true">✓</i> 自動儲存</span>
-                <span><i aria-hidden="true">↗</i> 可匯出報告</span>
-                <span><i aria-hidden="true">◉</i> 本機資料</span>
+            <div class="workspace-hero__side">
+                <button type="button" id="themeToggle" class="theme-toggle" aria-label="切換深色模式" aria-pressed="false">
+                    <span class="theme-toggle__icon" aria-hidden="true">☾</span>
+                    <span class="theme-toggle__label">深色模式</span>
+                </button>
+                <div class="workspace-hero__meta" aria-label="工具特色">
+                    <span><i aria-hidden="true">✓</i> 自動儲存</span>
+                    <span><i aria-hidden="true">↗</i> 可匯出報告</span>
+                    <span><i aria-hidden="true">◉</i> 本機資料</span>
+                </div>
             </div>
         </header>
         <nav class="workflow-rail no-print" aria-label="建議使用流程">
@@ -2202,6 +2219,92 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+</script>
+
+<nav class="mobile-bottom-nav no-print" aria-label="手機版主要操作">
+  <button type="button" data-mobile-tab="analysis" class="is-active"><span aria-hidden="true">◇</span><small>診斷</small></button>
+  <button type="button" data-mobile-tab="startup"><span aria-hidden="true">◫</span><small>階段</small></button>
+  <button type="button" data-mobile-tab="actions"><span aria-hidden="true">✓</span><small>行動</small></button>
+  <button type="button" data-mobile-tab="exec"><span aria-hidden="true">↗</span><small>執行</small></button>
+  <button type="button" id="mobileSave"><span aria-hidden="true">↓</span><small>儲存</small></button>
+</nav>
+
+<script>
+(function () {
+  'use strict';
+  const root = document.documentElement;
+  const themeButton = document.getElementById('themeToggle');
+  const mobileNav = document.querySelector('.mobile-bottom-nav');
+  const stageTabs = new Set(['startup', 'growth', 'maturity', 'decline']);
+
+  function applyTheme(theme, persist) {
+    root.dataset.theme = theme;
+    const dark = theme === 'dark';
+    if (themeButton) {
+      themeButton.setAttribute('aria-pressed', String(dark));
+      const icon = themeButton.querySelector('.theme-toggle__icon');
+      const label = themeButton.querySelector('.theme-toggle__label');
+      if (icon) icon.textContent = dark ? '☀' : '☾';
+      if (label) label.textContent = dark ? '淺色模式' : '深色模式';
+      themeButton.setAttribute('aria-label', dark ? '切換淺色模式' : '切換深色模式');
+    }
+    if (persist) {
+      try { localStorage.setItem('strategyToolkitTheme', theme); } catch (_) {}
+    }
+  }
+
+  function markMobile(tabName) {
+    if (!mobileNav) return;
+    const bucket = stageTabs.has(tabName) ? 'startup' : tabName;
+    mobileNav.querySelectorAll('[data-mobile-tab]').forEach(function (button) {
+      button.classList.toggle('is-active', button.dataset.mobileTab === bucket);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    applyTheme(root.dataset.theme || 'light', false);
+
+    if (themeButton) {
+      themeButton.addEventListener('click', function () {
+        applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark', true);
+      });
+    }
+
+    if (window.matchMedia) {
+      const media = window.matchMedia('(prefers-color-scheme: dark)');
+      const listener = function (event) {
+        try {
+          if (!localStorage.getItem('strategyToolkitTheme')) applyTheme(event.matches ? 'dark' : 'light', false);
+        } catch (_) {}
+      };
+      if (media.addEventListener) media.addEventListener('change', listener);
+    }
+
+    if (mobileNav) {
+      mobileNav.querySelectorAll('[data-mobile-tab]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          const target = document.getElementById('tab-btn-' + button.dataset.mobileTab);
+          if (target) {
+            target.click();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            markMobile(button.dataset.mobileTab);
+          }
+        });
+      });
+      const save = document.getElementById('mobileSave');
+      if (save) save.addEventListener('click', function () {
+        const original = document.getElementById('saveButton');
+        if (original) original.click();
+      });
+    }
+
+    document.querySelectorAll('[role="tab"]').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        markMobile(tab.id.replace('tab-btn-', ''));
+      });
+    });
+  });
+})();
 </script>
 </body>
 </html>
