@@ -1,0 +1,195 @@
+/* strategy-toolkit dark surface hotfix v9.1
+   Load this file AFTER strategy_toolkit_dark_retested.css.
+*/
+
+/* 1. Remove abrupt white/light containers in dark mode */
+html[data-theme="dark"] .diag-result,
+html[data-theme="dark"] #diagResult {
+  background: #17231f !important;
+  color: #eef4f0 !important;
+  border: 1px solid #4b6259 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .diag-empty,
+html[data-theme="dark"] #diagOutcome {
+  background: transparent !important;
+  color: #d2ddd7 !important;
+  border: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .diag-score { color: #c0cbc5 !important; }
+html[data-theme="dark"] .diag-winner { color: #f4f8f5 !important; }
+
+html[data-theme="dark"] .guide-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px !important;
+  background: #17231f !important;
+  border: 1px solid #40564d !important;
+  border-radius: 10px !important;
+  color: #d6e0db !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .guide-toggle button,
+html[data-theme="dark"] #guideToggle {
+  background: #213a34 !important;
+  color: #bdebe2 !important;
+  border: 1px solid #5c8075 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .guide-toggle button:hover,
+html[data-theme="dark"] #guideToggle:hover {
+  background: #294a42 !important;
+  color: #ffffff !important;
+  border-color: #83cabe !important;
+}
+html[data-theme="dark"] .guide-toggle .field-tag {
+  color: #c0cbc5 !important;
+}
+
+/* BCG wrapper previously inherited a light surface */
+html[data-theme="dark"] .bcg-wrap,
+html[data-theme="dark"] .bcg-plot {
+  background: #17231f !important;
+  color: #eef4f0 !important;
+  border-color: #4b6259 !important;
+  box-shadow: none !important;
+}
+html[data-theme="dark"] .bcg-wrap {
+  padding: 0 !important;
+  border: 1px solid #4b6259 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+html[data-theme="dark"] .bcg-ylab,
+html[data-theme="dark"] .bcg-xlab {
+  background: #1d2a26 !important;
+  color: #d7e2dc !important;
+  border-color: #4b6259 !important;
+}
+html[data-theme="dark"] .bcg-grid,
+html[data-theme="dark"] .bcg-cell {
+  border-color: #4b6259 !important;
+}
+html[data-theme="dark"] .bcg-summary {
+  margin: 12px !important;
+  background: #0f1916 !important;
+  color: #edf4f0 !important;
+  border: 1px solid #4b6259 !important;
+  border-left: 4px solid #79cbbc !important;
+}
+html[data-theme="dark"] .bcg-summary strong { color: #bdebe2 !important; }
+
+/* 2. Avoid pale-on-pale buttons */
+html[data-theme="dark"] .quick-action--primary,
+html[data-theme="dark"] .diag-btn-primary,
+html[data-theme="dark"] .btn-blue {
+  background: #8dd7ca !important;
+  color: #0b211c !important;
+  border-color: #8dd7ca !important;
+  text-shadow: none !important;
+}
+html[data-theme="dark"] .quick-action--primary:hover,
+html[data-theme="dark"] .diag-btn-primary:hover,
+html[data-theme="dark"] .btn-blue:hover {
+  background: #ace9de !important;
+  color: #071713 !important;
+  border-color: #ace9de !important;
+}
+html[data-theme="dark"] .diag-btn-primary:disabled {
+  background: #34433e !important;
+  color: #aebbb5 !important;
+  border-color: #52665e !important;
+  opacity: 1 !important;
+}
+html[data-theme="dark"] .diag-btn:not(.diag-btn-primary) {
+  background: #101916 !important;
+  color: #bdebe2 !important;
+  border-color: #60766d !important;
+}
+
+/* 3. Normalize any remaining legacy light surfaces */
+html[data-theme="dark"] .carry-bar,
+html[data-theme="dark"] .action-summary,
+html[data-theme="dark"] .stage-reading,
+html[data-theme="dark"] .stage-refs,
+html[data-theme="dark"] .tool-block,
+html[data-theme="dark"] .analysis-tool,
+html[data-theme="dark"] .fw-criteria,
+html[data-theme="dark"] .fw-example {
+  background: #1a2722 !important;
+  color: #e8efeb !important;
+  border-color: #465c53 !important;
+}
+html[data-theme="dark"] .carry-hint,
+html[data-theme="dark"] .stage-reading p,
+html[data-theme="dark"] .stage-refs,
+html[data-theme="dark"] .fw-criteria p,
+html[data-theme="dark"] .fw-example p {
+  color: #c4d0ca !important;
+}
+
+/* Catch Tailwind-like light background utilities still present in generated content */
+html[data-theme="dark"] [class~="bg-white"],
+html[data-theme="dark"] [class~="bg-slate-50"],
+html[data-theme="dark"] [class~="bg-slate-100"],
+html[data-theme="dark"] [class~="bg-gray-50"],
+html[data-theme="dark"] [class~="bg-gray-100"] {
+  background-color: #1a2722 !important;
+}
+
+/* 4. Strengthen text on every intentionally lighter dark surface */
+html[data-theme="dark"] .start-panel,
+html[data-theme="dark"] .workflow-step.is-current,
+html[data-theme="dark"] .tab-btn.active,
+html[data-theme="dark"] .tab-btn[aria-selected="true"] {
+  color: #eef5f1 !important;
+}
+html[data-theme="dark"] .start-panel h2,
+html[data-theme="dark"] .start-panel__kicker {
+  color: #c2eee5 !important;
+}
+html[data-theme="dark"] .start-panel p {
+  color: #d1dcd6 !important;
+}
+
+/* 5. Light mode: darken text used on pale mint and cream surfaces */
+html[data-theme="light"] .quick-action--primary,
+html[data-theme="light"] .diag-btn-primary,
+html[data-theme="light"] .btn-blue {
+  background: #174f47 !important;
+  color: #ffffff !important;
+  border-color: #174f47 !important;
+}
+html[data-theme="light"] .start-panel h2,
+html[data-theme="light"] .start-panel__kicker,
+html[data-theme="light"] .workflow-step.is-current,
+html[data-theme="light"] .tab-btn.active,
+html[data-theme="light"] .tab-btn[aria-selected="true"] {
+  color: #123c36 !important;
+}
+html[data-theme="light"] .start-panel p,
+html[data-theme="light"] .field-tag,
+html[data-theme="light"] .sheet-desc,
+html[data-theme="light"] .analysis-p {
+  color: #4b5751 !important;
+}
+
+@media (max-width: 720px) {
+  html[data-theme="dark"] .diag-result,
+  html[data-theme="dark"] #diagResult {
+    align-items: stretch;
+  }
+  html[data-theme="dark"] .diag-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  html[data-theme="dark"] .guide-toggle {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  html[data-theme="dark"] .guide-toggle button { width: 100%; min-height: 46px; }
+}
