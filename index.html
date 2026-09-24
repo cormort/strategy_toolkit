@@ -15,7 +15,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     
         <!-- 主要介面樣式已拆分為獨立檔案；請與本 HTML 放在同一目錄 -->
-    <link rel="stylesheet" href="./strategy_toolkit.css">
+    <link rel="stylesheet" href="./strategy_toolkit_presented.css">
 
     <!-- Tailwind 產生的樣式必須排在自訂 <style>之後：
          兩者特異度相同，順序決定誰勝出（原本 CDN 是執行時注入，天生在後面）。 -->
@@ -35,24 +35,56 @@
     <a class="skip-link" href="#mainWorkspace">跳到主要內容</a>
     <main id="mainWorkspace" class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-10 bg-white rounded-2xl shadow-2xl my-6 sm:my-12">
 
-        <h1 class="page-title">
-            <span>策略決策工作台</span>
-        </h1>
+        <header class="workspace-hero">
+            <div class="workspace-hero__copy">
+                <p class="workspace-eyebrow">STRATEGY DECISION WORKSPACE</p>
+                <h1 class="page-title"><span>策略決策工作台</span></h1>
+                <p class="workspace-lead">從現況診斷、策略選擇到行動追蹤，把分散的分析收斂成一份可執行的決策。</p>
+            </div>
+            <div class="workspace-hero__meta" aria-label="工具特色">
+                <span>自動儲存</span>
+                <span>可匯出報告</span>
+                <span>離線資料</span>
+            </div>
+        </header>
+        <nav class="workflow-rail no-print" aria-label="建議使用流程">
+            <button type="button" class="workflow-step is-current" data-target-tab="analysis"><b>1</b><span>診斷</span><small>界定問題與分析</small></button>
+            <button type="button" class="workflow-step" data-target-tab="startup"><b>2</b><span>階段</span><small>找出當前重點</small></button>
+            <button type="button" class="workflow-step" data-target-tab="actions"><b>3</b><span>行動</span><small>指定負責與期限</small></button>
+            <button type="button" class="workflow-step" data-target-tab="exec"><b>4</b><span>執行</span><small>推進與溝通</small></button>
+        </nav>
 
         <div class="mb-8 border-b-2 border-slate-200 no-print">
             <nav class="tab-buttons no-print" role="tablist" aria-label="工作表分頁">
-                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">現況與分析</button>
-                <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">創業期</button>
-                <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">成長期</button>
-                <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">成熟期</button>
-                <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">衰退轉型期</button>
-                <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">行動計畫</button>
-                <button id="tab-btn-exec" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-exec">執行與溝通</button>
-                <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">決策捷徑</button>
+                <button id="tab-btn-analysis" class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-content-analysis">1 診斷分析</button>
+                <button id="tab-btn-startup" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-startup">創業</button>
+                <button id="tab-btn-growth" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-growth">成長</button>
+                <button id="tab-btn-maturity" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-maturity">成熟</button>
+                <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">轉型</button>
+                <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">3 行動計畫</button>
+                <button id="tab-btn-exec" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-exec">4 執行溝通</button>
+                <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">工具庫</button>
             </nav>
         </div>
         
         <div id="tab-content-analysis" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-analysis">
+            <section class="start-panel no-print" aria-labelledby="start-panel-title">
+                <div>
+                    <p class="start-panel__kicker">第一次使用，從這裡開始</p>
+                    <h2 id="start-panel-title">先界定一個要做的決定，再選必要框架</h2>
+                    <p>不必一次填完所有工具。建議先完成「對象與現況」及「階段判定」，再依問題選用 2 至 3 個分析框架。</p>
+                </div>
+                <div class="start-panel__actions">
+                    <a class="quick-action quick-action--primary" href="#sec-obj">開始界定問題</a>
+                    <a class="quick-action" href="#stageDiagnosis">判定生命週期</a>
+                </div>
+            </section>
+            <nav class="analysis-jump no-print" aria-label="分析框架快速導覽">
+                <span>快速前往</span>
+                <a href="#sec-obj">現況</a><a href="#sec-5f">五力</a><a href="#sec-vrio">VRIO</a>
+                <a href="#sec-swot">SWOT</a><a href="#sec-bcg">BCG</a><a href="#sec-ansoff">安索夫</a>
+                <a href="#sec-porter">基本策略</a><a href="#sec-synth">綜合判斷</a>
+            </nav>
             
             <p class="analysis-p mb-10 text-lg">
                 企業如同生命體，會經歷不同的發展階段。本工具把「與階段無關的分析」集中在這一頁做一次，各階段分頁只留下該階段特有的判讀問題；每個框架都附上判讀準則與實例。
@@ -1216,7 +1248,7 @@
                 <input type="file" id="restoreFile" accept=".json,application/json" style="display:none">
             </div>
             <p class="text-sm text-slate-500 mt-2">
-                提示：定期儲存您的工作，避免資料遺失
+                資料會自動儲存在此瀏覽器。跨裝置使用時，請先下載備份。
             </p>
         </div>
     </main>
@@ -1700,6 +1732,40 @@ td.k { width: 30%; background: #f1f5f9; font-weight: bold; }
 <h1>${title}${topic ? '：' + topic.replace(/&/g, '&amp;').replace(/</g, '&lt;') : ''}</h1>
 <p>產出日期：${localDateStr()}</p>
 ${bodyHtml}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const rail = document.querySelector('.workflow-rail');
+  if (!rail) return;
+  const steps = Array.from(rail.querySelectorAll('.workflow-step'));
+  const stageTabs = new Set(['startup', 'growth', 'maturity', 'decline']);
+
+  function markWorkflow(tabName) {
+    const bucket = stageTabs.has(tabName) ? 'startup' : tabName;
+    steps.forEach(function (step) {
+      step.classList.toggle('is-current', step.dataset.targetTab === bucket);
+    });
+  }
+
+  steps.forEach(function (step) {
+    step.addEventListener('click', function () {
+      const target = document.getElementById('tab-btn-' + step.dataset.targetTab);
+      if (target) {
+        target.click();
+        target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        markWorkflow(step.dataset.targetTab);
+      }
+    });
+  });
+
+  document.querySelectorAll('[role="tab"]').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      markWorkflow(tab.id.replace('tab-btn-', ''));
+    });
+  });
+});
+</script>
+
 </body></html>`;
             const blob = new Blob(['\ufeff', finalHtmlString.trim()], { type: 'application/msword' });
             saveAs(blob, filename);
