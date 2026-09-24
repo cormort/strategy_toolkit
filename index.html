@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
 <!-- 這個檔案是產生出來的，不要直接編輯。
-         內容來源：src/content.py ／ 版面來源：src/template.html
+         內容來源：src/content.py ／ 版面來源：src/template.html ／ 樣式：strategy_toolkit.css
          改完請執行：bash build.sh -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商業生命週期策略工具箱 v3</title>
+    <title>策略決策工作台 v4</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- 字重只載商務風格層用到的 300/400/600（見下方「字重紀律」） -->
@@ -14,868 +14,8 @@
     <!-- saveAs 只在點匯出／備份時才用到，defer 避免阻擋首次繪製 -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     
-    <style>
-        /* --- 全局設定 --- */
-        * { box-sizing: border-box; }
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        
-        /* --- 修正 2.3: Textarea 樣式 (min-height ->120px) --- */
-        /* --- 修正 3.1: 視覺一致性 (顏色更新為 #3498db) --- */
-        .worksheet-input { 
-            margin-top: 0.375rem; 
-            padding: 0.875rem; 
-            display: block; 
-            width: 100%; 
-            border-radius: 0.5rem; 
-            border: 1.5px solid #cbd5e1; 
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); 
-            font-size: 0.95rem; 
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
-            background: linear-gradient(to bottom, #f8fafc, #ffffff);
-            min-height: 120px; /* 依照建議 2.3 調整 */
-            resize: vertical; 
-            line-height: 1.6;
-        }
-        
-        .worksheet-input:hover { 
-            border-color: #94a3b8; 
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-        }
-        
-        .worksheet-input:focus { 
-            border-color: #3498db; /* 依照建議 3.1 調整 */
-            outline: none; 
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15), 0 2px 8px rgba(52, 152, 219, 0.1); /* 依照建議 3.1 調整 */
-            background: #ffffff;
-        }
-        
-        /* --- Tab 樣式 (顏色更新) --- */
-        .tab-buttons {
-            display: flex;
-            flex-wrap: wrap; /* 窄螢幕換行；桌面寬度下仍是一行，外觀不變 */
-            border-bottom: 2px solid #e2e8f0;
-            margin-bottom: 1.5rem;
-            gap: 0.25rem;
-        }
-        
-        .tab-buttons::-webkit-scrollbar { height: 6px; }
-        .tab-buttons::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 3px; }
-        .tab-buttons::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-
-        .tab-btn { 
-            flex-shrink: 0;
-            white-space: nowrap; /* 按鈕內文字不斷行，換行交給容器 */ 
-            padding: 0.875rem 1.25rem; 
-            border-bottom: 3px solid transparent; 
-            font-weight: 500; 
-            font-size: 0.95rem; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-            border-radius: 0.5rem 0.5rem 0 0; 
-        }
-        
-        .tab-btn.active { 
-            border-color: #3498db; /* 依照建議 3.1 調整 */
-            color: #2980b9; /* 依照建議 3.1 調整 (較深) */
-            font-weight: 600; 
-            background: linear-gradient(to bottom, #eaf5fb, #ffffff); /* 依照建議 3.1 調整 (較淺) */
-            box-shadow: 0 -2px 8px rgba(52, 152, 219, 0.1); /* 依照建議 3.1 調整 */
-        }
-        
-        .tab-btn.inactive { 
-            border-color: transparent; 
-            color: #64748b; 
-        }
-        
-        .tab-btn.inactive:hover { 
-            color: #334155; 
-            background-color: #f8fafc;
-            border-color: #cbd5e1;
-        }
-        
-        .tab-content { 
-            display: none; 
-            animation: fadeIn 0.3s ease-out; 
-        }
-        
-        .tab-content.active { 
-            display: block; 
-        }
-        
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(8px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-        
-        /* --- 階段重點卡片 (顏色更新) --- */
-        .stage-focus { 
-            background: linear-gradient(135deg, #eaf5fb 0%, #f4f9fc 100%); /* 依照建議 3.1 調整 */
-            border: 2px solid #a9d6f5; /* 依照建議 3.1 調整 (較淺) */
-            border-radius: 0.75rem; 
-            padding: 1.25rem 1.5rem; 
-            margin-bottom: 2rem; 
-            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.1); /* 依照建議 3.1 調整 */
-        }
-        
-        .stage-focus h3 { 
-            font-size: 1.125rem; 
-            font-weight: 600; 
-            color: #2980b9; /* 依照建議 3.1 調整 (較深) */
-            margin-bottom: 0.75rem; 
-        }
-        
-        .stage-focus ul { 
-            list-style: none; 
-            margin-left: 0;
-            color: #2980b9; /* 依照建議 3.1 調整 */
-            font-size: 0.95rem; 
-        }
-        
-        .stage-focus li {
-            padding-left: 1.5rem;
-            position: relative;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stage-focus li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #3498db; /* 依照建議 3.1 調整 */
-            font-weight: bold;
-        }
-
-        .stage-section { 
-            margin-bottom: 3rem; 
-            padding-top: 1rem; 
-        }
-        
-        /* --- 階段標題 (顏色更新) --- */
-        .stage-title { 
-            font-size: 1.875rem; 
-            font-weight: 700; 
-            color: #2980b9; /* 依照建議 3.1 調整 (較深) */
-            border-bottom: 3px solid #a9d6f5; /* 依照建議 3.1 調整 (較淺) */
-            padding-bottom: 0.75rem; 
-            margin-bottom: 1.75rem;
-            background: linear-gradient(to right, #3498db, #2980b9); /* 依照建議 3.1 調整 */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        /* --- 工具區塊 (顏色更新) --- */
-        .tool-block { 
-            margin-bottom: 2.5rem; 
-            border-left: 4px solid #3498db; /* 依照建議 3.1 調整 */
-            padding-left: 1.25rem;
-            background: linear-gradient(to right, rgba(52, 152, 219, 0.03), transparent); /* 依照建議 3.1 調整 */
-            border-radius: 0 0.5rem 0.5rem 0;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-        }
-        
-        .tool-label { 
-            font-size: 1.25rem; 
-            font-weight: 600; 
-            color: #334155; 
-            margin-bottom: 0.5rem; 
-        }
-        
-        .tool-description { 
-            font-size: 0.9rem; 
-            color: #64748b; 
-            margin-bottom: 1rem; 
-            font-style: italic;
-        }
-        
-        .sub-label { 
-            font-size: 0.95rem; 
-            font-weight: 500; 
-            color: #475569; 
-            margin-bottom: 0.375rem; 
-            display: block; 
-        }
-        
-        .sub-label-hint { 
-            font-size: 0.8rem; 
-            color: #94a3b8; 
-            display: block; 
-            margin-top: -2px; 
-            margin-bottom: 0.375rem;
-        }
-
-        /* --- 修正 2.1 & 2.2: .toolkit 佈局 (更新為 flex-start) --- */
-        .toolkit {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start; /* 修正：改為 flex-start (靠左對齊) */
-            gap: 20px; /* 依照建議 2.1 調整 */
-            margin-top: 0.75rem;
-        }
-        
-        .toolkit >.input-group {
-            width: 300px; /* 依照建議 2.2 調整 (固定寬度) */
-            max-width: 100%; /* 增加保護，避免在極窄螢幕溢出 */
-            margin-bottom: 0; /* 由 gap 控制間距 */
-        }
-        
-        /* .input-group 的原始樣式 */
-        .input-group { 
-            margin-bottom: 1.25rem; 
-        }
-        
-        .input-group:last-child { 
-            margin-bottom: 0; 
-        }
-
-        /* --- 修正 3.1 & 3.4: 按鈕顏色一致性 --- */
-        .btn-base {
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            color: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-        
-        .btn-base:hover {
-            transform: translateY(-2px);
-        }
-        
-        .btn-base:active {
-            transform: translateY(-1px);
-        }
-
-        .btn-blue {
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-        }
-        
-        .btn-blue:hover {
-            box-shadow: 0 8px 16px rgba(52, 152, 219, 0.3);
-        }
-        
-        /* 舊的 export-btn, save-btn, load-btn 已被 .btn-base 和 .btn-blue 取代 */
-        /* 保留 export-btn 的閃光效果 */
-        .export-btn:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .export-btn:hover:before {
-            left: 100%;
-        }
-        
-        /* --- 響應式調整 (修正 2.4) --- */
-        @media print {
-            /* 通知訊息是 fixed，會被重複印在每一頁；列印時隱藏 */
-            .notification { display: none !important; }
-            .no-print { 
-                display: none; 
-            } 
-            /* 列印時讓工作表欄位隨內容完整展開。
-               否則 textarea 固定 120px，長內容只印出可見的 1–2 行（實測 20 行只印 2 行）。 */
-            textarea.worksheet-input {
-                field-sizing: content;
-                height: auto !important;
-                min-height: 0 !important;
-                max-height: none !important;
-                overflow: visible !important;
-                resize: none;
-                box-shadow: none;
-            }
-            /* 進場動畫在部分列印環境會停在 opacity:0，列印時一律停用 */
-            .tab-content, .tab-content.active { animation: none !important; opacity: 1 !important; }
-            .cheat-card, .cheat-chip { break-inside: avoid; }
-        }
-        
-        .analysis-section { 
-            margin-bottom: 2.5rem; 
-        }
-        
-        .analysis-h2 { 
-            font-size: 1.5rem; 
-            font-weight: 600; 
-            color: #2980b9; /* 依照建議 3.1 調整 */
-            margin-bottom: 1rem; 
-            border-left: 4px solid #3498db; /* 依照建議 3.1 調整 */
-            padding-left: 1rem; 
-        }
-        
-        .analysis-h3 { 
-            font-size: 1.15rem; 
-            font-weight: 600; 
-            color: #1e293b; 
-            margin-top: 1.25rem; 
-            margin-bottom: 0.625rem; 
-        }
-        
-        .analysis-p { 
-            color: #475569; 
-            margin-bottom: 1rem; 
-            line-height: 1.7;
-        }
-        
-        .analysis-ul { 
-            list-style: disc; 
-            margin-left: 1.75rem; 
-            margin-bottom: 1rem; 
-            color: #475569; 
-            line-height: 1.7;
-        }
-        
-        .analysis-tool { 
-            background: linear-gradient(to right, #f1f5f9, #ffffff);
-            border: 1px solid #e2e8f0; 
-            border-left: 3px solid #3498db; /* 依照建議 3.1 調整 */
-            border-radius: 0.5rem; 
-            padding: 1rem 1.25rem; 
-            margin-bottom: 1rem;
-            transition: all 0.2s ease;
-        }
-        
-        .analysis-tool:hover {
-            border-left-width: 4px;
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1); /* 依照建議 3.1 調整 */
-        }
-        
-        .analysis-tool strong { 
-            color: #0f766e; /* 分析頁面的顏色可保持，以示區別 */
-            font-weight: 600;
-        }
-        
-        @media (max-width: 768px) {
-            .stage-title {
-                font-size: 1.5rem;
-            }
-            
-            .tool-label {
-                font-size: 1.1rem;
-            }
-            
-            /* 舊的 grid media query 已被 .toolkit 取代 */
-            
-            .tab-btn {
-                font-size: 0.875rem;
-                padding: 0.75rem 1rem;
-            }
-        }
-        
-        /* --- 載入與通知 --- */
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .loading {
-            display: inline-block;
-            width: 1rem;
-            height: 1rem;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.6s linear infinite;
-            margin-left: 0.5rem;
-        }
-        
-        /* 修正 4.1: 已在 JS 中實現 (showNotification) */
-        .notification {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            padding: 1rem 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
-            animation: slideIn 0.3s ease-out;
-            max-width: 90vw;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        .notification.success {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-        }
-        
-        .notification.error {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
-    
-        /* ===================================================================
-           認知作弊器（Strategy Toolkit）— 整合區塊專用樣式
-           顏色沿用本站藍 (#3498db) 作為外框，語意色保留原設計
-           =================================================================== */
-        .cheat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.25rem; }
-        .cheat-card {
-            display: flex; flex-direction: column; justify-content: space-between;
-            background: #fff; border: 1px solid #e2e8f0; border-radius: 0.75rem;
-            padding: 1.25rem; box-shadow: 0 1px 2px rgba(0,0,0,.05);
-            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-        }
-        .cheat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.08); border-color: #94a3b8; }
-        .cheat-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: .7rem; }
-        .cheat-id { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: .72rem;
-            font-weight: 700; color: #2980b9; background: #eaf5fb; padding: .18rem .5rem; border-radius: .35rem; }
-        .cheat-cat { font-size: .72rem; font-weight: 600; color: #64748b; }
-        .cheat-title { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: .7rem; }
-        .cheat-block { margin-bottom: .8rem; font-size: .88rem; }
-        .cheat-label { font-size: .72rem; font-weight: 700; letter-spacing: .04em; margin-bottom: .28rem; }
-        .cheat-bug { color: #d97706; } .cheat-trigger { color: #2980b9; }
-        .cheat-action { color: #059669; } .cheat-taboo { color: #e11d48; }
-        .cheat-action-panel { background: #ecfdf5; border-left: 3px solid #059669; padding: .6rem .8rem;
-            border-radius: 0 .5rem .5rem 0; font-weight: 600; color: #065f46; line-height: 1.45; }
-        .cheat-taboo-panel { background: #fff1f2; border-left: 3px solid #e11d48; padding: .5rem .75rem;
-            border-radius: 0 .5rem .5rem 0; font-size: .8rem; color: #9f1239; }
-        .cheat-footer { margin-top: 1.1rem; padding-top: .9rem; border-top: 1px solid #f1f5f9;
-            display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
-        .cheat-timer { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1rem; font-weight: 700; color: #2980b9; }
-        .cheat-note { font-size: .75rem; color: #64748b; }
-        .cheat-btn { background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: .4rem .8rem;
-            border-radius: .5rem; font-size: .8rem; font-weight: 600; cursor: pointer;
-            display: inline-flex; align-items: center; gap: .35rem; transition: all .15s ease; }
-        .cheat-btn:hover { background: #3498db; color: #fff; border-color: #3498db; }
-        .cheat-controls { display: flex; flex-direction: column; gap: .9rem; background: #f8fafc;
-            border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.75rem; }
-        .cheat-search { position: relative; }
-        .cheat-search input { width: 100%; padding: .7rem 1rem .7rem 2.4rem; font-size: .92rem;
-            border: 1.5px solid #cbd5e1; border-radius: .5rem; outline: none; background: #fff; transition: all .2s ease; }
-        .cheat-search input:focus { border-color: #3498db; box-shadow: 0 0 0 3px rgba(52,152,219,.15); }
-        .cheat-search span { position: absolute; left: .8rem; top: 50%; transform: translateY(-50%); color: #94a3b8; }
-        .cheat-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
-        .cheat-chip { border: 1px solid #e2e8f0; color: #64748b; background: #fff; padding: .35rem .8rem;
-            border-radius: .5rem; font-size: .82rem; font-weight: 500; cursor: pointer; transition: all .15s ease; }
-        .cheat-chip:hover { background: #f1f5f9; color: #0f172a; }
-        .cheat-chip.active { background: #3498db; color: #fff; border-color: #3498db; }
-        .cheat-empty { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #64748b; }
-    
-        /* ===== 階段判定 ===== */
-        .diag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
-        .diag-q { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; }
-        .diag-q h4 { font-size: 0.98rem; font-weight: 700; color: #1f2937; margin-bottom: 0.6rem; }
-        .diag-opt { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.4rem 0.5rem; border-radius: 0.4rem;
-            cursor: pointer; font-size: 0.88rem; line-height: 1.45; transition: background .15s ease; }
-        .diag-opt:hover { background: #eaf5fb; }
-        .diag-opt input { margin-top: 0.25rem; accent-color: #3498db; flex: 0 0 auto; }
-        .diag-result { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: space-between;
-            background: #eaf5fb; border: 1px solid #a9d6f5; border-radius: 0.75rem; padding: 1rem 1.15rem; }
-        .diag-empty { color: #64748b; font-size: 0.92rem; }
-        .diag-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .diag-btn { background: #fff; border: 1px solid #cbd5e1; color: #1f2937; padding: 0.5rem 1rem;
-            border-radius: 0.5rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all .15s ease; }
-        .diag-btn:hover { border-color: #3498db; color: #2980b9; }
-        .diag-btn-primary { background: #3498db; border-color: #3498db; color: #fff; }
-        .diag-btn-primary:hover { background: #2980b9; border-color: #2980b9; color: #fff; }
-        .diag-btn:disabled { opacity: .45; cursor: not-allowed; }
-        .diag-btn:disabled:hover { border-color: #cbd5e1; color: #1f2937; }
-        .diag-score { font-size: 0.82rem; color: #475569; margin-top: 0.35rem; }
-        .diag-winner { font-size: 1.05rem; font-weight: 700; color: #1f2937; }
-
-        /* ===== ⤵ 跨階段沿用 ===== */
-        .carry-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem;
-            background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 0.6rem; padding: 0.7rem 0.9rem; margin-bottom: 1.5rem; }
-        .carry-btn { background: #fff; border: 1px solid #3498db; color: #2980b9; padding: 0.45rem 0.9rem;
-            border-radius: 0.5rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all .15s ease; }
-        .carry-btn:hover { background: #3498db; color: #fff; }
-        .carry-hint { font-size: 0.8rem; color: #64748b; }
-
-        /* ===== 危險按鈕 ===== */
-        .btn-red { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
-    
-/* ================= v2：分析區 / 判讀區 / 行動計畫 ================= */
-.sheet-section { margin: 0 0 34px; padding-bottom: 22px; border-bottom: 1px dashed #cbd5e1; }
-.sheet-section:last-of-type { border-bottom: none; }
-.sheet-h3 { font-size: 1.32em; font-weight: 700; color: #1e3a8a; margin: 0 0 6px; }
-.sheet-desc { color: #475569; font-size: 0.95em; margin: 0 0 14px; line-height: 1.7; }
-
-.field-grid { display: grid; gap: 14px; margin-bottom: 14px; }
-.field-grid.cols-2 { grid-template-columns: 1fr 1fr; }
-@media (max-width: 480px) {
-            /* 手機：分頁按鈕縮小，7 個分頁盡量擠成兩行 */
-            .tab-btn {
-                font-size: 0.78rem;
-                padding: 0.6rem 0.7rem;
-            }
-        }
-
-        @media (max-width: 720px) { .field-grid.cols-2 { grid-template-columns: 1fr; } }
-
-.field { display: flex; flex-direction: column; }
-.field-label { font-weight: 600; color: #334155; font-size: 0.95em; margin-bottom: 5px; }
-.field-tag { font-weight: 400; font-size: 0.82em; color: #64748b; margin-left: 6px; }
-textarea.worksheet-input { width: 100%; box-sizing: border-box; min-height: 120px; padding: 14px;
-  border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 1em; line-height: 1.7;
-  color: #1e293b; background: #fff; resize: vertical; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-textarea.worksheet-input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
-
-.matrix-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 14px;
-  border: 2px solid #94a3b8; border-radius: 10px; overflow: hidden; }
-.matrix-2x2 .mx-cell { padding: 14px; background: #f8fafc; border-right: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
-.matrix-2x2 .mx-cell:nth-child(2n) { border-right: none; }
-.matrix-2x2 .mx-cell:nth-last-child(-n+2) { border-bottom: none; }
-.matrix-2x2 .mx-cell textarea { min-height: 130px; }
-@media (max-width: 720px) { .matrix-2x2 { grid-template-columns: 1fr; }
-  .matrix-2x2 .mx-cell { border-right: none; } .matrix-2x2 .mx-cell:nth-last-child(-n+2) { border-bottom: 1px solid #cbd5e1; } }
-
-.radio-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 14px;
-  background: #f1f5f9; border-radius: 8px; margin-bottom: 12px; }
-.radio-main { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.radio-q { font-weight: 600; color: #334155; font-size: 0.95em; }
-.radio-opt { display: inline-flex; align-items: center; gap: 5px; font-size: 0.95em; cursor: pointer; color: #1e293b; }
-.radio-opt input { width: 17px; height: 17px; cursor: pointer; }
-textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
-
-.verdict { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 8px;
-  background: #f1f5f9; border-left: 5px solid #94a3b8; margin-bottom: 14px; font-size: 0.95em; }
-.verdict-label { flex: 0 0 auto; font-weight: 700; color: #475569; }
-.verdict-text { color: #1e293b; line-height: 1.7; }
-.verdict.good { background: #ecfdf5; border-left-color: #059669; }
-.verdict.mid { background: #fffbeb; border-left-color: #d97706; }
-.verdict.bad { background: #fef2f2; border-left-color: #dc2626; }
-
-.fw-guide { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 14px; }
-.fw-guide >summary { cursor: pointer; padding: 10px 14px; font-weight: 600; color: #1e40af; font-size: 0.95em; }
-.fw-guide >summary:hover { background: #eff6ff; }
-.fw-criteria, .fw-example { padding: 2px 16px 14px; margin: 0 0 12px; }
-.fw-criteria >strong, .fw-example >strong { display: block; color: #1e40af; font-size: 0.9em; margin-bottom: 6px; }
-.fw-criteria p, .fw-example p { margin: 0; color: #475569; font-size: 0.92em; line-height: 1.8; }
-.fw-example p { color: #334155; }
-
-.stage-reading { margin: 10px 0 4px; color: #475569; font-size: 0.93em; line-height: 1.75; }
-.stage-refs { margin: 6px 0 0; color: #1e40af; font-size: 0.9em; font-weight: 600; }
-
-.action-row { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
-.action-head { font-weight: 700; color: #1e3a8a; margin-bottom: 10px; font-size: 0.95em; }
-.action-row textarea.worksheet-input { min-height: 72px; }
-
-.guide-toggle { margin: 0 0 18px; }
-.guide-toggle button { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; border-radius: 8px;
-  padding: 8px 14px; font-size: 0.9em; cursor: pointer; font-family: inherit; }
-.guide-toggle button:hover { background: #dbeafe; }
-
-
-/* ---- v3：BCG 多事業單位 ---- */
-.bcg-wrap { margin-bottom: 16px; }
-.bcg-plot { position: relative; margin-bottom: 10px; }
-.bcg-ylab, .bcg-xlab { font-size: 0.82em; color: #64748b; font-weight: 600; }
-.bcg-ylab { margin-bottom: 4px; }
-.bcg-xlab { text-align: right; margin-top: 4px; }
-.bcg-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 120px 120px;
-  border: 2px solid #94a3b8; border-radius: 10px; overflow: hidden; }
-.bcg-cell { position: relative; padding: 8px 10px; background: #f8fafc; }
-.bcg-cell.q-question { background: #fffbeb; border-right: 1px solid #cbd5e1; border-bottom: 1px solid #cbd5e1; }
-.bcg-cell.q-star { background: #ecfdf5; border-bottom: 1px solid #cbd5e1; }
-.bcg-cell.q-dog { background: #fef2f2; border-right: 1px solid #cbd5e1; }
-.bcg-cell.q-cow { background: #f0f9ff; }
-.bcg-cellname { font-weight: 700; color: #334155; font-size: 0.9em; }
-.bcg-cellnote { display: block; font-size: 0.74em; color: #64748b; margin-top: 1px; }
-.bcg-dot { position: absolute; transform: translate(-50%, -50%); background: #1e3a8a; color: #fff;
-  font-size: 0.7em; padding: 3px 7px; border-radius: 999px; white-space: nowrap; max-width: 92px;
-  overflow: hidden; text-overflow: ellipsis; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
-.bcg-dot.q-star { background: #047857; } .bcg-dot.q-question { background: #b45309; }
-.bcg-dot.q-cow { background: #0369a1; } .bcg-dot.q-dog { background: #b91c1c; }
-.bcg-summary { font-size: 0.9em; color: #334155; background: #f8fafc; border-left: 5px solid #94a3b8;
-  border-radius: 8px; padding: 11px 14px; line-height: 1.75; margin-bottom: 16px; }
-.bcg-units { display: grid; gap: 12px; }
-.bcg-row { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; background: #fff; }
-.bcg-row-head { font-weight: 700; color: #1e3a8a; font-size: 0.93em; margin-bottom: 8px;
-  display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.bcg-del { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; border-radius: 6px;
-  padding: 3px 9px; font-size: 0.82em; cursor: pointer; font-family: inherit; }
-.bcg-del:hover { background: #fee2e2; }
-.bcg-row-body { display: grid; gap: 10px; }
-.bcg-row .radio-row { margin-bottom: 0; }
-.bcg-name { min-height: 46px !important; }
-.bcg-badge { margin-bottom: 0; font-size: 0.9em; }
-.bcg-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
-.bcg-actions button { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; border-radius: 8px;
-  padding: 8px 14px; font-size: 0.9em; cursor: pointer; font-family: inherit; }
-.bcg-actions button:hover { background: #dbeafe; }
-
-/* ---- v3：行動追蹤 ---- */
-.status-select { padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit;
-  font-size: 0.95em; background: #fff; color: #1e293b; }
-.status-select.doing { border-color: #2563eb; color: #1d4ed8; font-weight: 600; }
-.status-select.done { border-color: #059669; color: #047857; font-weight: 600; }
-.status-select.drop { color: #94a3b8; }
-.status-select.overdue { border-color: #dc2626; background: #fef2f2; color: #b91c1c; }
-.action-summary { background: #f8fafc; border-left: 5px solid #94a3b8; border-radius: 8px;
-  padding: 12px 14px; margin-bottom: 14px; font-size: 0.92em; color: #334155; line-height: 1.8; }
-.action-summary .ok { color: #047857; font-weight: 700; }
-.action-summary .warn { color: #b91c1c; font-weight: 700; }
-
-
-        /* ==========================================================================
-           商務風格覆寫層（語彙取自 IBM Carbon Design System，為 CJK 長表單調整）
-           - 單一藍色 accent #0f62fe，其餘一律灰階；不用第二個彩色
-           - 扁平：以背景色分層 + 1px 細線表達層級，不用陰影、不用漸層
-           - 小圓角：控制項 2px、卡片 4px
-           - 字重紀律：300 大標 / 400 內文 / 600 強調（不用 700）
-           - 8px 間距節奏；數字用等寬數字對齊
-           放在自訂樣式最後，靠「同特異度、後者勝」覆寫上面的舊規則（與 Tailwind
-           預編譯檔同一套順序原則）。要改商務樣式改這一層，不要回頭改上面。
-           ========================================================================== */
-        :root {
-            --ink: #161616; /* Gray 100：主要文字 */
-            --ink-2: #525252; /* Gray 70：次要文字 */
-            --ink-3: #6f6f6f; /* Gray 60：placeholder */
-            --line: #c6c6c6; /* Gray 30：控制項邊框 */
-            --line-2: #e0e0e0; /* Gray 20：分隔線、卡片邊框 */
-            --surface: #f4f4f4; /* Gray 10：次層表面 */
-            --surface-2: #e8e8e8; /* Gray 10 hover */
-            --accent: #0f62fe; /* Blue 60：唯一互動色 */
-            --accent-hover: #0353e9;
-            --accent-active: #002d9c;
-            --accent-tint: #edf5ff; /* Blue 10 */
-            --ok: #24a148; --ok-tint: #defbe6; --ok-ink: #0e6027;
-            --warn: #f1c21b; --warn-tint: #fff8e1; --warn-ink: #8a6116;
-            --bad: #da1e28; --bad-tint: #fff1f1; --bad-ink: #a2191f;
-            --r-ctl: 2px; --r-card: 4px;
-        }
-
-        /* ---------- 版面底層 ---------- */
-        body {
-            background: var(--surface) !important;
-            color: var(--ink);
-            font-family: "Inter", system-ui, -apple-system, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-            font-size: 17px;
-            line-height: 1.75;
-        }
-        .container {
-            background: #ffffff !important;
-            border: 1px solid var(--line-2);
-            border-radius: var(--r-card) !important;
-            box-shadow: none !important;
-            padding: 40px 44px !important;
-        }
-        @media (max-width: 720px) { .container { padding: 20px 16px !important; } }
-
-        /* ---------- 標題階層 ---------- */
-        h1, .analysis-h2, .stage-title, .sheet-h3, h2, h3 {
-            letter-spacing: 0; font-weight: 600; color: var(--ink);
-        }
-        /* 文件標頭：移到分頁列上方，任何分頁都看得到頁面識別；左對齊、單一中性細線。
-           （原本由 Tailwind 的 .text-4xl / .font-bold / .text-center 控制，故需 !important） */
-        h1.page-title {
-            font-size: 1.75rem !important; font-weight: 300 !important; line-height: 1.3 !important;
-            color: var(--ink) !important; letter-spacing: 0 !important; text-align: left !important;
-            margin: 0 0 20px !important; padding: 0 0 16px !important;
-            border-bottom: 1px solid var(--line-2) !important;
-        }
-        h1.page-title span { color: var(--ink) !important; -webkit-text-fill-color: currentColor !important; background: none !important; }
-        h1 span { background: none !important; -webkit-text-fill-color: currentColor !important; color: var(--ink) !important; }
-        .analysis-h2 {
-            font-size: 1.375rem; font-weight: 600; color: var(--ink);
-            border-left: 3px solid var(--accent); padding-left: 14px; margin-bottom: 20px;
-        }
-        .stage-title {
-            font-size: 1.5rem; font-weight: 600; color: var(--ink);
-            background: none !important; -webkit-text-fill-color: currentColor !important;
-            border-bottom: 1px solid var(--line-2); padding-bottom: 12px; margin-bottom: 24px;
-        }
-        .sheet-h3 { font-size: 1.0625rem; font-weight: 600; color: var(--ink); margin: 0 0 8px; }
-        .sheet-desc, .analysis-p, .tool-description { color: var(--ink-2); font-size: 0.9375rem; line-height: 1.8; }
-        .sheet-section { border-bottom: 1px solid var(--line-2); margin: 0 0 32px; padding-bottom: 28px; }
-
-        /* ---------- 分頁列：Carbon tab 樣式 ---------- */
-        .tab-buttons { border-bottom: 1px solid var(--line-2); gap: 0; }
-        .tab-btn {
-            font-size: 0.875rem; font-weight: 400; color: var(--ink-2);
-            padding: 14px 16px; border-radius: 0; border-bottom: none;
-            background: transparent !important; box-shadow: none !important;
-            transition: background-color 0.15s linear, color 0.15s linear;
-        }
-        .tab-btn, .tab-btn.inactive { color: var(--ink-2) !important; }
-        .tab-btn:hover { background: var(--surface-2); color: var(--ink) !important; }
-        .tab-btn.active, .tab-btn[aria-selected="true"] {
-            color: var(--ink); font-weight: 600; background: transparent !important;
-            box-shadow: inset 0 -3px 0 0 var(--accent) !important;
-        }
-        @media (max-width: 480px) { .tab-btn { font-size: 0.8125rem; padding: 11px 12px; } }
-
-        /* ---------- 表單欄位 ---------- */
-        .field-label {
-            font-size: 0.8125rem; font-weight: 600; color: var(--ink-2);
-            letter-spacing: 0.16px; margin-bottom: 6px;
-        }
-        .field-tag { font-size: 0.75rem; font-weight: 400; color: var(--ink-3); letter-spacing: 0.16px; }
-        textarea.worksheet-input, .worksheet-input {
-            background: #ffffff !important; background-image: none !important;
-            border: 1px solid var(--line); border-radius: var(--r-ctl);
-            box-shadow: none !important; color: var(--ink);
-            font-size: 1rem; line-height: 1.7; padding: 12px 14px;
-            transition: border-color 0.15s linear;
-        }
-        textarea.worksheet-input::placeholder { color: var(--ink-3); opacity: 1; }
-        textarea.worksheet-input:hover { border-color: var(--ink-3); }
-        textarea.worksheet-input:focus, .worksheet-input:focus {
-            outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent);
-            box-shadow: none !important;
-        }
-        .radio-row { border-left: 2px solid var(--line-2); padding-left: 16px; }
-        .radio-q { font-size: 0.875rem; font-weight: 600; color: var(--ink-2); letter-spacing: 0.16px; }
-        .radio-opt { font-size: 0.9375rem; color: var(--ink); }
-        .radio-opt input { accent-color: var(--accent); width: 16px; height: 16px; }
-        .radio-note { font-size: 0.9375rem; }
-        select.status-select, .status-select {
-            background: #ffffff; border: 1px solid var(--line); border-radius: var(--r-ctl);
-            color: var(--ink); font-size: 0.9375rem; padding: 7px 10px; height: 36px;
-        }
-        .status-select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
-        .status-select.overdue { border-color: var(--bad); color: var(--bad-ink); background: var(--bad-tint); font-weight: 600; }
-
-        /* ---------- 按鈕 ---------- */
-        .btn-base, .diag-btn, .diag-btn-primary, .guide-toggle, .cheat-btn {
-            border-radius: var(--r-ctl) !important; box-shadow: none !important;
-            font-size: 0.9375rem; font-weight: 600; padding: 10px 16px; min-height: 40px;
-            transition: background-color 0.15s linear, border-color 0.15s linear, color 0.15s linear;
-        }
-        .btn-blue, .diag-btn-primary { background: var(--accent) !important; color: #fff !important; border: 1px solid transparent !important; }
-        .btn-blue:hover, .diag-btn-primary:hover { background: var(--accent-hover) !important; }
-        .btn-blue:active { background: var(--accent-active) !important; }
-        .btn-base:not(.btn-blue):not(.btn-red), .diag-btn, .guide-toggle {
-            background: #ffffff !important; color: var(--accent) !important;
-            border: 1px solid var(--line) !important;
-        }
-        .btn-base:not(.btn-blue):not(.btn-red):hover, .diag-btn:hover, .guide-toggle:hover {
-            background: var(--surface) !important; border-color: var(--ink-3) !important;
-        }
-        .btn-red { background: var(--bad) !important; color: #fff !important; }
-        .btn-base:disabled, .btn-base[disabled], .diag-btn:disabled, .diag-btn-primary:disabled {
-            background: var(--surface) !important; color: #8d8d8d !important;
-            border-color: var(--line-2) !important; cursor: not-allowed;
-        }
-        .btn-base:focus-visible, .tab-btn:focus-visible, .cheat-btn:focus-visible, .bcg-del:focus-visible {
-            outline: 2px solid var(--accent); outline-offset: 2px;
-        }
-
-        /* ---------- 判定框 / 標籤（Carbon tag：淡底 + 深字 + 左側細線）---------- */
-        .verdict {
-            background: var(--surface); border: 1px solid var(--line-2); border-left: 3px solid #8d8d8d;
-            border-radius: var(--r-ctl); padding: 12px 14px; font-size: 0.9375rem; color: var(--ink);
-        }
-        .verdict-label { font-size: 0.75rem; font-weight: 600; color: var(--ink-2); letter-spacing: 0.32px; }
-        .verdict.ok, .verdict.good, .verdict.q-star, .verdict.q-cow { background: var(--ok-tint); border-left-color: var(--ok); }
-        .verdict.ok .verdict-text, .verdict.good .verdict-text, .verdict.q-star .verdict-text, .verdict.q-cow .verdict-text { color: var(--ok-ink); }
-        .verdict.warn, .verdict.mid, .verdict.q-question { background: var(--warn-tint); border-left-color: var(--warn); }
-        .verdict.warn .verdict-text, .verdict.mid .verdict-text, .verdict.q-question .verdict-text { color: var(--warn-ink); }
-        .verdict.bad, .verdict.q-dog { background: var(--bad-tint); border-left-color: var(--bad); }
-        .verdict.bad .verdict-text, .verdict.q-dog .verdict-text { color: var(--bad-ink); }
-        .verdict-text { font-weight: 600; }
-
-        /* ---------- 區塊 / 面板 ---------- */
-        .action-row { background: #ffffff; border: 1px solid var(--line-2); border-radius: var(--r-ctl); padding: 16px; }
-        .action-head { font-size: 0.9375rem; font-weight: 600; color: var(--ink); letter-spacing: 0.16px; }
-        .action-summary, .bcg-summary, .stage-focus, .stage-reading, .stage-refs, .tool-block, .diag-result, .diag-empty,
-        .bcg-wrap, .cheat-card, .cheat-action-panel, .cheat-taboo-panel {
-            background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-ctl);
-            color: var(--ink); box-shadow: none;
-        }
-        .action-summary, .bcg-summary {
-            border-left: 3px solid var(--accent); padding: 14px 16px; font-size: 0.9375rem; line-height: 1.9;
-        }
-        .action-summary strong, .bcg-summary strong { color: var(--ink-2); font-weight: 600; letter-spacing: 0.32px; font-size: 0.8125rem; }
-        .stage-focus strong, .stage-reading strong { color: var(--ink-2); font-weight: 600; }
-
-        /* ---------- BCG 矩陣 ---------- */
-        .bcg-grid { border: 1px solid var(--line); border-radius: var(--r-ctl); }
-        .bcg-cell { border-right: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); }
-        .bcg-cellname { font-weight: 600; color: var(--ink); }
-        .bcg-cellnote { color: var(--ink-2); }
-        .bcg-cell.q-star { background: var(--accent-tint); }
-        .bcg-cell.q-question { background: var(--surface); }
-        .bcg-cell.q-cow { background: var(--ok-tint); }
-        .bcg-cell.q-dog { background: var(--bad-tint); }
-        .bcg-ylab, .bcg-xlab { font-size: 0.75rem; font-weight: 600; color: var(--ink-2); letter-spacing: 0.32px; }
-        .bcg-dot {
-            background: #ffffff; color: var(--ink); border: 1px solid var(--line);
-            border-left: 3px solid var(--accent); border-radius: var(--r-ctl);
-            font-size: 0.6875rem; font-weight: 600; padding: 2px 6px; box-shadow: none;
-        }
-        /* 舊 CSS 用 .bcg-dot.q-* 設過背景（特異度 0,2,0），這裡必須同樣寫到 .q-* 才蓋得掉；
-           否則會變成深底 + 深字，圖上的標籤直接看不見 */
-        .bcg-dot.q-star, .bcg-dot.q-question, .bcg-dot.q-cow, .bcg-dot.q-dog {
-            background: #ffffff; color: var(--ink);
-        }
-        .bcg-dot.q-star { border-left-color: var(--accent); }
-        .bcg-dot.q-dog { border-left-color: var(--bad); }
-        .bcg-dot.q-cow { border-left-color: var(--ok); }
-        .bcg-dot.q-question { border-left-color: var(--warn); }
-        .bcg-row-head { font-size: 0.8125rem; font-weight: 600; color: var(--ink-2); letter-spacing: 0.32px; }
-        .bcg-del {
-            background: transparent; border: 1px solid var(--line-2); border-radius: var(--r-ctl);
-            color: var(--ink-2); font-size: 0.75rem; padding: 3px 8px; min-height: 0;
-        }
-        .bcg-del:hover { border-color: var(--bad); color: var(--bad-ink); background: var(--bad-tint); }
-
-        /* ---------- 準則 / 實例收合 ---------- */
-        .fw-criteria, details.fw-criteria {
-            background: #ffffff; border: 1px solid var(--line-2); border-radius: var(--r-ctl);
-        }
-        .fw-criteria summary { font-size: 0.8125rem; font-weight: 600; color: var(--accent); padding: 10px 14px; letter-spacing: 0.16px; }
-        .fw-guide { border-left: 3px solid var(--line); padding: 2px 0 2px 14px; color: var(--ink-2); font-size: 0.9375rem; }
-        .fw-example { color: var(--ink-2); font-size: 0.9375rem; border-top: 1px solid var(--line-2); padding-top: 10px; margin-top: 10px; }
-        .analysis-tool, .tool-label { color: var(--ink); }
-        .analysis-tool { border: 1px solid var(--line-2); border-radius: var(--r-ctl); padding: 14px 16px; background: #fff; }
-        .tool-label { font-size: 0.9375rem; font-weight: 600; }
-
-        /* ---------- 作弊器 ---------- */
-        .cheat-chip {
-            background: #ffffff; border: 1px solid var(--line); border-radius: 999px;
-            color: var(--ink-2); font-size: 0.8125rem; padding: 4px 12px;
-        }
-        .cheat-chip.active { background: var(--accent-tint); border-color: var(--accent); color: var(--accent-active); font-weight: 600; }
-        .cheat-label, .cheat-cat { color: var(--ink-2); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.32px; }
-        .cheat-title { color: var(--ink); font-size: 0.9375rem; font-weight: 600; }
-        .cheat-search, .cheat-controls input {
-            border: 1px solid var(--line); border-radius: var(--r-ctl); background: #fff;
-            padding: 8px 12px; font-size: 0.9375rem; color: var(--ink);
-        }
-        .cheat-search:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
-
-        /* ---------- 通知（Carbon toast）---------- */
-        .notification {
-            background: var(--ink); color: #fff; border-radius: var(--r-ctl);
-            border-left: 3px solid var(--accent); padding: 13px 18px;
-            font-size: 0.875rem; box-shadow: 0 2px 6px rgba(0,0,0,0.3); max-width: 380px;
-        }
-        /* 舊 CSS 的 .notification.success / .error 是漸層綠紅（特異度 0,2,0），要同樣指名才蓋得掉 */
-        .notification.success, .notification.error {
-            background: var(--ink); color: #fff; border-radius: var(--r-ctl);
-        }
-        .notification.success { border-left: 3px solid var(--accent); }
-        .notification.error { border-left: 3px solid var(--bad); }
-
-        /* ---------- 其他細節 ---------- */
-        strong, b { font-weight: 600; }
-        table { border-color: var(--line-2); }
-        a { color: var(--accent); }
-        mark { background: var(--accent-tint); color: var(--accent-active); }
-        ::selection { background: var(--accent-tint); }
-        .diag-score { font-variant-numeric: tabular-nums; color: var(--ink-2); }
-        .diag-winner { color: var(--ink); font-weight: 600; }
-        @media (prefers-reduced-motion: reduce) {
-            * { animation: none !important; transition: none !important; }
-        }
-</style>
+        <!-- 主要介面樣式已拆分為獨立檔案；請與本 HTML 放在同一目錄 -->
+    <link rel="stylesheet" href="./strategy_toolkit.css">
 
     <!-- Tailwind 產生的樣式必須排在自訂 <style>之後：
          兩者特異度相同，順序決定誰勝出（原本 CDN 是執行時注入，天生在後面）。 -->
@@ -892,10 +32,11 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 text-slate-800 min-h-screen">
 
-    <div class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-10 bg-white rounded-2xl shadow-2xl my-6 sm:my-12">
+    <a class="skip-link" href="#mainWorkspace">跳到主要內容</a>
+    <main id="mainWorkspace" class="container mx-auto max-w-screen-xl p-4 sm:p-6 lg:p-10 bg-white rounded-2xl shadow-2xl my-6 sm:my-12">
 
         <h1 class="page-title">
-            <span>商業生命週期與策略工具整合指南</span>
+            <span>策略決策工作台</span>
         </h1>
 
         <div class="mb-8 border-b-2 border-slate-200 no-print">
@@ -907,7 +48,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 <button id="tab-btn-decline" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-decline">衰退轉型期</button>
                 <button id="tab-btn-actions" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-actions">行動計畫</button>
                 <button id="tab-btn-exec" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-exec">執行與溝通</button>
-                <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">認知作弊器</button>
+                <button id="tab-btn-cheats" class="tab-btn inactive" role="tab" aria-selected="false" aria-controls="tab-content-cheats">決策捷徑</button>
             </nav>
         </div>
         
@@ -1836,10 +977,10 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
  </div>
  </section>
  </div>
-<!-- ================= 認知作弊器（整合自 Strategy Toolkit） ================= -->
+<!-- ================= 決策捷徑（整合自 Strategy Toolkit） ================= -->
         <div id="tab-content-cheats" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-cheats">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 pb-4 border-b-2 border-slate-200 text-center">
-                <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">人類作弊器策略工具箱</span>
+                <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">決策捷徑工具箱</span>
             </h1>
             <p class="analysis-p mb-6 text-lg">
                 把認知心理學與行為經濟學裡幾個研究較充分的現象，整理成當場就能用的小動作。這些是經驗法則，不保證每次有效。
@@ -2041,32 +1182,36 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             </div>
 
             <div class="analysis-tool mt-8">
-                <strong>使用說明：</strong>本區塊為「隨身作弊代碼」，與上方生命週期工作表各自獨立；卡片不納入 Word 匯出與資料儲存範圍。計時器結束會發出提示音。
+                <strong>使用說明：</strong>本區塊為「快速決策提示」，與上方生命週期工作表各自獨立；卡片不納入 Word 匯出與資料儲存範圍。計時器結束會發出提示音。
             </div>
         </div>
 
-        <div class="text-center mt-12 space-y-4 no-print">
+        <div class="workspace-status no-print" aria-live="polite" aria-atomic="true">
+            <span id="saveState" class="save-state">已就緒</span>
+            <span id="completionState" class="completion-state">尚未填寫</span>
+        </div>
+        <div class="text-center mt-12 space-y-4 no-print action-dock">
             <div class="flex flex-wrap justify-center gap-4">
                 <button id="saveButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    儲存至瀏覽器
+                    立即儲存
                 </button>
                 <button id="loadButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    載入已儲存資料
+                    重新載入
                 </button>
                 <button id="exportButton" class="btn-base btn-blue export-btn focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    匯出為 Word 文件
+                    匯出分析報告
                 </button>
                 <button id="blankExportButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    匯出空白表格
+                    匯出空白工作表
                 </button>
                 <button id="backupButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    備份 JSON
+                    下載備份
                 </button>
                 <button id="restoreButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                    還原備份
+                    匯入備份
                 </button>
                 <button id="clearButton" class="btn-base btn-red focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
-                    清空全部
+                    清除所有資料
                 </button>
                 <input type="file" id="restoreFile" accept=".json,application/json" style="display:none">
             </div>
@@ -2074,7 +1219,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
                 提示：定期儲存您的工作，避免資料遺失
             </p>
         </div>
-    </div>
+    </main>
 
     <script>
     document.addEventListener('DOMContentLoaded', () =>{
@@ -2157,6 +1302,8 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             notification.className = `notification ${type}`;
+            notification.setAttribute('role', type === 'error' ? 'alert' : 'status');
+            notification.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
             notification.textContent = message;
             document.body.appendChild(notification);
             
@@ -2166,7 +1313,7 @@ textarea.radio-note { flex: 1 1 320px; min-height: 64px; }
             }, 3000);
         }
 
-        window.showNotification = showNotification; // 供認知作弊器區塊使用
+        window.showNotification = showNotification; // 供決策捷徑區塊使用
 
         /* 把表單內容寫入 localStorage，回傳儲存時間字串 */
         function writeLocalStorage() {
@@ -2570,7 +1717,7 @@ ${bodyHtml}
         if (blankBtn) blankBtn.addEventListener('click', function () {
             const doc = buildDocBody(collectBlocks(true), true);
             downloadDoc(doc.html, '策略工作表（空白）', `策略工作表空白_${localDateStr()}.doc`);
-            showNotification(`已匯出空白表格（${doc.total} 個欄位）`, 'success');
+            showNotification(`已匯出空白工作表（${doc.total} 個欄位）`, 'success');
         });
 
         /* 匯出邏輯已整併到上面的 collectBlocks / buildDocBody / downloadDoc */
@@ -2601,7 +1748,7 @@ ${bodyHtml}
             }
         } catch (e) { console.warn('自動還原失敗：', e); }
 
-        // 帶入原「任務管理工具箱」存在同網域 localStorage 的資料：只做一次（旗標另存，清空全部不會重帶）。
+        // 帶入原「任務管理工具箱」存在同網域 localStorage 的資料：只做一次（旗標另存，清除所有資料不會重帶）。
         // 欄位 id 沿用原站 tool-<n>-*；目前欄位已有不同內容時附加在後，不覆蓋；原站資料不刪除。
         const TASK_TOOLKIT_KEY = 'managerToday8ToolsTabsData';
         try {
@@ -2747,7 +1894,7 @@ ${bodyHtml}
         /* ================= 清空 / 備份 / 還原 ================= */
         const clearBtn = document.getElementById('clearButton');
         if (clearBtn) clearBtn.addEventListener('click', () =>{
-            if (!confirm('確定要清空所有工作表內容嗎？此動作無法復原。\n（建議先按「備份 JSON」）')) return;
+            if (!confirm('確定要清空所有工作表內容嗎？此動作無法復原。\n（建議先按「下載備份」）')) return;
             if (!confirm('再次確認：清空後每個分頁的填寫內容都會消失。')) return;
             let n = 0;
             document.querySelectorAll('textarea.worksheet-input').forEach(el =>{
@@ -2825,7 +1972,7 @@ ${bodyHtml}
             autoSaveTimer = setTimeout(() =>{
                 const t = writeLocalStorage();
                 isDirty = false;
-                showNotification(`已自動儲存（${t}）`, 'success');
+                updateSaveState('已自動儲存 ' + t, 'saved');
             }, 1500);
         });
         
@@ -2840,7 +1987,7 @@ ${bodyHtml}
                 const hasContent = Array.from(document.querySelectorAll('textarea.worksheet-input'))
                     .some(el =>el.value.trim() !== '');
                 if (hasContent) {
-                    showNotification('別忘了儲存您的工作進度！', 'success');
+                    updateSaveState('內容已安全儲存於此瀏覽器', 'saved');
                 }
             }, 600000);
         };
@@ -2852,7 +1999,7 @@ ${bodyHtml}
 
     <script>
     /* =====================================================================
-       認知作弊器 — 計時器 / 搜尋 / 分類篩選
+       決策捷徑 — 計時器 / 搜尋 / 分類篩選
        （與生命週期工作表獨立；不寫入 localStorage，也不納入 Word 匯出）
        ===================================================================== */
     const cheatIntervals = {};
@@ -2888,7 +2035,7 @@ ${bodyHtml}
                 delete cheatIntervals[elemId];
                 el.textContent = 'COMPLETED';
                 cheatBeep();
-                if (window.showNotification) window.showNotification('⏱ 計時結束 — 立刻執行卡片上的動作，不要重新評估。', 'success');
+                if (window.showNotification) window.showNotification('⏱ 計時結束 — 立刻執行卡片上的動作，請依卡片提示採取下一步。', 'success');
             } else { render(); }
         }, 1000);
     }
@@ -2923,5 +2070,69 @@ ${bodyHtml}
         });
     });
     </script>
+
+<script>
+(function () {
+  'use strict';
+  function q(s, root) { return (root || document).querySelector(s); }
+  function qa(s, root) { return Array.from((root || document).querySelectorAll(s)); }
+  window.updateSaveState = function (text, state) {
+    const el = q('#saveState');
+    if (!el) return;
+    el.textContent = text;
+    el.dataset.state = state || '';
+    updateCompletion();
+  };
+  function updateCompletion() {
+    const fields = qa('textarea.worksheet-input, select[data-save]');
+    const relevant = fields.filter(el => !el.closest('[hidden]'));
+    const filled = relevant.filter(el => String(el.value || '').trim() && el.value !== 'todo').length;
+    const radioGroups = new Set(qa('input[type="radio"][data-save]').map(el => el.dataset.save));
+    const checked = qa('input[type="radio"][data-save]:checked').length;
+    const total = relevant.length + radioGroups.size;
+    const done = filled + checked;
+    const pct = total ? Math.round(done / total * 100) : 0;
+    const el = q('#completionState');
+    if (el) el.textContent = '填寫進度 ' + pct + '%（' + done + '/' + total + '）';
+  }
+  function activateTabByButton(btn, focus) {
+    if (!btn) return;
+    btn.click();
+    qa('[role="tab"]').forEach(t => t.tabIndex = t === btn ? 0 : -1);
+    if (focus) btn.focus();
+    const name = btn.id.replace('tab-btn-', '');
+    try { history.replaceState(null, '', '#' + name); } catch (_) {}
+    updateCompletion();
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    const tabs = qa('[role="tab"]');
+    tabs.forEach((tab, i) => {
+      tab.tabIndex = tab.getAttribute('aria-selected') === 'true' ? 0 : -1;
+      tab.addEventListener('keydown', e => {
+        let next = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        if (e.key === 'Home') next = tabs[0];
+        if (e.key === 'End') next = tabs[tabs.length - 1];
+        if (next) { e.preventDefault(); activateTabByButton(next, true); }
+      });
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.tabIndex = t === tab ? 0 : -1);
+        try { history.replaceState(null, '', '#' + tab.id.replace('tab-btn-', '')); } catch (_) {}
+      });
+    });
+    const hashBtn = q('#tab-btn-' + location.hash.slice(1));
+    if (hashBtn) setTimeout(() => activateTabByButton(hashBtn, false), 0);
+    document.addEventListener('input', e => {
+      if (e.target.matches('textarea.worksheet-input, input[type="radio"][data-save], select[data-save]')) {
+        updateSaveState('尚有變更，準備自動儲存…', 'dirty');
+      }
+    });
+    document.addEventListener('change', updateCompletion);
+    updateCompletion();
+  });
+})();
+</script>
+
 </body>
 </html>
