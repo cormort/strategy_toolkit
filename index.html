@@ -15,7 +15,7 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     
         <!-- 主要介面樣式已拆分為獨立檔案；請與本 HTML 放在同一目錄 -->
-    <link rel="stylesheet" href="./strategy_toolkit_high_contrast.css">
+    <link rel="stylesheet" href="./strategy_toolkit_beautified.css">
 
     <!-- Tailwind 產生的樣式必須排在自訂 <style>之後：
          兩者特異度相同，順序決定誰勝出（原本 CDN 是執行時注入，天生在後面）。 -->
@@ -37,14 +37,14 @@
 
         <header class="workspace-hero">
             <div class="workspace-hero__copy">
-                <p class="workspace-eyebrow">STRATEGY DECISION WORKSPACE</p>
+                <p class="workspace-eyebrow">STRATEGY WORKSPACE</p>
                 <h1 class="page-title"><span>策略決策工作台</span></h1>
                 <p class="workspace-lead">從現況診斷、策略選擇到行動追蹤，把分散的分析收斂成一份可執行的決策。</p>
             </div>
             <div class="workspace-hero__meta" aria-label="工具特色">
-                <span>自動儲存</span>
-                <span>可匯出報告</span>
-                <span>離線資料</span>
+                <span><i aria-hidden="true">✓</i> 自動儲存</span>
+                <span><i aria-hidden="true">↗</i> 可匯出報告</span>
+                <span><i aria-hidden="true">◉</i> 本機資料</span>
             </div>
         </header>
         <nav class="workflow-rail no-print" aria-label="建議使用流程">
@@ -1223,6 +1223,9 @@
             <span id="completionState" class="completion-state">尚未填寫</span>
         </div>
         <div class="text-center mt-12 space-y-4 no-print action-dock">
+            <div class="action-dock__heading">
+                <div><strong>資料與輸出</strong><span>完成後可儲存、備份或匯出分析結果</span></div>
+            </div>
             <div class="flex flex-wrap justify-center gap-4">
                 <button id="saveButton" class="btn-base btn-blue focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     立即儲存
